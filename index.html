@@ -381,20 +381,21 @@
             border-color: var(--text-primary);
         }
 
+        /* UPDATED: Shrunk boxscore matchup card padding and font sizes */
         .boxscore-matchup-card {
             background-color: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 8px;
-            padding: 24px;
+            padding: 14px 20px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
-            margin-bottom: 24px;
+            gap: 8px;
+            margin-bottom: 20px;
         }
 
         .boxscore-game-info {
             text-align: center;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: var(--text-secondary);
             font-weight: 600;
             text-transform: uppercase;
@@ -410,7 +411,7 @@
         .boxscore-team {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             flex: 1;
         }
 
@@ -420,29 +421,66 @@
         }
 
         .boxscore-team img {
-            width: 48px;
-            height: 48px;
+            width: 32px;
+            height: 32px;
             object-fit: contain;
         }
 
         .boxscore-team-name {
-            font-size: 1.25rem;
+            font-size: 1.05rem;
             font-weight: 700;
         }
 
         .boxscore-score {
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 800;
-            padding: 0 24px;
+            padding: 0 16px;
         }
 
         .comparison-table td, .comparison-table th {
             padding: 10px 16px;
         }
 
+        /* UPDATED: Clean alignment and column sizing for player stats table */
+        .player-stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
         .player-stats-table th, .player-stats-table td {
-            padding: 8px 12px;
+            padding: 10px 12px;
             font-size: 0.85rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .player-stats-table th {
+            color: var(--text-secondary);
+            font-weight: 600;
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .player-stats-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Fixed widths and alignment rules for player stats columns */
+        .player-stats-table th:first-child,
+        .player-stats-table td:first-child {
+            width: 38%;
+            text-align: left;
+        }
+
+        .player-stats-table th:nth-child(2),
+        .player-stats-table td:nth-child(2) {
+            min-width: 65px;
+            white-space: nowrap;
+            text-align: center;
+        }
+
+        .player-stats-table th:n+3,
+        .player-stats-table td:nth-child(n+3) {
+            text-align: center;
         }
 
         .link-badge {
@@ -755,7 +793,6 @@
             if (sourceSite.includes('mlb')) {
                 targetLeagues = ['mlb'];
             } else if (sourceSite.includes('nflstreams')) {
-                // Ensure cfb uses the comprehensive combined pool containing both FBS and FCS games
                 targetLeagues = ['cfb', 'nfl'];
             } else {
                 targetLeagues = Object.keys(allFetchedGames);
@@ -869,7 +906,6 @@
                 const data = await response.json();
                 cachedEvents = data.events || [];
                 
-                // Keep local cache updated, preserving combined CFB events if on CFB tab
                 if (currentLeagueKey === 'cfb') {
                     const existingCfb = allFetchedGames['cfb'] || [];
                     const fetchedMap = new Map(existingCfb.map(ev => [ev.id, ev]));
@@ -1250,7 +1286,7 @@
                                 categoryTitle = formattedCatName.charAt(0).toUpperCase() + formattedCatName.slice(1);
                             }
 
-                            html += `<div style="margin-top: 14px; font-size: 0.9rem; font-weight: 700; color: var(--accent); text-transform: capitalize;">${categoryTitle}</div>`;
+                            html += `<div style="margin-top: 14px; margin-left: 12px; font-size: 0.9rem; font-weight: 700; color: var(--accent); text-transform: capitalize;">${categoryTitle}</div>`;
                             html += `<div class="table-responsive"><table class="player-stats-table" style="margin-top: 6px;"><thead><tr>`;
                             
                             html += `<th>Player</th>`;

@@ -144,7 +144,7 @@
 
         /* Main Container & Loading States */
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
         }
 
@@ -275,7 +275,7 @@
             font-weight: 600;
         }
 
-        /* Standings / Rankings Styling */
+        /* Standings & JSON Table Styling */
         .standings-section {
             background-color: var(--card-bg);
             border-radius: 12px;
@@ -299,7 +299,7 @@
         }
 
         .standings-table th, .standings-table td {
-            padding: 8px 12px;
+            padding: 10px 14px;
             text-align: left;
         }
 
@@ -314,10 +314,20 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .standings-table td.team-cell {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .link-badge {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .link-badge:hover {
+            text-decoration: underline;
         }
 
         /* Box Score View */
@@ -394,7 +404,6 @@
             font-weight: 700;
         }
 
-        /* Side-by-side team stats comparison */
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
@@ -414,12 +423,6 @@
 
         .comparison-table tr:not(:last-child) td {
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .table-responsive {
-            width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
         }
 
         .player-stats-table {
@@ -539,21 +542,158 @@
         let currentView = 'hub';
         let cachedEvents = [];
 
-        // Sample Test Data JSON
-        const testJsonData = [
-            { "id": 1, "item": "Alpha Model", "category": "Analytics", "value": 98.4, "status": "Active" },
-            { "id": 2, "item": "Beta Feed", "category": "Data Stream", "value": 87.1, "status": "Pending" },
-            { "id": 3, "item": "Gamma Index", "category": "Metrics", "value": 94.6, "status": "Active" },
-            { "id": 4, "item": "Delta Track", "category": "Analytics", "value": 79.3, "status": "Inactive" },
-            { "id": 5, "item": "Epsilon Metric", "category": "Metrics", "value": 91.8, "status": "Active" }
-        ];
+        // Corrected JSON Data parsing
+        const testJsonData = {
+            "links": [
+                {
+                    "source_site": "https://mybuffstreams.plus/mlb-live-streams",
+                    "text": "San Diego PadresIn ProgressMiami MarlinsLive Streams",
+                    "href": "https://mybuffstreams.plus/mlb/miami-marlins-san-diego-padres/1376015"
+                },
+                {
+                    "source_site": "https://mybuffstreams.plus/mlb-live-streams",
+                    "text": "Los Angeles DodgersIn ProgressSan Francisco GiantsLive Streams",
+                    "href": "https://mybuffstreams.plus/mlb/los-angeles-dodgers-san-francisco-giants/1376016"
+                },
+                {
+                    "source_site": "https://mybuffstreams.plus/mlb-live-streams",
+                    "text": "Los Angeles AngelsIn ProgressMinnesota TwinsLive Streams",
+                    "href": "https://mybuffstreams.plus/mlb/los-angeles-angels-minnesota-twins/1376017"
+                },
+                {
+                    "source_site": "https://mybuffstreams.plus/nflstreams2",
+                    "text": "Weber State Wildcats4th quarterNorthwestern State DemonsLive Streams",
+                    "href": "https://mybuffstreams.plus/cfb/northwestern-state-demons-weber-state-wildcats/1413722"
+                },
+                {
+                    "source_site": "https://mybuffstreams.plus/nflstreams2",
+                    "text": "Northern Colorado Bears4th quarterNortheastern State RiverhawksLive Streams",
+                    "href": "https://mybuffstreams.plus/cfb/northeastern-state-riverhawks-northern-colorado-bears/1444141"
+                },
+                {
+                    "source_site": "https://mybuffstreams.plus/nflstreams2",
+                    "text": "Appalachian State MountaineersIn ProgressCharlotte 49ersLive Streams",
+                    "href": "https://mybuffstreams.plus/cfb/charlotte-49ers-appalachian-state-mountaineers/1360737"
+                },
+                {
+                    "source_site": "https://mybuffstreams.plus/nflstreams2",
+                    "text": "San Diego State AztecsIn ProgressJames Madison DukesLive Streams",
+                    "href": "https://mybuffstreams.plus/cfb/james-madison-dukes-san-diego-state-aztecs/1360759"
+                },
+                {
+                    "source_site": "https://mybuffstreams.plus/nflstreams2",
+                    "text": "Boise State BroncosIn ProgressSouth Dakota CoyotesLive Streams",
+                    "href": "https://mybuffstreams.plus/cfb/south-dakota-coyotes-boise-state-broncos/1360780"
+                },
+                {
+                    "source_site": "https://mybuffstreams.plus/nflstreams2",
+                    "text": "California-Davis AggiesHalftimeStetson HattersLive Streams",
+                    "href": "https://mybuffstreams.plus/cfb/stetson-hatters-california-davis-aggies/1444171"
+                },
+                {
+                    "source_site": "https://mybuffstreams.plus/nflstreams2",
+                    "text": "Arizona WildcatsIn ProgressNorthern Illinois HuskiesLive Streams",
+                    "href": "https://mybuffstreams.plus/cfb/northern-illinois-huskies-arizona-wildcats/1360760"
+                },
+                {
+                    "source_site": "https://mybuffstreams.plus/nflstreams2",
+                    "text": "Sacramento State HornetsIn ProgressNorth Dakota State BisonLive Streams",
+                    "href": "https://mybuffstreams.plus/cfb/north-dakota-state-bison-sacramento-state-hornets/1360762"
+                },
+                {
+                    "source_site": "https://mybuffstreams.plus/nflstreams2",
+                    "text": "San Jose State SpartansIn ProgressFresno State BulldogsLive Streams",
+                    "href": "https://mybuffstreams.plus/cfb/fresno-state-bulldogs-san-jose-state-spartans/1360763"
+                },
+                {
+                    "source_site": "https://mybuffstreams.plus/nflstreams2",
+                    "text": "UCLA BruinsIn ProgressPurdue BoilermakersLive Streams",
+                    "href": "https://mybuffstreams.plus/cfb/purdue-boilermakers-ucla-bruins/1360764"
+                },
+                {
+                    "source_site": "https://mybuffstreams.plus/nflstreams2",
+                    "text": "Oregon State BeaversIn ProgressMontana GrizzliesLive Streams",
+                    "href": "https://mybuffstreams.plus/cfb/montana-grizzlies-oregon-state-beavers/1360781"
+                },
+                {
+                    "source_site": "https://mybuffstreams.plus/nflstreams2",
+                    "text": "Hardin Simmons Cowboys06:00 PMClutch City EaglesLive Streams",
+                    "href": "https://mybuffstreams.plus/cfb/clutch-city-eagles-hardin-simmons-cowboys/1413662"
+                },
+                {
+                    "source_site": "https://mybuffstreams.plus/nflstreams2",
+                    "text": "Allen Yellow Jackets08:00 PMAlbany State Golden RamsLive Streams",
+                    "href": "https://mybuffstreams.plus/cfb/albany-state-golden-rams-allen-yellow-jackets/1360678"
+                },
+                {
+                    "source_site": "https://mybuffstreams.plus/nflstreams2",
+                    "text": "Clark Atlanta Panthers10:00 PMMiles Golden BearsLive Streams",
+                    "href": "https://mybuffstreams.plus/cfb/miles-golden-bears-clark-atlanta-panthers/1360685"
+                },
+                {
+                    "source_site": "https://mybuffstreams.plus/nflstreams2",
+                    "text": "Lyon College Scots10:30 PMGreenville PanthersLive Streams",
+                    "href": "https://mybuffstreams.plus/cfb/lyon-college-scots-greenville-panthers/1413690"
+                },
+                {
+                    "source_site": "https://mybuffstreams.plus/nflstreams2",
+                    "text": "Northwestern Oklahoma State Rangers11:00 PMOklahoma Baptist BisonLive Streams",
+                    "href": "https://mybuffstreams.plus/cfb/northwestern-oklahoma-state-rangers-oklahoma-baptist-bison/1360698"
+                },
+                {
+                    "source_site": "https://mybuffstreams.plus/nflstreams2",
+                    "text": "East Texas Baptist Tigers11:00 PMCentenary GentsLive Streams",
+                    "href": "https://mybuffstreams.plus/cfb/centenary-gents-east-texas-baptist-tigers/1413695"
+                },
+                {
+                    "source_site": "https://mybuffstreams.plus/nflstreams2",
+                    "text": "Wilmington Quakers11:00 PMOtterbein\tCardinalsLive Streams",
+                    "href": "https://mybuffstreams.plus/cfb/otterbein-cardinals-wilmington-quakers/1413701"
+                },
+                {
+                    "source_site": "https://mybuffstreams.plus/nflstreams2",
+                    "text": "Sul Ross State Lobos12:00 AMTexas-Permian Basin FalconsLive Streams",
+                    "href": "https://mybuffstreams.plus/cfb/sul-ross-state-lobos-texas-permian-basin-falcons/1360708"
+                },
+                {
+                    "source_site": "https://mybuffstreams.plus/nflstreams2",
+                    "text": "Texas A&M Kingsville Javelinas12:00 AMEastern New Mexico GreyhoundsLive Streams",
+                    "href": "https://mybuffstreams.plus/cfb/texas-a-and-m-kingsville-javelinas-eastern-new-mexico-greyhounds/1360709"
+                },
+                {
+                    "source_site": "https://mybuffstreams.plus/nflstreams2",
+                    "text": "Bethel Royals12:00 AMGustavus Adolphus\tGustiesLive Streams",
+                    "href": "https://mybuffstreams.plus/cfb/gustavus-adolphus-gusties-bethel-royals/1413702"
+                },
+                {
+                    "source_site": "https://mybuffstreams.plus/nflstreams2",
+                    "text": "Central Washington Wildcats01:00 AMWestern Oregon WolvesLive Streams",
+                    "href": "https://mybuffstreams.plus/cfb/western-oregon-wolves-central-washington-wildcats/1360710"
+                },
+                {
+                    "source_site": "https://mybuffstreams.plus/nflstreams2",
+                    "text": "Azusa Pacific Cougars02:00 AMWhittier PoetsLive Streams",
+                    "href": "https://mybuffstreams.plus/cfb/azusa-pacific-cougars-whittier-poets/1413706"
+                },
+                {
+                    "source_site": "https://mybuffstreams.plus/nflstreams2",
+                    "text": "Chapman Panthers02:00 AMLinfield WildcatsLive Streams",
+                    "href": "https://mybuffstreams.plus/cfb/chapman-panthers-linfield-wildcats/1413707"
+                },
+                {
+                    "source_site": "https://mybuffstreams.plus/nflstreams2",
+                    "text": "Redlands\tBulldogs02:00 AMWhitworth PiratesLive Streams",
+                    "href": "https://mybuffstreams.plus/cfb/redlands-bulldogs-whitworth-pirates/1413708"
+                }
+            ]
+        };
 
         async function loadData() {
             currentView = 'hub';
             const contentArea = document.getElementById('content-area');
             
             if (currentLeagueKey === 'test') {
-                renderTestTab(testJsonData);
+                renderTestTab(testJsonData.links);
                 return;
             }
 
@@ -570,33 +710,31 @@
             }
         }
 
-        function renderTestTab(data) {
+        function renderTestTab(links) {
             const contentArea = document.getElementById('content-area');
             let html = `
                 <div class="standings-section">
-                    <div class="standings-title">Test Data View</div>
+                    <div class="standings-title">JSON Links Data View</div>
                     <div class="table-responsive">
                         <table class="standings-table">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Item</th>
-                                    <th>Category</th>
-                                    <th>Value</th>
-                                    <th>Status</th>
+                                    <th>#</th>
+                                    <th>Source Site</th>
+                                    <th>Matchup Text</th>
+                                    <th>Stream Link</th>
                                 </tr>
                             </thead>
                             <tbody>
             `;
 
-            data.forEach(row => {
+            links.forEach((row, index) => {
                 html += `
                     <tr>
-                        <td style="font-weight: 700;">#${row.id}</td>
-                        <td>${row.item}</td>
-                        <td>${row.category}</td>
-                        <td>${row.value}</td>
-                        <td><span style="color: ${row.status === 'Active' ? 'var(--accent)' : 'var(--text-secondary)'}; font-weight: 600;">${row.status}</span></td>
+                        <td style="font-weight: 700; width: 50px;">#${index + 1}</td>
+                        <td style="color: var(--text-secondary); font-size: 0.85rem;"><a href="${row.source_site}" target="_blank" style="color: var(--text-secondary); text-decoration: none;">${row.source_site}</a></td>
+                        <td>${row.text}</td>
+                        <td><a class="link-badge" href="${row.href}" target="_blank">Open Stream →</a></td>
                     </tr>
                 `;
             });

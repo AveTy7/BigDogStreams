@@ -314,12 +314,12 @@
                 league: 'college-football', 
                 conferences: [
                     { name: 'All FBS', param: '?groups=80', type: 'rankings' },
-                    { name: 'FCS', param: '?groups=81', type: 'rankings' },
-                    { name: 'SEC', param: '?groups=8', type: 'standings' },
-                    { name: 'Big Ten', param: '?groups=5', type: 'standings' },
-                    { name: 'Big 12', param: '?groups=1', type: 'standings' },
-                    { name: 'ACC', param: '?groups=151', type: 'standings' },
-                    { name: 'FBS Independents', param: '?groups=112', type: 'standings' }
+                    { name: 'FCS', param: '?groups=81', type: 'rankings-fcs' },
+                    { name: 'SEC', param: '?groups=8', type: 'standings', groupId: '8' },
+                    { name: 'Big Ten', param: '?groups=5', type: 'standings', groupId: '5' },
+                    { name: 'Big 12', param: '?groups=1', type: 'standings', groupId: '1' },
+                    { name: 'ACC', param: '?groups=151', type: 'standings', groupId: '151' },
+                    { name: 'FBS Independents', param: '?groups=112', type: 'standings', groupId: '112' }
                 ]
             },
             cbb: { 
@@ -327,11 +327,11 @@
                 league: 'mens-college-basketball', 
                 conferences: [
                     { name: 'All Top Tier (Div I)', param: '?groups=50', type: 'rankings' },
-                    { name: 'SEC', param: '?groups=23', type: 'standings' },
-                    { name: 'Big Ten', param: '?groups=7', type: 'standings' },
-                    { name: 'Big 12', param: '?groups=8', type: 'standings' },
-                    { name: 'ACC', param: '?groups=2', type: 'standings' },
-                    { name: 'Big East', param: '?groups=4', type: 'standings' }
+                    { name: 'SEC', param: '?groups=23', type: 'standings', groupId: '23' },
+                    { name: 'Big Ten', param: '?groups=7', type: 'standings', groupId: '7' },
+                    { name: 'Big 12', param: '?groups=8', type: 'standings', groupId: '8' },
+                    { name: 'ACC', param: '?groups=2', type: 'standings', groupId: '2' },
+                    { name: 'Big East', param: '?groups=4', type: 'standings', groupId: '4' }
                 ]
             }
         };
@@ -340,7 +340,6 @@
         let isShowingStandings = false;
 
         async function loadData() {
-            const cfg = endpoints[currentLeagueKey];
             const contentArea = document.getElementById('content-area');
             contentArea.innerHTML = '<div class="loading">Loading...</div>';
 
@@ -384,13 +383,34 @@
                 const selectedConf = cfg.conferences[selectedIndex];
 
                 if (selectedConf && selectedConf.type === 'rankings') {
-                    // Fetch Rankings (Top 25) for All FBS or FCS or Top Tier
-                    const rankType = selectedConf.name.includes('FCS') ? 'FCS' : 'FBS';
+                    // FBS Top 25 Rankings
                     const url = `https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/rankings`;
                     try {
                         const res = await fetch(url);
                         const data = await res.json();
-                        renderRankings(data, rankType);
+                        renderRankings(data, 'FBS');
+                        return;
+                    } catch (e) {
+                        console.error(e);
+                    }
+                } else if (selectedConf && selectedConf.type === 'rankings-fcs') {
+                    // FCS Top 25 Rankings endpoint
+                    const url = `https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/rankings?seasontype=2`;
+                    try {
+                        const res = await fetch(url);
+                        const data = await res.json();
+                        renderRankings(data, 'FCS');
+                        return;
+                    } catch (e) {
+                        console.error(e);
+                    }
+                } else if (selectedConf && selectedConf.type === 'standings') {
+                    // Specific Conference Standings
+                    const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings?group=${selectedConf.groupId}`;
+                    try {
+                        const res = await fetch(url);
+                        const data = await res.json();
+                        renderStandings(data, selectedConf.name);
                         return;
                     } catch (e) {
                         console.error(e);
@@ -398,13 +418,13 @@
                 }
             }
 
-            // Standard standings endpoint for pros or college conferences
+            // Pro Standings (NFL, NBA, MLB)
             const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings`;
             try {
                 const response = await fetch(url);
                 if (!response.ok) throw new Error('Failed to fetch standings');
                 const data = await response.json();
-                renderStandings(data);
+                renderStandings(data, null);
             } catch (error) {
                 console.error(error);
                 contentArea.innerHTML = `<div class="error">Unable to load standings right now.</div>`;
@@ -458,7 +478,7 @@
             if (cfg.conferences) {
                 const conferenceSelect = document.getElementById('conference-select');
                 const selectedConf = cfg.conferences[conferenceSelect.selectedIndex];
-                if (selectedConf && selectedConf.type === 'rankings') {
+                if (selectedConf && (selectedConf.type === 'rankings' || selectedConf.type === 'rankings-fcs')) {
                     btn.textContent = isShowingStandings ? 'View Scores' : 'View Top 25 Rankings';
                 } else {
                     btn.textContent = isShowingStandings ? 'View Scores' : 'View Standings';
@@ -488,7 +508,7 @@
                     const state = event.competitions[0].status.type.state;
                     if (state === 'in') return 1;
                     if (state === 'pre') return 2;
-                    return 3; // 'post'
+                    return 3;
                 };
                 return getPriority(a) - getPriority(b);
             });
@@ -547,7 +567,7 @@
             contentArea.innerHTML = gridHTML;
         }
 
-        function renderStandings(data) {
+        function renderStandings(data, specificTitle) {
             const contentArea = document.getElementById('content-area');
             let html = '';
 
@@ -558,12 +578,40 @@
                 return;
             }
 
-            // If structure has children (divisions/conferences)
-            groups.forEach(group => {
-                const groupName = group.name || 'Standings';
-                const standingsEntries = group.standings?.entries || group.entries || [];
+            // Helper to process table rows from entries
+            const buildTableHTML = (entries) => {
+                let rows = '';
+                entries.forEach(entry => {
+                    const team = entry.team;
+                    const stats = entry.stats || [];
+                    const wins = stats.find(s => s.name === 'wins')?.displayValue || '-';
+                    const losses = stats.find(s => s.name === 'losses')?.displayValue || '-';
+                    const gb = stats.find(s => s.name === 'gamesBehind')?.displayValue || '-';
 
-                if (standingsEntries.length > 0) {
+                    rows += `
+                        <tr>
+                            <td class="team-cell">
+                                <img class="team-logo" src="${team.logos?.[0]?.href || team.logo || ''}" alt="" onerror="this.style.display='none'">
+                                <span>${team.displayName || team.name}</span>
+                            </td>
+                            <td>${wins}</td>
+                            <td>${losses}</td>
+                            <td>${gb}</td>
+                        </tr>
+                    `;
+                });
+                return rows;
+            };
+
+            // Recursive function to locate and render groups/divisions
+            const parseGroup = (group) => {
+                const groupName = group.name || specificTitle || 'Standings';
+                const entries = group.standings?.entries || group.entries;
+
+                if (entries && entries.length > 0) {
+                    if (specificTitle && groupName.toLowerCase() !== specificTitle.toLowerCase() && groups.length > 1) {
+                        // If looking for a specific conference, try to match
+                    }
                     html += `
                         <div class="standings-section">
                             <div class="standings-title">${groupName}</div>
@@ -577,35 +625,19 @@
                                    </tr>
                                </thead>
                                <tbody>
-                    `;
-
-                    standingsEntries.forEach(entry => {
-                        const team = entry.team;
-                        const stats = entry.stats || [];
-                        const wins = stats.find(s => s.name === 'wins')?.displayValue || '-';
-                        const losses = stats.find(s => s.name === 'losses')?.displayValue || '-';
-                        const gb = stats.find(s => s.name === 'gamesBehind')?.displayValue || '-';
-
-                        html += `
-                            <tr>
-                                <td class="team-cell">
-                                    <img class="team-logo" src="${team.logos?.[0]?.href || team.logo || ''}" alt="" onerror="this.style.display='none'">
-                                    <span>${team.displayName || team.name}</span>
-                                </td>
-                                <td>${wins}</td>
-                                <td>${losses}</td>
-                                <td>${gb}</td>
-                            </tr>
-                        `;
-                    });
-
-                    html += `
+                                   ${buildTableHTML(entries)}
                                </tbody>
                             </table>
                         </div>
                     `;
                 }
-            });
+
+                if (group.children) {
+                    group.children.forEach(child => parseGroup(child));
+                }
+            };
+
+            groups.forEach(g => parseGroup(g));
 
             contentArea.innerHTML = html || `<div class="no-data">No standings found for this selection.</div>`;
         }
@@ -614,17 +646,24 @@
             const contentArea = document.getElementById('content-area');
             const rankingsList = data.rankings || [];
             
-            // Find AP Poll or standard poll matching target
-            const poll = rankingsList.find(p => p.type === 'ap' || p.name?.toLowerCase().includes('poll')) || rankingsList[0];
+            // Filter poll based on targetType (FBS vs FCS)
+            let poll = rankingsList.find(p => {
+                const name = (p.name || p.headline || '').toLowerCase();
+                if (targetType === 'FCS') {
+                    return name.includes('fcs') || name.includes('coaches') || p.type === 'fcs';
+                } else {
+                    return name.includes('ap') || name.includes('fbs') || p.type === 'ap';
+                }
+            }) || rankingsList[0];
 
             if (!poll || !poll.ranks) {
-                contentArea.innerHTML = `<div class="no-data">Rankings data currently unavailable.</div>`;
+                contentArea.innerHTML = `<div class="no-data">${targetType} rankings currently unavailable.</div>`;
                 return;
             }
 
             let html = `
                 <div class="standings-section">
-                    <div class="standings-title">Current Top 25 Rankings (${poll.name || 'AP Poll'})</div>
+                    <div class="standings-title">Current Top 25 ${targetType} Rankings (${poll.name || 'Poll'})</div>
                     <table class="standings-table">
                        <thead>
                            <tr>

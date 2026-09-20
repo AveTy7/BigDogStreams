@@ -3,8 +3,7 @@ import json
 import requests
 
 
-def scrape_game_links(target_url):
-  # Use a standard User-Agent header to prevent basic bot-blocking
+def scrape_site(target_url):
   headers = {
       "User-Agent": (
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,"
@@ -17,49 +16,62 @@ def scrape_game_links(target_url):
     response = requests.get(target_url, headers=headers)
     response.raise_for_status()
   except requests.exceptions.RequestException as e:
-    print(f"Error fetching the webpage: {e}")
+    print(f"Error fetching {target_url}: {e}")
     return []
 
-  # Parse the HTML source code
   soup = BeautifulSoup(response.text, "html.parser")
+  site_links = []
 
-  links_data = []
-
-  # Find all elements that have class="competition"
+  # Find all elements with class="competition"
   competition_elements = soup.find_all(class_="competition")
 
   for el in competition_elements:
-    # If the element itself is an <a> tag with an href
     if el.name == "a" and el.has_attr("href"):
       href = el["href"]
       text = el.get_text(strip=True)
-      links_data.append({"text": text if text else "(No text)", "href": href})
+      site_links.append(
+          {
+              "source_site": target_url,
+              "text": text if text else "(No text)",
+              "href": href,
+          }
+      )
 
-    # Find all <a> tags nested inside the competition element
     for a_tag in el.find_all("a", href=True):
       href = a_tag["href"]
       text = a_tag.get_text(strip=True)
-      link_entry = {"text": text if text else "(No text)", "href": href}
+      link_entry = {
+          "source_site": target_url,
+          "text": text if text else "(No text)",
+          "href": href,
+      }
 
-      # Prevent adding exact duplicate entries
-      if link_entry not in links_data:
-        links_data.append(link_entry)
+      if link_entry not in site_links:
+        site_links.append(link_entry)
 
-  return links_data
+  return site_links
 
 
 if __name__ == "__main__":
-  # Target website specified
-  URL_TO_SCRAPE = "https://mybuffstreams.plus/mlb-live-streams"
+  urls_to_scrape = [
+      "https://mybuffstreams.plus/mlb-live-streams",
+      "https://mybuffstreams.plus/nflstreams2",
+      "https://mybuffstreams.plus/nbastreams2",
+  ]
 
-  links = scrape_game_links(URL_TO_SCRAPE)
+  all_links = []
 
-  # Package and save the extracted links into links.json
-  output_data = {"links": links}
+  for url in urls_to_scrape:
+    links = scrape_site(url)
+    all_links.extend(links)
+
+  # Package and save all links into links.json
+  output_data = {"links": all_links}
 
   with open("links.json", "w") as f:
     json.dump(output_data, f, indent=4)
 
   print(
-      f"\nSuccessfully extracted and saved {len(links)} links to links.json"
+      f"\nSuccessfully extracted and saved a total of {len(all_links)} links"
+      " to links.json"
   )

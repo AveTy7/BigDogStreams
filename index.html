@@ -384,7 +384,7 @@
             const contentArea = document.getElementById('content-area');
 
             if (cfg.type === 'pro') {
-                const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings`;
+                const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings?level=3`;
                 try {
                     const res = await fetch(url);
                     const data = await res.json();
@@ -415,14 +415,19 @@
                         const res = await fetch(url);
                         const data = await res.json();
                         
-                        const hasFCS = data.rankings?.some(p => (p.name || '').toLowerCase().includes('fcs') || (p.headline || '').toLowerCase().includes('fcs'));
-                        if (hasFCS) {
-                            renderCollegeRankings(data, 'FCS');
+                        // Specifically look for the FCS poll instead of falling back to the first available poll (AP/Coaches)
+                        const fcsPoll = data.rankings?.find(p => {
+                            const name = (p.name || p.headline || '').toLowerCase();
+                            return name.includes('fcs') || name.includes('stats perform') || p.type === 'fcs';
+                        });
+
+                        if (fcsPoll && fcsPoll.ranks) {
+                            renderSpecificPoll(fcsPoll, 'FCS Top 25 Rankings');
                             return;
                         }
                     } catch (e) { console.error(e); }
 
-                    // Robust fallback for FCS rankings using group standings
+                    // Fallback to FCS group standings if national poll isn't exposed
                     try {
                         const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings?groups=81`;
                         const res = await fetch(url);
@@ -584,13 +589,10 @@
         function renderProStandings(data) {
             const contentArea = document.getElementById('content-area');
             let html = '';
-            
-            // Recursively flatten or dig through conference children to extract individual divisions
             let divisions = [];
             
             function extractDivisions(node) {
                 if (!node) return;
-                // If this node represents a division level containing team entries
                 if (node.standings && node.standings.entries) {
                     divisions.push({ name: node.name || 'Division', entries: node.standings.entries });
                 }
@@ -707,21 +709,22 @@
             
             let poll = rankingsList.find(p => {
                 const name = (p.name || p.headline || '').toLowerCase();
-                if (targetType === 'FCS') {
-                    return name.includes('fcs') || name.includes('coaches') || p.type === 'fcs';
-                } else {
-                    return name.includes('ap') || name.includes('fbs') || p.type === 'ap';
-                }
+                return name.includes('ap') || name.includes('fbs') || p.type === 'ap';
             }) || rankingsList[0];
 
             if (!poll || !poll.ranks) {
-                contentArea.innerHTML = `<div class="no-data">FCS national polls are managed by external agencies (Stats Perform / AFCA) and aren't published directly inside ESPN's primary FBS ranking payload. Use the conference tabs above to view specific FCS conference standings!</div>`;
+                contentArea.innerHTML = `<div class="no-data">Rankings currently unavailable.</div>`;
                 return;
             }
 
+            renderSpecificPoll(poll, `Current Top 25 ${targetType} Rankings (${poll.name || 'Poll'})`);
+        }
+
+        function renderSpecificPoll(poll, titleText) {
+            const contentArea = document.getElementById('content-area');
             let html = `
                 <div class="standings-section">
-                    <div class="standings-title">Current Top 25 ${targetType} Rankings (${poll.name || 'Poll'})</div>
+                    <div class="standings-title">${titleText}</div>
                     <table class="standings-table">
                        <thead>
                            <tr>

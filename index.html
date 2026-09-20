@@ -361,17 +361,17 @@
         }
 
         .boxscore-header {
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .back-btn {
             background-color: transparent;
             color: var(--text-secondary);
             border: 1px solid var(--border);
-            padding: 6px 12px;
+            padding: 5px 10px;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
             transition: all 0.2s ease;
         }
@@ -381,21 +381,21 @@
             border-color: var(--text-primary);
         }
 
-        /* UPDATED: Shrunk boxscore matchup card padding and font sizes */
+        /* FURTHER REDUCED: Made the matchup card even more compact */
         .boxscore-matchup-card {
             background-color: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 8px;
-            padding: 14px 20px;
+            padding: 10px 16px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            margin-bottom: 20px;
+            gap: 4px;
+            margin-bottom: 16px;
         }
 
         .boxscore-game-info {
             text-align: center;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-secondary);
             font-weight: 600;
             text-transform: uppercase;
@@ -411,7 +411,7 @@
         .boxscore-team {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             flex: 1;
         }
 
@@ -421,27 +421,26 @@
         }
 
         .boxscore-team img {
-            width: 32px;
-            height: 32px;
+            width: 26px;
+            height: 26px;
             object-fit: contain;
         }
 
         .boxscore-team-name {
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             font-weight: 700;
         }
 
         .boxscore-score {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 800;
-            padding: 0 16px;
+            padding: 0 12px;
         }
 
         .comparison-table td, .comparison-table th {
             padding: 10px 16px;
         }
 
-        /* UPDATED: Clean alignment and column sizing for player stats table */
         .player-stats-table {
             width: 100%;
             border-collapse: collapse;
@@ -478,7 +477,7 @@
             text-align: center;
         }
 
-        .player-stats-table th:n+3,
+        .player-stats-table th:nth-child(n+3),
         .player-stats-table td:nth-child(n+3) {
             text-align: center;
         }
@@ -568,7 +567,8 @@
         let isShowingWildCard = false;
         let currentView = 'hub';
         let cachedEvents = [];
-        let allFetchedGames = {}; // Cache games across leagues for matching
+        let allFetchedGames = {}; 
+        let globalBoxScoreData = null; // Stored boxscore data for team filtering
 
         const testJsonData = {
             "links": [
@@ -715,7 +715,6 @@
             ]
         };
 
-        // Pre-fetch scores for major leagues and both FBS and FCS for CFB in background
         async function backgroundPrefetch() {
             const leagueKeys = ['nfl', 'nba', 'mlb', 'cbb'];
             for (let lKey of leagueKeys) {
@@ -731,7 +730,6 @@
                 } catch (e) {}
             }
 
-            // Special handling for CFB: fetch BOTH All FBS (?groups=80) and FCS (?groups=81) and merge them
             const cfbCfg = endpoints['cfb'];
             let combinedCfbEvents = [];
             const cfbGroups = ['?groups=80', '?groups=81'];
@@ -747,7 +745,6 @@
                 } catch (e) {}
             }
 
-            // Deduplicate CFB events by event ID
             const uniqueMap = new Map();
             combinedCfbEvents.forEach(ev => uniqueMap.set(ev.id, ev));
             allFetchedGames['cfb'] = Array.from(uniqueMap.values());
@@ -1156,8 +1153,8 @@
             try {
                 const res = await fetch(url);
                 if (!res.ok) throw new Error('Failed to fetch box score');
-                const data = await res.json();
-                renderBoxScore(data);
+                globalBoxScoreData = await res.json();
+                renderBoxScore(globalBoxScoreData);
             } catch (err) {
                 contentArea.innerHTML = `
                     <div class="boxscore-header">
@@ -1267,58 +1264,95 @@
             }
 
             if (data.boxscore && data.boxscore.players) {
-                html += `<div style="margin-top: 24px;"><h3 style="margin-bottom: 12px; font-size: 1.1rem;">Player Statistics</h3>`;
-                data.boxscore.players.forEach(pTeam => {
-                    const teamDisplayName = pTeam.team.shortDisplayName || pTeam.team.displayName || 'Team';
-                    html += `<div class="standings-section" style="margin-bottom: 16px;">
-                        <div class="standings-title">${teamDisplayName}</div>`;
-                    
-                    if (pTeam.statistics) {
-                        pTeam.statistics.forEach(category => {
-                            const rawCatName = category.text || category.name || category.displayName || '';
-                            const formattedCatName = rawCatName ? rawCatName.toLowerCase() : (category.type ? category.type.toLowerCase() : 'statistics');
-                            
-                            let categoryTitle = formattedCatName;
-                            const lowerTeamName = teamDisplayName.toLowerCase();
-                            if (!formattedCatName.startsWith(lowerTeamName)) {
-                                categoryTitle = `${teamDisplayName} ${formattedCatName.charAt(0).toUpperCase() + formattedCatName.slice(1)}`;
-                            } else {
-                                categoryTitle = formattedCatName.charAt(0).toUpperCase() + formattedCatName.slice(1);
-                            }
-
-                            html += `<div style="margin-top: 14px; margin-left: 12px; font-size: 0.9rem; font-weight: 700; color: var(--accent); text-transform: capitalize;">${categoryTitle}</div>`;
-                            html += `<div class="table-responsive"><table class="player-stats-table" style="margin-top: 6px;"><thead><tr>`;
-                            
-                            html += `<th>Player</th>`;
-
-                            if (category.labels) {
-                                category.labels.forEach(lbl => {
-                                    html += `<th>${lbl}</th>`;
-                                });
-                            }
-                            html += `</tr></thead><tbody>`;
-
-                            if (category.athletes) {
-                                category.athletes.forEach(ath => {
-                                    html += `<tr>`;
-                                    html += `<td>${ath.athlete.displayName}</td>`;
-                                    if (ath.stats) {
-                                        ath.stats.forEach(st => {
-                                            html += `<td>${st}</td>`;
-                                        });
-                                    }
-                                    html += `</tr>`;
-                                });
-                            }
-                            html += `</tbody></table></div>`;
-                        });
-                    }
-                    html += `</div>`;
+                // Build team dropdown options
+                let teamOptionsHtml = '';
+                data.boxscore.players.forEach((pTeam, idx) => {
+                    const teamName = pTeam.team.shortDisplayName || pTeam.team.displayName || 'Team';
+                    teamOptionsHtml += `<option value="${pTeam.team.id}">${teamName}</option>`;
                 });
-                html += `</div>`;
+
+                html += `
+                    <div style="margin-top: 24px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+                            <h3 style="font-size: 1.1rem;">Player Statistics</h3>
+                            <select id="player-team-select" onchange="handlePlayerTeamChange()" style="font-weight: 600;">
+                                ${teamOptionsHtml}
+                            </select>
+                        </div>
+                        <div id="player-stats-container"></div>
+                    </div>
+                `;
             }
 
             contentArea.innerHTML = html;
+            // Render initial selected team's player stats
+            if (data.boxscore && data.boxscore.players && data.boxscore.players.length > 0) {
+                renderPlayerStatsForTeam(data.boxscore.players[0].team.id);
+            }
+        }
+
+        function handlePlayerTeamChange() {
+            const selectEl = document.getElementById('player-team-select');
+            if (selectEl) {
+                renderPlayerStatsForTeam(selectEl.value);
+            }
+        }
+
+        function renderPlayerStatsForTeam(teamId) {
+            const container = document.getElementById('player-stats-container');
+            if (!container || !globalBoxScoreData || !globalBoxScoreData.boxscore || !globalBoxScoreData.boxscore.players) return;
+
+            const pTeam = globalBoxScoreData.boxscore.players.find(t => t.team.id === teamId);
+            if (!pTeam) {
+                container.innerHTML = '';
+                return;
+            }
+
+            const teamDisplayName = pTeam.team.shortDisplayName || pTeam.team.displayName || 'Team';
+            let html = `<div class="standings-section" style="margin-bottom: 16px;">`;
+
+            if (pTeam.statistics) {
+                pTeam.statistics.forEach(category => {
+                    const rawCatName = category.text || category.name || category.displayName || '';
+                    const formattedCatName = rawCatName ? rawCatName.toLowerCase() : (category.type ? category.type.toLowerCase() : 'statistics');
+                    
+                    let categoryTitle = formattedCatName;
+                    const lowerTeamName = teamDisplayName.toLowerCase();
+                    if (!formattedCatName.startsWith(lowerTeamName)) {
+                        categoryTitle = `${teamDisplayName} ${formattedCatName.charAt(0).toUpperCase() + formattedCatName.slice(1)}`;
+                    } else {
+                        categoryTitle = formattedCatName.charAt(0).toUpperCase() + formattedCatName.slice(1);
+                    }
+
+                    html += `<div style="margin-top: 14px; margin-left: 12px; font-size: 0.9rem; font-weight: 700; color: var(--accent); text-transform: capitalize;">${categoryTitle}</div>`;
+                    html += `<div class="table-responsive"><table class="player-stats-table" style="margin-top: 6px;"><thead><tr>`;
+                    
+                    html += `<th>Player</th>`;
+
+                    if (category.labels) {
+                        category.labels.forEach(lbl => {
+                            html += `<th>${lbl}</th>`;
+                        });
+                    }
+                    html += `</tr></thead><tbody>`;
+
+                    if (category.athletes) {
+                        category.athletes.forEach(ath => {
+                            html += `<tr>`;
+                            html += `<td>${ath.athlete.displayName}</td>`;
+                            if (ath.stats) {
+                                ath.stats.forEach(st => {
+                                    html += `<td>${st}</td>`;
+                                });
+                            }
+                            html += `</tr>`;
+                        });
+                    }
+                    html += `</tbody></table></div>`;
+                });
+            }
+            html += `</div>`;
+            container.innerHTML = html;
         }
 
         function switchLeague(leagueKey, buttonElement) {

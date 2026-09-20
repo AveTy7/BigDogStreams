@@ -52,7 +52,7 @@
             display: flex;
             justify-content: center;
             gap: 8px;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
             flex-wrap: wrap;
         }
 
@@ -75,6 +75,28 @@
         .tab-btn.active {
             background-color: var(--accent);
             color: white;
+        }
+
+        /* Conference Sub-filters Container */
+        .filter-container {
+            display: none;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .filter-container.visible {
+            display: flex;
+        }
+
+        .conference-select {
+            background-color: var(--card-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--card-hover);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            outline: none;
+            cursor: pointer;
         }
 
         /* Main Container & Loading States */
@@ -211,6 +233,13 @@
         <button class="tab-btn" onclick="switchLeague('cbb', this)">CBB</button>
     </div>
 
+    <!-- Conference Filter Bar -->
+    <div id="filter-container" class="filter-container">
+        <select id="conference-select" class="conference-select" onchange="handleFilterChange()">
+            <!-- Populated dynamically based on league -->
+        </select>
+    </div>
+
     <div class="container">
         <div id="content-area">
             <div class="loading">Loading games...</div>
@@ -218,24 +247,70 @@
     </div>
 
     <script>
-        // League endpoint configurations mapping to ESPN public APIs with proper CFB grouping
+        // League configurations with group IDs for conferences
         const endpoints = {
-            nfl: { sport: 'football', league: 'nfl', params: '' },
-            nba: { sport: 'basketball', league: 'nba', params: '' },
-            mlb: { sport: 'baseball', league: 'mlb', params: '' },
-            cfb: { sport: 'football', league: 'college-football', params: '?groups=80' }, // groups=80 fetches all FBS games
-            cbb: { sport: 'basketball', league: 'mens-college-basketball', params: '' }
+            nfl: { 
+                sport: 'football', 
+                league: 'nfl', 
+                baseParams: '',
+                conferences: null 
+            },
+            nba: { 
+                sport: 'basketball', 
+                league: 'nba', 
+                baseParams: '',
+                conferences: null 
+            },
+            mlb: { 
+                sport: 'baseball', 
+                league: 'mlb', 
+                baseParams: '',
+                conferences: null 
+            },
+            cfb: { 
+                sport: 'football', 
+                league: 'college-football', 
+                baseParams: '',
+                conferences: [
+                    { name: 'All FBS', param: '?groups=80' },
+                    { name: 'SEC', param: '?groups=8' },
+                    { name: 'Big Ten', param: '?groups=5' },
+                    { name: 'Big 12', param: '?groups=1' },
+                    { name: 'ACC', param: '?groups=151' },
+                    { name: 'FBS Independents', param: '?groups=112' }
+                ]
+            },
+            cbb: { 
+                sport: 'basketball', 
+                league: 'mens-college-basketball', 
+                baseParams: '',
+                conferences: [
+                    { name: 'All Top Tier (Div I)', param: '?groups=50' },
+                    { name: 'SEC', param: '?groups=23' },
+                    { name: 'Big Ten', param: '?groups=7' },
+                    { name: 'Big 12', param: '?groups=8' },
+                    { name: 'ACC', param: '?groups=2' },
+                    { name: 'Big East', param: '?groups=4' }
+                ]
+            }
         };
 
         let currentLeagueKey = 'nfl';
 
-        async function fetchScores(leagueKey) {
+        async function fetchScores(leagueKey, customParam = '') {
             currentLeagueKey = leagueKey;
             const contentArea = document.getElementById('content-area');
             contentArea.innerHTML = '<div class="loading">Loading games...</div>';
 
             const cfg = endpoints[leagueKey];
-            const url = `https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/scoreboard${cfg.params}`;
+            
+            // Determine active parameter (either conference specific or league default)
+            let queryParam = customParam;
+            if (!queryParam && cfg.conferences && cfg.conferences.length > 0) {
+                queryParam = cfg.conferences[0].param;
+            }
+
+            const url = `https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/scoreboard${queryParam}`;
 
             try {
                 const response = await fetch(url);
@@ -251,14 +326,39 @@
         function switchLeague(leagueKey, buttonElement) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             buttonElement.classList.add('active');
-            fetchScores(leagueKey);
+
+            const cfg = endpoints[leagueKey];
+            const filterContainer = document.getElementById('filter-container');
+            const conferenceSelect = document.getElementById('conference-select');
+
+            // Handle conference dropdown visibility & options
+            if (cfg.conferences) {
+                conferenceSelect.innerHTML = '';
+                cfg.conferences.forEach(conf => {
+                    const option = document.createElement('option');
+                    option.value = conf.param;
+                    option.textContent = conf.name;
+                    conferenceSelect.appendChild(option);
+                });
+                filterContainer.classList.add('visible');
+                fetchScores(leagueKey, cfg.conferences[0].param);
+            } else {
+                filterContainer.classList.remove('visible');
+                fetchScores(leagueKey, '');
+            }
+        }
+
+        function handleFilterChange() {
+            const conferenceSelect = document.getElementById('conference-select');
+            const selectedParam = conferenceSelect.value;
+            fetchScores(currentLeagueKey, selectedParam);
         }
 
         function renderGames(events) {
             const contentArea = document.getElementById('content-area');
 
             if (!events || events.length === 0) {
-                contentArea.innerHTML = `<div class="no-games">No games scheduled or available for this league right now.</div>`;
+                contentArea.innerHTML = `<div class="no-games">No games scheduled or available for this filter right now.</div>`;
                 return;
             }
 
@@ -316,14 +416,19 @@
             contentArea.innerHTML = gridHTML;
         }
 
-        // Load default tab on start
+        // Load default tab on start (NFL)
         fetchScores('nfl');
 
-        // Auto-refresh scores every 30 seconds
+        // Auto-refresh scores every 30 seconds keeping active filters
         setInterval(() => {
             if (currentLeagueKey) {
                 const cfg = endpoints[currentLeagueKey];
-                fetch(`https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/scoreboard${cfg.params}`)
+                let queryParam = '';
+                if (cfg.conferences) {
+                    const conferenceSelect = document.getElementById('conference-select');
+                    queryParam = conferenceSelect.value || cfg.conferences[0].param;
+                }
+                fetch(`https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/scoreboard${queryParam}`)
                     .then(res => res.json())
                     .then(data => renderGames(data.events))
                     .catch(err => console.log('Auto-refresh error:', err));

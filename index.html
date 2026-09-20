@@ -764,7 +764,7 @@
                 `;
 
                 wildcardEntries.forEach((entry, idx) => {
-                    const team = entry.team;
+                    const team = entry.team || {};
                     const stats = entry.stats || [];
                     const wins = parseInt(stats.find(s => s.name === 'wins')?.value ?? stats.find(s => s.name === 'wins')?.displayValue ?? 0);
                     const losses = parseInt(stats.find(s => s.name === 'losses')?.value ?? stats.find(s => s.name === 'losses')?.displayValue ?? 0);
@@ -783,11 +783,14 @@
                         }
                     }
 
+                    const teamLogo = team.logo || (team.logos && team.logos[0] && team.logos[0].href) || '';
+                    const teamName = team.displayName || team.name || team.shortDisplayName || '';
+
                     html += `
                         <tr>
                             <td class="team-cell">
-                                <img class="team-logo" src="${team.logo || ''}" alt="" onerror="this.style.display='none'">
-                                <span>${team.displayName || team.name}</span>
+                                <img class="team-logo" src="${teamLogo}" alt="" onerror="this.style.display='none'">
+                                <span>${teamName}</span>
                             </td>
                             <td>${wins}</td>
                             <td>${losses}</td>
@@ -1205,17 +1208,20 @@
                 `;
 
                 div.entries.forEach(entry => {
-                    const team = entry.team;
+                    const team = entry.team || {};
                     const stats = entry.stats || [];
                     const wins = stats.find(s => s.name === 'wins')?.displayValue || '-';
                     const losses = stats.find(s => s.name === 'losses')?.displayValue || '-';
                     const gb = stats.find(s => s.name === 'gamesBehind')?.displayValue || '-';
 
+                    const teamLogo = team.logo || (team.logos && team.logos[0] && team.logos[0].href) || '';
+                    const teamName = team.displayName || team.name || team.shortDisplayName || '';
+
                     html += `
                         <tr>
                             <td class="team-cell">
-                                <img class="team-logo" src="${team.logo || ''}" alt="" onerror="this.style.display='none'">
-                                <span>${team.displayName || team.name}</span>
+                                <img class="team-logo" src="${teamLogo}" alt="" onerror="this.style.display='none'">
+                                <span>${teamName}</span>
                             </td>
                             <td>${wins}</td>
                             <td>${losses}</td>
@@ -1255,16 +1261,19 @@
             `;
 
             entries.forEach(entry => {
-                const team = entry.team;
+                const team = entry.team || {};
                 const stats = entry.stats || [];
                 const confRecord = stats.find(s => s.name === 'conference')?.displayValue || '-';
                 const overallRecord = stats.find(s => s.name === 'overall')?.displayValue || '-';
 
+                const teamLogo = team.logo || (team.logos && team.logos[0] && team.logos[0].href) || '';
+                const teamName = team.displayName || team.name || team.shortDisplayName || '';
+
                 html += `
                     <tr>
                         <td class="team-cell">
-                            <img class="team-logo" src="${team.logo || ''}" alt="" onerror="this.style.display='none'">
-                            <span>${team.displayName || team.name}</span>
+                            <img class="team-logo" src="${teamLogo}" alt="" onerror="this.style.display='none'">
+                            <span>${teamName}</span>
                         </td>
                         <td>${confRecord}</td>
                         <td>${overallRecord}</td>
@@ -1310,13 +1319,16 @@
             `;
 
             poll.ranks.forEach(rank => {
-                const team = rank.team;
+                const team = rank.team || {};
+                const teamLogo = team.logo || (team.logos && team.logos[0] && team.logos[0].href) || '';
+                const teamName = team.displayName || team.name || team.shortDisplayName || '';
+
                 html += `
                     <tr>
                         <td style="font-weight: 700; width: 60px;">#${rank.current}</td>
                         <td class="team-cell">
-                            <img class="team-logo" src="${team.logo || ''}" alt="" onerror="this.style.display='none'">
-                            <span>${team.displayName || team.name}</span>
+                            <img class="team-logo" src="${teamLogo}" alt="" onerror="this.style.display='none'">
+                            <span>${teamName}</span>
                         </td>
                         <td>${rank.recordSummary || '-'}</td>
                     </tr>

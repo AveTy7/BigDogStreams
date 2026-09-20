@@ -579,7 +579,7 @@
             const contentArea = document.getElementById('content-area');
 
             if (cfg.type === 'pro') {
-                const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings?level=3`;
+                const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings`;
                 try {
                     const res = await fetch(url);
                     const data = await res.json();
@@ -644,7 +644,7 @@
 
         async function fetchMLBWildCardStandings() {
             const contentArea = document.getElementById('content-area');
-            const url = `https://site.api.espn.com/apis/v2/sports/baseball/mlb/standings?type=2&sort=playoffseed`;
+            const url = `https://site.api.espn.com/apis/v2/sports/baseball/mlb/standings`;
             try {
                 const res = await fetch(url);
                 const data = await res.json();
@@ -675,30 +675,36 @@
 
                 // Filter out division leaders (position_in_division === 1)
                 const wildcardEntries = rawEntries.filter(entry => {
-                    const pos = entry.stats?.find(s => s.name === 'positionInDivision')?.value || entry.positionInDivision;
+                    const stats = entry.stats || [];
+                    const posStat = stats.find(s => s.name === 'positionInDivision');
+                    const pos = posStat ? parseInt(posStat.value ?? posStat.displayValue) : entry.positionInDivision;
                     return pos !== 1;
                 });
 
                 if (wildcardEntries.length === 0) return;
 
-                // Sort wild card teams by wins descending, then losses ascending
+                // Sort wild card teams properly by wins descending, then losses ascending
                 wildcardEntries.sort((a, b) => {
-                    const aWins = parseInt(a.stats?.find(s => s.name === 'wins')?.value ?? a.stats?.find(s => s.name === 'wins')?.displayValue ?? 0);
-                    const bWins = parseInt(b.stats?.find(s => s.name === 'wins')?.value ?? b.stats?.find(s => s.name === 'wins')?.displayValue ?? 0);
-                    const aLosses = parseInt(a.stats?.find(s => s.name === 'losses')?.value ?? a.stats?.find(s => s.name === 'losses')?.displayValue ?? 0);
-                    const bLosses = parseInt(b.stats?.find(s => s.name === 'losses')?.value ?? b.stats?.find(s => s.name === 'losses')?.displayValue ?? 0);
+                    const aStats = a.stats || [];
+                    const bStats = b.stats || [];
+                    const aWins = parseInt(aStats.find(s => s.name === 'wins')?.value ?? aStats.find(s => s.name === 'wins')?.displayValue ?? 0);
+                    const bWins = parseInt(bStats.find(s => s.name === 'wins')?.value ?? bStats.find(s => s.name === 'wins')?.displayValue ?? 0);
+                    const aLosses = parseInt(aStats.find(s => s.name === 'losses')?.value ?? aStats.find(s => s.name === 'losses')?.displayValue ?? 0);
+                    const bLosses = parseInt(bStats.find(s => s.name === 'losses')?.value ?? bStats.find(s => s.name === 'losses')?.displayValue ?? 0);
+                    
                     if (bWins !== aWins) return bWins - aWins;
                     return aLosses - bLosses;
                 });
 
-                // Establish the baseline 3rd Wild Card team (index 2, i.e., 3rd from the top)
+                // Establish the baseline 3rd Wild Card team (index 2, i.e., 3rd from top)
                 const baselineTeam = wildcardEntries[2] || wildcardEntries[wildcardEntries.length - 1];
                 let baseWins = 0;
                 let baseLosses = 0;
 
                 if (baselineTeam) {
-                    baseWins = parseInt(baselineTeam.stats?.find(s => s.name === 'wins')?.value ?? baselineTeam.stats?.find(s => s.name === 'wins')?.displayValue ?? 0);
-                    baseLosses = parseInt(baselineTeam.stats?.find(s => s.name === 'losses')?.value ?? baselineTeam.stats?.find(s => s.name === 'losses')?.displayValue ?? 0);
+                    const bStats = baselineTeam.stats || [];
+                    baseWins = parseInt(bStats.find(s => s.name === 'wins')?.value ?? bStats.find(s => s.name === 'wins')?.displayValue ?? 0);
+                    baseLosses = parseInt(bStats.find(s => s.name === 'losses')?.value ?? bStats.find(s => s.name === 'losses')?.displayValue ?? 0);
                 }
 
                 html += `

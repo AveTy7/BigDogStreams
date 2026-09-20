@@ -77,18 +77,21 @@
             color: white;
         }
 
-        /* Conference Sub-filters Container */
+        /* Filter & Action Bar */
         .filter-container {
             display: none;
             justify-content: center;
+            align-items: center;
+            gap: 12px;
             margin-bottom: 24px;
+            flex-wrap: wrap;
         }
 
         .filter-container.visible {
             display: flex;
         }
 
-        .conference-select {
+        .conference-select, .action-btn {
             background-color: var(--card-bg);
             color: var(--text-primary);
             border: 1px solid var(--card-hover);
@@ -97,6 +100,16 @@
             font-size: 0.9rem;
             outline: none;
             cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .conference-select:hover, .action-btn:hover {
+            background-color: var(--card-hover);
+        }
+
+        .action-btn.standings-active {
+            background-color: var(--accent);
+            border-color: var(--accent);
         }
 
         /* Main Container & Loading States */
@@ -105,14 +118,14 @@
             margin: 0 auto;
         }
 
-        .loading, .error, .no-games {
+        .loading, .error, .no-data {
             text-align: center;
             padding: 40px;
             color: var(--text-secondary);
             font-size: 1rem;
         }
 
-        /* Games Grid / List */
+        /* Games Grid */
         .games-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -172,7 +185,6 @@
             color: var(--final-color);
         }
 
-        /* Team Row styling */
         .teams-container {
             display: flex;
             flex-direction: column;
@@ -215,13 +227,58 @@
             color: var(--text-secondary);
             text-align: right;
         }
+
+        /* Standings / Rankings Styling */
+        .standings-section {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .standings-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 8px;
+        }
+
+        .standings-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .standings-table th, .standings-table td {
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        .standings-table th {
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .standings-table tr:not(:last-child) td {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .standings-table td.team-cell {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
     </style>
 </head>
 <body>
 
     <header>
         <h1>Live Sports Scores Hub</h1>
-        <p class="subtitle">Live updates, upcoming schedules, and recent results via ESPN</p>
+        <p class="subtitle">Live updates, schedules, results, and standings via ESPN</p>
     </header>
 
     <!-- League Selection Tabs -->
@@ -233,11 +290,12 @@
         <button class="tab-btn" onclick="switchLeague('cbb', this)">CBB</button>
     </div>
 
-    <!-- Conference Filter Bar -->
+    <!-- Filter & Standings Toggle Bar -->
     <div id="filter-container" class="filter-container">
         <select id="conference-select" class="conference-select" onchange="handleFilterChange()">
-            <!-- Populated dynamically based on league -->
+            <!-- Populated dynamically -->
         </select>
+        <button id="standings-toggle-btn" class="action-btn" onclick="toggleStandingsView()">View Standings</button>
     </div>
 
     <div class="container">
@@ -247,67 +305,60 @@
     </div>
 
     <script>
-        // League configurations with group IDs including FCS for college football
         const endpoints = {
-            nfl: { 
-                sport: 'football', 
-                league: 'nfl', 
-                baseParams: '',
-                conferences: null 
-            },
-            nba: { 
-                sport: 'basketball', 
-                league: 'nba', 
-                baseParams: '',
-                conferences: null 
-            },
-            mlb: { 
-                sport: 'baseball', 
-                league: 'mlb', 
-                baseParams: '',
-                conferences: null 
-            },
+            nfl: { sport: 'football', league: 'nfl', conferences: null },
+            nba: { sport: 'basketball', league: 'nba', conferences: null },
+            mlb: { sport: 'baseball', league: 'mlb', conferences: null },
             cfb: { 
                 sport: 'football', 
                 league: 'college-football', 
-                baseParams: '',
                 conferences: [
-                    { name: 'All FBS', param: '?groups=80' },
-                    { name: 'FCS', param: '?groups=81' },
-                    { name: 'SEC', param: '?groups=8' },
-                    { name: 'Big Ten', param: '?groups=5' },
-                    { name: 'Big 12', param: '?groups=1' },
-                    { name: 'ACC', param: '?groups=151' },
-                    { name: 'FBS Independents', param: '?groups=112' }
+                    { name: 'All FBS', param: '?groups=80', type: 'rankings' },
+                    { name: 'FCS', param: '?groups=81', type: 'rankings' },
+                    { name: 'SEC', param: '?groups=8', type: 'standings' },
+                    { name: 'Big Ten', param: '?groups=5', type: 'standings' },
+                    { name: 'Big 12', param: '?groups=1', type: 'standings' },
+                    { name: 'ACC', param: '?groups=151', type: 'standings' },
+                    { name: 'FBS Independents', param: '?groups=112', type: 'standings' }
                 ]
             },
             cbb: { 
                 sport: 'basketball', 
                 league: 'mens-college-basketball', 
-                baseParams: '',
                 conferences: [
-                    { name: 'All Top Tier (Div I)', param: '?groups=50' },
-                    { name: 'SEC', param: '?groups=23' },
-                    { name: 'Big Ten', param: '?groups=7' },
-                    { name: 'Big 12', param: '?groups=8' },
-                    { name: 'ACC', param: '?groups=2' },
-                    { name: 'Big East', param: '?groups=4' }
+                    { name: 'All Top Tier (Div I)', param: '?groups=50', type: 'rankings' },
+                    { name: 'SEC', param: '?groups=23', type: 'standings' },
+                    { name: 'Big Ten', param: '?groups=7', type: 'standings' },
+                    { name: 'Big 12', param: '?groups=8', type: 'standings' },
+                    { name: 'ACC', param: '?groups=2', type: 'standings' },
+                    { name: 'Big East', param: '?groups=4', type: 'standings' }
                 ]
             }
         };
 
         let currentLeagueKey = 'nfl';
+        let isShowingStandings = false;
 
-        async function fetchScores(leagueKey, customParam = '') {
-            currentLeagueKey = leagueKey;
+        async function loadData() {
+            const cfg = endpoints[currentLeagueKey];
             const contentArea = document.getElementById('content-area');
-            contentArea.innerHTML = '<div class="loading">Loading games...</div>';
+            contentArea.innerHTML = '<div class="loading">Loading...</div>';
 
-            const cfg = endpoints[leagueKey];
+            if (isShowingStandings) {
+                await fetchStandings();
+            } else {
+                await fetchScores();
+            }
+        }
+
+        async function fetchScores() {
+            const cfg = endpoints[currentLeagueKey];
+            const contentArea = document.getElementById('content-area');
             
-            let queryParam = customParam;
-            if (!queryParam && cfg.conferences && cfg.conferences.length > 0) {
-                queryParam = cfg.conferences[0].param;
+            let queryParam = '';
+            if (cfg.conferences) {
+                const conferenceSelect = document.getElementById('conference-select');
+                queryParam = conferenceSelect.value || cfg.conferences[0].param;
             }
 
             const url = `https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/scoreboard${queryParam}`;
@@ -323,9 +374,50 @@
             }
         }
 
+        async function fetchStandings() {
+            const cfg = endpoints[currentLeagueKey];
+            const contentArea = document.getElementById('content-area');
+
+            if (cfg.conferences) {
+                const conferenceSelect = document.getElementById('conference-select');
+                const selectedIndex = conferenceSelect.selectedIndex;
+                const selectedConf = cfg.conferences[selectedIndex];
+
+                if (selectedConf && selectedConf.type === 'rankings') {
+                    // Fetch Rankings (Top 25) for All FBS or FCS or Top Tier
+                    const rankType = selectedConf.name.includes('FCS') ? 'FCS' : 'FBS';
+                    const url = `https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/rankings`;
+                    try {
+                        const res = await fetch(url);
+                        const data = await res.json();
+                        renderRankings(data, rankType);
+                        return;
+                    } catch (e) {
+                        console.error(e);
+                    }
+                }
+            }
+
+            // Standard standings endpoint for pros or college conferences
+            const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings`;
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Failed to fetch standings');
+                const data = await response.json();
+                renderStandings(data);
+            } catch (error) {
+                console.error(error);
+                contentArea.innerHTML = `<div class="error">Unable to load standings right now.</div>`;
+            }
+        }
+
         function switchLeague(leagueKey, buttonElement) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             buttonElement.classList.add('active');
+
+            currentLeagueKey = leagueKey;
+            isShowingStandings = false;
+            updateStandingsButtonState();
 
             const cfg = endpoints[leagueKey];
             const filterContainer = document.getElementById('filter-container');
@@ -340,33 +432,73 @@
                     conferenceSelect.appendChild(option);
                 });
                 filterContainer.classList.add('visible');
-                fetchScores(leagueKey, cfg.conferences[0].param);
             } else {
                 filterContainer.classList.remove('visible');
-                fetchScores(leagueKey, '');
             }
+
+            loadData();
         }
 
         function handleFilterChange() {
-            const conferenceSelect = document.getElementById('conference-select');
-            const selectedParam = conferenceSelect.value;
-            fetchScores(currentLeagueKey, selectedParam);
+            isShowingStandings = false;
+            updateStandingsButtonState();
+            loadData();
+        }
+
+        function toggleStandingsView() {
+            isShowingStandings = !isShowingStandings;
+            updateStandingsButtonState();
+            loadData();
+        }
+
+        function updateStandingsButtonState() {
+            const btn = document.getElementById('standings-toggle-btn');
+            const cfg = endpoints[currentLeagueKey];
+            
+            if (cfg.conferences) {
+                const conferenceSelect = document.getElementById('conference-select');
+                const selectedConf = cfg.conferences[conferenceSelect.selectedIndex];
+                if (selectedConf && selectedConf.type === 'rankings') {
+                    btn.textContent = isShowingStandings ? 'View Scores' : 'View Top 25 Rankings';
+                } else {
+                    btn.textContent = isShowingStandings ? 'View Scores' : 'View Standings';
+                }
+            } else {
+                btn.textContent = isShowingStandings ? 'View Scores' : 'View Standings';
+            }
+
+            if (isShowingStandings) {
+                btn.classList.add('standings-active');
+            } else {
+                btn.classList.remove('standings-active');
+            }
         }
 
         function renderGames(events) {
             const contentArea = document.getElementById('content-area');
 
             if (!events || events.length === 0) {
-                contentArea.innerHTML = `<div class="no-games">No games scheduled or available for this filter right now.</div>`;
+                contentArea.innerHTML = `<div class="no-data">No games scheduled or available for this filter right now.</div>`;
                 return;
             }
+
+            // Sort: Live (in) -> Upcoming (pre) -> Finished (post)
+            events.sort((a, b) => {
+                const getPriority = (event) => {
+                    const state = event.competitions[0].status.type.state;
+                    if (state === 'in') return 1;
+                    if (state === 'pre') return 2;
+                    return 3; // 'post'
+                };
+                return getPriority(a) - getPriority(b);
+            });
 
             let gridHTML = '<div class="games-grid">';
 
             events.forEach(event => {
                 const competition = event.competitions[0];
-                const statusType = competition.status.type.state; // 'pre', 'in', 'post'
-                const statusDetail = competition.status.type.detail; // e.g., "Halftime", "Final", "Thu, 8:15 PM"
+                const statusType = competition.status.type.state;
+                const statusDetail = competition.status.type.detail;
                 
                 const homeTeam = competition.competitors.find(t => t.homeAway === 'home');
                 const awayTeam = competition.competitors.find(t => t.homeAway === 'away');
@@ -415,22 +547,125 @@
             contentArea.innerHTML = gridHTML;
         }
 
-        // Load default tab on start (NFL)
-        fetchScores('nfl');
+        function renderStandings(data) {
+            const contentArea = document.getElementById('content-area');
+            let html = '';
 
-        // Auto-refresh scores every 30 seconds keeping active filters
-        setInterval(() => {
-            if (currentLeagueKey) {
-                const cfg = endpoints[currentLeagueKey];
-                let queryParam = '';
-                if (cfg.conferences) {
-                    const conferenceSelect = document.getElementById('conference-select');
-                    queryParam = conferenceSelect.value || cfg.conferences[0].param;
+            const groups = data.children || data.standings || [];
+
+            if (!groups || groups.length === 0) {
+                contentArea.innerHTML = `<div class="no-data">Standings data not available.</div>`;
+                return;
+            }
+
+            // If structure has children (divisions/conferences)
+            groups.forEach(group => {
+                const groupName = group.name || 'Standings';
+                const standingsEntries = group.standings?.entries || group.entries || [];
+
+                if (standingsEntries.length > 0) {
+                    html += `
+                        <div class="standings-section">
+                            <div class="standings-title">${groupName}</div>
+                            <table class="standings-table">
+                               <thead>
+                                   <tr>
+                                       <th>Team</th>
+                                       <th>W</th>
+                                       <th>L</th>
+                                       <th>GB</th>
+                                   </tr>
+                               </thead>
+                               <tbody>
+                    `;
+
+                    standingsEntries.forEach(entry => {
+                        const team = entry.team;
+                        const stats = entry.stats || [];
+                        const wins = stats.find(s => s.name === 'wins')?.displayValue || '-';
+                        const losses = stats.find(s => s.name === 'losses')?.displayValue || '-';
+                        const gb = stats.find(s => s.name === 'gamesBehind')?.displayValue || '-';
+
+                        html += `
+                            <tr>
+                                <td class="team-cell">
+                                    <img class="team-logo" src="${team.logos?.[0]?.href || team.logo || ''}" alt="" onerror="this.style.display='none'">
+                                    <span>${team.displayName || team.name}</span>
+                                </td>
+                                <td>${wins}</td>
+                                <td>${losses}</td>
+                                <td>${gb}</td>
+                            </tr>
+                        `;
+                    });
+
+                    html += `
+                               </tbody>
+                            </table>
+                        </div>
+                    `;
                 }
-                fetch(`https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/scoreboard${queryParam}`)
-                    .then(res => res.json())
-                    .then(data => renderGames(data.events))
-                    .catch(err => console.log('Auto-refresh error:', err));
+            });
+
+            contentArea.innerHTML = html || `<div class="no-data">No standings found for this selection.</div>`;
+        }
+
+        function renderRankings(data, targetType) {
+            const contentArea = document.getElementById('content-area');
+            const rankingsList = data.rankings || [];
+            
+            // Find AP Poll or standard poll matching target
+            const poll = rankingsList.find(p => p.type === 'ap' || p.name?.toLowerCase().includes('poll')) || rankingsList[0];
+
+            if (!poll || !poll.ranks) {
+                contentArea.innerHTML = `<div class="no-data">Rankings data currently unavailable.</div>`;
+                return;
+            }
+
+            let html = `
+                <div class="standings-section">
+                    <div class="standings-title">Current Top 25 Rankings (${poll.name || 'AP Poll'})</div>
+                    <table class="standings-table">
+                       <thead>
+                           <tr>
+                               <th>Rank</th>
+                               <th>Team</th>
+                               <th>Record</th>
+                           </tr>
+                       </thead>
+                       <tbody>
+            `;
+
+            poll.ranks.forEach(rank => {
+                const team = rank.team;
+                html += `
+                    <tr>
+                        <td style="font-weight: 700; width: 60px;">#${rank.current}</td>
+                        <td class="team-cell">
+                            <img class="team-logo" src="${team.logo || ''}" alt="" onerror="this.style.display='none'">
+                            <span>${team.displayName || team.name}</span>
+                        </td>
+                        <td>${rank.recordSummary || '-'}</td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                       </tbody>
+                    </table>
+                </div>
+            `;
+
+            contentArea.innerHTML = html;
+        }
+
+        // Initial load
+        switchLeague('nfl', document.querySelector('.tab-btn'));
+
+        // Auto-refresh scores every 30 seconds if viewing scores
+        setInterval(() => {
+            if (!isShowingStandings && currentLeagueKey) {
+                fetchScores();
             }
         }, 30000);
     </script>

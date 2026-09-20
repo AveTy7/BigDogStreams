@@ -579,7 +579,7 @@
             const contentArea = document.getElementById('content-area');
 
             if (cfg.type === 'pro') {
-                const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings`;
+                const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings?level=3`;
                 try {
                     const res = await fetch(url);
                     const data = await res.json();
@@ -671,19 +671,29 @@
 
             groups.forEach(group => {
                 const groupName = group.name || 'Wild Card';
-                const rawEntries = group.standings?.entries || group.entries || [];
+                let rawEntries = group.standings?.entries || group.entries || [];
 
-                // Filter out division leaders (position_in_division === 1)
+                if (rawEntries.length === 0 && group.children) {
+                    group.children.forEach(sub => {
+                        if (sub.standings?.entries) rawEntries = rawEntries.concat(sub.standings.entries);
+                    });
+                }
+
+                // Filter out division leaders (where position in division is 1)
                 const wildcardEntries = rawEntries.filter(entry => {
                     const stats = entry.stats || [];
                     const posStat = stats.find(s => s.name === 'positionInDivision');
-                    const pos = posStat ? parseInt(posStat.value ?? posStat.displayValue) : entry.positionInDivision;
+                    let pos = posStat ? parseInt(posStat.value ?? posStat.displayValue) : entry.positionInDivision;
+                    if (isNaN(pos)) {
+                        const clincher = stats.find(s => s.name === 'clincher')?.description || '';
+                        if (clincher.toLowerCase().includes('division winner')) return false;
+                    }
                     return pos !== 1;
                 });
 
                 if (wildcardEntries.length === 0) return;
 
-                // Sort wild card teams properly by wins descending, then losses ascending
+                // Sort properly by wins descending, then losses ascending
                 wildcardEntries.sort((a, b) => {
                     const aStats = a.stats || [];
                     const bStats = b.stats || [];
@@ -696,7 +706,7 @@
                     return aLosses - bLosses;
                 });
 
-                // Establish the baseline 3rd Wild Card team (index 2, i.e., 3rd from top)
+                // Establish the baseline 3rd Wild Card team (index 2, i.e. 3rd from top)
                 const baselineTeam = wildcardEntries[2] || wildcardEntries[wildcardEntries.length - 1];
                 let baseWins = 0;
                 let baseLosses = 0;

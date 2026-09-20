@@ -404,7 +404,18 @@
         }
 
         .player-stats-table th, .player-stats-table td {
-            padding: 6px 10px;
+            padding: 8px 10px;
+        }
+
+        .player-stats-table th {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .player-stats-table tr:not(:last-child) td {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .player-stats-table th:first-child,

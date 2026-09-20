@@ -133,7 +133,7 @@
             background-color: var(--live-color);
             border-radius: 50%;
             display: inline-block;
-            animation: pulse 1.5px infinite;
+            animation: pulse 1.5s infinite;
         }
 
         @keyframes pulse {
@@ -207,8 +207,8 @@
         <button class="tab-btn active" onclick="switchLeague('nfl', this)">NFL</button>
         <button class="tab-btn" onclick="switchLeague('nba', this)">NBA</button>
         <button class="tab-btn" onclick="switchLeague('mlb', this)">MLB</button>
-        <button class="tab-btn" onclick="switchLeague('college-football', this, 'cfb')">CFB</button>
-        <button class="tab-btn" onclick="switchLeague('mens-college-basketball', this, 'cbb')">CBB</button>
+        <button class="tab-btn" onclick="switchLeague('cfb', this)">CFB</button>
+        <button class="tab-btn" onclick="switchLeague('cbb', this)">CBB</button>
     </div>
 
     <div class="container">
@@ -218,13 +218,13 @@
     </div>
 
     <script>
-        // League endpoint configurations mapping to ESPN public APIs
+        // League endpoint configurations mapping to ESPN public APIs with proper CFB grouping
         const endpoints = {
-            nfl: { sport: 'football', league: 'nfl' },
-            nba: { sport: 'basketball', league: 'nba' },
-            mlb: { sport: 'baseball', league: 'mlb' },
-            cfb: { sport: 'football', league: 'college-football' },
-            cbb: { sport: 'basketball', league: 'mens-college-basketball' }
+            nfl: { sport: 'football', league: 'nfl', params: '' },
+            nba: { sport: 'basketball', league: 'nba', params: '' },
+            mlb: { sport: 'baseball', league: 'mlb', params: '' },
+            cfb: { sport: 'football', league: 'college-football', params: '?groups=80' }, // groups=80 fetches all FBS games
+            cbb: { sport: 'basketball', league: 'mens-college-basketball', params: '' }
         };
 
         let currentLeagueKey = 'nfl';
@@ -235,7 +235,7 @@
             contentArea.innerHTML = '<div class="loading">Loading games...</div>';
 
             const cfg = endpoints[leagueKey];
-            const url = `https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/scoreboard`;
+            const url = `https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/scoreboard${cfg.params}`;
 
             try {
                 const response = await fetch(url);
@@ -319,12 +319,11 @@
         // Load default tab on start
         fetchScores('nfl');
 
-        // Optional: Auto-refresh scores every 30 seconds
+        // Auto-refresh scores every 30 seconds
         setInterval(() => {
             if (currentLeagueKey) {
-                // Background update without showing loading indicator
                 const cfg = endpoints[currentLeagueKey];
-                fetch(`https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/scoreboard`)
+                fetch(`https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/scoreboard${cfg.params}`)
                     .then(res => res.json())
                     .then(data => renderGames(data.events))
                     .catch(err => console.log('Auto-refresh error:', err));

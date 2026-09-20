@@ -25,12 +25,25 @@ def scrape_game_links(target_url):
 
   links_data = []
 
-  # Find all <a> tags that contain an href attribute
-  for a_tag in soup.find_all("a", href=True):
-    href = a_tag["href"]
-    text = a_tag.get_text(strip=True)
+  # Find all elements that have class="competition"
+  competition_elements = soup.find_all(class_="competition")
 
-    links_data.append({"text": text if text else "(No text)", "href": href})
+  for el in competition_elements:
+    # If the element itself is an <a> tag with an href
+    if el.name == "a" and el.has_attr("href"):
+      href = el["href"]
+      text = el.get_text(strip=True)
+      links_data.append({"text": text if text else "(No text)", "href": href})
+
+    # Find all <a> tags nested inside the competition element
+    for a_tag in el.find_all("a", href=True):
+      href = a_tag["href"]
+      text = a_tag.get_text(strip=True)
+      link_entry = {"text": text if text else "(No text)", "href": href}
+
+      # Prevent adding exact duplicate entries
+      if link_entry not in links_data:
+        links_data.append(link_entry)
 
   return links_data
 

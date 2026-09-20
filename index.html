@@ -644,7 +644,7 @@
 
         async function fetchMLBWildCardStandings() {
             const contentArea = document.getElementById('content-area');
-            const url = `https://site.api.espn.com/apis/v2/sports/baseball/mlb/standings`;
+            const url = `https://site.api.espn.com/apis/v2/sports/baseball/mlb/standings?level=3`;
             try {
                 const res = await fetch(url);
                 const data = await res.json();
@@ -658,49 +658,73 @@
         function renderMLBWildCard(data) {
             const contentArea = document.getElementById('content-area');
             let html = '';
-            let groups = data.children || [];
+            let leagues = [];
 
-            if (groups.length === 0 && data.standings) {
-                groups = [data];
+            // Group by top-level leagues (AL and NL)
+            function extractLeagues(node) {
+                if (!node) return;
+                if (node.children) {
+                    node.children.forEach(child => {
+                        if (child.children && child.children.some(c => c.standings)) {
+                            leagues.push(child);
+                        } else {
+                            extractLeagues(child);
+                        }
+                    });
+                }
             }
 
-            if (groups.length === 0) {
+            extractLeagues(data);
+            if (leagues.length === 0 && data.children) {
+                leagues = data.children;
+            }
+
+            if (leagues.length === 0) {
                 contentArea.innerHTML = `<div class="no-data">No Wild Card standings available.</div>`;
                 return;
             }
 
-            groups.forEach(group => {
-                const groupName = group.name || 'Wild Card';
-                let rawEntries = group.standings?.entries || group.entries || [];
+            leagues.forEach(league => {
+                const leagueName = league.name || 'Wild Card';
+                let wildcardEntries = [];
 
-                if (rawEntries.length === 0 && group.children) {
-                    group.children.forEach(sub => {
-                        if (sub.standings?.entries) rawEntries = rawEntries.concat(sub.standings.entries);
-                    });
-                }
-
-                // Strictly filter out division leaders using multiple fallback checks (positionInDivision, abbreviation/notes, or clincher labels)
-                const wildcardEntries = rawEntries.filter(entry => {
-                    const stats = entry.stats || [];
-                    const posStat = stats.find(s => s.name === 'positionInDivision');
-                    let pos = posStat ? parseInt(posStat.value ?? posStat.displayValue) : entry.positionInDivision;
-                    if (isNaN(pos)) {
-                        pos = entry.divisionStanding;
+                // Find all divisions under this league
+                let divisions = [];
+                function findDivisions(node) {
+                    if (!node) return;
+                    if (node.standings && node.standings.entries) {
+                        divisions.push(node.standings.entries);
                     }
-                    if (pos === 1) return false;
+                    if (node.children) {
+                        node.children.forEach(child => findDivisions(child));
+                    }
+                }
+                findDivisions(league);
 
-                    const clincher = stats.find(s => s.name === 'clincher')?.description || stats.find(s => s.name === 'clincher')?.value || '';
-                    if (typeof clincher === 'string' && clincher.toLowerCase().includes('division winner')) return false;
+                // For each division, sort by record and remove the division leader (index 0)
+                divisions.forEach(divEntries => {
+                    let sortedDiv = [...divEntries].sort((a, b) => {
+                        const aStats = a.stats || [];
+                        const bStats = b.stats || [];
+                        const aWins = parseInt(aStats.find(s => s.name === 'wins')?.value ?? aStats.find(s => s.name === 'wins')?.displayValue ?? 0);
+                        const bWins = parseInt(bStats.find(s => s.name === 'wins')?.value ?? bStats.find(s => s.name === 'wins')?.displayValue ?? 0);
+                        const aLosses = parseInt(aStats.find(s => s.name === 'losses')?.value ?? aStats.find(s => s.name === 'losses')?.displayValue ?? 0);
+                        const bLosses = parseInt(bStats.find(s => s.name === 'losses')?.value ?? bStats.find(s => s.name === 'losses')?.displayValue ?? 0);
+                        
+                        if (bWins !== aWins) return bWins - aWins;
+                        return aLosses - bLosses;
+                    });
 
-                    const note = entry.note?.description || '';
-                    if (note.toLowerCase().includes('division leader') || note.toLowerCase().includes('division winner')) return false;
-
-                    return true;
+                    // Remove the division leader (index 0)
+                    if (sortedDiv.length > 0) {
+                        sortedDiv.shift();
+                    }
+                    wildcardEntries = wildcardEntries.concat(sortedDiv);
                 });
 
                 if (wildcardEntries.length === 0) return;
 
-                // Sort properly by wins descending, then losses ascending
+                // Sort remaining wildcard teams across the league
                 wildcardEntries.sort((a, b) => {
                     const aStats = a.stats || [];
                     const bStats = b.stats || [];
@@ -713,7 +737,7 @@
                     return aLosses - bLosses;
                 });
 
-                // Establish the baseline 3rd Wild Card team (index 2, i.e. 3rd from top)
+                // Establish baseline 3rd Wild Card team (index 2)
                 const baselineTeam = wildcardEntries[2] || wildcardEntries[wildcardEntries.length - 1];
                 let baseWins = 0;
                 let baseLosses = 0;
@@ -726,7 +750,7 @@
 
                 html += `
                     <div class="standings-section">
-                        <div class="standings-title">${groupName} Wild Card</div>
+                        <div class="standings-title">${leagueName} Wild Card</div>
                         <table class="standings-table">
                            <thead>
                                <tr>
@@ -1153,7 +1177,6 @@
             }
 
             divisions.forEach(div => {
-                // Sort division entries properly by wins descending, then losses ascending
                 div.entries.sort((a, b) => {
                     const aStats = a.stats || [];
                     const bStats = b.stats || [];

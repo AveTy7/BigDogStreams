@@ -107,6 +107,10 @@
             background-color: var(--card-hover);
         }
 
+        .conference-select.hidden {
+            display: none;
+        }
+
         .action-btn.standings-active {
             background-color: var(--accent);
             border-color: var(--accent);
@@ -379,7 +383,6 @@
             const cfg = endpoints[currentLeagueKey];
             const contentArea = document.getElementById('content-area');
 
-            // Handle PRO LEAGUES (NFL, NBA, MLB)
             if (cfg.type === 'pro') {
                 const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings`;
                 try {
@@ -394,23 +397,39 @@
                 }
             }
 
-            // Handle COLLEGE LEAGUES (CFB, CBB)
             if (cfg.type === 'college') {
                 const conferenceSelect = document.getElementById('conference-select');
                 const selectedConf = cfg.conferences[conferenceSelect.selectedIndex];
 
                 if (selectedConf && selectedConf.type === 'rankings-fbs') {
-                    // Fetch Top 25 Rankings
-                    const isFCS = selectedConf.name === 'FCS';
                     const url = `https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/rankings`;
                     try {
                         const res = await fetch(url);
                         const data = await res.json();
-                        renderCollegeRankings(data, isFCS ? 'FCS' : 'FBS');
+                        renderCollegeRankings(data, 'FBS');
+                        return;
+                    } catch (e) { console.error(e); }
+                } else if (selectedConf && selectedConf.type === 'rankings-fcs') {
+                    try {
+                        const url = `https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/rankings`;
+                        const res = await fetch(url);
+                        const data = await res.json();
+                        
+                        const hasFCS = data.rankings?.some(p => (p.name || '').toLowerCase().includes('fcs') || (p.headline || '').toLowerCase().includes('fcs'));
+                        if (hasFCS) {
+                            renderCollegeRankings(data, 'FCS');
+                            return;
+                        }
+                    } catch (e) { console.error(e); }
+
+                    try {
+                        const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings?groups=81`;
+                        const res = await fetch(url);
+                        const data = await res.json();
+                        renderCollegeConferenceStandings(data, 'FCS Top Teams');
                         return;
                     } catch (e) { console.error(e); }
                 } else if (selectedConf && selectedConf.type === 'standings') {
-                    // Fetch Conference Standings
                     const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings${selectedConf.param}`;
                     try {
                         const res = await fetch(url);
@@ -436,7 +455,11 @@
             const filterContainer = document.getElementById('filter-container');
             const conferenceSelect = document.getElementById('conference-select');
 
+            // Show filter container for both college leagues and pro leagues
+            filterContainer.classList.add('visible');
+
             if (cfg.conferences) {
+                conferenceSelect.classList.remove('hidden');
                 conferenceSelect.innerHTML = '';
                 cfg.conferences.forEach(conf => {
                     const option = document.createElement('option');
@@ -444,9 +467,9 @@
                     option.textContent = conf.name;
                     conferenceSelect.appendChild(option);
                 });
-                filterContainer.classList.add('visible');
             } else {
-                filterContainer.classList.remove('visible');
+                // Hide dropdown for pro leagues since they show divisions natively in one endpoint view
+                conferenceSelect.classList.add('hidden');
             }
 
             loadData();
@@ -471,7 +494,7 @@
             if (cfg.conferences) {
                 const conferenceSelect = document.getElementById('conference-select');
                 const selectedConf = cfg.conferences[conferenceSelect.selectedIndex];
-                if (selectedConf && selectedConf.type === 'rankings-fbs') {
+                if (selectedConf && (selectedConf.type === 'rankings-fbs' || selectedConf.type === 'rankings-fcs')) {
                     btn.textContent = isShowingStandings ? 'View Scores' : 'View Top 25 Rankings';
                 } else {
                     btn.textContent = isShowingStandings ? 'View Scores' : 'View Standings';
@@ -495,7 +518,6 @@
                 return;
             }
 
-            // Sort: Live (in) -> Upcoming (pre) -> Finished (post)
             events.sort((a, b) => {
                 const getPriority = (event) => {
                     const state = event.competitions[0].status.type.state;
@@ -677,7 +699,7 @@
             }) || rankingsList[0];
 
             if (!poll || !poll.ranks) {
-                contentArea.innerHTML = `<div class="no-data">${targetType} rankings currently unavailable.</div>`;
+                contentArea.innerHTML = `<div class="no-data">FCS national polls are managed by external agencies (Stats Perform / AFCA) and aren't published directly inside ESPN's primary FBS ranking payload. Use the conference tabs above to view specific FCS conference standings!</div>`;
                 return;
             }
 

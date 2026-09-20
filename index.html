@@ -146,6 +146,15 @@
             justify-content: space-between;
             position: relative;
             overflow: hidden;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .game-card:hover {
+            background-color: var(--card-hover);
+            border-color: var(--accent);
+            transform: translateY(-2px);
         }
 
         .game-status-bar {
@@ -230,6 +239,14 @@
             font-size: 0.75rem;
             color: var(--text-secondary);
             text-align: right;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .view-boxscore-hint {
+            color: var(--accent);
+            font-weight: 600;
         }
 
         /* Standings / Rankings Styling */
@@ -275,6 +292,132 @@
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+
+        /* Box Score View */
+        .boxscore-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .back-btn {
+            background-color: var(--card-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--card-hover);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background-color: var(--card-hover);
+        }
+
+        .boxscore-matchup-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .boxscore-teams-row {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 16px 0;
+        }
+
+        .boxscore-team {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            width: 35%;
+        }
+
+        .boxscore-team img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+        }
+
+        .boxscore-team-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .boxscore-score {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .boxscore-vs {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .boxscore-game-info {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        @media(min-width: 768px) {
+            .stats-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .stat-box {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .stat-box-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 6px;
+        }
+
+        .team-stats-list, .player-stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .team-stats-list td, .player-stats-table th, .player-stats-table td {
+            padding: 6px 8px;
+        }
+
+        .player-stats-table th {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .player-stats-table td {
+            text-align: left;
         }
     </style>
 </head>
@@ -344,8 +487,11 @@
 
         let currentLeagueKey = 'nfl';
         let isShowingStandings = false;
+        let currentView = 'hub'; // 'hub' or 'boxscore'
+        let cachedEvents = [];
 
         async function loadData() {
+            currentView = 'hub';
             const contentArea = document.getElementById('content-area');
             contentArea.innerHTML = '<div class="loading">Loading...</div>';
 
@@ -372,7 +518,8 @@
                 const response = await fetch(url);
                 if (!response.ok) throw new Error('Failed to fetch sports data');
                 const data = await response.json();
-                renderGames(data.events);
+                cachedEvents = data.events || [];
+                renderGames(cachedEvents);
             } catch (error) {
                 console.error(error);
                 contentArea.innerHTML = `<div class="error">Unable to load scores right now. Please try again later.</div>`;
@@ -445,6 +592,124 @@
             }
 
             contentArea.innerHTML = `<div class="no-data">Standings unavailable for this selection.</div>`;
+        }
+
+        async function openBoxScore(eventId) {
+            currentView = 'boxscore';
+            const contentArea = document.getElementById('content-area');
+            contentArea.innerHTML = '<div class="loading">Loading box score...</div>';
+
+            const cfg = endpoints[currentLeagueKey];
+            const url = `https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/summary?event=${eventId}`;
+
+            try {
+                const res = await fetch(url);
+                if (!res.ok) throw new Error('Failed to fetch box score');
+                const data = await res.json();
+                renderBoxScore(data);
+            } catch (err) {
+                console.error(err);
+                contentArea.innerHTML = `
+                    <div class="boxscore-header">
+                        <button class="back-btn" onclick="loadData()">← Back to Scores</button>
+                    </div>
+                    <div class="error">Detailed box score is unavailable for this matchup right now.</div>
+                `;
+            }
+        }
+
+        function renderBoxScore(data) {
+            const contentArea = document.getElementById('content-area');
+            const competition = data.header?.competitions?.[0] || data.competitions?.[0];
+            if (!competition) {
+                contentArea.innerHTML = `<div class="error">Matchup details not found.</div>`;
+                return;
+            }
+
+            const competitors = competition.competitors;
+            const homeTeam = competitors.find(c => c.homeAway === 'home');
+            const awayTeam = competitors.find(c => c.homeAway === 'away');
+            const statusDetail = competition.status?.type?.detail || '';
+
+            let html = `
+                <div class="boxscore-header">
+                    <button class="back-btn" onclick="loadData()">← Back to Scores</button>
+                </div>
+                <div class="boxscore-matchup-card">
+                    <div class="boxscore-game-info">${competition.status?.type?.description || 'Matchup'} • ${statusDetail}</div>
+                    <div class="boxscore-teams-row">
+                        <div class="boxscore-team">
+                            <img src="${awayTeam.team?.logo || ''}" alt="" onerror="this.style.display='none'">
+                            <span class="boxscore-team-name">${awayTeam.team?.shortDisplayName || awayTeam.team?.name}</span>
+                            <span class="boxscore-score">${awayTeam.score || '0'}</span>
+                        </div>
+                        <div class="boxscore-vs">VS</div>
+                        <div class="boxscore-team">
+                            <img src="${homeTeam.team?.logo || ''}" alt="" onerror="this.style.display='none'">
+                            <span class="boxscore-team-name">${homeTeam.team?.shortDisplayName || homeTeam.team?.name}</span>
+                            <span class="boxscore-score">${homeTeam.score || '0'}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Render Team Stats if available
+            if (data.boxscore && data.boxscore.teams) {
+                html += `<div class="stats-container">`;
+                data.boxscore.teams.forEach(t => {
+                    html += `
+                        <div class="stat-box">
+                            <div class="stat-box-title">${t.team.displayName || 'Team'} Stats</div>
+                            <table class="team-stats-list">
+                    `;
+                    if (t.statistics) {
+                        t.statistics.forEach(stat => {
+                            html += `
+                                <tr>
+                                    <td style="color: var(--text-secondary);">${stat.label}</td>
+                                    <td style="text-align: right; font-weight: 600;">${stat.displayValue}</td>
+                                </tr>
+                            `;
+                        });
+                    }
+                    html += `</table></div>`;
+                });
+                html += `</div>`;
+            }
+
+            // Render Player Statistics if available
+            if (data.boxscore && data.boxscore.players) {
+                html += `<div style="margin-top: 24px;"><h3 style="margin-bottom: 12px; font-size: 1.1rem;">Player Statistics</h3>`;
+                data.boxscore.players.forEach(pTeam => {
+                    html += `<div class="standings-section" style="margin-bottom: 16px;">
+                        <div class="standings-title">${pTeam.team.displayName || 'Team'}</div>`;
+                    
+                    if (pTeam.statistics) {
+                        pTeam.statistics.forEach(category => {
+                            html += `<div style="margin-top: 12px; font-size: 0.9rem; font-weight: 700; color: var(--accent);">${category.name}</div>`;
+                            html += `<table class="player-stats-table" style="margin-top: 6px;"><thead><tr>`;
+                            category.labels.forEach(lbl => {
+                                html += `<th>${lbl}</th>`;
+                            });
+                            html += `</tr></thead><tbody>`;
+
+                            category.athletes.forEach(ath => {
+                                html += `<tr>`;
+                                html += `<td style="font-weight: 500;">${ath.athlete.displayName}</td>`;
+                                ath.stats.forEach(st => {
+                                    html += `<td>${st}</td>`;
+                                });
+                                html += `</tr>`;
+                            });
+                            html += `</tbody></table>`;
+                        });
+                    }
+                    html += `</div>`;
+                });
+                html += `</div>`;
+            }
+
+            contentArea.innerHTML = html;
         }
 
         function switchLeague(leagueKey, buttonElement) {
@@ -550,7 +815,7 @@
                 }
 
                 gridHTML += `
-                    <div class="game-card">
+                    <div class="game-card" onclick="openBoxScore('${event.id}')">
                         <div>
                             <div class="game-status-bar">
                                 ${statusBadge}
@@ -574,7 +839,8 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            ${event.name}
+                            <span>${event.name}</span>
+                            <span class="view-boxscore-hint">Box Score →</span>
                         </div>
                     </div>
                 `;
@@ -755,9 +1021,9 @@
         // Initial load
         switchLeague('nfl', document.querySelector('.tab-btn'));
 
-        // Auto-refresh scores every 30 seconds if viewing scores
+        // Auto-refresh scores every 30 seconds if viewing scores and on hub
         setInterval(() => {
-            if (!isShowingStandings && currentLeagueKey) {
+            if (!isShowingStandings && currentLeagueKey && currentView === 'hub') {
                 fetchScores();
             }
         }, 30000);

@@ -299,7 +299,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .back-btn {
@@ -320,104 +320,99 @@
         .boxscore-matchup-card {
             background-color: var(--card-bg);
             border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 20px;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .boxscore-game-info {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             text-align: center;
         }
 
         .boxscore-teams-row {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: center;
-            margin: 16px 0;
         }
 
         .boxscore-team {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 8px;
-            width: 35%;
+            gap: 10px;
+        }
+
+        .boxscore-team.right {
+            flex-direction: row-reverse;
+            text-align: right;
         }
 
         .boxscore-team img {
-            width: 48px;
-            height: 48px;
+            width: 32px;
+            height: 32px;
             object-fit: contain;
         }
 
         .boxscore-team-name {
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             font-weight: 600;
         }
 
         .boxscore-score {
-            font-size: 2rem;
+            font-size: 1.3rem;
             font-weight: 700;
         }
 
-        .boxscore-vs {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            font-weight: 600;
-        }
-
-        .boxscore-game-info {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-top: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .stats-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
-        }
-
-        @media(min-width: 768px) {
-            .stats-container {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        .stat-box {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 16px;
-        }
-
-        .stat-box-title {
-            font-size: 0.95rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding-bottom: 6px;
-        }
-
-        .team-stats-list, .player-stats-table {
+        /* Side-by-side team stats comparison */
+        .comparison-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
-        .team-stats-list td, .player-stats-table th, .player-stats-table td {
+        .comparison-table th, .comparison-table td {
+            padding: 8px 10px;
+        }
+
+        .comparison-table th {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .comparison-table tr:not(:last-child) td {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .player-stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .player-stats-table th, .player-stats-table td {
             padding: 6px 8px;
+            text-align: left;
         }
 
         .player-stats-table th {
             color: var(--text-secondary);
             font-size: 0.75rem;
             text-transform: uppercase;
-            text-align: left;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .player-stats-table td {
-            text-align: left;
         }
     </style>
 </head>
@@ -487,7 +482,7 @@
 
         let currentLeagueKey = 'nfl';
         let isShowingStandings = false;
-        let currentView = 'hub'; // 'hub' or 'boxscore'
+        let currentView = 'hub';
         let cachedEvents = [];
 
         async function loadData() {
@@ -641,40 +636,56 @@
                         <div class="boxscore-team">
                             <img src="${awayTeam.team?.logo || ''}" alt="" onerror="this.style.display='none'">
                             <span class="boxscore-team-name">${awayTeam.team?.shortDisplayName || awayTeam.team?.name}</span>
-                            <span class="boxscore-score">${awayTeam.score || '0'}</span>
                         </div>
-                        <div class="boxscore-vs">VS</div>
-                        <div class="boxscore-team">
-                            <img src="${homeTeam.team?.logo || ''}" alt="" onerror="this.style.display='none'">
+                        <div class="boxscore-score">${awayTeam.score || '0'} - ${homeTeam.score || '0'}</div>
+                        <div class="boxscore-team right">
                             <span class="boxscore-team-name">${homeTeam.team?.shortDisplayName || homeTeam.team?.name}</span>
-                            <span class="boxscore-score">${homeTeam.score || '0'}</span>
+                            <img src="${homeTeam.team?.logo || ''}" alt="" onerror="this.style.display='none'">
                         </div>
                     </div>
                 </div>
             `;
 
-            // Render Team Stats if available
-            if (data.boxscore && data.boxscore.teams) {
-                html += `<div class="stats-container">`;
-                data.boxscore.teams.forEach(t => {
+            // Render Team Stats side-by-side (Skip if MLB or missing valid stats)
+            if (currentLeagueKey !== 'mlb' && data.boxscore && data.boxscore.teams && data.boxscore.teams.length === 2) {
+                const awayStats = data.boxscore.teams.find(t => t.team.id === awayTeam.id)?.statistics || [];
+                const homeStats = data.boxscore.teams.find(t => t.team.id === homeTeam.id)?.statistics || [];
+
+                // Validate that stats actually exist and aren't undefined
+                const hasValidStats = awayStats.length > 0 && awayStats.some(s => s.label && s.displayValue !== undefined);
+
+                if (hasValidStats) {
                     html += `
-                        <div class="stat-box">
-                            <div class="stat-box-title">${t.team.displayName || 'Team'} Stats</div>
-                            <table class="team-stats-list">
+                        <div class="standings-section">
+                            <div class="standings-title">Team Statistics</div>
+                            <table class="comparison-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 30%; text-align: left;">${awayTeam.team?.shortDisplayName || 'Away'}</th>
+                                        <th style="width: 40%; text-align: center;">Stat</th>
+                                        <th style="width: 30%; text-align: right;">${homeTeam.team?.shortDisplayName || 'Home'}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                     `;
-                    if (t.statistics) {
-                        t.statistics.forEach(stat => {
+
+                    awayStats.forEach(stat => {
+                        const homeStatObj = homeStats.find(s => s.name === stat.name || s.label === stat.label);
+                        const homeVal = homeStatObj ? homeStatObj.displayValue : '-';
+
+                        if (stat.label && stat.displayValue !== undefined) {
                             html += `
                                 <tr>
-                                    <td style="color: var(--text-secondary);">${stat.label}</td>
-                                    <td style="text-align: right; font-weight: 600;">${stat.displayValue}</td>
+                                    <td style="text-align: left; font-weight: 600;">${stat.displayValue}</td>
+                                    <td style="text-align: center; color: var(--text-secondary);">${stat.label}</td>
+                                    <td style="text-align: right; font-weight: 600;">${homeVal}</td>
                                 </tr>
                             `;
-                        });
-                    }
-                    html += `</table></div>`;
-                });
-                html += `</div>`;
+                        }
+                    });
+
+                    html += `</tbody></table></div>`;
+                }
             }
 
             // Render Player Statistics if available
@@ -687,7 +698,7 @@
                     if (pTeam.statistics) {
                         pTeam.statistics.forEach(category => {
                             html += `<div style="margin-top: 12px; font-size: 0.9rem; font-weight: 700; color: var(--accent);">${category.name}</div>`;
-                            html += `<table class="player-stats-table" style="margin-top: 6px;"><thead><tr>`;
+                            html += `<div class="table-responsive"><table class="player-stats-table" style="margin-top: 6px;"><thead><tr>`;
                             category.labels.forEach(lbl => {
                                 html += `<th>${lbl}</th>`;
                             });
@@ -701,7 +712,7 @@
                                 });
                                 html += `</tr>`;
                             });
-                            html += `</tbody></table>`;
+                            html += `</tbody></table></div>`;
                         });
                     }
                     html += `</div>`;

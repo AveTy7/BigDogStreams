@@ -707,7 +707,6 @@
                     
                     if (pTeam.statistics) {
                         pTeam.statistics.forEach(category => {
-                            // Fix for MLB "undefined" category headers
                             const rawCatName = category.text || category.name || category.displayName || '';
                             const formattedCatName = rawCatName ? rawCatName.toLowerCase() : (category.type ? category.type.toLowerCase() : 'statistics');
                             const categoryTitle = `${teamName} ${formattedCatName.charAt(0).toUpperCase() + formattedCatName.slice(1)}`;
@@ -715,6 +714,9 @@
                             html += `<div style="margin-top: 14px; font-size: 0.9rem; font-weight: 700; color: var(--accent); text-transform: capitalize;">${categoryTitle}</div>`;
                             html += `<div class="table-responsive"><table class="player-stats-table" style="margin-top: 6px;"><thead><tr>`;
                             
+                            // Insert "Player" header column on the far left
+                            html += `<th>Player</th>`;
+
                             if (category.labels) {
                                 category.labels.forEach(lbl => {
                                     html += `<th>${lbl}</th>`;

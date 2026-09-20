@@ -701,15 +701,23 @@
             if (data.boxscore && data.boxscore.players) {
                 html += `<div style="margin-top: 24px;"><h3 style="margin-bottom: 12px; font-size: 1.1rem;">Player Statistics</h3>`;
                 data.boxscore.players.forEach(pTeam => {
-                    const teamName = pTeam.team.shortDisplayName || pTeam.team.displayName || 'Team';
+                    const teamDisplayName = pTeam.team.shortDisplayName || pTeam.team.displayName || 'Team';
                     html += `<div class="standings-section" style="margin-bottom: 16px;">
-                        <div class="standings-title">${pTeam.team.displayName || 'Team'}</div>`;
+                        <div class="standings-title">${teamDisplayName}</div>`;
                     
                     if (pTeam.statistics) {
                         pTeam.statistics.forEach(category => {
                             const rawCatName = category.text || category.name || category.displayName || '';
                             const formattedCatName = rawCatName ? rawCatName.toLowerCase() : (category.type ? category.type.toLowerCase() : 'statistics');
-                            const categoryTitle = `${teamName} ${formattedCatName.charAt(0).toUpperCase() + formattedCatName.slice(1)}`;
+                            
+                            // Prevent duplicating team name if category already starts with it
+                            let categoryTitle = formattedCatName;
+                            const lowerTeamName = teamDisplayName.toLowerCase();
+                            if (!formattedCatName.startsWith(lowerTeamName)) {
+                                categoryTitle = `${teamDisplayName} ${formattedCatName.charAt(0).toUpperCase() + formattedCatName.slice(1)}`;
+                            } else {
+                                categoryTitle = formattedCatName.charAt(0).toUpperCase() + formattedCatName.slice(1);
+                            }
 
                             html += `<div style="margin-top: 14px; font-size: 0.9rem; font-weight: 700; color: var(--accent); text-transform: capitalize;">${categoryTitle}</div>`;
                             html += `<div class="table-responsive"><table class="player-stats-table" style="margin-top: 6px;"><thead><tr>`;

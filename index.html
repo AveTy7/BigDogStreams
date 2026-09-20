@@ -453,7 +453,6 @@
 
             currentLeagueKey = leagueKey;
             isShowingStandings = false;
-            updateStandingsButtonState();
 
             const cfg = endpoints[leagueKey];
             const filterContainer = document.getElementById('filter-container');
@@ -474,6 +473,7 @@
                 conferenceSelect.classList.add('hidden');
             }
 
+            updateStandingsButtonState();
             loadData();
         }
 
@@ -493,22 +493,22 @@
             const btn = document.getElementById('standings-toggle-btn');
             const cfg = endpoints[currentLeagueKey];
             
-            if (cfg.conferences) {
-                const conferenceSelect = document.getElementById('conference-select');
-                const selectedConf = cfg.conferences[conferenceSelect.selectedIndex];
-                if (selectedConf && (selectedConf.type === 'rankings-fbs' || selectedConf.type === 'rankings-fcs')) {
-                    btn.textContent = isShowingStandings ? 'View Scores' : 'View Top 25';
-                } else {
-                    btn.textContent = isShowingStandings ? 'View Scores' : 'View Standings';
-                }
-            } else {
-                btn.textContent = isShowingStandings ? 'View Scores' : 'View Standings';
-            }
-
             if (isShowingStandings) {
+                btn.textContent = 'View Scores';
                 btn.classList.add('standings-active');
             } else {
                 btn.classList.remove('standings-active');
+                if (cfg.conferences) {
+                    const conferenceSelect = document.getElementById('conference-select');
+                    const selectedConf = cfg.conferences[conferenceSelect.selectedIndex];
+                    if (selectedConf && (selectedConf.type === 'rankings-fbs' || selectedConf.type === 'rankings-fcs')) {
+                        btn.textContent = 'View Top 25';
+                    } else {
+                        btn.textContent = 'View Standings';
+                    }
+                } else {
+                    btn.textContent = 'View Standings';
+                }
             }
         }
 

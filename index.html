@@ -299,7 +299,7 @@
         <select id="conference-select" class="conference-select" onchange="handleFilterChange()">
             <!-- Populated dynamically -->
         </select>
-        <button id="standings-toggle-btn" class="action-btn" onclick="toggleStandingsView()">View Standings</button>
+        <button id="standings-toggle-btn" class="action-btn" onclick="toggleStandingsView()">View Top 25</button>
     </div>
 
     <div class="container">
@@ -415,7 +415,6 @@
                         const res = await fetch(url);
                         const data = await res.json();
                         
-                        // Specifically look for the FCS poll instead of falling back to the first available poll (AP/Coaches)
                         const fcsPoll = data.rankings?.find(p => {
                             const name = (p.name || p.headline || '').toLowerCase();
                             return name.includes('fcs') || name.includes('stats perform') || p.type === 'fcs';
@@ -427,7 +426,6 @@
                         }
                     } catch (e) { console.error(e); }
 
-                    // Fallback to FCS group standings if national poll isn't exposed
                     try {
                         const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings?groups=81`;
                         const res = await fetch(url);
@@ -499,7 +497,7 @@
                 const conferenceSelect = document.getElementById('conference-select');
                 const selectedConf = cfg.conferences[conferenceSelect.selectedIndex];
                 if (selectedConf && (selectedConf.type === 'rankings-fbs' || selectedConf.type === 'rankings-fcs')) {
-                    btn.textContent = isShowingStandings ? 'View Scores' : 'View Top 25 Rankings';
+                    btn.textContent = isShowingStandings ? 'View Scores' : 'View Top 25';
                 } else {
                     btn.textContent = isShowingStandings ? 'View Scores' : 'View Standings';
                 }

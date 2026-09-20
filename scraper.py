@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+import json
 import requests
 
 
@@ -22,31 +23,30 @@ def scrape_game_links(target_url):
   # Parse the HTML source code
   soup = BeautifulSoup(response.text, "html.parser")
 
-  game_links = set()
+  links_data = []
 
   # Find all <a> tags that contain an href attribute
   for a_tag in soup.find_all("a", href=True):
     href = a_tag["href"]
+    text = a_tag.get_text(strip=True)
 
-    # TODO: Adjust this filter pattern to match the specific structure
-    # of the game URLs on your target website (e.g., containing '/game/' or specific keywords)
-    if "game" in href or "schedule" in href:
+    links_data.append({"text": text if text else "(No text)", "href": href})
 
-      # Handle relative URLs by prepending the domain if needed
-      if href.startswith("/"):
-        href = "https://www.mlb.com" + href  # Update base domain as needed
-
-      game_links.add(href)
-
-  return list(game_links)
+  return links_data
 
 
 if __name__ == "__main__":
-  # Replace with your specific target schedule URL
-  URL_TO_SCRAPE = "https://www.mlb.com/dodgers/schedule"
+  # Target website specified
+  URL_TO_SCRAPE = "https://mybuffstreams.plus/mlb-live-streams"
 
   links = scrape_game_links(URL_TO_SCRAPE)
 
-  print(f"\nSuccessfully extracted {len(links)} matching links:")
-  for link in links:
-    print(link)
+  # Package and save the extracted links into links.json
+  output_data = {"links": links}
+
+  with open("links.json", "w") as f:
+    json.dump(output_data, f, indent=4)
+
+  print(
+      f"\nSuccessfully extracted and saved {len(links)} links to links.json"
+  )

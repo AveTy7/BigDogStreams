@@ -130,7 +130,6 @@
             font-size: 1.1rem;
         }
 
-        /* Standings / Scraped Links Table Styles */
         .standings-section {
             background-color: var(--bg-card);
             border: 1px solid var(--border);
@@ -246,13 +245,13 @@
         }
 
         function handleFilterChange() {
-            // Placeholder for standard league filtering logic
+            // Your filter change logic
         }
 
         function loadScoreboard(leagueKey) {
             const contentArea = document.getElementById('content-area');
             contentArea.innerHTML = `<div class="loading">Loading ${leagueKey.toUpperCase()} data...</div>`;
-            // Standard scoreboard fetch logic goes here for ESPN leagues
+            // Your scoreboard fetch logic
         }
 
         async function loadScrapedLinksJson() {
@@ -261,12 +260,12 @@
             
             try {
                 const response = await fetch('./links.json?t=' + new Date().getTime());
-                if (!response.ok) throw new Error('links.json not found yet. Run your GitHub Action first!');
+                if (!response.ok) throw new Error('links.json not found yet.');
                 const data = await response.json();
                 
                 renderScrapedLinksTable(data.links);
             } catch (err) {
-                contentArea.innerHTML = `<div class="no-data">Could not load links.json: ${err.message}<br><small>Make sure your GitHub Action has run and committed links.json to the repository.</small></div>`;
+                contentArea.innerHTML = `<div class="no-data">Could not load links.json: ${err.message}<br><small>Make sure your GitHub Action has run and committed links.json.</small></div>`;
             }
         }
 
@@ -280,7 +279,7 @@
             let html = `
                 <div class="standings-section">
                     <div class="standings-title" style="display: flex; justify-content: space-between; align-items: center;">
-                        <span>Scraped Stream Links (${links.length})</span>
+                        <span>Scraped Links (${links.length})</span>
                         <button class="tab-btn" onclick="loadScrapedLinksJson()" style="padding: 4px 10px; font-size: 0.8rem;">Reload</button>
                     </div>
                     <div class="table-responsive">
@@ -310,9 +309,8 @@
             contentArea.innerHTML = html;
         }
 
-        // Initial load on startup
         window.addEventListener('DOMContentLoaded', () => {
-            // Default to NFL or keep initial state
+            // Initial load placeholder
         });
     </script>
 </body>

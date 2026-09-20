@@ -663,6 +663,16 @@
 
                 const hasValidStats = awayStats.length > 0 && awayStats.some(s => s.label && s.displayValue !== undefined);
 
+                // Stats to exclude from the team statistics table
+                const excludedStats = [
+                    'comp/att', 
+                    'yards per pass', 
+                    'rushing attempts', 
+                    'yards per rush', 
+                    'fumbles lost', 
+                    'interceptions thrown'
+                ];
+
                 if (hasValidStats) {
                     html += `
                         <div class="standings-section">
@@ -679,14 +689,32 @@
                     `;
 
                     awayStats.forEach(stat => {
+                        const statNameLower = (stat.name || '').toLowerCase();
+                        const statLabelLower = (stat.label || '').toLowerCase();
+
+                        // Check if this stat should be filtered out
+                        const isExcluded = excludedStats.some(ex => statNameLower.includes(ex) || statLabelLower.includes(ex));
+                        if (isExcluded) return;
+
                         const homeStatObj = homeStats.find(s => s.name === stat.name || s.label === stat.label);
                         const homeVal = homeStatObj ? homeStatObj.displayValue : '-';
 
-                        if (stat.label && stat.displayValue !== undefined) {
+                        // Change 3rd/4th down efficiency headers
+                        let displayLabel = stat.label;
+                        if (displayLabel) {
+                            const lowerLbl = displayLabel.toLowerCase();
+                            if (lowerLbl === '3rd down efficiency') {
+                                displayLabel = '3rd Downs';
+                            } else if (lowerLbl === '4th down efficiency') {
+                                displayLabel = '4th Downs';
+                            }
+                        }
+
+                        if (displayLabel && stat.displayValue !== undefined) {
                             html += `
                                 <tr>
                                     <td style="text-align: left; font-weight: 600;">${stat.displayValue}</td>
-                                    <td style="text-align: center; color: var(--text-secondary);">${stat.label}</td>
+                                    <td style="text-align: center; color: var(--text-secondary);">${displayLabel}</td>
                                     <td style="text-align: right; font-weight: 600;">${homeVal}</td>
                                 </tr>
                             `;

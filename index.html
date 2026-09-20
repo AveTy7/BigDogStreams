@@ -404,15 +404,25 @@
         }
 
         .player-stats-table th, .player-stats-table td {
-            padding: 6px 8px;
-            text-align: left;
+            padding: 6px 10px;
         }
 
-        .player-stats-table th {
-            color: var(--text-secondary);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        .player-stats-table th:first-child,
+        .player-stats-table td:first-child {
+            min-width: 130px;
+            width: 130px;
+            text-align: left;
+            position: sticky;
+            left: 0;
+            background-color: var(--card-bg);
+            z-index: 1;
+        }
+
+        .player-stats-table th:not(:first-child),
+        .player-stats-table td:not(:first-child) {
+            min-width: 55px;
+            width: 55px;
+            text-align: center;
         }
     </style>
 </head>
@@ -651,7 +661,6 @@
                 const awayStats = data.boxscore.teams.find(t => t.team.id === awayTeam.id)?.statistics || [];
                 const homeStats = data.boxscore.teams.find(t => t.team.id === homeTeam.id)?.statistics || [];
 
-                // Validate that stats actually exist and aren't undefined
                 const hasValidStats = awayStats.length > 0 && awayStats.some(s => s.label && s.displayValue !== undefined);
 
                 if (hasValidStats) {
@@ -692,26 +701,39 @@
             if (data.boxscore && data.boxscore.players) {
                 html += `<div style="margin-top: 24px;"><h3 style="margin-bottom: 12px; font-size: 1.1rem;">Player Statistics</h3>`;
                 data.boxscore.players.forEach(pTeam => {
+                    const teamName = pTeam.team.shortDisplayName || pTeam.team.displayName || 'Team';
                     html += `<div class="standings-section" style="margin-bottom: 16px;">
                         <div class="standings-title">${pTeam.team.displayName || 'Team'}</div>`;
                     
                     if (pTeam.statistics) {
                         pTeam.statistics.forEach(category => {
-                            html += `<div style="margin-top: 12px; font-size: 0.9rem; font-weight: 700; color: var(--accent);">${category.name}</div>`;
+                            // Fix for MLB "undefined" category headers
+                            const rawCatName = category.text || category.name || category.displayName || '';
+                            const formattedCatName = rawCatName ? rawCatName.toLowerCase() : (category.type ? category.type.toLowerCase() : 'statistics');
+                            const categoryTitle = `${teamName} ${formattedCatName.charAt(0).toUpperCase() + formattedCatName.slice(1)}`;
+
+                            html += `<div style="margin-top: 14px; font-size: 0.9rem; font-weight: 700; color: var(--accent); text-transform: capitalize;">${categoryTitle}</div>`;
                             html += `<div class="table-responsive"><table class="player-stats-table" style="margin-top: 6px;"><thead><tr>`;
-                            category.labels.forEach(lbl => {
-                                html += `<th>${lbl}</th>`;
-                            });
+                            
+                            if (category.labels) {
+                                category.labels.forEach(lbl => {
+                                    html += `<th>${lbl}</th>`;
+                                });
+                            }
                             html += `</tr></thead><tbody>`;
 
-                            category.athletes.forEach(ath => {
-                                html += `<tr>`;
-                                html += `<td style="font-weight: 500;">${ath.athlete.displayName}</td>`;
-                                ath.stats.forEach(st => {
-                                    html += `<td>${st}</td>`;
+                            if (category.athletes) {
+                                category.athletes.forEach(ath => {
+                                    html += `<tr>`;
+                                    html += `<td>${ath.athlete.displayName}</td>`;
+                                    if (ath.stats) {
+                                        ath.stats.forEach(st => {
+                                            html += `<td>${st}</td>`;
+                                        });
+                                    }
+                                    html += `</tr>`;
                                 });
-                                html += `</tr>`;
-                            });
+                            }
                             html += `</tbody></table></div>`;
                         });
                     }

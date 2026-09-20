@@ -116,6 +116,32 @@
             border-color: var(--accent);
         }
 
+        .secondary-action-btn {
+            background-color: var(--card-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--card-hover);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            outline: none;
+            cursor: pointer;
+            display: none;
+            transition: all 0.2s ease;
+        }
+
+        .secondary-action-btn:hover {
+            background-color: var(--card-hover);
+        }
+
+        .secondary-action-btn.visible {
+            display: inline-block;
+        }
+
+        .secondary-action-btn.active {
+            background-color: var(--accent);
+            border-color: var(--accent);
+        }
+
         /* Main Container & Loading States */
         .container {
             max-width: 900px;
@@ -411,11 +437,11 @@
             color: var(--text-secondary);
             font-size: 0.75rem;
             text-transform: uppercase;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.12); /* Lighter divider line for header */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
         }
 
         .player-stats-table tr:not(:last-child) td {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.12); /* Lighter divider line for rows */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
         }
 
         .player-stats-table th:first-child,
@@ -458,7 +484,8 @@
         <select id="conference-select" class="conference-select" onchange="handleFilterChange()">
             <!-- Populated dynamically -->
         </select>
-        <button id="standings-toggle-btn" class="action-btn" onclick="toggleStandingsView()">View Top 25</button>
+        <button id="standings-toggle-btn" class="action-btn" onclick="toggleStandingsView()">View Standings</button>
+        <button id="secondary-standings-btn" class="secondary-action-btn" onclick="toggleWildCardView()">View Wild Card</button>
     </div>
 
     <div class="container">
@@ -503,6 +530,7 @@
 
         let currentLeagueKey = 'nfl';
         let isShowingStandings = false;
+        let isShowingWildCard = false;
         let currentView = 'hub';
         let cachedEvents = [];
 
@@ -512,7 +540,11 @@
             contentArea.innerHTML = '<div class="loading">Loading...</div>';
 
             if (isShowingStandings) {
-                await fetchStandings();
+                if (isShowingWildCard && currentLeagueKey === 'mlb') {
+                    await fetchMLBWildCardStandings();
+                } else {
+                    await fetchStandings();
+                }
             } else {
                 await fetchScores();
             }
@@ -610,6 +642,80 @@
             contentArea.innerHTML = `<div class="no-data">Standings unavailable for this selection.</div>`;
         }
 
+        async function fetchMLBWildCardStandings() {
+            const contentArea = document.getElementById('content-area');
+            const url = `https://site.api.espn.com/apis/v2/sports/baseball/mlb/standings?type=2&sort=playoffseed`;
+            try {
+                const res = await fetch(url);
+                const data = await res.json();
+                renderMLBWildCard(data);
+            } catch (e) {
+                console.error(e);
+                contentArea.innerHTML = `<div class="error">Unable to load MLB Wild Card standings.</div>`;
+            }
+        }
+
+        function renderMLBWildCard(data) {
+            const contentArea = document.getElementById('content-area');
+            let html = '';
+            let groups = data.children || [];
+
+            if (groups.length === 0 && data.standings) {
+                groups = [data];
+            }
+
+            if (groups.length === 0) {
+                contentArea.innerHTML = `<div class="no-data">No Wild Card standings available.</div>`;
+                return;
+            }
+
+            groups.forEach(group => {
+                const groupName = group.name || 'Wild Card';
+                const entries = group.standings?.entries || group.entries || [];
+
+                if (entries.length === 0) return;
+
+                html += `
+                    <div class="standings-section">
+                        <div class="standings-title">${groupName} Wild Card</div>
+                        <table class="standings-table">
+                           <thead>
+                               <tr>
+                                   <th>Team</th>
+                                   <th>W</th>
+                                   <th>L</th>
+                                   <th>GB</th>
+                               </tr>
+                           </thead>
+                           <tbody>
+                `;
+
+                entries.forEach(entry => {
+                    const team = entry.team;
+                    const stats = entry.stats || [];
+                    const wins = stats.find(s => s.name === 'wins')?.displayValue || '-';
+                    const losses = stats.find(s => s.name === 'losses')?.displayValue || '-';
+                    const gb = stats.find(s => s.name === 'gamesBehind')?.displayValue || '-';
+
+                    html += `
+                        <tr>
+                            <td class="team-cell">
+                                <img class="team-logo" src="${team.logo || ''}" alt="" onerror="this.style.display='none'">
+                                <span>${team.displayName || team.name}</span>
+                            </td>
+                            <td>${wins}</td>
+                            <td>${losses}</td>
+                            <td>${gb}</td>
+                        </tr>
+                    `;
+                });
+
+                html += `</tbody></table></div>`;
+            });
+
+            contentArea.innerHTML = html;
+        }
+
         async function openBoxScore(eventId) {
             currentView = 'boxscore';
             const contentArea = document.getElementById('content-area');
@@ -667,14 +773,12 @@
                 </div>
             `;
 
-            // Render Team Stats side-by-side (Skip if MLB or missing valid stats)
             if (currentLeagueKey !== 'mlb' && data.boxscore && data.boxscore.teams && data.boxscore.teams.length === 2) {
                 const awayStats = data.boxscore.teams.find(t => t.team.id === awayTeam.id)?.statistics || [];
                 const homeStats = data.boxscore.teams.find(t => t.team.id === homeTeam.id)?.statistics || [];
 
                 const hasValidStats = awayStats.length > 0 && awayStats.some(s => s.label && s.displayValue !== undefined);
 
-                // Stats to exclude from the team statistics table
                 const excludedStats = [
                     'comp/att', 
                     'yards per pass', 
@@ -703,14 +807,12 @@
                         const statNameLower = (stat.name || '').toLowerCase();
                         const statLabelLower = (stat.label || '').toLowerCase();
 
-                        // Check if this stat should be filtered out
                         const isExcluded = excludedStats.some(ex => statNameLower.includes(ex) || statLabelLower.includes(ex));
                         if (isExcluded) return;
 
                         const homeStatObj = homeStats.find(s => s.name === stat.name || s.label === stat.label);
                         const homeVal = homeStatObj ? homeStatObj.displayValue : '-';
 
-                        // Change 3rd/4th down efficiency headers
                         let displayLabel = stat.label;
                         if (displayLabel) {
                             const lowerLbl = displayLabel.toLowerCase();
@@ -736,7 +838,6 @@
                 }
             }
 
-            // Render Player Statistics if available
             if (data.boxscore && data.boxscore.players) {
                 html += `<div style="margin-top: 24px;"><h3 style="margin-bottom: 12px; font-size: 1.1rem;">Player Statistics</h3>`;
                 data.boxscore.players.forEach(pTeam => {
@@ -749,7 +850,6 @@
                             const rawCatName = category.text || category.name || category.displayName || '';
                             const formattedCatName = rawCatName ? rawCatName.toLowerCase() : (category.type ? category.type.toLowerCase() : 'statistics');
                             
-                            // Prevent duplicating team name if category already starts with it
                             let categoryTitle = formattedCatName;
                             const lowerTeamName = teamDisplayName.toLowerCase();
                             if (!formattedCatName.startsWith(lowerTeamName)) {
@@ -761,7 +861,6 @@
                             html += `<div style="margin-top: 14px; font-size: 0.9rem; font-weight: 700; color: var(--accent); text-transform: capitalize;">${categoryTitle}</div>`;
                             html += `<div class="table-responsive"><table class="player-stats-table" style="margin-top: 6px;"><thead><tr>`;
                             
-                            // Insert "Player" header column on the far left
                             html += `<th>Player</th>`;
 
                             if (category.labels) {
@@ -800,6 +899,7 @@
 
             currentLeagueKey = leagueKey;
             isShowingStandings = false;
+            isShowingWildCard = false;
 
             const cfg = endpoints[leagueKey];
             const filterContainer = document.getElementById('filter-container');
@@ -826,25 +926,55 @@
 
         function handleFilterChange() {
             isShowingStandings = false;
+            isShowingWildCard = false;
             updateStandingsButtonState();
             loadData();
         }
 
         function toggleStandingsView() {
             isShowingStandings = !isShowingStandings;
+            if (!isShowingStandings) {
+                isShowingWildCard = false;
+            }
+            updateStandingsButtonState();
+            loadData();
+        }
+
+        function toggleWildCardView() {
+            isShowingWildCard = !isShowingWildCard;
             updateStandingsButtonState();
             loadData();
         }
 
         function updateStandingsButtonState() {
             const btn = document.getElementById('standings-toggle-btn');
+            const secondaryBtn = document.getElementById('secondary-standings-btn');
             const cfg = endpoints[currentLeagueKey];
             
             if (isShowingStandings) {
                 btn.textContent = 'View Scores';
                 btn.classList.add('standings-active');
+
+                // Show Wild Card button only for MLB when standings are active
+                if (currentLeagueKey === 'mlb') {
+                    secondaryBtn.classList.add('visible');
+                    if (isShowingWildCard) {
+                        secondaryBtn.textContent = 'View Division';
+                        secondaryBtn.classList.add('active');
+                    } else {
+                        secondaryBtn.textContent = 'View Wild Card';
+                        secondaryBtn.classList.remove('active');
+                    }
+                } else {
+                    secondaryBtn.classList.remove('visible');
+                    secondaryBtn.classList.remove('active');
+                }
             } else {
                 btn.classList.remove('standings-active');
+                secondaryBtn.classList.remove('visible');
+                secondaryBtn.classList.remove('active');
+                isShowingWildCard = false;
+
                 if (cfg.conferences) {
                     const conferenceSelect = document.getElementById('conference-select');
                     const selectedConf = cfg.conferences[conferenceSelect.selectedIndex];

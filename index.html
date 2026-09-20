@@ -539,12 +539,21 @@
         let currentView = 'hub';
         let cachedEvents = [];
 
+        // Sample Test Data JSON
+        const testJsonData = [
+            { "id": 1, "item": "Alpha Model", "category": "Analytics", "value": 98.4, "status": "Active" },
+            { "id": 2, "item": "Beta Feed", "category": "Data Stream", "value": 87.1, "status": "Pending" },
+            { "id": 3, "item": "Gamma Index", "category": "Metrics", "value": 94.6, "status": "Active" },
+            { "id": 4, "item": "Delta Track", "category": "Analytics", "value": 79.3, "status": "Inactive" },
+            { "id": 5, "item": "Epsilon Metric", "category": "Metrics", "value": 91.8, "status": "Active" }
+        ];
+
         async function loadData() {
             currentView = 'hub';
             const contentArea = document.getElementById('content-area');
             
             if (currentLeagueKey === 'test') {
-                contentArea.innerHTML = `<div class="no-data">Test tab is ready for your implementation.</div>`;
+                renderTestTab(testJsonData);
                 return;
             }
 
@@ -559,6 +568,41 @@
             } else {
                 await fetchScores();
             }
+        }
+
+        function renderTestTab(data) {
+            const contentArea = document.getElementById('content-area');
+            let html = `
+                <div class="standings-section">
+                    <div class="standings-title">Test Data View</div>
+                    <div class="table-responsive">
+                        <table class="standings-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Item</th>
+                                    <th>Category</th>
+                                    <th>Value</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+            `;
+
+            data.forEach(row => {
+                html += `
+                    <tr>
+                        <td style="font-weight: 700;">#${row.id}</td>
+                        <td>${row.item}</td>
+                        <td>${row.category}</td>
+                        <td>${row.value}</td>
+                        <td><span style="color: ${row.status === 'Active' ? 'var(--accent)' : 'var(--text-secondary)'}; font-weight: 600;">${row.status}</span></td>
+                    </tr>
+                `;
+            });
+
+            html += `</tbody></table></div></div>`;
+            contentArea.innerHTML = html;
         }
 
         async function fetchScores() {

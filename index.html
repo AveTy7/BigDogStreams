@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Sports Hub</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --card-hover: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --live-color: #ef4444;
+            --final-color: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        p.subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* League Navigation Tabs */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background-color: var(--card-bg);
+            color: var(--text-secondary);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            background-color: var(--card-hover);
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        /* Main Container & Loading States */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .loading, .error, .no-games {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        /* Games Grid / List */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .game-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .status-live {
+            color: var(--live-color);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--live-color);
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 1.5px infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.9; }
+            50% { transform: scale(1.3); opacity: 0.4; }
+            100% { transform: scale(0.95); opacity: 0.9; }
+        }
+
+        .status-scheduled {
+            color: var(--text-secondary);
+        }
+
+        .status-final {
+            color: var(--final-color);
+        }
+
+        /* Team Row styling */
+        .teams-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .team-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .team-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .team-logo {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+
+        .team-name {
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .team-score {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .card-footer {
+            margin-top: 14px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Live Sports Scores Hub</h1>
+        <p class="subtitle">Live updates, upcoming schedules, and recent results via ESPN</p>
+    </header>
+
+    <!-- League Selection Tabs -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchLeague('nfl', this)">NFL</button>
+        <button class="tab-btn" onclick="switchLeague('nba', this)">NBA</button>
+        <button class="tab-btn" onclick="switchLeague('mlb', this)">MLB</button>
+        <button class="tab-btn" onclick="switchLeague('college-football', this, 'cfb')">CFB</button>
+        <button class="tab-btn" onclick="switchLeague('mens-college-basketball', this, 'cbb')">CBB</button>
+    </div>
+
+    <div class="container">
+        <div id="content-area">
+            <div class="loading">Loading games...</div>
+        </div>
+    </div>
+
+    <script>
+        // League endpoint configurations mapping to ESPN public APIs
+        const endpoints = {
+            nfl: { sport: 'football', league: 'nfl' },
+            nba: { sport: 'basketball', league: 'nba' },
+            mlb: { sport: 'baseball', league: 'mlb' },
+            cfb: { sport: 'football', league: 'college-football' },
+            cbb: { sport: 'basketball', league: 'mens-college-basketball' }
+        };
+
+        let currentLeagueKey = 'nfl';
+
+        async function fetchScores(leagueKey) {
+            currentLeagueKey = leagueKey;
+            const contentArea = document.getElementById('content-area');
+            contentArea.innerHTML = '<div class="loading">Loading games...</div>';
+
+            const cfg = endpoints[leagueKey];
+            const url = `https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/scoreboard`;
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Failed to fetch sports data');
+                const data = await response.json();
+                renderGames(data.events);
+            } catch (error) {
+                console.error(error);
+                contentArea.innerHTML = `<div class="error">Unable to load scores right now. Please try again later.</div>`;
+            }
+        }
+
+        function switchLeague(leagueKey, buttonElement) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            buttonElement.classList.add('active');
+            fetchScores(leagueKey);
+        }
+
+        function renderGames(events) {
+            const contentArea = document.getElementById('content-area');
+
+            if (!events || events.length === 0) {
+                contentArea.innerHTML = `<div class="no-games">No games scheduled or available for this league right now.</div>`;
+                return;
+            }
+
+            let gridHTML = '<div class="games-grid">';
+
+            events.forEach(event => {
+                const competition = event.competitions[0];
+                const statusType = competition.status.type.state; // 'pre', 'in', 'post'
+                const statusDetail = competition.status.type.detail; // e.g., "Halftime", "Final", "Thu, 8:15 PM"
+                
+                const homeTeam = competition.competitors.find(t => t.homeAway === 'home');
+                const awayTeam = competition.competitors.find(t => t.homeAway === 'away');
+
+                let statusBadge = '';
+                if (statusType === 'in') {
+                    statusBadge = `<div class="status-live"><span class="pulse-dot"></span> LIVE • ${statusDetail}</div>`;
+                } else if (statusType === 'post') {
+                    statusBadge = `<div class="status-final">Final</div>`;
+                } else {
+                    statusBadge = `<div class="status-scheduled">${statusDetail}</div>`;
+                }
+
+                gridHTML += `
+                    <div class="game-card">
+                        <div>
+                            <div class="game-status-bar">
+                                ${statusBadge}
+                                <span>${event.season?.year || ''}</span>
+                            </div>
+                            <div class="teams-container">
+                                <div class="team-row">
+                                    <div class="team-info">
+                                        <img class="team-logo" src="${awayTeam.team.logo || ''}" alt="" onerror="this.style.display='none'">
+                                        <span class="team-name">${awayTeam.team.shortDisplayName || awayTeam.team.name}</span>
+                                    </div>
+                                    <span class="team-score">${statusType === 'pre' ? '-' : (awayTeam.score || '0')}</span>
+                                </div>
+                                <div class="team-row">
+                                    <div class="team-info">
+                                        <img class="team-logo" src="${homeTeam.team.logo || ''}" alt="" onerror="this.style.display='none'">
+                                        <span class="team-name">${homeTeam.team.shortDisplayName || homeTeam.team.name}</span>
+                                    </div>
+                                    <span class="team-score">${statusType === 'pre' ? '-' : (homeTeam.score || '0')}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            ${event.name}
+                        </div>
+                    </div>
+                `;
+            });
+
+            gridHTML += '</div>';
+            contentArea.innerHTML = gridHTML;
+        }
+
+        // Load default tab on start
+        fetchScores('nfl');
+
+        // Optional: Auto-refresh scores every 30 seconds
+        setInterval(() => {
+            if (currentLeagueKey) {
+                // Background update without showing loading indicator
+                const cfg = endpoints[currentLeagueKey];
+                fetch(`https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/scoreboard`)
+                    .then(res => res.json())
+                    .then(data => renderGames(data.events))
+                    .catch(err => console.log('Auto-refresh error:', err));
+            }
+        }, 30000);
+    </script>
+</body>
+</html>

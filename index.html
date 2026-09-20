@@ -76,167 +76,54 @@
             margin-bottom: 12px;
             color: var(--text-main);
         }
-
-        .test-controls {
-            margin-bottom: 12px;
-        }
-
-        .test-btn {
-            background-color: var(--accent);
-            color: var(--bg-color);
-            border: none;
-            padding: 8px 14px;
-            font-weight: 600;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        .table-responsive {
-            width: 100%;
-            overflow-x: auto;
-        }
-
-        .standings-table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 0.85rem;
-        }
-
-        .standings-table th, .standings-table td {
-            padding: 10px 12px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .standings-table th {
-            color: var(--text-muted);
-            font-weight: 600;
-            background-color: rgba(255, 255, 255, 0.02);
-        }
-
-        .loading, .no-data {
-            color: var(--text-muted);
-            font-style: italic;
-            padding: 20px 0;
-            text-align: center;
-        }
     </style>
 </head>
 <body>
 
     <header>
         <h1>Sports Dashboard</h1>
-        <!-- Tabs Navigation matching your sports league style with Test tab -->
+        <!-- Tabs Navigation -->
         <div class="tabs">
-            <button class="tab-btn" onclick="switchTab('nfl')">NFL</button>
-            <button class="tab-btn" onclick="switchTab('nba')">NBA</button>
-            <button class="tab-btn" onclick="switchTab('mlb')">MLB</button>
-            <button class="tab-btn active" id="default-tab" onclick="switchTab('test')">Test</button>
+            <button class="tab-btn active" onclick="switchTab('nfl', event)">NFL</button>
+            <button class="tab-btn" onclick="switchTab('nba', event)">NBA</button>
+            <button class="tab-btn" onclick="switchTab('mlb', event)">MLB</button>
+            <button class="tab-btn" onclick="switchTab('test', event)">Test</button>
         </div>
     </header>
 
     <main id="content-area" class="content-container">
-        <!-- Dynamic Content Renders Here -->
+        <!-- Default initial view -->
+        <div class="standings-section">
+            <div class="standings-title">NFL Dashboard</div>
+            <div style="color: var(--text-muted);">Select a tab above to view content.</div>
+        </div>
     </main>
 
     <script>
-        // Tab switching coordinator
-        function switchTab(tabName) {
+        function switchTab(tabName, event) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            
-            if (tabName === 'test') {
-                // Assuming Test is the 4th tab (or adjust query selector as needed)
-                document.querySelector('.tabs button:nth-child(4)').classList.add('active');
-                renderTestTabInterface();
-            } else {
-                // Highlight corresponding league tab
+            if (event && event.target) {
                 event.target.classList.add('active');
-                document.getElementById('content-area').innerHTML = `
-                    <div class="standings-section">
-                        <div class="standings-title">${tabName.toUpperCase()} Dashboard</div>
-                        <div style="color: var(--text-muted);">Select the Test tab to view scraped live stream links.</div>
-                    </div>
-                `;
             }
-        }
-
-        async function renderTestTabInterface() {
+            
             const contentArea = document.getElementById('content-area');
             
-            contentArea.innerHTML = `
-                <div class="standings-section">
-                    <div class="standings-title">Scraped Competition Links</div>
-                    <div class="test-controls">
-                        <button class="test-btn" onclick="loadScrapedLinksJson()">Reload links.json</button>
+            if (tabName === 'test') {
+                contentArea.innerHTML = `
+                    <div class="standings-section">
+                        <div class="standings-title">Test Tab</div>
+                        <div style="color: var(--text-muted);">This tab is currently empty.</div>
                     </div>
-                    <div id="parser-results-container">
-                        <div class="loading">Loading links.json...</div>
-                    </div>
-                </div>
-            `;
-            await loadScrapedLinksJson();
-        }
-
-        async function loadScrapedLinksJson() {
-            const container = document.getElementById('parser-results-container');
-            if (!container) return;
-            
-            container.innerHTML = '<div class="loading">Fetching latest links...</div>';
-            
-            try {
-                // Fetch the json file generated by your GitHub Action (with cache-busting)
-                const response = await fetch('./links.json?t=' + new Date().getTime());
-                if (!response.ok) throw new Error('links.json not found yet. Run the GitHub Action first!');
-                const data = await response.json();
-                
-                renderLinksTable(data.links);
-            } catch (err) {
-                container.innerHTML = `<div class="no-data">Could not load links.json: ${err.message}<br><small>Make sure your GitHub Action has run and committed links.json.</small></div>`;
-            }
-        }
-
-        function renderLinksTable(links) {
-            const resultsContainer = document.getElementById('parser-results-container');
-            if (!resultsContainer) return;
-
-            if (!links || links.length === 0) {
-                resultsContainer.innerHTML = '<div class="no-data">No links found in links.json.</div>';
-                return;
-            }
-
-            let html = `
-                <div style="font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--accent);">Loaded ${links.length} HREFs across sources:</div>
-                <div class="table-responsive">
-                    <table class="standings-table">
-                        <thead>
-                            <tr>
-                                <th style="width: 25%;">Source Website</th>
-                                <th style="width: 35%;">Link Text</th>
-                                <th style="width: 40%;">Href Target</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-            `;
-
-            links.forEach(item => {
-                let shortSource = item.source_site ? item.source_site.split('/').pop() : 'Unknown';
-                html += `
-                    <tr>
-                        <td style="font-size: 0.8rem; color: var(--text-muted); font-weight: 500;">${shortSource}</td>
-                        <td style="font-weight: 500;">${item.text || '(No text)'}</td>
-                        <td><a href="${item.href}" target="_blank" style="color: var(--accent); text-decoration: none; word-break: break-all;">${item.href}</a></td>
-                    </tr>
                 `;
-            });
-
-            html += `</tbody></table></div>`;
-            resultsContainer.innerHTML = html;
+            } else {
+                contentArea.innerHTML = `
+                    <div class="standings-section">
+                        <div class="standings-title">${tabName.toUpperCase()} Dashboard</div>
+                        <div style="color: var(--text-muted);">Content for ${tabName.toUpperCase()} goes here.</div>
+                    </div>
+                `;
+            }
         }
-
-        // Initialize on load to default to Test tab view
-        window.onload = () => {
-            renderTestTabInterface();
-        };
     </script>
 </body>
 </html>

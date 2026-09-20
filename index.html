@@ -671,9 +671,35 @@
 
             groups.forEach(group => {
                 const groupName = group.name || 'Wild Card';
-                const entries = group.standings?.entries || group.entries || [];
+                const rawEntries = group.standings?.entries || group.entries || [];
 
-                if (entries.length === 0) return;
+                // Filter out division leaders (position_in_division === 1)
+                const wildcardEntries = rawEntries.filter(entry => {
+                    const pos = entry.stats?.find(s => s.name === 'positionInDivision')?.value || entry.positionInDivision;
+                    return pos !== 1;
+                });
+
+                if (wildcardEntries.length === 0) return;
+
+                // Sort wild card teams by wins descending, then losses ascending
+                wildcardEntries.sort((a, b) => {
+                    const aWins = parseInt(a.stats?.find(s => s.name === 'wins')?.value ?? a.stats?.find(s => s.name === 'wins')?.displayValue ?? 0);
+                    const bWins = parseInt(b.stats?.find(s => s.name === 'wins')?.value ?? b.stats?.find(s => s.name === 'wins')?.displayValue ?? 0);
+                    const aLosses = parseInt(a.stats?.find(s => s.name === 'losses')?.value ?? a.stats?.find(s => s.name === 'losses')?.displayValue ?? 0);
+                    const bLosses = parseInt(b.stats?.find(s => s.name === 'losses')?.value ?? b.stats?.find(s => s.name === 'losses')?.displayValue ?? 0);
+                    if (bWins !== aWins) return bWins - aWins;
+                    return aLosses - bLosses;
+                });
+
+                // Establish the baseline 3rd Wild Card team (index 2, i.e., 3rd from the top)
+                const baselineTeam = wildcardEntries[2] || wildcardEntries[wildcardEntries.length - 1];
+                let baseWins = 0;
+                let baseLosses = 0;
+
+                if (baselineTeam) {
+                    baseWins = parseInt(baselineTeam.stats?.find(s => s.name === 'wins')?.value ?? baselineTeam.stats?.find(s => s.name === 'wins')?.displayValue ?? 0);
+                    baseLosses = parseInt(baselineTeam.stats?.find(s => s.name === 'losses')?.value ?? baselineTeam.stats?.find(s => s.name === 'losses')?.displayValue ?? 0);
+                }
 
                 html += `
                     <div class="standings-section">
@@ -690,12 +716,25 @@
                            <tbody>
                 `;
 
-                entries.forEach(entry => {
+                wildcardEntries.forEach((entry, idx) => {
                     const team = entry.team;
                     const stats = entry.stats || [];
-                    const wins = stats.find(s => s.name === 'wins')?.displayValue || '-';
-                    const losses = stats.find(s => s.name === 'losses')?.displayValue || '-';
-                    const gb = stats.find(s => s.name === 'gamesBehind')?.displayValue || '-';
+                    const wins = parseInt(stats.find(s => s.name === 'wins')?.value ?? stats.find(s => s.name === 'wins')?.displayValue ?? 0);
+                    const losses = parseInt(stats.find(s => s.name === 'losses')?.value ?? stats.find(s => s.name === 'losses')?.displayValue ?? 0);
+
+                    let gbDisplay = '-';
+                    if (baselineTeam) {
+                        const gbVal = ((baseWins - wins) + (losses - baseLosses)) / 2;
+                        if (idx === 2) {
+                            gbDisplay = '-';
+                        } else if (gbVal === 0) {
+                            gbDisplay = '-';
+                        } else if (gbVal > 0) {
+                            gbDisplay = gbVal % 1 === 0 ? gbVal.toString() : gbVal.toFixed(1);
+                        } else {
+                            gbDisplay = '+' + (gbVal % 1 === 0 ? Math.abs(gbVal).toString() : Math.abs(gbVal).toFixed(1));
+                        }
+                    }
 
                     html += `
                         <tr>
@@ -705,7 +744,7 @@
                             </td>
                             <td>${wins}</td>
                             <td>${losses}</td>
-                            <td>${gb}</td>
+                            <td>${gbDisplay}</td>
                         </tr>
                     `;
                 });
@@ -955,7 +994,6 @@
                 btn.textContent = 'View Scores';
                 btn.classList.add('standings-active');
 
-                // Show Wild Card button only for MLB when standings are active
                 if (currentLeagueKey === 'mlb') {
                     secondaryBtn.classList.add('visible');
                     if (isShowingWildCard) {

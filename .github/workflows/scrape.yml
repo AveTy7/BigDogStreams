@@ -1,4 +1,4 @@
-name: Dodgers Game Scraper
+name: Link Scraper
 
 on:
   schedule:

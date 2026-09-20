@@ -247,7 +247,7 @@
     </div>
 
     <script>
-        // League configurations with group IDs for conferences
+        // League configurations with group IDs including FCS for college football
         const endpoints = {
             nfl: { 
                 sport: 'football', 
@@ -273,6 +273,7 @@
                 baseParams: '',
                 conferences: [
                     { name: 'All FBS', param: '?groups=80' },
+                    { name: 'FCS', param: '?groups=81' },
                     { name: 'SEC', param: '?groups=8' },
                     { name: 'Big Ten', param: '?groups=5' },
                     { name: 'Big 12', param: '?groups=1' },
@@ -304,7 +305,6 @@
 
             const cfg = endpoints[leagueKey];
             
-            // Determine active parameter (either conference specific or league default)
             let queryParam = customParam;
             if (!queryParam && cfg.conferences && cfg.conferences.length > 0) {
                 queryParam = cfg.conferences[0].param;
@@ -331,7 +331,6 @@
             const filterContainer = document.getElementById('filter-container');
             const conferenceSelect = document.getElementById('conference-select');
 
-            // Handle conference dropdown visibility & options
             if (cfg.conferences) {
                 conferenceSelect.innerHTML = '';
                 cfg.conferences.forEach(conf => {

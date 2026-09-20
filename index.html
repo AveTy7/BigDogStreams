@@ -477,6 +477,7 @@
         <button class="tab-btn" onclick="switchLeague('mlb', this)">MLB</button>
         <button class="tab-btn" onclick="switchLeague('cfb', this)">CFB</button>
         <button class="tab-btn" onclick="switchLeague('cbb', this)">CBB</button>
+        <button class="tab-btn" onclick="switchLeague('test', this)">Test</button>
     </div>
 
     <!-- Filter & Standings Toggle Bar -->
@@ -525,6 +526,10 @@
                     { name: 'ACC', param: '?groups=2', type: 'standings' },
                     { name: 'Big East', param: '?groups=4', type: 'standings' }
                 ]
+            },
+            test: {
+                type: 'test',
+                conferences: null
             }
         };
 
@@ -537,6 +542,12 @@
         async function loadData() {
             currentView = 'hub';
             const contentArea = document.getElementById('content-area');
+            
+            if (currentLeagueKey === 'test') {
+                contentArea.innerHTML = `<div class="no-data">Test tab is ready for your implementation.</div>`;
+                return;
+            }
+
             contentArea.innerHTML = '<div class="loading">Loading...</div>';
 
             if (isShowingStandings) {
@@ -660,7 +671,6 @@
             let html = '';
             let leagues = [];
 
-            // Group by top-level leagues (AL and NL)
             function extractLeagues(node) {
                 if (!node) return;
                 if (node.children) {
@@ -688,7 +698,6 @@
                 const leagueName = league.name || 'Wild Card';
                 let wildcardEntries = [];
 
-                // Find all divisions under this league
                 let divisions = [];
                 function findDivisions(node) {
                     if (!node) return;
@@ -701,7 +710,6 @@
                 }
                 findDivisions(league);
 
-                // For each division, sort by record and remove the division leader (index 0)
                 divisions.forEach(divEntries => {
                     let sortedDiv = [...divEntries].sort((a, b) => {
                         const aStats = a.stats || [];
@@ -715,7 +723,6 @@
                         return aLosses - bLosses;
                     });
 
-                    // Remove the division leader (index 0)
                     if (sortedDiv.length > 0) {
                         sortedDiv.shift();
                     }
@@ -724,7 +731,6 @@
 
                 if (wildcardEntries.length === 0) return;
 
-                // Sort remaining wildcard teams across the league
                 wildcardEntries.sort((a, b) => {
                     const aStats = a.stats || [];
                     const bStats = b.stats || [];
@@ -737,7 +743,6 @@
                     return aLosses - bLosses;
                 });
 
-                // Establish baseline 3rd Wild Card team (index 2)
                 const baselineTeam = wildcardEntries[2] || wildcardEntries[wildcardEntries.length - 1];
                 let baseWins = 0;
                 let baseLosses = 0;
@@ -994,6 +999,12 @@
             const filterContainer = document.getElementById('filter-container');
             const conferenceSelect = document.getElementById('conference-select');
 
+            if (leagueKey === 'test') {
+                filterContainer.classList.remove('visible');
+                loadData();
+                return;
+            }
+
             filterContainer.classList.add('visible');
 
             if (cfg.conferences) {
@@ -1063,7 +1074,7 @@
                 secondaryBtn.classList.remove('active');
                 isShowingWildCard = false;
 
-                if (cfg.conferences) {
+                if (cfg && cfg.conferences) {
                     const conferenceSelect = document.getElementById('conference-select');
                     const selectedConf = cfg.conferences[conferenceSelect.selectedIndex];
                     if (selectedConf && (selectedConf.type === 'rankings-fbs' || selectedConf.type === 'rankings-fcs')) {
@@ -1344,7 +1355,7 @@
 
         // Auto-refresh scores every 30 seconds if viewing scores and on hub
         setInterval(() => {
-            if (!isShowingStandings && currentLeagueKey && currentView === 'hub') {
+            if (!isShowingStandings && currentLeagueKey && currentLeagueKey !== 'test' && currentView === 'hub') {
                 fetchScores();
             }
         }, 30000);

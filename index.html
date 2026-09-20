@@ -497,7 +497,7 @@
                     { name: 'Big Ten', param: '?groups=5', type: 'standings' },
                     { name: 'Big 12', param: '?groups=1', type: 'standings' },
                     { name: 'ACC', param: '?groups=151', type: 'standings' },
-                    { name: 'American Athletic', param: '?groups=151', type: 'standings' }, // Group mappings adjusted per ESPN IDs
+                    { name: 'American Athletic', param: '?groups=151', type: 'standings' },
                     { name: 'Mountain West', param: '?groups=17', type: 'standings' },
                     { name: 'PAC-12', param: '?groups=9', type: 'standings' },
                     { name: 'MAC', param: '?groups=15', type: 'standings' },
@@ -532,7 +532,6 @@
         let cachedEvents = [];
         let allFetchedGames = {}; // Cache games across leagues for matching
 
-        // Corrected JSON Data parsing
         const testJsonData = {
             "links": [
                 {
@@ -678,9 +677,9 @@
             ]
         };
 
-        // Pre-fetch scores for major leagues in background so matching has data ready
+        // Pre-fetch scores for major leagues and both FBS and FCS for CFB in background
         async function backgroundPrefetch() {
-            const leagueKeys = ['nfl', 'nba', 'mlb', 'cfb', 'cbb'];
+            const leagueKeys = ['nfl', 'nba', 'mlb', 'cbb'];
             for (let lKey of leagueKeys) {
                 const cfg = endpoints[lKey];
                 let queryParam = cfg.conferences ? cfg.conferences[0].param : '';
@@ -691,10 +690,29 @@
                     if (data.events) {
                         allFetchedGames[lKey] = data.events;
                     }
-                } catch (e) {
-                    // ignore prefetch errors
-                }
+                } catch (e) {}
             }
+
+            // Special handling for CFB: fetch BOTH All FBS (?groups=80) and FCS (?groups=81) and merge them
+            const cfbCfg = endpoints['cfb'];
+            let combinedCfbEvents = [];
+            const cfbGroups = ['?groups=80', '?groups=81'];
+            
+            for (let param of cfbGroups) {
+                const url = `https://site.api.espn.com/apis/site/v2/sports/${cfbCfg.sport}/${cfbCfg.league}/scoreboard${param}`;
+                try {
+                    const res = await fetch(url);
+                    const data = await res.json();
+                    if (data.events) {
+                        combinedCfbEvents = combinedCfbEvents.concat(data.events);
+                    }
+                } catch (e) {}
+            }
+
+            // Deduplicate CFB events by event ID
+            const uniqueMap = new Map();
+            combinedCfbEvents.forEach(ev => uniqueMap.set(ev.id, ev));
+            allFetchedGames['cfb'] = Array.from(uniqueMap.values());
         }
 
         async function loadData() {
@@ -719,7 +737,6 @@
             }
         }
 
-        // Dedicated helper function for cleaning match text
         function cleanMatchupText(text) {
             return text
                 .replace(/live\s*streams/gi, '')
@@ -738,6 +755,7 @@
             if (sourceSite.includes('mlb')) {
                 targetLeagues = ['mlb'];
             } else if (sourceSite.includes('nflstreams')) {
+                // Ensure cfb uses the comprehensive combined pool containing both FBS and FCS games
                 targetLeagues = ['cfb', 'nfl'];
             } else {
                 targetLeagues = Object.keys(allFetchedGames);
@@ -850,7 +868,17 @@
                 if (!response.ok) throw new Error('Failed to fetch sports data');
                 const data = await response.json();
                 cachedEvents = data.events || [];
-                allFetchedGames[currentLeagueKey] = cachedEvents;
+                
+                // Keep local cache updated, preserving combined CFB events if on CFB tab
+                if (currentLeagueKey === 'cfb') {
+                    const existingCfb = allFetchedGames['cfb'] || [];
+                    const fetchedMap = new Map(existingCfb.map(ev => [ev.id, ev]));
+                    cachedEvents.forEach(ev => fetchedMap.set(ev.id, ev));
+                    allFetchedGames['cfb'] = Array.from(fetchedMap.values());
+                } else {
+                    allFetchedGames[currentLeagueKey] = cachedEvents;
+                }
+
                 renderGames(cachedEvents);
             } catch (error) {
                 console.error(error);
@@ -870,7 +898,6 @@
                     renderProStandings(data);
                     return;
                 } catch (e) {
-                    console.error(e);
                     contentArea.innerHTML = `<div class="error">Unable to load pro standings.</div>`;
                     return;
                 }
@@ -887,7 +914,7 @@
                         const data = await res.json();
                         renderCollegeRankings(data, 'FBS');
                         return;
-                    } catch (e) { console.error(e); }
+                    } catch (e) {}
                 } else if (selectedConf && selectedConf.type === 'rankings-fcs') {
                     try {
                         const url = `https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/rankings`;
@@ -903,7 +930,7 @@
                             renderSpecificPoll(fcsPoll, 'FCS Top 25 Rankings');
                             return;
                         }
-                    } catch (e) { console.error(e); }
+                    } catch (e) {}
 
                     try {
                         const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings?groups=81`;
@@ -911,7 +938,7 @@
                         const data = await res.json();
                         renderCollegeConferenceStandings(data, 'FCS Top Teams');
                         return;
-                    } catch (e) { console.error(e); }
+                    } catch (e) {}
                 } else if (selectedConf && selectedConf.type === 'standings') {
                     const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings${selectedConf.param}`;
                     try {
@@ -919,7 +946,7 @@
                         const data = await res.json();
                         renderCollegeConferenceStandings(data, selectedConf.name);
                         return;
-                    } catch (e) { console.error(e); }
+                    } catch (e) {}
                 }
             }
 
@@ -934,7 +961,6 @@
                 const data = await res.json();
                 renderMLBWildCard(data);
             } catch (e) {
-                console.error(e);
                 contentArea.innerHTML = `<div class="error">Unable to load MLB Wild Card standings.</div>`;
             }
         }
@@ -1097,7 +1123,6 @@
                 const data = await res.json();
                 renderBoxScore(data);
             } catch (err) {
-                console.error(err);
                 contentArea.innerHTML = `
                     <div class="boxscore-header">
                         <button class="back-btn" onclick="loadData()">← Back to Scores</button>
@@ -1623,12 +1648,10 @@
             contentArea.innerHTML = html;
         }
 
-        // Trigger background prefetch for team matching and initial load
         backgroundPrefetch().then(() => {
             switchLeague('nfl', document.querySelector('.tab-btn'));
         });
 
-        // Auto-refresh scores every 30 seconds if viewing scores and on hub
         setInterval(() => {
             if (!isShowingStandings && currentLeagueKey && currentLeagueKey !== 'test' && currentView === 'hub') {
                 fetchScores();

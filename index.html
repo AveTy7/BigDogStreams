@@ -422,6 +422,7 @@
                         }
                     } catch (e) { console.error(e); }
 
+                    // Robust fallback for FCS rankings using group standings
                     try {
                         const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings?groups=81`;
                         const res = await fetch(url);
@@ -455,7 +456,6 @@
             const filterContainer = document.getElementById('filter-container');
             const conferenceSelect = document.getElementById('conference-select');
 
-            // Show filter container for both college leagues and pro leagues
             filterContainer.classList.add('visible');
 
             if (cfg.conferences) {
@@ -468,7 +468,6 @@
                     conferenceSelect.appendChild(option);
                 });
             } else {
-                // Hide dropdown for pro leagues since they show divisions natively in one endpoint view
                 conferenceSelect.classList.add('hidden');
             }
 
@@ -585,58 +584,75 @@
         function renderProStandings(data) {
             const contentArea = document.getElementById('content-area');
             let html = '';
-            const groups = data.children || data.standings || [];
+            
+            // Recursively flatten or dig through conference children to extract individual divisions
+            let divisions = [];
+            
+            function extractDivisions(node) {
+                if (!node) return;
+                // If this node represents a division level containing team entries
+                if (node.standings && node.standings.entries) {
+                    divisions.push({ name: node.name || 'Division', entries: node.standings.entries });
+                }
+                if (node.entries) {
+                    divisions.push({ name: node.name || 'Division', entries: node.entries });
+                }
+                if (node.children) {
+                    node.children.forEach(child => extractDivisions(child));
+                }
+            }
 
-            if (groups.length === 0) {
+            if (data.children) {
+                data.children.forEach(child => extractDivisions(child));
+            } else if (data.standings) {
+                extractDivisions(data);
+            }
+
+            if (divisions.length === 0) {
                 contentArea.innerHTML = `<div class="no-data">No pro standings available.</div>`;
                 return;
             }
 
-            groups.forEach(group => {
-                const divisionName = group.name || 'Division';
-                const entries = group.standings?.entries || group.entries || [];
+            divisions.forEach(div => {
+                html += `
+                    <div class="standings-section">
+                        <div class="standings-title">${div.name}</div>
+                        <table class="standings-table">
+                           <thead>
+                               <tr>
+                                   <th>Team</th>
+                                   <th>W</th>
+                                   <th>L</th>
+                                   <th>GB</th>
+                               </tr>
+                           </thead>
+                           <tbody>
+                `;
 
-                if (entries.length > 0) {
+                div.entries.forEach(entry => {
+                    const team = entry.team;
+                    const stats = entry.stats || [];
+                    const wins = stats.find(s => s.name === 'wins')?.displayValue || '-';
+                    const losses = stats.find(s => s.name === 'losses')?.displayValue || '-';
+                    const gb = stats.find(s => s.name === 'gamesBehind')?.displayValue || '-';
+
                     html += `
-                        <div class="standings-section">
-                            <div class="standings-title">${divisionName}</div>
-                            <table class="standings-table">
-                               <thead>
-                                   <tr>
-                                       <th>Team</th>
-                                       <th>W</th>
-                                       <th>L</th>
-                                       <th>GB</th>
-                                   </tr>
-                               </thead>
-                               <tbody>
+                        <tr>
+                            <td class="team-cell">
+                                <img class="team-logo" src="${team.logo || ''}" alt="" onerror="this.style.display='none'">
+                                <span>${team.displayName || team.name}</span>
+                            </td>
+                            <td>${wins}</td>
+                            <td>${losses}</td>
+                            <td>${gb}</td>
+                        </tr>
                     `;
+                });
 
-                    entries.forEach(entry => {
-                        const team = entry.team;
-                        const stats = entry.stats || [];
-                        const wins = stats.find(s => s.name === 'wins')?.displayValue || '-';
-                        const losses = stats.find(s => s.name === 'losses')?.displayValue || '-';
-                        const gb = stats.find(s => s.name === 'gamesBehind')?.displayValue || '-';
-
-                        html += `
-                            <tr>
-                                <td class="team-cell">
-                                    <img class="team-logo" src="${team.logo || ''}" alt="" onerror="this.style.display='none'">
-                                    <span>${team.displayName || team.name}</span>
-                                </td>
-                                <td>${wins}</td>
-                                <td>${losses}</td>
-                                <td>${gb}</td>
-                            </tr>
-                        `;
-                    });
-
-                    html += `</tbody></table></div>`;
-                }
+                html += `</tbody></table></div>`;
             });
 
-            contentArea.innerHTML = html || `<div class="no-data">Standings data structure unsupported.</div>`;
+            contentArea.innerHTML = html;
         }
 
         function renderCollegeConferenceStandings(data, confName) {

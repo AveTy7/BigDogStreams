@@ -881,8 +881,8 @@
             contentArea.innerHTML = '<div class="loading">Loading current JSON data...</div>';
 
             try {
-                // Automatically fetch current JSON data with cache-busting timestamp
-                const response = await fetch('data.json?t=' + Date.now());
+                // Automatically fetch current links.json data with cache-busting timestamp
+                const response = await fetch('links.json?t=' + Date.now());
                 if (response.ok) {
                     const fetchedJson = await response.json();
                     if (fetchedJson && fetchedJson.links) {
@@ -890,7 +890,7 @@
                     }
                 }
             } catch (err) {
-                console.warn('Could to load external JSON, falling back to embedded state:', err);
+                console.warn('Could not load external JSON, falling back to embedded state:', err);
             }
 
             const links = testJsonData.links || [];

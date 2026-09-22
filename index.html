@@ -331,7 +331,6 @@
             overflow-x: auto;
         }
 
-        /* Reduced padding for tighter row spacing */
         .standings-table {
             width: 100%;
             border-collapse: collapse;
@@ -437,7 +436,6 @@
             padding: 0 12px;
         }
 
-        /* Reduced padding for tighter comparison table row spacing */
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
@@ -460,7 +458,6 @@
             border-bottom: none;
         }
 
-        /* Reduced padding for tighter player stats row spacing */
         .player-stats-table {
             width: 100%;
             border-collapse: collapse;
@@ -1391,15 +1388,9 @@
                     const rawCatName = category.text || category.name || category.displayName || '';
                     const formattedCatName = rawCatName ? rawCatName.toLowerCase() : (category.type ? category.type.toLowerCase() : 'statistics');
                     
-                    // Correctly formatted as "Team Name Stat" (e.g., "New York Giants Passing")
+                    // Fixed order: Team Name comes first followed by the statistic name
                     let capitalizedCat = formattedCatName.charAt(0).toUpperCase() + formattedCatName.slice(1);
-                    let categoryTitle = capitalizedCat;
-                    const lowerTeamName = teamDisplayName.toLowerCase();
-                    const lowerCat = capitalizedCat.toLowerCase();
-                    
-                    if (!lowerCat.startsWith(lowerTeamName)) {
-                        categoryTitle = `${teamDisplayName} ${capitalizedCat}`;
-                    }
+                    let categoryTitle = `${teamDisplayName} ${capitalizedCat}`;
 
                     html += `<div style="margin-top: 14px; margin-left: 12px; font-size: 0.9rem; font-weight: 700; color: var(--accent);">${categoryTitle}</div>`;
                     html += `<div class="table-responsive"><table class="player-stats-table" style="margin-top: 6px;"><thead><tr>`;

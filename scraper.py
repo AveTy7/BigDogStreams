@@ -65,13 +65,13 @@ if __name__ == "__main__":
     links = scrape_site(url)
     all_links.extend(links)
 
-  # Package and save all links into data.json to sync with the frontend UI
+  # Package and save all links into links.json
   output_data = {"links": all_links}
 
-  with open("data.json", "w") as f:
+  with open("links.json", "w") as f:
     json.dump(output_data, f, indent=4)
 
   print(
       f"\nSuccessfully extracted and saved a total of {len(all_links)} links"
-      " to data.json"
+      " to links.json"
   )

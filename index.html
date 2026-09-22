@@ -458,7 +458,6 @@
             border-bottom: none;
         }
 
-        /* Tightened spacing for player stats rows */
         .player-stats-table {
             width: 100%;
             border-collapse: collapse;
@@ -1063,8 +1062,8 @@
                 let teamOptionsHtml = '';
                 data.boxscore.players.forEach((pTeam) => {
                     const tObj = pTeam.team || {};
-                    // Correctly format team name order to "City Team Name" (e.g. New York Giants)
-                    const teamName = tObj.displayName || (tObj.location && tObj.name ? `${tObj.location} ${tObj.name}` : (tObj.name || 'Team'));
+                    // Use displayName directly or fallback safely without duplicating location
+                    const teamName = tObj.displayName || tObj.name || 'Team';
                     teamOptionsHtml += `<option value="${tObj.id}">${teamName}</option>`;
                 });
 
@@ -1105,7 +1104,8 @@
             }
 
             const tObj = pTeam.team || {};
-            const teamFullName = tObj.displayName || (tObj.location && tObj.name ? `${tObj.location} ${tObj.name}` : (tObj.name || 'Team'));
+            // Pull clean displayName directly to avoid duplication issues
+            const teamFullName = tObj.displayName || tObj.name || 'Team';
             let html = `<div class="standings-section" style="margin-bottom: 16px;">`;
 
             if (pTeam.statistics) {
@@ -1113,7 +1113,6 @@
                     const rawCatName = category.text || category.name || category.displayName || '';
                     const formattedCatName = rawCatName ? rawCatName.toLowerCase() : (category.type ? category.type.toLowerCase() : 'statistics');
                     
-                    // Fixed order: "New York Giants Passing" instead of "Giants New York Passing"
                     let categoryTitle = `${teamFullName} ${formattedCatName.charAt(0).toUpperCase() + formattedCatName.slice(1)}`;
 
                     html += `<div style="margin-top: 14px; margin-left: 12px; font-size: 0.9rem; font-weight: 700; color: var(--accent); text-transform: capitalize;">${categoryTitle}</div>`;

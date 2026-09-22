@@ -1220,28 +1220,65 @@
 
                 const hasValidStats = awayStats.length > 0 && awayStats.some(s => s.label && s.displayValue !== undefined);
 
-                // Comprehensive exclusions matching API name/label strings for the 6 requested items
-                const excludedStats = [
-                    'passingfirstdowns', 'rushingfirstdowns', 'firstdownsfrompenalties',
-                    'totalplays', 'totaldrives', 'defensivespecialteamstouchdowns',
-                    'defensivetouchdowns', 'specialteamstouchdowns',
-                    'passing 1st downs', 'rushing 1st downs', '1st downs from penalties',
-                    'total plays', 'total drives', 'defensive / special teams touchdowns',
-                    'defensive touchdowns', 'special teams touchdowns'
-                ];
-
                 if (hasValidStats) {
-                    const sackStatName = 'sacks-yards lost';
-                    const awaySackObj = awayStats.find(s => {
-                        const n = (s.name || '').toLowerCase();
-                        const l = (s.label || '').toLowerCase();
-                        return n === sackStatName || l === sackStatName || l.includes('sacks-yards');
+                    // Define helper maps/lookups for the requested sequence and custom names
+                    const statMap = new Map();
+                    
+                    // First populate all available stats from away/home arrays
+                    awayStats.forEach(s => {
+                        const key = (s.name || s.label || '').toLowerCase().trim();
+                        statMap.set(key, { away: s.displayValue, label: s.label, name: s.name });
                     });
-                    const homeSackObj = homeStats.find(s => {
-                        const n = (s.name || '').toLowerCase();
-                        const l = (s.label || '').toLowerCase();
-                        return n === sackStatName || l === sackStatName || l.includes('sacks-yards');
+                    
+                    homeStats.forEach(s => {
+                        const key = (s.name || s.label || '').toLowerCase().trim();
+                        if (statMap.has(key)) {
+                            statMap.get(key).home = s.displayValue;
+                        } else {
+                            statMap.set(key, { home: s.displayValue, label: s.label, name: s.name });
+                        }
                     });
+
+                    // Helper to search and extract/remove matching stat values
+                    const extractStat = (identifiers) => {
+                        for (let [k, val] of statMap.entries()) {
+                            for (let id of identifiers) {
+                                if (k.includes(id)) {
+                                    statMap.delete(k);
+                                    return val;
+                                }
+                            }
+                        }
+                        return null;
+                    };
+
+                    // Extract specific elements requested
+                    const totalYardsObj = extractStat(['total yards', 'totalyards']);
+                    const passingObj = extractStat(['passing yards', 'net passing yards', 'passing']);
+                    const rushingObj = extractStat(['rushing yards', 'rushing']);
+                    const firstDownsObj = extractStat(['first downs', 'firstdowns']);
+                    const thirdDownObj = extractStat(['3rd down efficiency', 'third down efficiency', '3rddown']);
+                    const fourthDownObj = extractStat(['4th down efficiency', 'fourth down efficiency', '4thdown']);
+                    const redzoneObj = extractStat(['red zone', 'redzone']);
+                    const penaltiesObj = extractStat(['penalties', 'penaltiesyards']);
+                    const sacksObj = extractStat(['sacks', 'sacks-yards lost', 'sacksyardslost']);
+                    const turnoversObj = extractStat(['turnovers', 'to']);
+                    const possessionObj = extractStat(['possession', 'possessiontime']);
+
+                    // Order specified: Total Yards, Passing, Rushing, 1st Downs, 3rd Down, 4th Down, Redzone (Made-Att), Penalties, Sacks-Yards lost, TOs, Possession
+                    const configuredOrder = [
+                        { obj: totalYardsObj, label: 'Total Yards' },
+                        { obj: passingObj, label: 'Passing' },
+                        { obj: rushingObj, label: 'Rushing' },
+                        { obj: firstDownsObj, label: '1st Downs' },
+                        { obj: thirdDownObj, label: '3rd Downs' },
+                        { obj: fourthDownObj, label: '4th Downs' },
+                        { obj: redzoneObj, label: 'Redzone' },
+                        { obj: penaltiesObj, label: 'Penalties' },
+                        { obj: sacksObj, label: 'Sacks' },
+                        { obj: turnoversObj, label: 'TOs' },
+                        { obj: possessionObj, label: 'Possession' }
+                    ];
 
                     html += `
                         <div class="standings-section">
@@ -1258,84 +1295,19 @@
                                     <tbody>
                     `;
 
-                    let renderedSacks = false;
-
-                    awayStats.forEach(stat => {
-                        const statNameLower = (stat.name || '').toLowerCase().replace(/[^a-z0-9]/g, '');
-                        const statLabelLower = (stat.label || '').toLowerCase().replace(/[^a-z0-9]/g, '');
-                        const rawLabelLower = (stat.label || '').toLowerCase();
-
-                        const isExcluded = excludedStats.some(ex => {
-                            const cleanEx = ex.toLowerCase().replace(/[^a-z0-9]/g, '');
-                            return statNameLower === cleanEx || statLabelLower === cleanEx || 
-                                   statNameLower.includes(cleanEx) || statLabelLower.includes(cleanEx);
-                        });
-                        if (isExcluded) return;
-
-                        // Insert Sacks-Yards Lost right before Turnovers (TOs)
-                        const isTurnoverStat = statNameLower.includes('turnover') || statLabelLower.includes('turnover') || rawLabelLower === 'to';
-                        if (isTurnoverStat && !renderedSacks && awaySackObj) {
-                            const homeSackVal = homeSackObj ? homeSackObj.displayValue : '-';
+                    configuredOrder.forEach(item => {
+                        if (item.obj) {
+                            const awayVal = item.obj.away !== undefined ? item.obj.away : '-';
+                            const homeVal = item.obj.home !== undefined ? item.obj.home : '-';
                             html += `
                                 <tr>
-                                    <td style="text-align: left; font-weight: 600;">${awaySackObj.displayValue}</td>
-                                    <td style="text-align: center; color: var(--text-secondary);">Sacks-Yards Lost</td>
-                                    <td style="text-align: right; font-weight: 600;">${homeSackVal}</td>
-                                </tr>
-                            `;
-                            renderedSacks = true;
-                        }
-
-                        // Skip processing Sacks in the regular loop to avoid duplicates
-                        if (statNameLower.includes('sack') || statLabelLower.includes('sack')) {
-                            return;
-                        }
-
-                        const homeStatObj = homeStats.find(s => s.name === stat.name || s.label === stat.label);
-                        const homeVal = homeStatObj ? homeStatObj.displayValue : '-';
-
-                        let displayLabel = stat.label;
-                        if (displayLabel) {
-                            const lowerLbl = displayLabel.toLowerCase();
-                            if (lowerLbl === '3rd down efficiency') {
-                                displayLabel = '3rd Down';
-                            } else if (lowerLbl === '4th down efficiency') {
-                                displayLabel = '4th Down';
-                            } else if (lowerLbl === 'total yards') {
-                                displayLabel = 'Total Yds';
-                            } else if (lowerLbl === 'passing yards') {
-                                displayLabel = 'Pass Yds';
-                            } else if (lowerLbl === 'rushing yards') {
-                                displayLabel = 'Rush Yds';
-                            } else if (lowerLbl === 'turnovers') {
-                                displayLabel = 'TOs';
-                            } else if (lowerLbl === 'possession time') {
-                                displayLabel = 'Poss';
-                            }
-                        }
-
-                        if (displayLabel && stat.displayValue !== undefined) {
-                            html += `
-                                <tr>
-                                    <td style="text-align: left; font-weight: 600;">${stat.displayValue}</td>
-                                    <td style="text-align: center; color: var(--text-secondary);">${displayLabel}</td>
+                                    <td style="text-align: left; font-weight: 600;">${awayVal}</td>
+                                    <td style="text-align: center; color: var(--text-secondary);">${item.label}</td>
                                     <td style="text-align: right; font-weight: 600;">${homeVal}</td>
                                 </tr>
                             `;
                         }
                     });
-
-                    // Fallback if Sacks weren't rendered before Turnovers
-                    if (!renderedSacks && awaySackObj) {
-                        const homeSackVal = homeSackObj ? homeSackObj.displayValue : '-';
-                        html += `
-                            <tr>
-                                <td style="text-align: left; font-weight: 600;">${awaySackObj.displayValue}</td>
-                                <td style="text-align: center; color: var(--text-secondary);">Sacks-Yards Lost</td>
-                                <td style="text-align: right; font-weight: 600;">${homeSackVal}</td>
-                            </tr>
-                        `;
-                    }
 
                     html += `</tbody></table></div></div>`;
                 }

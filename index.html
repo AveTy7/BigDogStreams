@@ -679,7 +679,7 @@
                 {
                     "source_site": "https://mybuffstreams.plus/nflstreams2",
                     "text": "Lyon College Scots10:30 PMGreenville PanthersLive Streams",
-                    "href": "https://mybuffstreams.plus/cfb/lyon-college-scots-greenville-panthers/1413690"
+                    "href": "https://mybuffstreams.plus/cfb/greenville-panthers-lyon-college-scots/1413690"
                 },
                 {
                     "source_site": "https://mybuffstreams.plus/nflstreams2",
@@ -1391,16 +1391,17 @@
                     const rawCatName = category.text || category.name || category.displayName || '';
                     const formattedCatName = rawCatName ? rawCatName.toLowerCase() : (category.type ? category.type.toLowerCase() : 'statistics');
                     
-                    // Fixed header rendering to correctly prefix the team name (e.g. "New York Giants Passing")
-                    let categoryTitle = formattedCatName;
+                    // Correctly formatted as "Team Name Stat" (e.g., "New York Giants Passing")
+                    let capitalizedCat = formattedCatName.charAt(0).toUpperCase() + formattedCatName.slice(1);
+                    let categoryTitle = capitalizedCat;
                     const lowerTeamName = teamDisplayName.toLowerCase();
-                    if (!formattedCatName.startsWith(lowerTeamName)) {
-                        categoryTitle = `${teamDisplayName} ${formattedCatName.charAt(0).toUpperCase() + formattedCatName.slice(1)}`;
-                    } else {
-                        categoryTitle = formattedCatName.charAt(0).toUpperCase() + formattedCatName.slice(1);
+                    const lowerCat = capitalizedCat.toLowerCase();
+                    
+                    if (!lowerCat.startsWith(lowerTeamName)) {
+                        categoryTitle = `${teamDisplayName} ${capitalizedCat}`;
                     }
 
-                    html += `<div style="margin-top: 14px; margin-left: 12px; font-size: 0.9rem; font-weight: 700; color: var(--accent); text-transform: capitalize;">${categoryTitle}</div>`;
+                    html += `<div style="margin-top: 14px; margin-left: 12px; font-size: 0.9rem; font-weight: 700; color: var(--accent);">${categoryTitle}</div>`;
                     html += `<div class="table-responsive"><table class="player-stats-table" style="margin-top: 6px;"><thead><tr>`;
                     
                     html += `<th>Player</th>`;

@@ -1,3 +1,7 @@
+Nope that changed too much. All I want is simple formatting updates to the stats tables. Don’t change anything in the scoreboards or standings tables, or the rest of the UI. 
+
+Here is the raw code I’d like you to modify:
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -381,6 +385,7 @@
             border-color: var(--text-primary);
         }
 
+        /* FURTHER REDUCED: Made the matchup card even more compact */
         .boxscore-matchup-card {
             background-color: var(--bg-card);
             border: 1px solid var(--border);
@@ -436,25 +441,8 @@
             padding: 0 12px;
         }
 
-        .comparison-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
         .comparison-table td, .comparison-table th {
-            padding: 12px 20px;
-            border-bottom: 1px solid var(--border);
-            font-size: 0.9rem;
-        }
-
-        .comparison-table th {
-            color: var(--text-secondary);
-            font-weight: 600;
-            background-color: rgba(0, 0, 0, 0.1);
-        }
-
-        .comparison-table tr:last-child td {
-            border-bottom: none;
+            padding: 10px 16px;
         }
 
         .player-stats-table {
@@ -464,8 +452,8 @@
         }
 
         .player-stats-table th, .player-stats-table td {
-            padding: 12px 16px;
-            font-size: 0.9rem;
+            padding: 10px 12px;
+            font-size: 0.85rem;
             border-bottom: 1px solid var(--border);
         }
 
@@ -479,6 +467,7 @@
             border-bottom: none;
         }
 
+        /* Fixed widths and alignment rules for player stats columns */
         .player-stats-table th:first-child,
         .player-stats-table td:first-child {
             width: 38%;
@@ -583,7 +572,7 @@
         let currentView = 'hub';
         let cachedEvents = [];
         let allFetchedGames = {}; 
-        let globalBoxScoreData = null;
+        let globalBoxScoreData = null; // Stored boxscore data for team filtering
 
         const testJsonData = {
             "links": [
@@ -1232,16 +1221,15 @@
                     html += `
                         <div class="standings-section">
                             <div class="standings-title">Team Statistics</div>
-                            <div class="table-responsive">
-                                <table class="comparison-table">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 30%; text-align: left;">${awayTeam.team?.shortDisplayName || 'Away'}</th>
-                                            <th style="width: 40%; text-align: center;">Stat</th>
-                                            <th style="width: 30%; text-align: right;">${homeTeam.team?.shortDisplayName || 'Home'}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                            <table class="comparison-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 30%; text-align: left;">${awayTeam.team?.shortDisplayName || 'Away'}</th>
+                                        <th style="width: 40%; text-align: center;">Stat</th>
+                                        <th style="width: 30%; text-align: right;">${homeTeam.team?.shortDisplayName || 'Home'}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                     `;
 
                     awayStats.forEach(stat => {
@@ -1275,11 +1263,12 @@
                         }
                     });
 
-                    html += `</tbody></table></div></div>`;
+                    html += `</tbody></table></div>`;
                 }
             }
 
             if (data.boxscore && data.boxscore.players) {
+                // Build team dropdown options
                 let teamOptionsHtml = '';
                 data.boxscore.players.forEach((pTeam, idx) => {
                     const teamName = pTeam.team.shortDisplayName || pTeam.team.displayName || 'Team';
@@ -1300,6 +1289,7 @@
             }
 
             contentArea.innerHTML = html;
+            // Render initial selected team's player stats
             if (data.boxscore && data.boxscore.players && data.boxscore.players.length > 0) {
                 renderPlayerStatsForTeam(data.boxscore.players[0].team.id);
             }
@@ -1711,7 +1701,7 @@
                        <tbody>
             `;
 
-            poll.ranks.ranks.forEach(rank => {
+            poll.ranks.forEach(rank => {
                 const team = rank.team || {};
                 const teamLogo = team.logo || (team.logos && team.logos[0] && team.logos[0].href) || '';
                 const teamName = team.displayName || team.name || team.shortDisplayName || '';

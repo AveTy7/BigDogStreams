@@ -1221,10 +1221,8 @@
                 const hasValidStats = awayStats.length > 0 && awayStats.some(s => s.label && s.displayValue !== undefined);
 
                 if (hasValidStats) {
-                    // Define helper maps/lookups for the requested sequence and custom names
                     const statMap = new Map();
                     
-                    // First populate all available stats from away/home arrays
                     awayStats.forEach(s => {
                         const key = (s.name || s.label || '').toLowerCase().trim();
                         statMap.set(key, { away: s.displayValue, label: s.label, name: s.name });
@@ -1239,11 +1237,10 @@
                         }
                     });
 
-                    // Helper to search and extract/remove matching stat values
                     const extractStat = (identifiers) => {
                         for (let [k, val] of statMap.entries()) {
                             for (let id of identifiers) {
-                                if (k.includes(id)) {
+                                if (k === id || k.includes(id)) {
                                     statMap.delete(k);
                                     return val;
                                 }
@@ -1252,10 +1249,30 @@
                         return null;
                     };
 
-                    // Extract specific elements requested
                     const totalYardsObj = extractStat(['total yards', 'totalyards']);
-                    const passingObj = extractStat(['passing yards', 'net passing yards', 'passing']);
-                    const rushingObj = extractStat(['rushing yards', 'rushing']);
+                    
+                    // Explicitly pull exact passing/rushing yards keys (avoiding 'passingfirstdowns' or 'rushingfirstdowns')
+                    let passingObj = null;
+                    let rushingObj = null;
+
+                    for (let [k, val] of statMap.entries()) {
+                        if ((k === 'passing yards' || k === 'net passing yards' || k === 'passingnet yards') || 
+                            (k.includes('passing') && !k.includes('first') && !k.includes('touchdown') && !k.includes('attempt') && !k.includes('completion') && !k.includes('interception'))) {
+                            passingObj = val;
+                            statMap.delete(k);
+                            break;
+                        }
+                    }
+
+                    for (let [k, val] of statMap.entries()) {
+                        if ((k === 'rushing yards') || 
+                            (k.includes('rushing') && !k.includes('first') && !k.includes('touchdown') && !k.includes('attempt'))) {
+                            rushingObj = val;
+                            statMap.delete(k);
+                            break;
+                        }
+                    }
+
                     const firstDownsObj = extractStat(['first downs', 'firstdowns']);
                     const thirdDownObj = extractStat(['3rd down efficiency', 'third down efficiency', '3rddown']);
                     const fourthDownObj = extractStat(['4th down efficiency', 'fourth down efficiency', '4thdown']);
@@ -1265,7 +1282,6 @@
                     const turnoversObj = extractStat(['turnovers', 'to']);
                     const possessionObj = extractStat(['possession', 'possessiontime']);
 
-                    // Order specified: Total Yards, Passing, Rushing, 1st Downs, 3rd Down, 4th Down, Redzone (Made-Att), Penalties, Sacks-Yards lost, TOs, Possession
                     const configuredOrder = [
                         { obj: totalYardsObj, label: 'Total Yards' },
                         { obj: passingObj, label: 'Passing' },

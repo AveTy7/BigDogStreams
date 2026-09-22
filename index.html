@@ -462,6 +462,7 @@
             width: 100%;
             border-collapse: collapse;
             text-align: left;
+            white-space: nowrap;
         }
 
         .player-stats-table th, .player-stats-table td {
@@ -482,14 +483,13 @@
 
         .player-stats-table th:first-child,
         .player-stats-table td:first-child {
-            width: 38%;
+            width: 42%;
             text-align: left;
         }
 
         .player-stats-table th:nth-child(2),
         .player-stats-table td:nth-child(2) {
             min-width: 65px;
-            white-space: nowrap;
             text-align: center;
         }
 
@@ -730,6 +730,15 @@
                 }
             ]
         };
+
+        function formatPlayerName(fullName) {
+            if (!fullName) return '';
+            const parts = fullName.trim().split(/\s+/);
+            if (parts.length === 1) return parts[0];
+            const firstName = parts[0];
+            const lastName = parts.slice(1).join(' ');
+            return `${firstName.charAt(0)}. ${lastName}`;
+        }
 
         async function backgroundPrefetch() {
             const leagueKeys = ['nfl', 'nba', 'mlb', 'cbb'];
@@ -1214,7 +1223,7 @@
                 </div>
             `;
 
-            if (currentLeagueKey !== 'mlb' && data.boxscore && data.boxscore.teams && data.boxscore.teams.length === 2) {
+            if (data.boxscore && data.boxscore.teams && data.boxscore.teams.length === 2) {
                 const awayStats = data.boxscore.teams.find(t => t.team.id === awayTeam.id)?.statistics || [];
                 const homeStats = data.boxscore.teams.find(t => t.team.id === homeTeam.id)?.statistics || [];
 
@@ -1251,7 +1260,6 @@
 
                     const totalYardsObj = extractStat(['total yards', 'totalyards']);
                     
-                    // Explicitly pull exact passing/rushing yards keys (avoiding 'passingfirstdowns' or 'rushingfirstdowns')
                     let passingObj = null;
                     let rushingObj = null;
 
@@ -1402,8 +1410,9 @@
 
                     if (category.athletes) {
                         category.athletes.forEach(ath => {
+                            const shortName = formatPlayerName(ath.athlete.displayName);
                             html += `<tr>`;
-                            html += `<td>${ath.athlete.displayName}</td>`;
+                            html += `<td>${shortName}</td>`;
                             if (ath.stats) {
                                 ath.stats.forEach(st => {
                                     html += `<td>${st}</td>`;

@@ -783,7 +783,7 @@
             const contentArea = document.getElementById('content-area');
             
             if (currentLeagueKey === 'test') {
-                renderTestTab(testJsonData.links);
+                renderTestTab();
                 return;
             }
 
@@ -876,22 +876,26 @@
             return `<span style="color: var(--text-secondary);">NA</span>`;
         }
 
-        function renderTestTab(links) {
+        async function renderTestTab() {
             const contentArea = document.getElementById('content-area');
-            const currentJsonString = JSON.stringify(testJsonData, null, 4);
+            contentArea.innerHTML = '<div class="loading">Loading current JSON data...</div>';
+
+            try {
+                // Automatically fetch current JSON data with cache-busting timestamp
+                const response = await fetch('data.json?t=' + Date.now());
+                if (response.ok) {
+                    const fetchedJson = await response.json();
+                    if (fetchedJson && fetchedJson.links) {
+                        testJsonData = fetchedJson;
+                    }
+                }
+            } catch (err) {
+                console.warn('Could to load external JSON, falling back to embedded state:', err);
+            }
+
+            const links = testJsonData.links || [];
 
             let html = `
-                <div class="standings-section" style="margin-bottom: 24px;">
-                    <div class="standings-title">
-                        <span>Dynamic JSON Data Input</span>
-                        <button class="action-btn" onclick="applyJsonUpdate()" style="padding: 4px 10px; font-size: 0.8rem;">Apply Changes</button>
-                    </div>
-                    <div style="padding: 12px;">
-                        <textarea id="dynamic-json-input" style="width: 100%; height: 160px; background-color: rgba(0,0,0,0.3); color: var(--text-primary); border: 1px solid var(--border); border-radius: 6px; padding: 10px; font-family: monospace; font-size: 0.85rem; resize: vertical; outline: none;">${currentJsonString}</textarea>
-                        <div id="json-feedback" style="font-size: 0.8rem; margin-top: 6px; color: var(--text-secondary);">Edit the JSON above and click Apply Changes to dynamically update the view.</div>
-                    </div>
-                </div>
-
                 <div class="standings-section">
                     <div class="standings-title">JSON Links Data View (Stripped Match Text)</div>
                     <div class="table-responsive">
@@ -924,28 +928,6 @@
 
             html += `</tbody></table></div></div>`;
             contentArea.innerHTML = html;
-        }
-
-        function applyJsonUpdate() {
-            const inputEl = document.getElementById('dynamic-json-input');
-            const feedbackEl = document.getElementById('json-feedback');
-            if (!inputEl) return;
-
-            try {
-                const parsed = JSON.parse(inputEl.value);
-                if (!parsed.links || !Array.isArray(parsed.links)) {
-                    throw new Error("JSON must contain a root 'links' array.");
-                }
-                testJsonData = parsed;
-                feedbackEl.style.color = 'var(--success)';
-                feedbackEl.textContent = 'Successfully updated JSON data! Re-rendering table...';
-                setTimeout(() => {
-                    renderTestTab(testJsonData.links);
-                }, 300);
-            } catch (err) {
-                feedbackEl.style.color = 'var(--danger)';
-                feedbackEl.textContent = 'Invalid JSON format: ' + err.message;
-            }
         }
 
         async function fetchScores() {

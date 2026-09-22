@@ -1220,29 +1220,28 @@
 
                 const hasValidStats = awayStats.length > 0 && awayStats.some(s => s.label && s.displayValue !== undefined);
 
-                // Excluded as requested + standard non-team overview exclusions
+                // Comprehensive exclusions matching API name/label strings for the 6 requested items
                 const excludedStats = [
-                    'comp/att', 
-                    'yards per pass', 
-                    'rushing attempts', 
-                    'yards per rush', 
-                    'fumbles lost', 
-                    'interceptions thrown',
-                    'passing first downs',
-                    'rushing first downs',
-                    'first downs from penalties',
-                    'total plays',
-                    'total drives',
-                    'defensive/special teams touchdowns',
-                    'defensive touchdowns',
-                    'special teams touchdowns'
+                    'passingfirstdowns', 'rushingfirstdowns', 'firstdownsfrompenalties',
+                    'totalplays', 'totaldrives', 'defensivespecialteamstouchdowns',
+                    'defensivetouchdowns', 'specialteamstouchdowns',
+                    'passing 1st downs', 'rushing 1st downs', '1st downs from penalties',
+                    'total plays', 'total drives', 'defensive / special teams touchdowns',
+                    'defensive touchdowns', 'special teams touchdowns'
                 ];
 
                 if (hasValidStats) {
-                    // Extract Sacks-Yards Lost object if present, so we can control where it renders
                     const sackStatName = 'sacks-yards lost';
-                    const awaySackObj = awayStats.find(s => (s.name || '').toLowerCase() === sackStatName || (s.label || '').toLowerCase().includes('sacks'));
-                    const homeSackObj = homeStats.find(s => (s.name || '').toLowerCase() === sackStatName || (s.label || '').toLowerCase().includes('sacks'));
+                    const awaySackObj = awayStats.find(s => {
+                        const n = (s.name || '').toLowerCase();
+                        const l = (s.label || '').toLowerCase();
+                        return n === sackStatName || l === sackStatName || l.includes('sacks-yards');
+                    });
+                    const homeSackObj = homeStats.find(s => {
+                        const n = (s.name || '').toLowerCase();
+                        const l = (s.label || '').toLowerCase();
+                        return n === sackStatName || l === sackStatName || l.includes('sacks-yards');
+                    });
 
                     html += `
                         <div class="standings-section">
@@ -1262,14 +1261,19 @@
                     let renderedSacks = false;
 
                     awayStats.forEach(stat => {
-                        const statNameLower = (stat.name || '').toLowerCase();
-                        const statLabelLower = (stat.label || '').toLowerCase();
+                        const statNameLower = (stat.name || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+                        const statLabelLower = (stat.label || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+                        const rawLabelLower = (stat.label || '').toLowerCase();
 
-                        const isExcluded = excludedStats.some(ex => statNameLower.includes(ex) || statLabelLower.includes(ex));
+                        const isExcluded = excludedStats.some(ex => {
+                            const cleanEx = ex.toLowerCase().replace(/[^a-z0-9]/g, '');
+                            return statNameLower === cleanEx || statLabelLower === cleanEx || 
+                                   statNameLower.includes(cleanEx) || statLabelLower.includes(cleanEx);
+                        });
                         if (isExcluded) return;
 
-                        // If we are about to render Turnovers (TOs), insert Sacks-Yards Lost right before it!
-                        const isTurnoverStat = statNameLower.includes('turnover') || statLabelLower.includes('turnover') || statLabelLower === 'to';
+                        // Insert Sacks-Yards Lost right before Turnovers (TOs)
+                        const isTurnoverStat = statNameLower.includes('turnover') || statLabelLower.includes('turnover') || rawLabelLower === 'to';
                         if (isTurnoverStat && !renderedSacks && awaySackObj) {
                             const homeSackVal = homeSackObj ? homeSackObj.displayValue : '-';
                             html += `
@@ -1282,8 +1286,8 @@
                             renderedSacks = true;
                         }
 
-                        // Skip processing Sacks in the regular loop so it doesn't double-render
-                        if (statNameLower.includes('sacks') || statLabelLower.includes('sacks')) {
+                        // Skip processing Sacks in the regular loop to avoid duplicates
+                        if (statNameLower.includes('sack') || statLabelLower.includes('sack')) {
                             return;
                         }
 

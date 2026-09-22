@@ -1385,11 +1385,11 @@
 
             if (pTeam.statistics) {
                 pTeam.statistics.forEach(category => {
-                    // Pull the raw category text properly
-                    const rawCatName = category.displayName || category.name || category.text || '';
+                    // Extract and capitalize the category name properly (e.g., Passing, Rushing, Receiving)
+                    const rawCatName = (category.displayName || category.name || category.text || '').trim();
+                    const capitalizedCatName = rawCatName ? rawCatName.charAt(0).toUpperCase() + rawCatName.slice(1).toLowerCase() : 'Statistics';
                     
-                    // Forcefully construct it as "Team Name + Category Name" cleanly
-                    let categoryTitle = rawCatName ? `${teamDisplayName} ${rawCatName}` : `${teamDisplayName} Statistics`;
+                    let categoryTitle = `${teamDisplayName} ${capitalizedCatName}`;
 
                     html += `<div style="margin-top: 14px; margin-left: 12px; font-size: 0.9rem; font-weight: 700; color: var(--accent);">${categoryTitle}</div>`;
                     html += `<div class="table-responsive"><table class="player-stats-table" style="margin-top: 6px;"><thead><tr>`;

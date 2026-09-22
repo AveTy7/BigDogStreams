@@ -436,7 +436,6 @@
             padding: 0 12px;
         }
 
-        /* MODIFIED: Reduced row spacing and added compact styles for team stats table */
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
@@ -1221,16 +1220,30 @@
 
                 const hasValidStats = awayStats.length > 0 && awayStats.some(s => s.label && s.displayValue !== undefined);
 
+                // Excluded as requested + standard non-team overview exclusions
                 const excludedStats = [
                     'comp/att', 
                     'yards per pass', 
                     'rushing attempts', 
                     'yards per rush', 
                     'fumbles lost', 
-                    'interceptions thrown'
+                    'interceptions thrown',
+                    'passing first downs',
+                    'rushing first downs',
+                    'first downs from penalties',
+                    'total plays',
+                    'total drives',
+                    'defensive/special teams touchdowns',
+                    'defensive touchdowns',
+                    'special teams touchdowns'
                 ];
 
                 if (hasValidStats) {
+                    // Extract Sacks-Yards Lost object if present, so we can control where it renders
+                    const sackStatName = 'sacks-yards lost';
+                    const awaySackObj = awayStats.find(s => (s.name || '').toLowerCase() === sackStatName || (s.label || '').toLowerCase().includes('sacks'));
+                    const homeSackObj = homeStats.find(s => (s.name || '').toLowerCase() === sackStatName || (s.label || '').toLowerCase().includes('sacks'));
+
                     html += `
                         <div class="standings-section">
                             <div class="standings-title">Team Statistics</div>
@@ -1246,6 +1259,8 @@
                                     <tbody>
                     `;
 
+                    let renderedSacks = false;
+
                     awayStats.forEach(stat => {
                         const statNameLower = (stat.name || '').toLowerCase();
                         const statLabelLower = (stat.label || '').toLowerCase();
@@ -1253,13 +1268,31 @@
                         const isExcluded = excludedStats.some(ex => statNameLower.includes(ex) || statLabelLower.includes(ex));
                         if (isExcluded) return;
 
+                        // If we are about to render Turnovers (TOs), insert Sacks-Yards Lost right before it!
+                        const isTurnoverStat = statNameLower.includes('turnover') || statLabelLower.includes('turnover') || statLabelLower === 'to';
+                        if (isTurnoverStat && !renderedSacks && awaySackObj) {
+                            const homeSackVal = homeSackObj ? homeSackObj.displayValue : '-';
+                            html += `
+                                <tr>
+                                    <td style="text-align: left; font-weight: 600;">${awaySackObj.displayValue}</td>
+                                    <td style="text-align: center; color: var(--text-secondary);">Sacks-Yards Lost</td>
+                                    <td style="text-align: right; font-weight: 600;">${homeSackVal}</td>
+                                </tr>
+                            `;
+                            renderedSacks = true;
+                        }
+
+                        // Skip processing Sacks in the regular loop so it doesn't double-render
+                        if (statNameLower.includes('sacks') || statLabelLower.includes('sacks')) {
+                            return;
+                        }
+
                         const homeStatObj = homeStats.find(s => s.name === stat.name || s.label === stat.label);
                         const homeVal = homeStatObj ? homeStatObj.displayValue : '-';
 
                         let displayLabel = stat.label;
                         if (displayLabel) {
                             const lowerLbl = displayLabel.toLowerCase();
-                            // Abbreviated fields to prevent wrapping
                             if (lowerLbl === '3rd down efficiency') {
                                 displayLabel = '3rd Down';
                             } else if (lowerLbl === '4th down efficiency') {
@@ -1287,6 +1320,18 @@
                             `;
                         }
                     });
+
+                    // Fallback if Sacks weren't rendered before Turnovers
+                    if (!renderedSacks && awaySackObj) {
+                        const homeSackVal = homeSackObj ? homeSackObj.displayValue : '-';
+                        html += `
+                            <tr>
+                                <td style="text-align: left; font-weight: 600;">${awaySackObj.displayValue}</td>
+                                <td style="text-align: center; color: var(--text-secondary);">Sacks-Yards Lost</td>
+                                <td style="text-align: right; font-weight: 600;">${homeSackVal}</td>
+                            </tr>
+                        `;
+                    }
 
                     html += `</tbody></table></div></div>`;
                 }

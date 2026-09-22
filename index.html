@@ -381,7 +381,6 @@
             border-color: var(--text-primary);
         }
 
-        /* FURTHER REDUCED: Made the matchup card even more compact */
         .boxscore-matchup-card {
             background-color: var(--bg-card);
             border: 1px solid var(--border);
@@ -437,8 +436,27 @@
             padding: 0 12px;
         }
 
+        /* MODIFIED: Reduced row spacing and added compact styles for team stats table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
         .comparison-table td, .comparison-table th {
-            padding: 10px 16px;
+            padding: 6px 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-table th {
+            color: var(--text-secondary);
+            font-weight: 600;
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
         }
 
         .player-stats-table {
@@ -463,7 +481,6 @@
             border-bottom: none;
         }
 
-        /* Fixed widths and alignment rules for player stats columns */
         .player-stats-table th:first-child,
         .player-stats-table td:first-child {
             width: 38%;
@@ -568,7 +585,7 @@
         let currentView = 'hub';
         let cachedEvents = [];
         let allFetchedGames = {}; 
-        let globalBoxScoreData = null; // Stored boxscore data for team filtering
+        let globalBoxScoreData = null;
 
         const testJsonData = {
             "links": [
@@ -1217,15 +1234,16 @@
                     html += `
                         <div class="standings-section">
                             <div class="standings-title">Team Statistics</div>
-                            <table class="comparison-table">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 30%; text-align: left;">${awayTeam.team?.shortDisplayName || 'Away'}</th>
-                                        <th style="width: 40%; text-align: center;">Stat</th>
-                                        <th style="width: 30%; text-align: right;">${homeTeam.team?.shortDisplayName || 'Home'}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                            <div class="table-responsive">
+                                <table class="comparison-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 30%; text-align: left;">${awayTeam.team?.shortDisplayName || 'Away'}</th>
+                                            <th style="width: 40%; text-align: center;">Stat</th>
+                                            <th style="width: 30%; text-align: right;">${homeTeam.team?.shortDisplayName || 'Home'}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
                     `;
 
                     awayStats.forEach(stat => {
@@ -1241,10 +1259,21 @@
                         let displayLabel = stat.label;
                         if (displayLabel) {
                             const lowerLbl = displayLabel.toLowerCase();
+                            // Abbreviated fields to prevent wrapping
                             if (lowerLbl === '3rd down efficiency') {
-                                displayLabel = '3rd Downs';
+                                displayLabel = '3rd Down';
                             } else if (lowerLbl === '4th down efficiency') {
-                                displayLabel = '4th Downs';
+                                displayLabel = '4th Down';
+                            } else if (lowerLbl === 'total yards') {
+                                displayLabel = 'Total Yds';
+                            } else if (lowerLbl === 'passing yards') {
+                                displayLabel = 'Pass Yds';
+                            } else if (lowerLbl === 'rushing yards') {
+                                displayLabel = 'Rush Yds';
+                            } else if (lowerLbl === 'turnovers') {
+                                displayLabel = 'TOs';
+                            } else if (lowerLbl === 'possession time') {
+                                displayLabel = 'Poss';
                             }
                         }
 
@@ -1259,12 +1288,11 @@
                         }
                     });
 
-                    html += `</tbody></table></div>`;
+                    html += `</tbody></table></div></div>`;
                 }
             }
 
             if (data.boxscore && data.boxscore.players) {
-                // Build team dropdown options
                 let teamOptionsHtml = '';
                 data.boxscore.players.forEach((pTeam, idx) => {
                     const teamName = pTeam.team.shortDisplayName || pTeam.team.displayName || 'Team';
@@ -1285,7 +1313,6 @@
             }
 
             contentArea.innerHTML = html;
-            // Render initial selected team's player stats
             if (data.boxscore && data.boxscore.players && data.boxscore.players.length > 0) {
                 renderPlayerStatsForTeam(data.boxscore.players[0].team.id);
             }

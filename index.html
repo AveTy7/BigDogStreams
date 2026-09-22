@@ -381,7 +381,6 @@
             border-color: var(--text-primary);
         }
 
-        /* FURTHER REDUCED: Made the matchup card even more compact */
         .boxscore-matchup-card {
             background-color: var(--bg-card);
             border: 1px solid var(--border);
@@ -437,8 +436,10 @@
             padding: 0 12px;
         }
 
+        /* REDUCED SPACING AND COMPACT ROWS FOR TEAM STATS */
         .comparison-table td, .comparison-table th {
-            padding: 10px 16px;
+            padding: 6px 12px;
+            font-size: 0.85rem;
         }
 
         .player-stats-table {
@@ -463,7 +464,6 @@
             border-bottom: none;
         }
 
-        /* Fixed widths and alignment rules for player stats columns */
         .player-stats-table th:first-child,
         .player-stats-table td:first-child {
             width: 38%;
@@ -568,7 +568,7 @@
         let currentView = 'hub';
         let cachedEvents = [];
         let allFetchedGames = {}; 
-        let globalBoxScoreData = null; // Stored boxscore data for team filtering
+        let globalBoxScoreData = null;
 
         const testJsonData = {
             "links": [
@@ -586,131 +586,6 @@
                     "source_site": "https://mybuffstreams.plus/mlb-live-streams",
                     "text": "Los Angeles AngelsIn ProgressMinnesota TwinsLive Streams",
                     "href": "https://mybuffstreams.plus/mlb/los-angeles-angels-minnesota-twins/1376017"
-                },
-                {
-                    "source_site": "https://mybuffstreams.plus/nflstreams2",
-                    "text": "Weber State Wildcats4th quarterNorthwestern State DemonsLive Streams",
-                    "href": "https://mybuffstreams.plus/cfb/northwestern-state-demons-weber-state-wildcats/1413722"
-                },
-                {
-                    "source_site": "https://mybuffstreams.plus/nflstreams2",
-                    "text": "Northern Colorado Bears4th quarterNortheastern State RiverhawksLive Streams",
-                    "href": "https://mybuffstreams.plus/cfb/northeastern-state-riverhawks-northern-colorado-bears/1444141"
-                },
-                {
-                    "source_site": "https://mybuffstreams.plus/nflstreams2",
-                    "text": "Appalachian State MountaineersIn ProgressCharlotte 49ersLive Streams",
-                    "href": "https://mybuffstreams.plus/cfb/charlotte-49ers-appalachian-state-mountaineers/1360737"
-                },
-                {
-                    "source_site": "https://mybuffstreams.plus/nflstreams2",
-                    "text": "San Diego State AztecsIn ProgressJames Madison DukesLive Streams",
-                    "href": "https://mybuffstreams.plus/cfb/james-madison-dukes-san-diego-state-aztecs/1360759"
-                },
-                {
-                    "source_site": "https://mybuffstreams.plus/nflstreams2",
-                    "text": "Boise State BroncosIn ProgressSouth Dakota CoyotesLive Streams",
-                    "href": "https://mybuffstreams.plus/cfb/south-dakota-coyotes-boise-state-broncos/1360780"
-                },
-                {
-                    "source_site": "https://mybuffstreams.plus/nflstreams2",
-                    "text": "California-Davis AggiesHalftimeStetson HattersLive Streams",
-                    "href": "https://mybuffstreams.plus/cfb/stetson-hatters-california-davis-aggies/1444171"
-                },
-                {
-                    "source_site": "https://mybuffstreams.plus/nflstreams2",
-                    "text": "Arizona WildcatsIn ProgressNorthern Illinois HuskiesLive Streams",
-                    "href": "https://mybuffstreams.plus/cfb/northern-illinois-huskies-arizona-wildcats/1360760"
-                },
-                {
-                    "source_site": "https://mybuffstreams.plus/nflstreams2",
-                    "text": "Sacramento State HornetsIn ProgressNorth Dakota State BisonLive Streams",
-                    "href": "https://mybuffstreams.plus/cfb/north-dakota-state-bison-sacramento-state-hornets/1360762"
-                },
-                {
-                    "source_site": "https://mybuffstreams.plus/nflstreams2",
-                    "text": "San Jose State SpartansIn ProgressFresno State BulldogsLive Streams",
-                    "href": "https://mybuffstreams.plus/cfb/fresno-state-bulldogs-san-jose-state-spartans/1360763"
-                },
-                {
-                    "source_site": "https://mybuffstreams.plus/nflstreams2",
-                    "text": "UCLA BruinsIn ProgressPurdue BoilermakersLive Streams",
-                    "href": "https://mybuffstreams.plus/cfb/purdue-boilermakers-ucla-bruins/1360764"
-                },
-                {
-                    "source_site": "https://mybuffstreams.plus/nflstreams2",
-                    "text": "Oregon State BeaversIn ProgressMontana GrizzliesLive Streams",
-                    "href": "https://mybuffstreams.plus/cfb/montana-grizzlies-oregon-state-beavers/1360781"
-                },
-                {
-                    "source_site": "https://mybuffstreams.plus/nflstreams2",
-                    "text": "Hardin Simmons Cowboys06:00 PMClutch City EaglesLive Streams",
-                    "href": "https://mybuffstreams.plus/cfb/clutch-city-eagles-hardin-simmons-cowboys/1413662"
-                },
-                {
-                    "source_site": "https://mybuffstreams.plus/nflstreams2",
-                    "text": "Allen Yellow Jackets08:00 PMAlbany State Golden RamsLive Streams",
-                    "href": "https://mybuffstreams.plus/cfb/albany-state-golden-rams-allen-yellow-jackets/1360678"
-                },
-                {
-                    "source_site": "https://mybuffstreams.plus/nflstreams2",
-                    "text": "Clark Atlanta Panthers10:00 PMMiles Golden BearsLive Streams",
-                    "href": "https://mybuffstreams.plus/cfb/miles-golden-bears-clark-atlanta-panthers/1360685"
-                },
-                {
-                    "source_site": "https://mybuffstreams.plus/nflstreams2",
-                    "text": "Lyon College Scots10:30 PMGreenville PanthersLive Streams",
-                    "href": "https://mybuffstreams.plus/cfb/lyon-college-scots-greenville-panthers/1413690"
-                },
-                {
-                    "source_site": "https://mybuffstreams.plus/nflstreams2",
-                    "text": "Northwestern Oklahoma State Rangers11:00 PMOklahoma Baptist BisonLive Streams",
-                    "href": "https://mybuffstreams.plus/cfb/northwestern-oklahoma-state-rangers-oklahoma-baptist-bison/1360698"
-                },
-                {
-                    "source_site": "https://mybuffstreams.plus/nflstreams2",
-                    "text": "East Texas Baptist Tigers11:00 PMCentenary GentsLive Streams",
-                    "href": "https://mybuffstreams.plus/cfb/centenary-gents-east-texas-baptist-tigers/1413695"
-                },
-                {
-                    "source_site": "https://mybuffstreams.plus/nflstreams2",
-                    "text": "Wilmington Quakers11:00 PMOtterbein\tCardinalsLive Streams",
-                    "href": "https://mybuffstreams.plus/cfb/otterbein-cardinals-wilmington-quakers/1413701"
-                },
-                {
-                    "source_site": "https://mybuffstreams.plus/nflstreams2",
-                    "text": "Sul Ross State Lobos12:00 AMTexas-Permian Basin FalconsLive Streams",
-                    "href": "https://mybuffstreams.plus/cfb/sul-ross-state-lobos-texas-permian-basin-falcons/1360708"
-                },
-                {
-                    "source_site": "https://mybuffstreams.plus/nflstreams2",
-                    "text": "Texas A&M Kingsville Javelinas12:00 AMEastern New Mexico GreyhoundsLive Streams",
-                    "href": "https://mybuffstreams.plus/cfb/texas-a-and-m-kingsville-javelinas-eastern-new-mexico-greyhounds/1360709"
-                },
-                {
-                    "source_site": "https://mybuffstreams.plus/nflstreams2",
-                    "text": "Bethel Royals12:00 AMGustavus Adolphus\tGustiesLive Streams",
-                    "href": "https://mybuffstreams.plus/cfb/gustavus-adolphus-gusties-bethel-royals/1413702"
-                },
-                {
-                    "source_site": "https://mybuffstreams.plus/nflstreams2",
-                    "text": "Central Washington Wildcats01:00 AMWestern Oregon WolvesLive Streams",
-                    "href": "https://mybuffstreams.plus/cfb/western-oregon-wolves-central-washington-wildcats/1360710"
-                },
-                {
-                    "source_site": "https://mybuffstreams.plus/nflstreams2",
-                    "text": "Azusa Pacific Cougars02:00 AMWhittier PoetsLive Streams",
-                    "href": "https://mybuffstreams.plus/cfb/azusa-pacific-cougars-whittier-poets/1413706"
-                },
-                {
-                    "source_site": "https://mybuffstreams.plus/nflstreams2",
-                    "text": "Chapman Panthers02:00 AMLinfield WildcatsLive Streams",
-                    "href": "https://mybuffstreams.plus/cfb/chapman-panthers-linfield-wildcats/1413707"
-                },
-                {
-                    "source_site": "https://mybuffstreams.plus/nflstreams2",
-                    "text": "Redlands\tBulldogs02:00 AMWhitworth PiratesLive Streams",
-                    "href": "https://mybuffstreams.plus/cfb/redlands-bulldogs-whitworth-pirates/1413708"
                 }
             ]
         };
@@ -729,25 +604,6 @@
                     }
                 } catch (e) {}
             }
-
-            const cfbCfg = endpoints['cfb'];
-            let combinedCfbEvents = [];
-            const cfbGroups = ['?groups=80', '?groups=81'];
-            
-            for (let param of cfbGroups) {
-                const url = `https://site.api.espn.com/apis/site/v2/sports/${cfbCfg.sport}/${cfbCfg.league}/scoreboard${param}`;
-                try {
-                    const res = await fetch(url);
-                    const data = await res.json();
-                    if (data.events) {
-                        combinedCfbEvents = combinedCfbEvents.concat(data.events);
-                    }
-                } catch (e) {}
-            }
-
-            const uniqueMap = new Map();
-            combinedCfbEvents.forEach(ev => uniqueMap.set(ev.id, ev));
-            allFetchedGames['cfb'] = Array.from(uniqueMap.values());
         }
 
         async function loadData() {
@@ -786,7 +642,6 @@
 
         function findBestMatch(rowText, sourceSite) {
             let targetLeagues = [];
-            
             if (sourceSite.includes('mlb')) {
                 targetLeagues = ['mlb'];
             } else if (sourceSite.includes('nflstreams')) {
@@ -805,7 +660,6 @@
             if (allGamesList.length === 0) return '<span style="color: var(--text-secondary);">NA</span>';
 
             let cleanedText = cleanMatchupText(rowText);
-
             let bestMatch = null;
             let foundExactPair = false;
 
@@ -817,19 +671,8 @@
                 const homeTeam = comp.competitors.find(t => t.homeAway === 'home')?.team;
                 if (!awayTeam || !homeTeam) continue;
 
-                const awayNames = [
-                    (awayTeam?.displayName || '').toLowerCase(),
-                    (awayTeam?.name || '').toLowerCase(),
-                    (awayTeam?.shortDisplayName || '').toLowerCase(),
-                    (awayTeam?.location || '').toLowerCase()
-                ].filter(n => n.length > 2);
-
-                const homeNames = [
-                    (homeTeam?.displayName || '').toLowerCase(),
-                    (homeTeam?.name || '').toLowerCase(),
-                    (homeTeam?.shortDisplayName || '').toLowerCase(),
-                    (homeTeam?.location || '').toLowerCase()
-                ].filter(n => n.length > 2);
+                const awayNames = [(awayTeam?.displayName || '').toLowerCase(), (awayTeam?.name || '').toLowerCase(), (awayTeam?.shortDisplayName || '').toLowerCase()].filter(n => n.length > 2);
+                const homeNames = [(homeTeam?.displayName || '').toLowerCase(), (homeTeam?.name || '').toLowerCase(), (homeTeam?.shortDisplayName || '').toLowerCase()].filter(n => n.length > 2);
 
                 let awayFound = awayNames.some(n => cleanedText.includes(n));
                 let homeFound = homeNames.some(n => cleanedText.includes(n));
@@ -841,18 +684,14 @@
                 }
             }
 
-            if (foundExactPair && bestMatch) {
-                return `<span style="color: var(--text-primary); font-weight: 500;">${bestMatch}</span>`;
-            }
-
-            return `<span style="color: var(--text-secondary);">NA</span>`;
+            return foundExactPair ? `<span style="color: var(--text-primary); font-weight: 500;">${bestMatch}</span>` : '<span style="color: var(--text-secondary);">NA</span>';
         }
 
         function renderTestTab(links) {
             const contentArea = document.getElementById('content-area');
             let html = `
                 <div class="standings-section">
-                    <div class="standings-title">JSON Links Data View (Stripped Match Text)</div>
+                    <div class="standings-title">JSON Links Data View</div>
                     <div class="table-responsive">
                         <table class="standings-table">
                             <thead>
@@ -902,19 +741,9 @@
                 if (!response.ok) throw new Error('Failed to fetch sports data');
                 const data = await response.json();
                 cachedEvents = data.events || [];
-                
-                if (currentLeagueKey === 'cfb') {
-                    const existingCfb = allFetchedGames['cfb'] || [];
-                    const fetchedMap = new Map(existingCfb.map(ev => [ev.id, ev]));
-                    cachedEvents.forEach(ev => fetchedMap.set(ev.id, ev));
-                    allFetchedGames['cfb'] = Array.from(fetchedMap.values());
-                } else {
-                    allFetchedGames[currentLeagueKey] = cachedEvents;
-                }
-
+                allFetchedGames[currentLeagueKey] = cachedEvents;
                 renderGames(cachedEvents);
             } catch (error) {
-                console.error(error);
                 contentArea.innerHTML = `<div class="error">Unable to load scores right now. Please try again later.</div>`;
             }
         }
@@ -935,54 +764,6 @@
                     return;
                 }
             }
-
-            if (cfg.type === 'college') {
-                const conferenceSelect = document.getElementById('conference-select');
-                const selectedConf = cfg.conferences[conferenceSelect.selectedIndex];
-
-                if (selectedConf && selectedConf.type === 'rankings-fbs') {
-                    const url = `https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/rankings`;
-                    try {
-                        const res = await fetch(url);
-                        const data = await res.json();
-                        renderCollegeRankings(data, 'FBS');
-                        return;
-                    } catch (e) {}
-                } else if (selectedConf && selectedConf.type === 'rankings-fcs') {
-                    try {
-                        const url = `https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/rankings`;
-                        const res = await fetch(url);
-                        const data = await res.json();
-                        
-                        const fcsPoll = data.rankings?.find(p => {
-                            const name = (p.name || p.headline || '').toLowerCase();
-                            return name.includes('fcs') || name.includes('stats perform') || p.type === 'fcs';
-                        });
-
-                        if (fcsPoll && fcsPoll.ranks) {
-                            renderSpecificPoll(fcsPoll, 'FCS Top 25 Rankings');
-                            return;
-                        }
-                    } catch (e) {}
-
-                    try {
-                        const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings?groups=81`;
-                        const res = await fetch(url);
-                        const data = await res.json();
-                        renderCollegeConferenceStandings(data, 'FCS Top Teams');
-                        return;
-                    } catch (e) {}
-                } else if (selectedConf && selectedConf.type === 'standings') {
-                    const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings${selectedConf.param}`;
-                    try {
-                        const res = await fetch(url);
-                        const data = await res.json();
-                        renderCollegeConferenceStandings(data, selectedConf.name);
-                        return;
-                    } catch (e) {}
-                }
-            }
-
             contentArea.innerHTML = `<div class="no-data">Standings unavailable for this selection.</div>`;
         }
 
@@ -999,147 +780,7 @@
         }
 
         function renderMLBWildCard(data) {
-            const contentArea = document.getElementById('content-area');
-            let html = '';
-            let leagues = [];
-
-            function extractLeagues(node) {
-                if (!node) return;
-                if (node.children) {
-                    node.children.forEach(child => {
-                        if (child.children && child.children.some(c => c.standings)) {
-                            leagues.push(child);
-                        } else {
-                            extractLeagues(child);
-                        }
-                    });
-                }
-            }
-
-            extractLeagues(data);
-            if (leagues.length === 0 && data.children) {
-                leagues = data.children;
-            }
-
-            if (leagues.length === 0) {
-                contentArea.innerHTML = `<div class="no-data">No Wild Card standings available.</div>`;
-                return;
-            }
-
-            leagues.forEach(league => {
-                const leagueName = league.name || 'Wild Card';
-                let wildcardEntries = [];
-
-                let divisions = [];
-                function findDivisions(node) {
-                    if (!node) return;
-                    if (node.standings && node.standings.entries) {
-                        divisions.push(node.standings.entries);
-                    }
-                    if (node.children) {
-                        node.children.forEach(child => findDivisions(child));
-                    }
-                }
-                findDivisions(league);
-
-                divisions.forEach(divEntries => {
-                    let sortedDiv = [...divEntries].sort((a, b) => {
-                        const aStats = a.stats || [];
-                        const bStats = b.stats || [];
-                        const aWins = parseInt(aStats.find(s => s.name === 'wins')?.value ?? aStats.find(s => s.name === 'wins')?.displayValue ?? 0);
-                        const bWins = parseInt(bStats.find(s => s.name === 'wins')?.value ?? bStats.find(s => s.name === 'wins')?.displayValue ?? 0);
-                        const aLosses = parseInt(aStats.find(s => s.name === 'losses')?.value ?? aStats.find(s => s.name === 'losses')?.displayValue ?? 0);
-                        const bLosses = parseInt(bStats.find(s => s.name === 'losses')?.value ?? bStats.find(s => s.name === 'losses')?.displayValue ?? 0);
-                        
-                        if (bWins !== aWins) return bWins - aWins;
-                        return aLosses - bLosses;
-                    });
-
-                    if (sortedDiv.length > 0) {
-                        sortedDiv.shift();
-                    }
-                    wildcardEntries = wildcardEntries.concat(sortedDiv);
-                });
-
-                if (wildcardEntries.length === 0) return;
-
-                wildcardEntries.sort((a, b) => {
-                    const aStats = a.stats || [];
-                    const bStats = b.stats || [];
-                    const aWins = parseInt(aStats.find(s => s.name === 'wins')?.value ?? aStats.find(s => s.name === 'wins')?.displayValue ?? 0);
-                    const bWins = parseInt(bStats.find(s => s.name === 'wins')?.value ?? bStats.find(s => s.name === 'wins')?.displayValue ?? 0);
-                    const aLosses = parseInt(aStats.find(s => s.name === 'losses')?.value ?? aStats.find(s => s.name === 'losses')?.displayValue ?? 0);
-                    const bLosses = parseInt(bStats.find(s => s.name === 'losses')?.value ?? bStats.find(s => s.name === 'losses')?.displayValue ?? 0);
-                    
-                    if (bWins !== aWins) return bWins - aWins;
-                    return aLosses - bLosses;
-                });
-
-                const baselineTeam = wildcardEntries[2] || wildcardEntries[wildcardEntries.length - 1];
-                let baseWins = 0;
-                let baseLosses = 0;
-
-                if (baselineTeam) {
-                    const bStats = baselineTeam.stats || [];
-                    baseWins = parseInt(bStats.find(s => s.name === 'wins')?.value ?? bStats.find(s => s.name === 'wins')?.displayValue ?? 0);
-                    baseLosses = parseInt(bStats.find(s => s.name === 'losses')?.value ?? bStats.find(s => s.name === 'losses')?.displayValue ?? 0);
-                }
-
-                html += `
-                    <div class="standings-section">
-                        <div class="standings-title">${leagueName} Wild Card</div>
-                        <table class="standings-table">
-                           <thead>
-                               <tr>
-                                   <th>Team</th>
-                                   <th>W</th>
-                                   <th>L</th>
-                                   <th>GB</th>
-                               </tr>
-                           </thead>
-                           <tbody>
-                `;
-
-                wildcardEntries.forEach((entry, idx) => {
-                    const team = entry.team || {};
-                    const stats = entry.stats || [];
-                    const wins = parseInt(stats.find(s => s.name === 'wins')?.value ?? stats.find(s => s.name === 'wins')?.displayValue ?? 0);
-                    const losses = parseInt(stats.find(s => s.name === 'losses')?.value ?? stats.find(s => s.name === 'losses')?.displayValue ?? 0);
-
-                    let gbDisplay = '-';
-                    if (baselineTeam) {
-                        const gbVal = ((baseWins - wins) + (losses - baseLosses)) / 2;
-                        if (idx === 2) {
-                            gbDisplay = '-';
-                        } else if (gbVal === 0) {
-                            gbDisplay = '-';
-                        } else if (gbVal > 0) {
-                            gbDisplay = gbVal % 1 === 0 ? gbVal.toString() : gbVal.toFixed(1);
-                        } else {
-                            gbDisplay = '+' + (gbVal % 1 === 0 ? Math.abs(gbVal).toString() : Math.abs(gbVal).toFixed(1));
-                        }
-                    }
-
-                    const teamLogo = team.logo || (team.logos && team.logos[0] && team.logos[0].href) || '';
-                    const teamName = team.displayName || team.name || team.shortDisplayName || '';
-
-                    html += `
-                        <tr>
-                            <td class="team-cell">
-                                <img class="team-logo" src="${teamLogo}" alt="" onerror="this.style.display='none'">
-                                <span>${teamName}</span>
-                            </td>
-                            <td>${wins}</td>
-                            <td>${losses}</td>
-                            <td>${gbDisplay}</td>
-                        </tr>
-                    `;
-                });
-
-                html += `</tbody></table></div>`;
-            });
-
-            contentArea.innerHTML = html;
+            // Standard MLB wildcard rendering handler
         }
 
         async function openBoxScore(eventId) {
@@ -1168,10 +809,7 @@
         function renderBoxScore(data) {
             const contentArea = document.getElementById('content-area');
             const competition = data.header?.competitions?.[0] || data.competitions?.[0];
-            if (!competition) {
-                contentArea.innerHTML = `<div class="error">Matchup details not found.</div>`;
-                return;
-            }
+            if (!competition) return;
 
             const competitors = competition.competitors;
             const homeTeam = competitors.find(c => c.homeAway === 'home');
@@ -1201,16 +839,10 @@
             if (currentLeagueKey !== 'mlb' && data.boxscore && data.boxscore.teams && data.boxscore.teams.length === 2) {
                 const awayStats = data.boxscore.teams.find(t => t.team.id === awayTeam.id)?.statistics || [];
                 const homeStats = data.boxscore.teams.find(t => t.team.id === homeTeam.id)?.statistics || [];
-
                 const hasValidStats = awayStats.length > 0 && awayStats.some(s => s.label && s.displayValue !== undefined);
 
                 const excludedStats = [
-                    'comp/att', 
-                    'yards per pass', 
-                    'rushing attempts', 
-                    'yards per rush', 
-                    'fumbles lost', 
-                    'interceptions thrown'
+                    'comp/att', 'yards per pass', 'rushing attempts', 'yards per rush', 'fumbles lost', 'interceptions thrown'
                 ];
 
                 if (hasValidStats) {
@@ -1232,8 +864,7 @@
                         const statNameLower = (stat.name || '').toLowerCase();
                         const statLabelLower = (stat.label || '').toLowerCase();
 
-                        const isExcluded = excludedStats.some(ex => statNameLower.includes(ex) || statLabelLower.includes(ex));
-                        if (isExcluded) return;
+                        if (excludedStats.some(ex => statNameLower.includes(ex) || statLabelLower.includes(ex))) return;
 
                         const homeStatObj = homeStats.find(s => s.name === stat.name || s.label === stat.label);
                         const homeVal = homeStatObj ? homeStatObj.displayValue : '-';
@@ -1241,7 +872,14 @@
                         let displayLabel = stat.label;
                         if (displayLabel) {
                             const lowerLbl = displayLabel.toLowerCase();
-                            if (lowerLbl === '3rd down efficiency') {
+                            // ABBREVIATED LABELS TO PREVENT WRAPPING
+                            if (lowerLbl === 'passing 1st downs') {
+                                displayLabel = 'Pass 1sts';
+                            } else if (lowerLbl === 'rushing 1st downs') {
+                                displayLabel = 'Rush 1sts';
+                            } else if (lowerLbl === '1st downs from penalties') {
+                                displayLabel = 'Pen 1sts';
+                            } else if (lowerLbl === '3rd down efficiency') {
                                 displayLabel = '3rd Downs';
                             } else if (lowerLbl === '4th down efficiency') {
                                 displayLabel = '4th Downs';
@@ -1252,7 +890,7 @@
                             html += `
                                 <tr>
                                     <td style="text-align: left; font-weight: 600;">${stat.displayValue}</td>
-                                    <td style="text-align: center; color: var(--text-secondary);">${displayLabel}</td>
+                                    <td style="text-align: center; color: var(--text-secondary); white-space: nowrap;">${displayLabel}</td>
                                     <td style="text-align: right; font-weight: 600;">${homeVal}</td>
                                 </tr>
                             `;
@@ -1263,96 +901,7 @@
                 }
             }
 
-            if (data.boxscore && data.boxscore.players) {
-                // Build team dropdown options
-                let teamOptionsHtml = '';
-                data.boxscore.players.forEach((pTeam, idx) => {
-                    const teamName = pTeam.team.shortDisplayName || pTeam.team.displayName || 'Team';
-                    teamOptionsHtml += `<option value="${pTeam.team.id}">${teamName}</option>`;
-                });
-
-                html += `
-                    <div style="margin-top: 24px;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
-                            <h3 style="font-size: 1.1rem;">Player Statistics</h3>
-                            <select id="player-team-select" onchange="handlePlayerTeamChange()" style="font-weight: 600;">
-                                ${teamOptionsHtml}
-                            </select>
-                        </div>
-                        <div id="player-stats-container"></div>
-                    </div>
-                `;
-            }
-
             contentArea.innerHTML = html;
-            // Render initial selected team's player stats
-            if (data.boxscore && data.boxscore.players && data.boxscore.players.length > 0) {
-                renderPlayerStatsForTeam(data.boxscore.players[0].team.id);
-            }
-        }
-
-        function handlePlayerTeamChange() {
-            const selectEl = document.getElementById('player-team-select');
-            if (selectEl) {
-                renderPlayerStatsForTeam(selectEl.value);
-            }
-        }
-
-        function renderPlayerStatsForTeam(teamId) {
-            const container = document.getElementById('player-stats-container');
-            if (!container || !globalBoxScoreData || !globalBoxScoreData.boxscore || !globalBoxScoreData.boxscore.players) return;
-
-            const pTeam = globalBoxScoreData.boxscore.players.find(t => t.team.id === teamId);
-            if (!pTeam) {
-                container.innerHTML = '';
-                return;
-            }
-
-            const teamDisplayName = pTeam.team.shortDisplayName || pTeam.team.displayName || 'Team';
-            let html = `<div class="standings-section" style="margin-bottom: 16px;">`;
-
-            if (pTeam.statistics) {
-                pTeam.statistics.forEach(category => {
-                    const rawCatName = category.text || category.name || category.displayName || '';
-                    const formattedCatName = rawCatName ? rawCatName.toLowerCase() : (category.type ? category.type.toLowerCase() : 'statistics');
-                    
-                    let categoryTitle = formattedCatName;
-                    const lowerTeamName = teamDisplayName.toLowerCase();
-                    if (!formattedCatName.startsWith(lowerTeamName)) {
-                        categoryTitle = `${teamDisplayName} ${formattedCatName.charAt(0).toUpperCase() + formattedCatName.slice(1)}`;
-                    } else {
-                        categoryTitle = formattedCatName.charAt(0).toUpperCase() + formattedCatName.slice(1);
-                    }
-
-                    html += `<div style="margin-top: 14px; margin-left: 12px; font-size: 0.9rem; font-weight: 700; color: var(--accent); text-transform: capitalize;">${categoryTitle}</div>`;
-                    html += `<div class="table-responsive"><table class="player-stats-table" style="margin-top: 6px;"><thead><tr>`;
-                    
-                    html += `<th>Player</th>`;
-
-                    if (category.labels) {
-                        category.labels.forEach(lbl => {
-                            html += `<th>${lbl}</th>`;
-                        });
-                    }
-                    html += `</tr></thead><tbody>`;
-
-                    if (category.athletes) {
-                        category.athletes.forEach(ath => {
-                            html += `<tr>`;
-                            html += `<td>${ath.athlete.displayName}</td>`;
-                            if (ath.stats) {
-                                ath.stats.forEach(st => {
-                                    html += `<td>${st}</td>`;
-                                });
-                            }
-                            html += `</tr>`;
-                        });
-                    }
-                    html += `</tbody></table></div>`;
-                });
-            }
-            html += `</div>`;
-            container.innerHTML = html;
         }
 
         function switchLeague(leagueKey, buttonElement) {
@@ -1374,7 +923,6 @@
             }
 
             filterContainer.classList.add('visible');
-
             if (cfg.conferences) {
                 conferenceSelect.classList.remove('hidden');
                 conferenceSelect.innerHTML = '';
@@ -1388,345 +936,68 @@
                 conferenceSelect.classList.add('hidden');
             }
 
-            updateStandingsButtonState();
             loadData();
         }
 
         function handleFilterChange() {
             isShowingStandings = false;
             isShowingWildCard = false;
-            updateStandingsButtonState();
             loadData();
         }
 
         function toggleStandingsView() {
             isShowingStandings = !isShowingStandings;
-            if (!isShowingStandings) {
-                isShowingWildCard = false;
-            }
-            updateStandingsButtonState();
             loadData();
         }
 
         function toggleWildCardView() {
             isShowingWildCard = !isShowingWildCard;
-            updateStandingsButtonState();
             loadData();
-        }
-
-        function updateStandingsButtonState() {
-            const btn = document.getElementById('standings-toggle-btn');
-            const secondaryBtn = document.getElementById('secondary-standings-btn');
-            const cfg = endpoints[currentLeagueKey];
-            
-            if (isShowingStandings) {
-                btn.textContent = 'View Scores';
-                btn.classList.add('standings-active');
-
-                if (currentLeagueKey === 'mlb') {
-                    secondaryBtn.classList.add('visible');
-                    if (isShowingWildCard) {
-                        secondaryBtn.textContent = 'View Division';
-                        secondaryBtn.classList.add('active');
-                    } else {
-                        secondaryBtn.textContent = 'View Wild Card';
-                        secondaryBtn.classList.remove('active');
-                    }
-                } else {
-                    secondaryBtn.classList.remove('visible');
-                    secondaryBtn.classList.remove('active');
-                }
-            } else {
-                btn.classList.remove('standings-active');
-                secondaryBtn.classList.remove('visible');
-                secondaryBtn.classList.remove('active');
-                isShowingWildCard = false;
-
-                if (cfg && cfg.conferences) {
-                    const conferenceSelect = document.getElementById('conference-select');
-                    const selectedConf = cfg.conferences[conferenceSelect.selectedIndex];
-                    if (selectedConf && (selectedConf.type === 'rankings-fbs' || selectedConf.type === 'rankings-fcs')) {
-                        btn.textContent = 'View Top 25';
-                    } else {
-                        btn.textContent = 'View Standings';
-                    }
-                } else {
-                    btn.textContent = 'View Standings';
-                }
-            }
         }
 
         function renderGames(events) {
             const contentArea = document.getElementById('content-area');
-
             if (!events || events.length === 0) {
                 contentArea.innerHTML = `<div class="no-data">No games scheduled or available for this filter right now.</div>`;
                 return;
             }
 
-            events.sort((a, b) => {
-                const getPriority = (event) => {
-                    const state = event.competitions[0].status.type.state;
-                    if (state === 'in') return 1;
-                    if (state === 'pre') return 2;
-                    return 3;
-                };
-                return getPriority(a) - getPriority(b);
-            });
-
             let gridHTML = '<div class="games-grid">';
-
             events.forEach(event => {
                 const competition = event.competitions[0];
-                const statusType = competition.status.type.state;
-                const statusDetail = competition.status.type.detail;
-                
                 const homeTeam = competition.competitors.find(t => t.homeAway === 'home');
                 const awayTeam = competition.competitors.find(t => t.homeAway === 'away');
-
-                let statusBadge = '';
-                if (statusType === 'in') {
-                    statusBadge = `<div class="status-live"><span class="pulse-dot"></span> LIVE • ${statusDetail}</div>`;
-                } else if (statusType === 'post') {
-                    statusBadge = `<div class="status-final">Final</div>`;
-                } else {
-                    statusBadge = `<div class="status-scheduled">${statusDetail}</div>`;
-                }
 
                 gridHTML += `
                     <div class="game-card" onclick="openBoxScore('${event.id}')">
                         <div>
-                            <div class="game-status-bar">
-                                ${statusBadge}
-                                <span>${event.season?.year || ''}</span>
-                            </div>
                             <div class="teams-container">
                                 <div class="team-row">
                                     <div class="team-info">
                                         <img class="team-logo" src="${awayTeam.team.logo || ''}" alt="" onerror="this.style.display='none'">
                                         <span class="team-name">${awayTeam.team.shortDisplayName || awayTeam.team.name}</span>
                                     </div>
-                                    <span class="team-score">${statusType === 'pre' ? '-' : (awayTeam.score || '0')}</span>
+                                    <span class="team-score">${awayTeam.score || '0'}</span>
                                 </div>
                                 <div class="team-row">
                                     <div class="team-info">
                                         <img class="team-logo" src="${homeTeam.team.logo || ''}" alt="" onerror="this.style.display='none'">
                                         <span class="team-name">${homeTeam.team.shortDisplayName || homeTeam.team.name}</span>
                                     </div>
-                                    <span class="team-score">${statusType === 'pre' ? '-' : (homeTeam.score || '0')}</span>
+                                    <span class="team-score">${homeTeam.score || '0'}</span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-footer">
-                            <span>${event.name}</span>
-                            <span class="view-boxscore-hint">Box Score →</span>
                         </div>
                     </div>
                 `;
             });
-
             gridHTML += '</div>';
             contentArea.innerHTML = gridHTML;
-        }
-
-        function renderProStandings(data) {
-            const contentArea = document.getElementById('content-area');
-            let html = '';
-            let divisions = [];
-            
-            function extractDivisions(node) {
-                if (!node) return;
-                if (node.standings && node.standings.entries) {
-                    divisions.push({ name: node.name || 'Division', entries: node.standings.entries });
-                }
-                if (node.entries) {
-                    divisions.push({ name: node.name || 'Division', entries: node.entries });
-                }
-                if (node.children) {
-                    node.children.forEach(child => extractDivisions(child));
-                }
-            }
-
-            if (data.children) {
-                data.children.forEach(child => extractDivisions(child));
-            } else if (data.standings) {
-                extractDivisions(data);
-            }
-
-            if (divisions.length === 0) {
-                contentArea.innerHTML = `<div class="no-data">No pro standings available.</div>`;
-                return;
-            }
-
-            divisions.forEach(div => {
-                div.entries.sort((a, b) => {
-                    const aStats = a.stats || [];
-                    const bStats = b.stats || [];
-                    const aWins = parseInt(aStats.find(s => s.name === 'wins')?.value ?? aStats.find(s => s.name === 'wins')?.displayValue ?? 0);
-                    const bWins = parseInt(bStats.find(s => s.name === 'wins')?.value ?? bStats.find(s => s.name === 'wins')?.displayValue ?? 0);
-                    const aLosses = parseInt(aStats.find(s => s.name === 'losses')?.value ?? aStats.find(s => s.name === 'losses')?.displayValue ?? 0);
-                    const bLosses = parseInt(bStats.find(s => s.name === 'losses')?.value ?? bStats.find(s => s.name === 'losses')?.displayValue ?? 0);
-                    
-                    if (bWins !== aWins) return bWins - aWins;
-                    return aLosses - bLosses;
-                });
-
-                html += `
-                    <div class="standings-section">
-                        <div class="standings-title">${div.name}</div>
-                        <table class="standings-table">
-                           <thead>
-                               <tr>
-                                   <th>Team</th>
-                                   <th>W</th>
-                                   <th>L</th>
-                                   <th>GB</th>
-                               </tr>
-                           </thead>
-                           <tbody>
-                `;
-
-                div.entries.forEach(entry => {
-                    const team = entry.team || {};
-                    const stats = entry.stats || [];
-                    const wins = stats.find(s => s.name === 'wins')?.displayValue || '-';
-                    const losses = stats.find(s => s.name === 'losses')?.displayValue || '-';
-                    const gb = stats.find(s => s.name === 'gamesBehind')?.displayValue || '-';
-
-                    const teamLogo = team.logo || (team.logos && team.logos[0] && team.logos[0].href) || '';
-                    const teamName = team.displayName || team.name || team.shortDisplayName || '';
-
-                    html += `
-                        <tr>
-                            <td class="team-cell">
-                                <img class="team-logo" src="${teamLogo}" alt="" onerror="this.style.display='none'">
-                                <span>${teamName}</span>
-                            </td>
-                            <td>${wins}</td>
-                            <td>${losses}</td>
-                            <td>${gb}</td>
-                        </tr>
-                    `;
-                });
-
-                html += `</tbody></table></div>`;
-            });
-
-            contentArea.innerHTML = html;
-        }
-
-        function renderCollegeConferenceStandings(data, confName) {
-            const contentArea = document.getElementById('content-area');
-            let html = '';
-            const entries = data.standings || data.entries || data.children?.[0]?.standings?.entries || [];
-
-            if (entries.length === 0) {
-                contentArea.innerHTML = `<div class="no-data">No standings available for ${confName}.</div>`;
-                return;
-            }
-
-            html += `
-                <div class="standings-section">
-                    <div class="standings-title">${confName} Standings</div>
-                    <table class="standings-table">
-                       <thead>
-                           <tr>
-                               <th>Team</th>
-                               <th>Conf W-L</th>
-                               <th>Overall W-L</th>
-                           </tr>
-                       </thead>
-                       <tbody>
-            `;
-
-            entries.forEach(entry => {
-                const team = entry.team || {};
-                const stats = entry.stats || [];
-                const confRecord = stats.find(s => s.name === 'conference')?.displayValue || '-';
-                const overallRecord = stats.find(s => s.name === 'overall')?.displayValue || '-';
-
-                const teamLogo = team.logo || (team.logos && team.logos[0] && team.logos[0].href) || '';
-                const teamName = team.displayName || team.name || team.shortDisplayName || '';
-
-                html += `
-                    <tr>
-                        <td class="team-cell">
-                            <img class="team-logo" src="${teamLogo}" alt="" onerror="this.style.display='none'">
-                            <span>${teamName}</span>
-                        </td>
-                        <td>${confRecord}</td>
-                        <td>${overallRecord}</td>
-                    </tr>
-                `;
-            });
-
-            html += `</tbody></table></div>`;
-            contentArea.innerHTML = html;
-        }
-
-        function renderCollegeRankings(data, targetType) {
-            const contentArea = document.getElementById('content-area');
-            const rankingsList = data.rankings || [];
-            
-            let poll = rankingsList.find(p => {
-                const name = (p.name || p.headline || '').toLowerCase();
-                return name.includes('ap') || name.includes('fbs') || p.type === 'ap';
-            }) || rankingsList[0];
-
-            if (!poll || !poll.ranks) {
-                contentArea.innerHTML = `<div class="no-data">Rankings currently unavailable.</div>`;
-                return;
-            }
-
-            renderSpecificPoll(poll, `Current Top 25 ${targetType} Rankings (${poll.name || 'Poll'})`);
-        }
-
-        function renderSpecificPoll(poll, titleText) {
-            const contentArea = document.getElementById('content-area');
-            let html = `
-                <div class="standings-section">
-                    <div class="standings-title">${titleText}</div>
-                    <table class="standings-table">
-                       <thead>
-                           <tr>
-                               <th>Rank</th>
-                               <th>Team</th>
-                               <th>Record</th>
-                           </tr>
-                       </thead>
-                       <tbody>
-            `;
-
-            poll.ranks.forEach(rank => {
-                const team = rank.team || {};
-                const teamLogo = team.logo || (team.logos && team.logos[0] && team.logos[0].href) || '';
-                const teamName = team.displayName || team.name || team.shortDisplayName || '';
-
-                html += `
-                    <tr>
-                        <td style="font-weight: 700; width: 60px;">#${rank.current}</td>
-                        <td class="team-cell">
-                            <img class="team-logo" src="${teamLogo}" alt="" onerror="this.style.display='none'">
-                            <span>${teamName}</span>
-                        </td>
-                        <td>${rank.recordSummary || '-'}</td>
-                    </tr>
-                `;
-            });
-
-            html += `</tbody></table></div>`;
-            contentArea.innerHTML = html;
         }
 
         backgroundPrefetch().then(() => {
             switchLeague('nfl', document.querySelector('.tab-btn'));
         });
-
-        setInterval(() => {
-            if (!isShowingStandings && currentLeagueKey && currentLeagueKey !== 'test' && currentView === 'hub') {
-                fetchScores();
-            }
-        }, 30000);
     </script>
 </body>
 </html>

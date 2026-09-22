@@ -331,6 +331,7 @@
             overflow-x: auto;
         }
 
+        /* Reduced padding for tighter row spacing */
         .standings-table {
             width: 100%;
             border-collapse: collapse;
@@ -339,7 +340,7 @@
         }
 
         .standings-table th, .standings-table td {
-            padding: 12px 20px;
+            padding: 7px 16px;
             border-bottom: 1px solid var(--border);
         }
 
@@ -436,6 +437,7 @@
             padding: 0 12px;
         }
 
+        /* Reduced padding for tighter comparison table row spacing */
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
@@ -444,7 +446,7 @@
         }
 
         .comparison-table td, .comparison-table th {
-            padding: 6px 12px;
+            padding: 5px 12px;
             border-bottom: 1px solid var(--border);
         }
 
@@ -458,6 +460,7 @@
             border-bottom: none;
         }
 
+        /* Reduced padding for tighter player stats row spacing */
         .player-stats-table {
             width: 100%;
             border-collapse: collapse;
@@ -466,7 +469,7 @@
         }
 
         .player-stats-table th, .player-stats-table td {
-            padding: 10px 12px;
+            padding: 6px 12px;
             font-size: 0.85rem;
             border-bottom: 1px solid var(--border);
         }
@@ -1388,6 +1391,7 @@
                     const rawCatName = category.text || category.name || category.displayName || '';
                     const formattedCatName = rawCatName ? rawCatName.toLowerCase() : (category.type ? category.type.toLowerCase() : 'statistics');
                     
+                    // Fixed header rendering to correctly prefix the team name (e.g. "New York Giants Passing")
                     let categoryTitle = formattedCatName;
                     const lowerTeamName = teamDisplayName.toLowerCase();
                     if (!formattedCatName.startsWith(lowerTeamName)) {

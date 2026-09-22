@@ -813,6 +813,16 @@
         }
 
         function findBestMatch(rowText, sourceSite) {
+            let lowerRowText = rowText.toLowerCase();
+
+            if (lowerRowText.includes('manningcast')) {
+                return `<span style="color: var(--text-primary); font-weight: 500;">Manningcast</span>`;
+            }
+
+            if (lowerRowText.includes('redzone')) {
+                return `<span style="color: var(--text-primary); font-weight: 500;">Redzone</span>`;
+            }
+
             let targetLeagues = [];
             
             if (sourceSite.includes('mlb')) {

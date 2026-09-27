@@ -1108,12 +1108,14 @@
                         return;
                     } catch (e) {}
                 } else if (selectedConf && selectedConf.type === 'rankings-fcs') {
+                    // Separated FCS poll/rankings logic to prevent FBS poll fallback
                     try {
                         const url = `https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/rankings`;
                         const res = await fetch(url);
                         const data = await res.json();
                         
-                        const fcsPoll = data.rankings?.find(p => {
+                        const rankingsList = data.rankings || [];
+                        const fcsPoll = rankingsList.find(p => {
                             const name = (p.name || p.headline || '').toLowerCase();
                             return name.includes('fcs') || name.includes('stats perform') || p.type === 'fcs';
                         });

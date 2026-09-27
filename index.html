@@ -1075,11 +1075,15 @@
                         return;
                     } catch (e) {}
                 } else if (selectedConf && selectedConf.type === 'standings') {
-                    const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings${selectedConf.param}`;
+                    const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings`;
                     try {
                         const res = await fetch(url);
                         const data = await res.json();
-                        renderCollegeConferenceStandings(data, selectedConf.name);
+                        
+                        const groupIdMatch = selectedConf.param.match(/groups=(\d+)/);
+                        const targetGroupId = groupIdMatch ? groupIdMatch[1] : null;
+
+                        renderFilteredCollegeStandings(data, selectedConf.name, targetGroupId);
                         return;
                     } catch (e) {}
                 }
@@ -1761,38 +1765,46 @@
             contentArea.innerHTML = html;
         }
 
-        function renderCollegeConferenceStandings(data, confName) {
+        function renderFilteredCollegeStandings(data, confName, targetGroupId) {
             const contentArea = document.getElementById('content-area');
-            let html = '';
-            
-            let entries = [];
-            if (data.standings && data.standings.entries) {
-                entries = data.standings.entries;
-            } else if (data.entries) {
-                entries = data.entries;
-            } else if (data.children) {
-                const targetChild = data.children.find(c => (c.name || '').toLowerCase() === confName.toLowerCase()) || data.children[0];
-                if (targetChild && targetChild.standings && targetChild.standings.entries) {
-                    entries = targetChild.standings.entries;
-                } else if (targetChild && targetChild.entries) {
-                    entries = targetChild.entries;
+            let matchedEntries = [];
+
+            function findGroupEntries(node) {
+                if (!node) return;
+                
+                const nodeId = node.id ? node.id.toString() : '';
+                const nodeName = (node.shortName || node.name || '').toLowerCase();
+                
+                if ((targetGroupId && nodeId === targetGroupId) || nodeName === confName.toLowerCase()) {
+                    if (node.standings && node.standings.entries) {
+                        matchedEntries = node.standings.entries;
+                        return;
+                    } else if (node.entries) {
+                        matchedEntries = node.entries;
+                        return;
+                    }
+                }
+
+                if (node.children) {
+                    node.children.forEach(child => findGroupEntries(child));
                 }
             }
 
-            if (entries.length === 0 && data.groups) {
-                data.groups.forEach(g => {
-                    if (g.standings && g.standings.entries) {
-                        entries = entries.concat(g.standings.entries);
-                    }
-                });
+            findGroupEntries(data);
+
+            if (matchedEntries.length === 0 && data.groups) {
+                const targetGroup = data.groups.find(g => (g.id && g.id.toString() === targetGroupId) || (g.name || '').toLowerCase() === confName.toLowerCase());
+                if (targetGroup && targetGroup.standings && targetGroup.standings.entries) {
+                    matchedEntries = targetGroup.standings.entries;
+                }
             }
 
-            if (entries.length === 0) {
+            if (matchedEntries.length === 0) {
                 contentArea.innerHTML = `<div class="no-data">No standings available for ${confName}.</div>`;
                 return;
             }
 
-            html += `
+            let html = `
                 <div class="standings-section">
                     <div class="standings-title">${confName} Standings</div>
                     <table class="standings-table">
@@ -1806,7 +1818,7 @@
                        <tbody>
             `;
 
-            entries.forEach(entry => {
+            matchedEntries.forEach(entry => {
                 const team = entry.team || {};
                 const stats = entry.stats || [];
                 const confRecord = stats.find(s => s.name === 'conference' || s.abbreviation === 'CONF')?.displayValue || '-';

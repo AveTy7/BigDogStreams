@@ -2,11 +2,6 @@
     "links": [
         {
             "source_site": "https://mybuffstreams.plus/mlb-live-streams",
-            "text": "Chicago White SoxIn ProgressColorado RockiesLive Streams",
-            "href": "https://mybuffstreams.plus/mlb/chicago-white-sox-colorado-rockies/1376178"
-        },
-        {
-            "source_site": "https://mybuffstreams.plus/mlb-live-streams",
             "text": "Philadelphia PhilliesIn ProgressTampa Bay RaysLive Streams",
             "href": "https://mybuffstreams.plus/mlb/tampa-bay-rays-philadelphia-phillies/1376176"
         },
@@ -27,18 +22,13 @@
         },
         {
             "source_site": "https://mybuffstreams.plus/nflstreams2",
-            "text": "Chicago State Cougars3rd quarterNorfolk State SpartansLive Streams",
+            "text": "Abilene Christian WildcatsStart delayedMercer BearsLive Streams",
+            "href": "https://mybuffstreams.plus/cfb/abilene-christian-wildcats-mercer-bears/1529292"
+        },
+        {
+            "source_site": "https://mybuffstreams.plus/nflstreams2",
+            "text": "Chicago State Cougars4th quarterNorfolk State SpartansLive Streams",
             "href": "https://mybuffstreams.plus/cfb/chicago-state-cougars-norfolk-state-spartans/1360838"
-        },
-        {
-            "source_site": "https://mybuffstreams.plus/nflstreams2",
-            "text": "Arkansas State Red WolvesIn ProgressKennesaw State OwlsLive Streams",
-            "href": "https://mybuffstreams.plus/cfb/kennesaw-state-owls-arkansas-state-red-wolves/1360911"
-        },
-        {
-            "source_site": "https://mybuffstreams.plus/nflstreams2",
-            "text": "Jacksonville State GamecocksIn ProgressMiddle Tennessee Blue RaidersLive Streams",
-            "href": "https://mybuffstreams.plus/cfb/jacksonville-state-gamecocks-middle-tennessee-blue-raiders/1360912"
         },
         {
             "source_site": "https://mybuffstreams.plus/nflstreams2",
@@ -162,22 +152,17 @@
         },
         {
             "source_site": "https://mybuffstreams.plus/nflstreams2",
-            "text": "Abilene Christian Wildcats3rd quarterMercer BearsLive Streams",
-            "href": "https://mybuffstreams.plus/cfb/abilene-christian-wildcats-mercer-bears/1529292"
-        },
-        {
-            "source_site": "https://mybuffstreams.plus/nflstreams2",
-            "text": "Northern Colorado Bears2nd quarterUtah Tech TrailblazersLive Streams",
+            "text": "Northern Colorado Bears3rd quarterUtah Tech TrailblazersLive Streams",
             "href": "https://mybuffstreams.plus/cfb/utah-tech-trailblazers-northern-colorado-bears/1529293"
         },
         {
             "source_site": "https://mybuffstreams.plus/nflstreams2",
-            "text": "Southern Utah ThunderbirdsHalftimeIdaho State BengalsLive Streams",
+            "text": "Southern Utah Thunderbirds3rd quarterIdaho State BengalsLive Streams",
             "href": "https://mybuffstreams.plus/cfb/idaho-state-bengals-southern-utah-thunderbirds/1529294"
         },
         {
             "source_site": "https://mybuffstreams.plus/nflstreams2",
-            "text": "Weber State WildcatsHalftimePortland State VikingsLive Streams",
+            "text": "Weber State Wildcats3rd quarterPortland State VikingsLive Streams",
             "href": "https://mybuffstreams.plus/cfb/portland-state-vikings-weber-state-wildcats/1529295"
         },
         {
@@ -212,11 +197,6 @@
         },
         {
             "source_site": "https://mybuffstreams.plus/nflstreams2",
-            "text": "East Central Tigers11:00 PMNorthwestern Oklahoma State RangersLive Streams",
-            "href": "https://mybuffstreams.plus/cfb/northwestern-oklahoma-state-rangers-east-central-tigers/1360894"
-        },
-        {
-            "source_site": "https://mybuffstreams.plus/nflstreams2",
             "text": "Missouri S&T Miners11:00 PMSouthwest Baptist BearcatsLive Streams",
             "href": "https://mybuffstreams.plus/cfb/southwest-baptist-bearcats-missouri-s-and-t-miners/1360895"
         },
@@ -239,16 +219,6 @@
             "source_site": "https://mybuffstreams.plus/nflstreams2",
             "text": "Centenary Gents11:00 PMSchreiner MountaineersLive Streams",
             "href": "https://mybuffstreams.plus/cfb/schreiner-mountaineers-centenary-gents/1529380"
-        },
-        {
-            "source_site": "https://mybuffstreams.plus/nflstreams2",
-            "text": "Millikin Big Blue11:00 PMNorth Park VikingsLive Streams",
-            "href": "https://mybuffstreams.plus/cfb/north-park-vikings-millikin-big-blue/1529382"
-        },
-        {
-            "source_site": "https://mybuffstreams.plus/nflstreams2",
-            "text": "Wilkes Colonels11:00 PMMontclair State Red HawksLive Streams",
-            "href": "https://mybuffstreams.plus/cfb/montclair-state-red-hawks-wilkes-colonels/1529383"
         },
         {
             "source_site": "https://mybuffstreams.plus/nflstreams2",
@@ -371,16 +341,6 @@
             "href": "https://isportsurge.ws/watch/mlb/tampa-bay-rays-philadelphia-phillies/401843392"
         },
         {
-            "source_site": "https://isportsurge.ws/mlb/livestreams2",
-            "text": "In ProgressChicago White SoxColorado RockiesMLBLIVE",
-            "href": "https://isportsurge.ws/watch/mlb/chicago-white-sox-colorado-rockies/401843976"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressUSCOregonCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/oregon-ducks-usc-trojans/446544504"
-        },
-        {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
             "text": "In ProgressLSU TigersTexas A&MCFBLIVE",
             "href": "https://isportsurge.ws/watch/cfb/texas-a-and-m-aggies-lsu-tigers/446543920"
@@ -392,38 +352,53 @@
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
+            "text": "In ProgressUSCOregonCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/oregon-ducks-usc-trojans/446544504"
+        },
+        {
+            "source_site": "https://isportsurge.ws/cfb/livestreams2",
             "text": "In ProgressAlabamaSouth CarolinaCFBLIVE",
             "href": "https://isportsurge.ws/watch/cfb/alabama-crimson-tide-south-carolina-gamecocks/446542752"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "1 minute from nowChapman PanthersLa Verne LeopardsCFB1 minute from now",
-            "href": "https://isportsurge.ws/watch/cfb/chapman-panthers-la-verne-leopards/446581004"
+            "text": "19 minutes from nowNevadaAir ForceCFB19 minutes from now",
+            "href": "https://isportsurge.ws/watch/cfb/air-force-falcons-nevada-wolf-pack/446545964"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "1 minute from nowPomona Pitzer SagehensClaremont Mudd Scripps StagsCFB1 minute from now",
-            "href": "https://isportsurge.ws/watch/cfb/claremont-mudd-scripps-stags-pomona-pitzer-sagehens/446581296"
+            "text": "19 minutes from nowMontana State BobcatsNorthern ArizonaCFB19 minutes from now",
+            "href": "https://isportsurge.ws/watch/cfb/montana-state-bobcats-northern-arizona/397396524"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "1 minute from nowCalifornia-DavisMontana GrizzliesCFB1 minute from now",
-            "href": "https://isportsurge.ws/watch/cfb/montana-grizzlies-california-davis-aggies/446554432"
+            "text": "19 minutes from nowStanfordGeorgia TechCFB19 minutes from now",
+            "href": "https://isportsurge.ws/watch/cfb/stanford-cardinal-georgia-tech-yellow-jackets/397388056"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "1 minute from nowFresno St.RiceCFB1 minute from now",
-            "href": "https://isportsurge.ws/watch/cfb/rice-owls-fresno-state-bulldogs/397387764"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "6 minutes from nowCalifornia Lutheran KingsmenRedlands\tBulldogsCFB6 minutes from now",
+            "text": "In ProgressCalifornia Lutheran KingsmenRedlands\tBulldogsCFBLIVE",
             "href": "https://isportsurge.ws/watch/cfb/redlands-bulldogs-california-lutheran-kingsmen/446581588"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressSacramento StateUMassCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/sacramento-state-hornets-massachusetts-minutemen/446545380"
+            "text": "In ProgressPomona Pitzer SagehensClaremont Mudd Scripps StagsCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/claremont-mudd-scripps-stags-pomona-pitzer-sagehens/446581296"
+        },
+        {
+            "source_site": "https://isportsurge.ws/cfb/livestreams2",
+            "text": "In ProgressChapman PanthersLa Verne LeopardsCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/chapman-panthers-la-verne-leopards/446581004"
+        },
+        {
+            "source_site": "https://isportsurge.ws/cfb/livestreams2",
+            "text": "In ProgressCalifornia-DavisMontana GrizzliesCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/montana-grizzlies-california-davis-aggies/446554432"
+        },
+        {
+            "source_site": "https://isportsurge.ws/cfb/livestreams2",
+            "text": "In ProgressFresno St.RiceCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/rice-owls-fresno-state-bulldogs/397387764"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
@@ -432,73 +407,28 @@
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressCentral Washington WildcatsSul Ross State LobosCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/sul-ross-state-lobos-central-washington-wildcats/397384260"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
             "text": "In ProgressSMUMissouri StateCFBLIVE",
             "href": "https://isportsurge.ws/watch/cfb/missouri-state-bears-southern-methodist-mustangs/446545672"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressMissouri Western GriffonsFort Hays State TigersCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/missouri-western-griffons-fort-hays-state-tigers/397382800"
+            "text": "In ProgressCentral Washington WildcatsSul Ross State LobosCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/sul-ross-state-lobos-central-washington-wildcats/397384260"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressBethel RoyalsHamline PipersCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/hamline-pipers-bethel-royals/446580128"
+            "text": "In ProgressSacramento StateUMassCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/sacramento-state-hornets-massachusetts-minutemen/446545380"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressWestern New Mexico MustangsTexas A&M Kingsville JavelinasCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/texas-a-and-m-kingsville-javelinas-western-new-mexico-mustangs/397383968"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressWestern Colorado MountaineersAdams State GrizzliesCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/adams-state-grizzlies-western-colorado-mountaineers/397383676"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressWest Texas A&M BuffaloesMidwestern State MustangsCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/west-texas-a-and-m-buffaloes-midwestern-state-mustangs/397383384"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressOuachita Baptist TigersHarding BisonsCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/harding-bisons-ouachita-baptist-tigers/397383092"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressCentral Oklahoma BronchosNorthwest MissouriCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/central-oklahoma-bronchos-northwest-missouri-state-bearcats/397382508"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressWeber StatePortland StateCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/portland-state-vikings-weber-state-wildcats/446554140"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressWestminster Blue JaysLyon College ScotsCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/lyon-college-scots-westminster-blue-jays/446580712"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressSouthern UtahIdaho StateCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/idaho-state-bengals-southern-utah-thunderbirds/446553848"
+            "text": "In ProgressMacalester ScotsSaint Scholastica SaintsCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/macalester-scots-saint-scholastica-saints/446580420"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
             "text": "In ProgressNorthern Colorado BearsUtah Tech TrailblazersCFBLIVE",
             "href": "https://isportsurge.ws/watch/cfb/utah-tech-trailblazers-northern-colorado-bears/446553556"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressAbilene ChristianMercerCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/abilene-christian-wildcats-mercer-bears/446553264"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
@@ -512,8 +442,58 @@
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressMacalester ScotsSaint Scholastica SaintsCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/macalester-scots-saint-scholastica-saints/446580420"
+            "text": "In ProgressWeber StatePortland StateCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/portland-state-vikings-weber-state-wildcats/446554140"
+        },
+        {
+            "source_site": "https://isportsurge.ws/cfb/livestreams2",
+            "text": "In ProgressOuachita Baptist TigersHarding BisonsCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/harding-bisons-ouachita-baptist-tigers/397383092"
+        },
+        {
+            "source_site": "https://isportsurge.ws/cfb/livestreams2",
+            "text": "In ProgressWestminster Blue JaysLyon College ScotsCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/lyon-college-scots-westminster-blue-jays/446580712"
+        },
+        {
+            "source_site": "https://isportsurge.ws/cfb/livestreams2",
+            "text": "In ProgressAbilene ChristianMercerCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/abilene-christian-wildcats-mercer-bears/446553264"
+        },
+        {
+            "source_site": "https://isportsurge.ws/cfb/livestreams2",
+            "text": "In ProgressBethel RoyalsHamline PipersCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/hamline-pipers-bethel-royals/446580128"
+        },
+        {
+            "source_site": "https://isportsurge.ws/cfb/livestreams2",
+            "text": "In ProgressCentral Oklahoma BronchosNorthwest MissouriCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/central-oklahoma-bronchos-northwest-missouri-state-bearcats/397382508"
+        },
+        {
+            "source_site": "https://isportsurge.ws/cfb/livestreams2",
+            "text": "In ProgressWestern Colorado MountaineersAdams State GrizzliesCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/adams-state-grizzlies-western-colorado-mountaineers/397383676"
+        },
+        {
+            "source_site": "https://isportsurge.ws/cfb/livestreams2",
+            "text": "In ProgressSouthern UtahIdaho StateCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/idaho-state-bengals-southern-utah-thunderbirds/446553848"
+        },
+        {
+            "source_site": "https://isportsurge.ws/cfb/livestreams2",
+            "text": "In ProgressMissouri Western GriffonsFort Hays State TigersCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/missouri-western-griffons-fort-hays-state-tigers/397382800"
+        },
+        {
+            "source_site": "https://isportsurge.ws/cfb/livestreams2",
+            "text": "In ProgressWestern New Mexico MustangsTexas A&M Kingsville JavelinasCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/texas-a-and-m-kingsville-javelinas-western-new-mexico-mustangs/397383968"
+        },
+        {
+            "source_site": "https://isportsurge.ws/cfb/livestreams2",
+            "text": "In ProgressWest Texas A&M BuffaloesMidwestern State MustangsCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/west-texas-a-and-m-buffaloes-midwestern-state-mustangs/397383384"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
@@ -537,48 +517,18 @@
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressWilkes ColonelsMontclair State Red HawksCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/montclair-state-red-hawks-wilkes-colonels/446579836"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressArkansas StateKennesaw St.CFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/kennesaw-state-owls-arkansas-state-red-wolves/397386012"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressCase Western Reserve SpartansWashington And Jefferson PresidentsCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/washington-and-jefferson-presidents-case-western-reserve-spartans/446578668"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressCarroll PioneersCarthage\tRed MenCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/carroll-pioneers-carthage-red-men/446578376"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressWinona State WarriorsAugustana University VikingsCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/winona-state-warriors-augustana-university-vikings/397382216"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressNorthwestern St.Southeastern LouisianaCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/northwestern-state-demons-southeastern-louisiana-lions/446552972"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressEast Central TigersNorthwestern Oklahoma State RangersCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/northwestern-oklahoma-state-rangers-east-central-tigers/397381048"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
             "text": "In ProgressArkansas Monticello Boll WeevilsArkansas Tech Wonder BoysCFBLIVE",
             "href": "https://isportsurge.ws/watch/cfb/arkansas-tech-wonder-boys-arkansas-monticello-boll-weevils/397380756"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressJackson StateSouthern UniversityCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/jackson-state-tigers-southern-university-jaguars/446552680"
+            "text": "In ProgressMissouri S&T MinersSouthwest Baptist BearcatsCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/southwest-baptist-bearcats-missouri-s-and-t-miners/397381340"
+        },
+        {
+            "source_site": "https://isportsurge.ws/cfb/livestreams2",
+            "text": "In ProgressNorthwestern St.Southeastern LouisianaCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/northwestern-state-demons-southeastern-louisiana-lions/446552972"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
@@ -612,11 +562,6 @@
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressMcNeese StateEast Texas A&M-CommerceCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/east-texas-a-and-m-commerce-lions-mcneese-state-cowboys/397395648"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
             "text": "In ProgressFlorida A&MAlabama A&MCFBLIVE",
             "href": "https://isportsurge.ws/watch/cfb/alabama-a-and-m-bulldogs-florida-a-and-m-rattlers/397395356"
         },
@@ -642,13 +587,28 @@
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressJacksonville StateMiddle Tennessee St.CFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/jacksonville-state-gamecocks-middle-tennessee-blue-raiders/397386304"
+            "text": "In ProgressJackson StateSouthern UniversityCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/jackson-state-tigers-southern-university-jaguars/446552680"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressMillikin Big BlueNorth Park VikingsCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/north-park-vikings-millikin-big-blue/446579544"
+            "text": "In ProgressNorfolk St.CFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/chicago-state-cougars-norfolk-state-spartans/397364696"
+        },
+        {
+            "source_site": "https://isportsurge.ws/cfb/livestreams2",
+            "text": "In ProgressWinona State WarriorsAugustana University VikingsCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/winona-state-warriors-augustana-university-vikings/397382216"
+        },
+        {
+            "source_site": "https://isportsurge.ws/cfb/livestreams2",
+            "text": "In ProgressCarroll PioneersCarthage\tRed MenCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/carroll-pioneers-carthage-red-men/446578376"
+        },
+        {
+            "source_site": "https://isportsurge.ws/cfb/livestreams2",
+            "text": "In ProgressCase Western Reserve SpartansWashington And Jefferson PresidentsCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/washington-and-jefferson-presidents-case-western-reserve-spartans/446578668"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
@@ -657,13 +617,8 @@
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressMissouri S&T MinersSouthwest Baptist BearcatsCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/southwest-baptist-bearcats-missouri-s-and-t-miners/397381340"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressNorfolk St.CFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/chicago-state-cougars-norfolk-state-spartans/397364696"
+            "text": "In ProgressMcNeese StateEast Texas A&M-CommerceCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/east-texas-a-and-m-commerce-lions-mcneese-state-cowboys/397395648"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
@@ -677,22 +632,7 @@
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "31 minutes from nowStanfordGeorgia TechCFB31 minutes from now",
-            "href": "https://isportsurge.ws/watch/cfb/stanford-cardinal-georgia-tech-yellow-jackets/397388056"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "31 minutes from nowMontana State BobcatsNorthern ArizonaCFB31 minutes from now",
-            "href": "https://isportsurge.ws/watch/cfb/montana-state-bobcats-northern-arizona/397396524"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "31 minutes from nowNevadaAir ForceCFB31 minutes from now",
-            "href": "https://isportsurge.ws/watch/cfb/air-force-falcons-nevada-wolf-pack/446545964"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "1 hour from nowWashingtonMinnesotaCFB1 hour from now",
+            "text": "49 minutes from nowWashingtonMinnesotaCFB49 minutes from now",
             "href": "https://isportsurge.ws/watch/cfb/minnesota-golden-gophers-washington-huskies/446546256"
         }
     ]

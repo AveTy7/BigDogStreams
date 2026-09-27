@@ -379,37 +379,22 @@
             display: block;
         }
 
-        /* Redzone Card styling specifically formatted like a game card */
+        /* Redzone Card formatting */
         .redzone-card {
             background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(30, 41, 59, 0.9));
             border: 1px solid rgba(239, 68, 68, 0.4);
             border-radius: 8px;
-            padding: 12px 16px;
+            padding: 16px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            gap: 8px;
+            gap: 12px;
             transition: transform 0.2s ease, border-color 0.2s ease;
         }
 
         .redzone-card:hover {
             transform: translateY(-2px);
             border-color: var(--danger);
-        }
-
-        .redzone-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin-bottom: 4px;
-        }
-
-        .redzone-card-title-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         .standings-section {
@@ -718,12 +703,7 @@
                 {
                     "source_site": "https://mybuffstreams.plus/mlb-live-streams",
                     "text": "Los Angeles DodgersIn ProgressSan Francisco GiantsLive Streams",
-                    "href": "https://mybuffstreams.plus/mlb/los-angeles-dodgers-san-francisco-giants/1376016"
-                },
-                {
-                    "source_site": "https://mybuffstreams.plus/mlb-live-streams",
-                    "text": "Los Angeles AngelsIn ProgressMinnesota TwinsLive Streams",
-                    "href": "https://mybuffstreams.plus/mlb/los-angeles-angels-minnesota-twins/1376017"
+                    "href": "https://mybuffstreams.plus/mlb/san-francisco-giants-los-angeles-dodgers/1376016"
                 }
             ]
         };
@@ -1682,11 +1662,41 @@
         function renderGames(events) {
             const dynamicArea = getActiveContentContainer();
 
-            let gridHTML = '<div class="games-grid">';
+            let gridHTML = '';
+
+            // If NFL, inject Redzone card at the top if links are available
+            if (currentLeagueKey === 'nfl') {
+                const redzoneLinks = getRedzoneLinks();
+                if (redzoneLinks.length > 0) {
+                    gridHTML += `
+                        <div class="redzone-card" style="margin-bottom: 16px;">
+                            <div class="game-status-bar">
+                                <div class="status-live"><span class="pulse-dot"></span> LIVE • NFL Redzone</div>
+                            </div>
+                            <div class="teams-container">
+                                <div class="team-row">
+                                    <div class="team-info">
+                                        <span class="team-name" style="font-size: 1.05rem; font-weight: 700;">NFL Redzone Coverage</span>
+                                    </div>
+                                    <span class="team-score" style="color: var(--danger); font-size: 0.9rem;">MULTI-GAME</span>
+                                </div>
+                            </div>
+                            <div class="card-footer" style="margin-top: 4px;">
+                                ${createStreamsDropdown({ name: 'Redzone' }, { name: 'NFL' })}
+                                <span style="color: var(--text-secondary); font-size: 0.75rem;">All Sunday Afternoon Games</span>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+
+            gridHTML += '<div class="games-grid">';
 
             if (!events || events.length === 0) {
-                dynamicArea.innerHTML = `<div class="no-data">No games scheduled or available for this filter right now.</div>`;
-                return;
+                if (currentLeagueKey !== 'nfl' || gridHTML.indexOf('redzone-card') === -1) {
+                    dynamicArea.innerHTML = `<div class="no-data">No games scheduled or available for this filter right now.</div>`;
+                    return;
+                }
             } else {
                 events.sort((a, b) => {
                     const getPriority = (event) => {
@@ -1948,7 +1958,6 @@
                                <th>Record</th>
                            </tr>
                      </thead>
-                       </thead>
                        <tbody>
             `;
 

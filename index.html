@@ -379,7 +379,7 @@
             display: block;
         }
 
-        /* Redzone Card styling specifically for NFL/CFB */
+        /* Redzone Card styling specifically formatted like a game card */
         .redzone-card {
             background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(30, 41, 59, 0.9));
             border: 1px solid rgba(239, 68, 68, 0.4);
@@ -410,18 +410,6 @@
             display: flex;
             align-items: center;
             gap: 10px;
-        }
-
-        .redzone-card-logo {
-            width: 28px;
-            height: 28px;
-            object-fit: contain;
-        }
-
-        .redzone-card-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text-primary);
         }
 
         .standings-section {
@@ -1684,8 +1672,8 @@
 
             let gridHTML = '<div class="games-grid">';
 
-            // If we are in NFL or CFB, insert Redzone cards as full game cards in the grid
-            if ((currentLeagueKey === 'nfl' || currentLeagueKey === 'cfb')) {
+            // If we are on the NFL tab, insert Redzone card(s) first in the grid
+            if (currentLeagueKey === 'nfl') {
                 const redzoneLinks = getRedzoneLinks();
                 if (redzoneLinks.length > 0) {
                     const providerCounts = {};
@@ -1716,7 +1704,7 @@
                                         <div class="status-live"><span class="pulse-dot"></span> LIVE • Redzone Feed</div>
                                     </div>
                                     <div class="redzone-card-title-row" style="margin-top: 12px; margin-bottom: 8px;">
-                                        <div class="redzone-card-title">NFL Redzone (${label})</div>
+                                        <div style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary);">NFL Redzone (${label})</div>
                                     </div>
                                     <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;">
                                         Continuous live whip-around coverage of Sunday afternoon NFL games.
@@ -1733,7 +1721,7 @@
             }
 
             if (!events || events.length === 0) {
-                if ((currentLeagueKey !== 'nfl' && currentLeagueKey !== 'cfb') || getRedzoneLinks().length === 0) {
+                if (currentLeagueKey !== 'nfl' || getRedzoneLinks().length === 0) {
                     dynamicArea.innerHTML = `<div class="no-data">No games scheduled or available for this filter right now.</div>`;
                     return;
                 }

@@ -101,7 +101,7 @@ def scrape_isportsurge(target_url):
 
 
 def scrape_streameast(target_url):
-  # UPDATED: Uses CSS selectors matching your screenshot structure cleanly
+  # UPDATED: Looks for any anchor tags with '/live/' in the href to reliably grab stream paths
   headers = {
       "User-Agent": (
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,"
@@ -120,12 +120,10 @@ def scrape_streameast(target_url):
   soup = BeautifulSoup(response.text, "html.parser")
   site_links = []
 
-  # Directly target the anchor tags inside the live stream cards shown in your screenshot
-  stream_links = soup.select("article.stream-card.live a.card-link")
-
-  for a_tag in stream_links:
-    if a_tag.has_attr("href"):
-      href = a_tag["href"]
+  # Find all anchor tags where href contains '/live/'
+  for a_tag in soup.find_all("a", href=True):
+    href = a_tag["href"]
+    if "/live/" in href:
       text = a_tag.get_text(strip=True)
 
       if href.startswith("/"):

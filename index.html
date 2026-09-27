@@ -1099,23 +1099,36 @@
                 const conferenceSelect = document.getElementById('conference-select');
                 const selectedConf = cfg.conferences[conferenceSelect.selectedIndex];
 
-                // Request the distinct group endpoint (?groups=81 for FCS, ?groups=80 for FBS) to ensure separate payloads
-                if (selectedConf && selectedConf.type === 'rankings-fcs') {
-                    const url = `https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/rankings?groups=81`;
+                if (selectedConf && selectedConf.type === 'rankings-fbs') {
+                    const url = `https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/rankings`;
                     try {
                         const res = await fetch(url);
                         const data = await res.json();
-                        renderCollegeRankings(data, 'FCS', 'fcs');
+                        renderCollegeRankings(data, 'FBS');
                         return;
                     } catch (e) {}
-                }
-
-                if (selectedConf && selectedConf.type === 'rankings-fbs') {
-                    const url = `https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/rankings?groups=80`;
+                } else if (selectedConf && selectedConf.type === 'rankings-fcs') {
                     try {
+                        const url = `https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/rankings`;
                         const res = await fetch(url);
                         const data = await res.json();
-                        renderCollegeRankings(data, 'FBS', 'fbs');
+                        
+                        const fcsPoll = data.rankings?.find(p => {
+                            const name = (p.name || p.headline || '').toLowerCase();
+                            return name.includes('fcs') || name.includes('stats perform') || p.type === 'fcs';
+                        });
+
+                        if (fcsPoll && fcsPoll.ranks) {
+                            renderSpecificPoll(fcsPoll, 'FCS Top 25 Rankings');
+                            return;
+                        }
+                    } catch (e) {}
+
+                    try {
+                        const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings?groups=81`;
+                        const res = await fetch(url);
+                        const data = await res.json();
+                        renderCollegeConferenceStandings(data, 'FCS Top Teams');
                         return;
                     } catch (e) {}
                 } else if (selectedConf && selectedConf.type === 'standings') {
@@ -1637,7 +1650,7 @@
                 if (cfg && cfg.conferences) {
                     const conferenceSelect = document.getElementById('conference-select');
                     const selectedConf = cfg.conferences[conferenceSelect.selectedIndex];
-                    if (selectedConf && (selectedConf.type === 'rankings-fbs' || selectedConf.name === 'FCS')) {
+                    if (selectedConf && (selectedConf.type === 'rankings-fbs' || selectedConf.type === 'rankings-fcs')) {
                         btn.textContent = 'View Top 25';
                     } else {
                         btn.textContent = 'View Standings';
@@ -1873,14 +1886,6 @@
                 }
             }
 
-            if (matchedEntries.length === 0 && data.standings && data.standings.entries) {
-                matchedEntries = data.standings.entries;
-            }
-
-            if (matchedEntries.length === 0 && data.entries) {
-                matchedEntries = data.entries;
-            }
-
             if (matchedEntries.length === 0) {
                 dynamicArea.innerHTML = `<div class="no-data">No standings available for ${confName}.</div>`;
                 return;
@@ -1925,34 +1930,21 @@
             dynamicArea.innerHTML = html;
         }
 
-        function renderCollegeRankings(data, targetType, searchFilter = '') {
+        function renderCollegeRankings(data, targetType) {
             const dynamicArea = getActiveContentContainer();
             const rankingsList = data.rankings || [];
             
             let poll = rankingsList.find(p => {
-                const name = (p.name || p.headline || p.shortName || '').toLowerCase();
-                const type = (p.type || '').toLowerCase();
-                const desc = (p.description || '').toLowerCase();
-                if (searchFilter === 'fcs') {
-                    return name.includes('fcs') || type.includes('fcs') || desc.includes('fcs');
-                }
-                return name.includes('ap') || name.includes('fbs') || type.includes('ap') || type.includes('fbs');
-            });
-
-            if (!poll) {
-                if (searchFilter === 'fcs') {
-                    poll = rankingsList.find(p => JSON.stringify(p).toLowerCase().includes('fcs')) || rankingsList[1] || rankingsList[0];
-                } else {
-                    poll = rankingsList[0];
-                }
-            }
+                const name = (p.name || p.headline || '').toLowerCase();
+                return name.includes('ap') || name.includes('fbs') || p.type === 'ap';
+            }) || rankingsList[0];
 
             if (!poll || !poll.ranks) {
                 dynamicArea.innerHTML = `<div class="no-data">Rankings currently unavailable.</div>`;
                 return;
             }
 
-            renderSpecificPoll(poll, `Top 25 ${targetType} (${poll.name || targetType})`);
+            renderSpecificPoll(poll, `Current Top 25 ${targetType} Rankings (${poll.name || 'Poll'})`);
         }
 
         function renderSpecificPoll(poll, titleText) {
@@ -1962,6 +1954,7 @@
                     <div class="standings-title">${titleText}</div>
                     <table class="standings-table">
                        <thead>
+                           fn
                            <tr>
                                <th>Rank</th>
                                <th>Team</th>
@@ -1971,9 +1964,7 @@
                        <tbody>
             `;
 
-            const ranksArr = poll.ranks || [];
-
-            ranksArr.forEach(rank => {
+            poll.ranks.forEach(rank => {
                 const team = rank.team || {};
                 const teamLogo = team.logo || (team.logos && team.logos[0] && team.logos[0].href) || '';
                 const teamName = team.displayName || team.name || team.shortDisplayName || '';

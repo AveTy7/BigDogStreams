@@ -343,7 +343,7 @@
             bottom: 100%;
             left: 0;
             background-color: var(--bg-secondary);
-            min-width: 220px;
+            min-width: 200px;
             border: 1px solid var(--border);
             border-radius: 6px;
             box-shadow: 0px 8px 16px rgba(0,0,0,0.4);
@@ -651,7 +651,6 @@
         let globalBoxScoreData = null;
         let availableLinks = [];
 
-        // Fetch links.json on load for dynamic matching
         async function loadLinksJson() {
             try {
                 const response = await fetch('links.json?t=' + Date.now());
@@ -853,6 +852,22 @@
             return `<span style="color: var(--text-secondary);">NA</span>`;
         }
 
+        // Helper to format provider site names nicely and handle deduplication & numbering
+        function getProviderName(urlStr) {
+            try {
+                const urlObj = new URL(urlStr);
+                let host = urlObj.hostname.replace('www.', '');
+                let parts = host.split('.');
+                if (parts.length >= 2) {
+                    let mainName = parts[parts.length - 2];
+                    return mainName.charAt(0).toUpperCase() + mainName.slice(1);
+                }
+                return host;
+            } catch (e) {
+                return "Stream";
+            }
+        }
+
         // Generate Streams Dropdown for Game Cards
         function createStreamsDropdown(homeTeamName, awayTeamName) {
             const linksList = availableLinks.length > 0 ? availableLinks : (testJsonData.links || []);
@@ -874,18 +889,30 @@
             `;
 
             if (matchedLinks.length > 0) {
-                const uniqueLinks = Array.from(new Set(matchedLinks.map(s => s.href)))
-                    .map(href => matchedLinks.find(s => s.href === href));
+                // Deduplicate by href
+                const uniqueByHref = Array.from(new Map(matchedLinks.map(item => [item.href, item])).values());
 
-                uniqueLinks.forEach(link => {
-                    let provider = "Stream";
-                    const src = (link.source_site || '').toLowerCase();
-                    if (src.includes("mybuffstreams")) provider = "MyBuffStreams";
-                    else if (src.includes("isportsurge")) provider = "iSportsurge";
-                    else if (src.includes("crackstreams")) provider = "Crackstreams";
-                    else if (src.includes("thetvapp")) provider = "TheTVApp";
+                // Group and count provider names to handle Source 1, Source 2 numbering
+                const providerCounts = {};
+                uniqueByHref.forEach(link => {
+                    const sourceRef = link.source_site || link.href;
+                    const pName = getProviderName(sourceRef);
+                    providerCounts[pName] = (providerCounts[pName] || 0) + 1;
+                });
 
-                    dropdownHtml += `<a href="${link.href}" target="_blank">${provider}: ${link.text}</a>`;
+                const providerSeenIndices = {};
+
+                uniqueByHref.forEach(link => {
+                    const sourceRef = link.source_site || link.href;
+                    const pName = getProviderName(sourceRef);
+                    
+                    let label = pName;
+                    if (providerCounts[pName] > 1) {
+                        providerSeenIndices[pName] = (providerSeenIndices[pName] || 0) + 1;
+                        label = `${pName} ${providerSeenIndices[pName]}`;
+                    }
+
+                    dropdownHtml += `<a href="${link.href}" target="_blank">${label}</a>`;
                 });
             } else {
                 dropdownHtml += `<a href="#" onclick="return false;" style="color: var(--text-secondary); cursor: default;">No active streams found</a>`;

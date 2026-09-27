@@ -636,7 +636,7 @@
                 type: 'college',
                 conferences: [
                     { name: 'All FBS', param: '?groups=80', type: 'rankings-fbs' },
-                    { name: 'FCS', param: '?groups=81', type: 'rankings-fcs' },
+                    { name: 'FCS', param: '?groups=81', type: 'standings' },
                     { name: 'SEC', param: '?groups=8', type: 'standings' },
                     { name: 'Big Ten', param: '?groups=5', type: 'standings' },
                     { name: 'Big 12', param: '?groups=1', type: 'standings' },
@@ -1099,36 +1099,22 @@
                 const conferenceSelect = document.getElementById('conference-select');
                 const selectedConf = cfg.conferences[conferenceSelect.selectedIndex];
 
+                if (selectedConf && selectedConf.name === 'FCS') {
+                    const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings${selectedConf.param}`;
+                    try {
+                        const res = await fetch(url);
+                        const data = await res.json();
+                        renderFilteredCollegeStandings(data, 'FCS Top Teams', '81');
+                        return;
+                    } catch (e) {}
+                }
+
                 if (selectedConf && selectedConf.type === 'rankings-fbs') {
                     const url = `https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/rankings`;
                     try {
                         const res = await fetch(url);
                         const data = await res.json();
                         renderCollegeRankings(data, 'FBS');
-                        return;
-                    } catch (e) {}
-                } else if (selectedConf && selectedConf.type === 'rankings-fcs') {
-                    try {
-                        const url = `https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/rankings`;
-                        const res = await fetch(url);
-                        const data = await res.json();
-                        
-                        const fcsPoll = data.rankings?.find(p => {
-                            const name = (p.name || p.headline || '').toLowerCase();
-                            return name.includes('fcs') || name.includes('stats perform') || p.type === 'fcs';
-                        });
-
-                        if (fcsPoll && fcsPoll.ranks) {
-                            renderSpecificPoll(fcsPoll, 'FCS Top 25 Rankings');
-                            return;
-                        }
-                    } catch (e) {}
-
-                    try {
-                        const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings?groups=81`;
-                        const res = await fetch(url);
-                        const data = await res.json();
-                        renderCollegeConferenceStandings(data, 'FCS Top Teams');
                         return;
                     } catch (e) {}
                 } else if (selectedConf && selectedConf.type === 'standings') {
@@ -1650,7 +1636,7 @@
                 if (cfg && cfg.conferences) {
                     const conferenceSelect = document.getElementById('conference-select');
                     const selectedConf = cfg.conferences[conferenceSelect.selectedIndex];
-                    if (selectedConf && (selectedConf.type === 'rankings-fbs' || selectedConf.type === 'rankings-fcs')) {
+                    if (selectedConf && (selectedConf.type === 'rankings-fbs' || selectedConf.name === 'FCS')) {
                         btn.textContent = 'View Top 25';
                     } else {
                         btn.textContent = 'View Standings';
@@ -1884,6 +1870,14 @@
                 if (targetGroup && targetGroup.standings && targetGroup.standings.entries) {
                     matchedEntries = targetGroup.standings.entries;
                 }
+            }
+
+            if (matchedEntries.length === 0 && data.standings && data.standings.entries) {
+                matchedEntries = data.standings.entries;
+            }
+
+            if (matchedEntries.length === 0 && data.entries) {
+                matchedEntries = data.entries;
             }
 
             if (matchedEntries.length === 0) {

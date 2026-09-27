@@ -4,7 +4,6 @@ import requests
 
 
 def scrape_mybuffstreams(target_url):
-  # UNTOUCHED: Your original MyBuffStreams headers and parsing logic
   headers = {
       "User-Agent": (
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,"
@@ -53,7 +52,6 @@ def scrape_mybuffstreams(target_url):
 
 
 def scrape_strikeout(target_url):
-  # UPDATED ONLY HERE: Enhanced headers and data-openurl attribute extraction
   headers = {
       "User-Agent": (
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,"
@@ -78,15 +76,23 @@ def scrape_strikeout(target_url):
   soup = BeautifulSoup(response.text, "html.parser")
   site_links = []
 
-  matching_tags = soup.find_all("a", attrs={"data-openurl": True})
+  # Check for both data-openurl and the data-openuri variant spotted in the HTML inspection
+  matching_tags = []
+  for tag in soup.find_all(True):
+    if tag.has_attr("data-openurl") or tag.has_attr("data-openuri"):
+      matching_tags.append(tag)
+
   print(
       f"  [DEBUG] StrikeOut fetched successfully. Found {len(matching_tags)}"
-      " data-openurl links."
+      " target attributes."
   )
 
-  for a_tag in matching_tags:
-    open_url = a_tag["data-openurl"]
-    text = a_tag.get_text(strip=True)
+  for tag in matching_tags:
+    open_url = tag.get("data-openurl") or tag.get("data-openuri")
+    text = tag.get_text(strip=True)
+
+    if not open_url:
+      continue
 
     if open_url.startswith("/"):
       full_href = f"https://strikeout.im{open_url}"

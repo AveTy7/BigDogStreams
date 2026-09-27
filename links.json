@@ -32,16 +32,6 @@
         },
         {
             "source_site": "https://mybuffstreams.plus/nflstreams2",
-            "text": "Western Kentucky HilltoppersIn ProgressMercyhurst LakersLive Streams",
-            "href": "https://mybuffstreams.plus/cfb/mercyhurst-lakers-western-kentucky-hilltoppers/1360927"
-        },
-        {
-            "source_site": "https://mybuffstreams.plus/nflstreams2",
-            "text": "Murray State Racers4th quarterSouthern Illinois SalukisLive Streams",
-            "href": "https://mybuffstreams.plus/cfb/murray-state-racers-southern-illinois-salukis/1360930"
-        },
-        {
-            "source_site": "https://mybuffstreams.plus/nflstreams2",
             "text": "Southeast Missouri State Redhawks4th quarterWest Florida ArgonautsLive Streams",
             "href": "https://mybuffstreams.plus/cfb/west-florida-argonauts-southeast-missouri-state-redhawks/1360932"
         },
@@ -54,11 +44,6 @@
             "source_site": "https://mybuffstreams.plus/nflstreams2",
             "text": "Florida A&M Rattlers4th quarterAlabama A&M BulldogsLive Streams",
             "href": "https://mybuffstreams.plus/cfb/alabama-a-and-m-bulldogs-florida-a-and-m-rattlers/1360943"
-        },
-        {
-            "source_site": "https://mybuffstreams.plus/nflstreams2",
-            "text": "Mcneese State Cowboys4th quarterEast Texas A&M-Commerce LionsLive Streams",
-            "href": "https://mybuffstreams.plus/cfb/east-texas-a-and-m-commerce-lions-mcneese-state-cowboys/1360944"
         },
         {
             "source_site": "https://mybuffstreams.plus/nflstreams2",
@@ -182,23 +167,23 @@
         },
         {
             "source_site": "https://mybuffstreams.plus/nflstreams2",
+            "text": "Fresno State BulldogsIn ProgressRice OwlsLive Streams",
+            "href": "https://mybuffstreams.plus/cfb/rice-owls-fresno-state-bulldogs/1360917"
+        },
+        {
+            "source_site": "https://mybuffstreams.plus/nflstreams2",
+            "text": "California-Davis Aggies1st quarterMontana GrizzliesLive Streams",
+            "href": "https://mybuffstreams.plus/cfb/montana-grizzlies-california-davis-aggies/1529296"
+        },
+        {
+            "source_site": "https://mybuffstreams.plus/nflstreams2",
             "text": "Umass Dartmouth Corsairs07:30 PMBridgton Academy WolverinesLive Streams",
             "href": "https://mybuffstreams.plus/cfb/bridgton-academy-wolverines-umass-dartmouth-corsairs/1529370"
         },
         {
             "source_site": "https://mybuffstreams.plus/nflstreams2",
-            "text": "Southwest Minnesota State Mustangs10:00 PMWayne State WildcatsLive Streams",
-            "href": "https://mybuffstreams.plus/cfb/wayne-state-wildcats-southwest-minnesota-state-mustangs/1360887"
-        },
-        {
-            "source_site": "https://mybuffstreams.plus/nflstreams2",
             "text": "Arkansas Monticello Boll Weevils11:00 PMArkansas Tech Wonder BoysLive Streams",
             "href": "https://mybuffstreams.plus/cfb/arkansas-tech-wonder-boys-arkansas-monticello-boll-weevils/1360893"
-        },
-        {
-            "source_site": "https://mybuffstreams.plus/nflstreams2",
-            "text": "Missouri S&T Miners11:00 PMSouthwest Baptist BearcatsLive Streams",
-            "href": "https://mybuffstreams.plus/cfb/southwest-baptist-bearcats-missouri-s-and-t-miners/1360895"
         },
         {
             "source_site": "https://mybuffstreams.plus/nflstreams2",
@@ -272,16 +257,6 @@
         },
         {
             "source_site": "https://mybuffstreams.plus/nflstreams2",
-            "text": "Fresno State Bulldogs02:00 AMRice OwlsLive Streams",
-            "href": "https://mybuffstreams.plus/cfb/rice-owls-fresno-state-bulldogs/1360917"
-        },
-        {
-            "source_site": "https://mybuffstreams.plus/nflstreams2",
-            "text": "California-Davis Aggies02:00 AMMontana GrizzliesLive Streams",
-            "href": "https://mybuffstreams.plus/cfb/montana-grizzlies-california-davis-aggies/1529296"
-        },
-        {
-            "source_site": "https://mybuffstreams.plus/nflstreams2",
             "text": "Chapman Panthers02:00 AMLa Verne LeopardsLive Streams",
             "href": "https://mybuffstreams.plus/cfb/chapman-panthers-la-verne-leopards/1529387"
         },
@@ -317,7 +292,7 @@
         },
         {
             "source_site": "https://mybuffstreams.plus/nflstreams2",
-            "text": "Edmonton Elks4th quarterHamilton Tiger-CatsLive Streams",
+            "text": "Edmonton ElksOvertimeHamilton Tiger-CatsLive Streams",
             "href": "https://mybuffstreams.plus/cfl/hamilton-tiger-cats-edmonton-elks/1360825"
         },
         {
@@ -362,23 +337,33 @@
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "19 minutes from nowNevadaAir ForceCFB19 minutes from now",
+            "text": "4 minutes from nowNevadaAir ForceCFB4 minutes from now",
             "href": "https://isportsurge.ws/watch/cfb/air-force-falcons-nevada-wolf-pack/446545964"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "19 minutes from nowMontana State BobcatsNorthern ArizonaCFB19 minutes from now",
+            "text": "4 minutes from nowMontana State BobcatsNorthern ArizonaCFB4 minutes from now",
             "href": "https://isportsurge.ws/watch/cfb/montana-state-bobcats-northern-arizona/397396524"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "19 minutes from nowStanfordGeorgia TechCFB19 minutes from now",
+            "text": "4 minutes from nowStanfordGeorgia TechCFB4 minutes from now",
             "href": "https://isportsurge.ws/watch/cfb/stanford-cardinal-georgia-tech-yellow-jackets/397388056"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
             "text": "In ProgressCalifornia Lutheran KingsmenRedlands\tBulldogsCFBLIVE",
             "href": "https://isportsurge.ws/watch/cfb/redlands-bulldogs-california-lutheran-kingsmen/446581588"
+        },
+        {
+            "source_site": "https://isportsurge.ws/cfb/livestreams2",
+            "text": "In ProgressCalifornia-DavisMontana GrizzliesCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/montana-grizzlies-california-davis-aggies/446554432"
+        },
+        {
+            "source_site": "https://isportsurge.ws/cfb/livestreams2",
+            "text": "In ProgressFresno St.RiceCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/rice-owls-fresno-state-bulldogs/397387764"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
@@ -392,13 +377,8 @@
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressCalifornia-DavisMontana GrizzliesCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/montana-grizzlies-california-davis-aggies/446554432"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressFresno St.RiceCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/rice-owls-fresno-state-bulldogs/397387764"
+            "text": "In ProgressSacramento StateUMassCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/sacramento-state-hornets-massachusetts-minutemen/446545380"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
@@ -417,13 +397,13 @@
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressSacramento StateUMassCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/sacramento-state-hornets-massachusetts-minutemen/446545380"
+            "text": "In ProgressWestminster Blue JaysLyon College ScotsCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/lyon-college-scots-westminster-blue-jays/446580712"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressMacalester ScotsSaint Scholastica SaintsCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/macalester-scots-saint-scholastica-saints/446580420"
+            "text": "In ProgressSouthern UtahIdaho StateCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/idaho-state-bengals-southern-utah-thunderbirds/446553848"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
@@ -442,23 +422,23 @@
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressWeber StatePortland StateCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/portland-state-vikings-weber-state-wildcats/446554140"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
             "text": "In ProgressOuachita Baptist TigersHarding BisonsCFBLIVE",
             "href": "https://isportsurge.ws/watch/cfb/harding-bisons-ouachita-baptist-tigers/397383092"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressWestminster Blue JaysLyon College ScotsCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/lyon-college-scots-westminster-blue-jays/446580712"
+            "text": "In ProgressAbilene ChristianMercerCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/abilene-christian-wildcats-mercer-bears/446553264"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressAbilene ChristianMercerCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/abilene-christian-wildcats-mercer-bears/446553264"
+            "text": "In ProgressMacalester ScotsSaint Scholastica SaintsCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/macalester-scots-saint-scholastica-saints/446580420"
+        },
+        {
+            "source_site": "https://isportsurge.ws/cfb/livestreams2",
+            "text": "In ProgressMissouri Western GriffonsFort Hays State TigersCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/missouri-western-griffons-fort-hays-state-tigers/397382800"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
@@ -472,28 +452,23 @@
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
+            "text": "In ProgressWeber StatePortland StateCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/portland-state-vikings-weber-state-wildcats/446554140"
+        },
+        {
+            "source_site": "https://isportsurge.ws/cfb/livestreams2",
             "text": "In ProgressWestern Colorado MountaineersAdams State GrizzliesCFBLIVE",
             "href": "https://isportsurge.ws/watch/cfb/adams-state-grizzlies-western-colorado-mountaineers/397383676"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressSouthern UtahIdaho StateCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/idaho-state-bengals-southern-utah-thunderbirds/446553848"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressMissouri Western GriffonsFort Hays State TigersCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/missouri-western-griffons-fort-hays-state-tigers/397382800"
+            "text": "In ProgressWest Texas A&M BuffaloesMidwestern State MustangsCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/west-texas-a-and-m-buffaloes-midwestern-state-mustangs/397383384"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
             "text": "In ProgressWestern New Mexico MustangsTexas A&M Kingsville JavelinasCFBLIVE",
             "href": "https://isportsurge.ws/watch/cfb/texas-a-and-m-kingsville-javelinas-western-new-mexico-mustangs/397383968"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressWest Texas A&M BuffaloesMidwestern State MustangsCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/west-texas-a-and-m-buffaloes-midwestern-state-mustangs/397383384"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
@@ -522,8 +497,18 @@
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressMissouri S&T MinersSouthwest Baptist BearcatsCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/southwest-baptist-bearcats-missouri-s-and-t-miners/397381340"
+            "text": "In ProgressWinona State WarriorsAugustana University VikingsCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/winona-state-warriors-augustana-university-vikings/397382216"
+        },
+        {
+            "source_site": "https://isportsurge.ws/cfb/livestreams2",
+            "text": "In ProgressCarroll PioneersCarthage\tRed MenCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/carroll-pioneers-carthage-red-men/446578376"
+        },
+        {
+            "source_site": "https://isportsurge.ws/cfb/livestreams2",
+            "text": "In ProgressCase Western Reserve SpartansWashington And Jefferson PresidentsCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/washington-and-jefferson-presidents-case-western-reserve-spartans/446578668"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
@@ -537,13 +522,13 @@
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressWest VirginiaOklahoma St.CFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/west-virginia-mountaineers-oklahoma-state-cowboys/446543628"
+            "text": "In ProgressJackson StateSouthern UniversityCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/jackson-state-tigers-southern-university-jaguars/446552680"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressTulaneSouthern MissCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/southern-mississippi-golden-eagles-tulane-green-wave/446543336"
+            "text": "In ProgressWest VirginiaOklahoma St.CFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/west-virginia-mountaineers-oklahoma-state-cowboys/446543628"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
@@ -577,38 +562,8 @@
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressMurray StateSouthern IllinoisCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/murray-state-racers-southern-illinois-salukis/397391560"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressWestern KentuckyMercyhurst LakersCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/mercyhurst-lakers-western-kentucky-hilltoppers/397390684"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressJackson StateSouthern UniversityCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/jackson-state-tigers-southern-university-jaguars/446552680"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
             "text": "In ProgressNorfolk St.CFBLIVE",
             "href": "https://isportsurge.ws/watch/cfb/chicago-state-cougars-norfolk-state-spartans/397364696"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressWinona State WarriorsAugustana University VikingsCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/winona-state-warriors-augustana-university-vikings/397382216"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressCarroll PioneersCarthage\tRed MenCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/carroll-pioneers-carthage-red-men/446578376"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressCase Western Reserve SpartansWashington And Jefferson PresidentsCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/washington-and-jefferson-presidents-case-western-reserve-spartans/446578668"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
@@ -617,13 +572,8 @@
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressMcNeese StateEast Texas A&M-CommerceCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/east-texas-a-and-m-commerce-lions-mcneese-state-cowboys/397395648"
-        },
-        {
-            "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "In ProgressSouthwest Minnesota State MustangsWayne State WildcatsCFBLIVE",
-            "href": "https://isportsurge.ws/watch/cfb/wayne-state-wildcats-southwest-minnesota-state-mustangs/397379004"
+            "text": "In ProgressTulaneSouthern MissCFBLIVE",
+            "href": "https://isportsurge.ws/watch/cfb/southern-mississippi-golden-eagles-tulane-green-wave/446543336"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
@@ -632,8 +582,373 @@
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "49 minutes from nowWashingtonMinnesotaCFB49 minutes from now",
+            "text": "34 minutes from nowWashingtonMinnesotaCFB34 minutes from now",
             "href": "https://isportsurge.ws/watch/cfb/minnesota-golden-gophers-washington-huskies/446546256"
+        },
+        {
+            "source_site": "https://crackstreams.page/nflstreams/live",
+            "text": "Buffalo Bills vs Los Angeles Chargers13:00 ET - Sep/27/2026",
+            "href": "https://crackstreams.page/live/nfl/bills-chargers-live-streaming-587929536"
+        },
+        {
+            "source_site": "https://crackstreams.page/nflstreams/live",
+            "text": "Cleveland Browns vs Carolina Panthers13:00 ET - Sep/27/2026",
+            "href": "https://crackstreams.page/live/nfl/browns-panthers-live-streaming-587929968"
+        },
+        {
+            "source_site": "https://crackstreams.page/nflstreams/live",
+            "text": "Detroit Lions vs New York Jets13:00 ET - Sep/27/2026",
+            "href": "https://crackstreams.page/live/nfl/lions-jets-live-streaming-587930400"
+        },
+        {
+            "source_site": "https://crackstreams.page/nflstreams/live",
+            "text": "Indianapolis Colts vs Houston Texans13:00 ET - Sep/27/2026",
+            "href": "https://crackstreams.page/live/nfl/colts-texans-live-streaming-587930832"
+        },
+        {
+            "source_site": "https://crackstreams.page/nflstreams/live",
+            "text": "Jacksonville Jaguars vs New England Patriots13:00 ET - Sep/27/2026",
+            "href": "https://crackstreams.page/live/nfl/jaguars-patriots-live-streaming-587931264"
+        },
+        {
+            "source_site": "https://crackstreams.page/nflstreams/live",
+            "text": "Miami Dolphins vs Kansas City Chiefs13:00 ET - Sep/27/2026",
+            "href": "https://crackstreams.page/live/nfl/dolphins-chiefs-live-streaming-587931696"
+        },
+        {
+            "source_site": "https://crackstreams.page/nflstreams/live",
+            "text": "New York Giants vs Tennessee Titans13:00 ET - Sep/27/2026",
+            "href": "https://crackstreams.page/live/nfl/giants-titans-live-streaming-587932128"
+        },
+        {
+            "source_site": "https://crackstreams.page/nflstreams/live",
+            "text": "Pittsburgh Steelers vs Cincinnati Bengals13:00 ET - Sep/27/2026",
+            "href": "https://crackstreams.page/live/nfl/steelers-bengals-live-streaming-587932560"
+        },
+        {
+            "source_site": "https://crackstreams.page/nflstreams/live",
+            "text": "Washington Commanders vs Seattle Seahawks13:00 ET - Sep/27/2026",
+            "href": "https://crackstreams.page/live/nfl/commanders-seahawks-live-streaming-587932992"
+        },
+        {
+            "source_site": "https://crackstreams.page/nflstreams/live",
+            "text": "San Francisco 49ers vs Arizona Cardinals16:05 ET - Sep/27/2026",
+            "href": "https://crackstreams.page/live/nfl/49ers-cardinals-live-streaming-587933424"
+        },
+        {
+            "source_site": "https://crackstreams.page/nflstreams/live",
+            "text": "Tampa Bay Buccaneers vs Minnesota Vikings16:05 ET - Sep/27/2026",
+            "href": "https://crackstreams.page/live/nfl/buccaneers-vikings-live-streaming-587933856"
+        },
+        {
+            "source_site": "https://crackstreams.page/nflstreams/live",
+            "text": "Dallas Cowboys vs Baltimore Ravens16:25 ET - Sep/27/2026",
+            "href": "https://crackstreams.page/live/nfl/cowboys-ravens-live-streaming-587934288"
+        },
+        {
+            "source_site": "https://crackstreams.page/nflstreams/live",
+            "text": "New Orleans Saints vs Las Vegas Raiders16:25 ET - Sep/27/2026",
+            "href": "https://crackstreams.page/live/nfl/saints-raiders-live-streaming-587934720"
+        },
+        {
+            "source_site": "https://crackstreams.page/nflstreams/live",
+            "text": "Denver Broncos vs Los Angeles Rams20:20 ET - Sep/27/2026",
+            "href": "https://crackstreams.page/live/nfl/broncos-rams-live-streaming-587935152"
+        },
+        {
+            "source_site": "https://crackstreams.page/nbastreams/live1",
+            "text": "Toronto Raptors vs Miami Heat19:00 ET - Oct/03/2026",
+            "href": "https://crackstreams.page/live/nba-preseason/raptors-heat-live-streaming-659144736"
+        },
+        {
+            "source_site": "https://crackstreams.page/mlbstreams/live",
+            "text": "Philadelphia Phillies vs Tampa Bay Rays19:15 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/mlb/phillies-rays-live-streaming-594508032"
+        },
+        {
+            "source_site": "https://crackstreams.page/mlbstreams/live",
+            "text": "San Diego Padres vs Arizona Diamondbacks20:40 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/mlb/padres-diamondbacks-live-streaming-594510624"
+        },
+        {
+            "source_site": "https://crackstreams.page/mlbstreams/live",
+            "text": "Athletics vs Houston Astros21:40 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/mlb/athletics-astros-live-streaming-594511056"
+        },
+        {
+            "source_site": "https://crackstreams.page/mlbstreams/live",
+            "text": "Seattle Mariners vs Los Angeles Angels21:40 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/mlb/mariners-angels-live-streaming-594511488"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Abilene Christian Wildcats vs Mercer Bears20:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/abilene-christian-mercer-live-streaming-660654144"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Chicago State Cougars vs Norfolk State Spartans19:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/chicago-state-cougars-norfolk-st-live-streaming-587882016"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Southeast Missouri State Redhawks vs West Florida Argonauts19:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/southeast-missouri-st-west-florida-argonauts-live-streaming-587922624"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Bethune Cookman Wildcats vs South Carolina State Bulldogs19:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/bethune-cookman-south-carolina-st-live-streaming-587926944"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Florida A&M Rattlers vs Alabama A&M Bulldogs19:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/florida-am-alabama-am-live-streaming-587927376"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Prairie View A&M Panthers vs Grambling State Tigers19:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/prairie-view-am-grambling-st-live-streaming-587928240"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "South Dakota State vs Eastern Illinois Panthers19:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/south-dakota-state-eastern-illinois-live-streaming-587928672"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Cincinnati Bearcats vs Kansas State Wildcats19:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/cincinnati-kansas-st-live-streaming-660639024"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Tulane Green Wave vs Southern Mississippi Golden Eagles19:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/tulane-southern-miss-live-streaming-660639456"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "West Virginia Mountaineers vs Oklahoma State Cowboys19:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/west-virginia-oklahoma-st-live-streaming-660639888"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Eastern Washington Eagles vs Cal Poly Mustangs19:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/eastern-washington-cal-poly-mustangs-live-streaming-660652848"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Jackson State Tigers vs Southern University Jaguars19:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/jackson-state-southern-university-live-streaming-660653280"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Northwestern State Demons vs Southeastern Louisiana Lions19:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/northwestern-st-southeastern-louisiana-live-streaming-660653712"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Alabama Crimson Tide vs South Carolina Gamecocks19:10 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/alabama-south-carolina-live-streaming-660638592"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Utah State Aggies vs Troy Trojans19:30 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/utah-state-troy-live-streaming-587914416"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Washington State Cougars vs Arizona Wildcats19:30 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/washington-st-arizona-live-streaming-587914848"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "North Texas Mean Green vs Houston Baptist Huskies19:30 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/north-texas-houston-baptist-live-streaming-587920896"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "LSU Tigers vs Texas A&M Aggies19:30 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/lsu-tigers-texas-am-live-streaming-660640320"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "North Carolina State Wolfpack vs Appalachian State Mountaineers19:30 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/nc-state-appalachian-st-live-streaming-660640752"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "USC Trojans vs Oregon Ducks19:30 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/usc-oregon-live-streaming-660641184"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Mississippi State Bulldogs vs Missouri Tigers19:45 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/mississippi-st-missouri-live-streaming-660641616"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Arkansas Razorbacks vs Tulsa Golden Hurricane20:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/arkansas-tulsa-live-streaming-587915280"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Louisiana-Monroe Warhawks vs Florida Atlantic Owls20:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/ulm-florida-atl-live-streaming-660642048"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Northern Colorado Bears vs Utah Tech Trailblazers20:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/northern-colorado-bears-utah-tech-trailblazers-live-streaming-660654576"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Southern Utah Thunderbirds vs Idaho State Bengals20:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/southern-utah-idaho-state-live-streaming-660655008"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Weber State Wildcats vs Portland State Vikings20:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/weber-state-portland-state-live-streaming-660655440"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "UTEP Miners vs Oregon State Beavers21:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/utep-oregon-state-live-streaming-587915712"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Sacramento State Hornets vs Massachusetts Minutemen21:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/sacramento-state-umass-live-streaming-660642480"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Southern Methodist Mustangs vs Missouri State Bears21:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/smu-missouri-state-live-streaming-660642912"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Fresno State Bulldogs vs Rice Owls22:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/fresno-st-rice-live-streaming-587916144"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "California-Davis Aggies vs Montana Grizzlies22:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/california-davis-montana-grizzlies-live-streaming-660655872"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Umass Dartmouth Corsairs vs Bridgton Academy Wolverines15:30 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/umass-dartmouth-corsairs-bridgton-academy-live-streaming-660687840"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Arkansas Monticello Boll Weevils vs Arkansas Tech Wonder Boys19:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/arkansas-monticello-boll-weevils-arkansas-tech-wonder-boys-live-streaming-587905776"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Winona State Warriors vs Augustana University Vikings19:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/winona-state-warriors-augustana-university-vikings-live-streaming-587907936"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Carroll Pioneers vs Carthage\tRed Men19:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/carroll-pioneers-carthagered-men-live-streaming-660691296"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Case Western Reserve Spartans vs Washington And Jefferson Presidents19:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/case-western-reserve-spartans-washington-and-jefferson-presidents-live-streaming-660691728"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Centenary Gents vs Schreiner Mountaineers19:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/centenary-gents-schreiner-mountaineers-live-streaming-660692160"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Central Oklahoma Bronchos vs Northwest Missouri State Bearcats20:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/central-oklahoma-bronchos-northwest-missouri-live-streaming-587908368"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Missouri Western Griffons vs Fort Hays State Tigers20:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/missouri-western-griffons-fort-hays-state-tigers-live-streaming-587908800"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Ouachita Baptist Tigers vs Harding Bisons20:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/ouachita-baptist-tigers-harding-bisons-live-streaming-587909232"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "West Texas A&M Buffaloes vs Midwestern State Mustangs20:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/west-texas-am-buffaloes-midwestern-state-mustangs-live-streaming-587909664"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Western Colorado Mountaineers vs Adams State Grizzlies20:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/western-colorado-mountaineers-adams-state-grizzlies-live-streaming-587910096"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Western New Mexico Mustangs vs Texas A&M Kingsville Javelinas20:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/western-new-mexico-mustangs-texas-am-kingsville-javelinas-live-streaming-587910528"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Bethel Royals vs Hamline Pipers20:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/bethel-royals-hamline-pipers-live-streaming-660693888"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Macalester Scots vs Saint Scholastica Saints20:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/macalester-scots-saint-scholastica-saints-live-streaming-660694320"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Westminster Blue Jays vs Lyon College Scots20:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/westminster-blue-jays-lyon-college-scots-live-streaming-660694752"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Central Washington Wildcats vs Sul Ross State Lobos21:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/central-washington-wildcats-sul-ross-state-lobos-live-streaming-587910960"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Chapman Panthers vs La Verne Leopards22:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/chapman-panthers-la-verne-leopards-live-streaming-660695184"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Pomona Pitzer Sagehens vs Claremont Mudd Scripps Stags22:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/pomona-pitzer-sagehens-claremont-mudd-scripps-stags-live-streaming-660695616"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "California Lutheran Kingsmen vs Redlands\tBulldogs22:05 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/california-lutheran-kingsmen-redlandsbulldogs-live-streaming-660696048"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Stanford Cardinal vs Georgia Tech Yellow Jackets22:30 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/stanford-georgia-tech-live-streaming-587916576"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Montana State Bobcats vs Northern Arizona22:30 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/montana-state-bobcats-northern-arizona-live-streaming-587929104"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Nevada Wolf Pack vs Air Force Falcons22:30 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/nevada-air-force-live-streaming-660643344"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Washington Huskies vs Minnesota Golden Gophers23:00 ET - Sep/26/2026",
+            "href": "https://crackstreams.page/live/cfb/washington-minnesota-live-streaming-660643776"
         }
     ]
 }

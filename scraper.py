@@ -100,49 +100,39 @@ def scrape_isportsurge(target_url):
   return site_links
 
 
-def scrape_streameast(target_url):
+def scrape_crackstreams(target_url):
+  # NEW: Scrapes all hrefs inside div.space-y-8
   headers = {
       "User-Agent": (
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,"
-          " like Gecko) Chrome/121.0.0.0 Safari/537.36"
-      ),
-      "Accept": (
-          "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8"
-      ),
-      "Accept-Language": "en-US,en;q=0.5",
+          " like Gecko) Chrome/120.0.0.0 Safari/537.36"
+      )
   }
 
   try:
-    print(f"Fetching content from StreamEast: {target_url}")
-    response = requests.get(target_url, headers=headers, timeout=10)
-    print(
-        f"  [DEBUG] Status Code: {response.status_code}"
-    )  # Check what the server returns
+    print(f"Fetching content from Crackstreams: {target_url}")
+    response = requests.get(target_url, headers=headers)
     response.raise_for_status()
   except requests.exceptions.RequestException as e:
-    print(f"  [DEBUG] Error fetching {target_url}: {e}")
+    print(f"Error fetching {target_url}: {e}")
     return []
 
   soup = BeautifulSoup(response.text, "html.parser")
   site_links = []
 
-  cards = soup.select("article.stream-card.live")
-  print(
-      f"  [DEBUG] Found {len(cards)} matching cards on {target_url}"
-  )  # Check how many elements matched
+  containers = soup.find_all("div", class_="space-y-8")
 
-  for card in cards:
-    a_tag = card.find("a", class_="card-link") or card.find("a")
-    if a_tag and a_tag.has_attr("href"):
+  for container in containers:
+    for a_tag in container.find_all("a", href=True):
       href = a_tag["href"]
       text = a_tag.get_text(strip=True)
 
       if href.startswith("/"):
-        full_href = f"https://streameasto.cx{href}"
+        full_href = f"https://crackstreams.page{href}"
       elif href.startswith("http"):
         full_href = href
       else:
-        full_href = f"https://streameasto.cx/{href}"
+        full_href = f"https://crackstreams.page/{href}"
 
       link_entry = {
           "source_site": target_url,
@@ -171,12 +161,12 @@ if __name__ == "__main__":
       "https://isportsurge.ws/ncaa/livestreams2",
   ]
 
-  streameast_urls = [
-      "https://streameasto.cx/nfl",
-      "https://streameasto.cx/mlb",
-      "https://streameasto.cx/nba",
-      "https://streameasto.cx/cfb",
-      "https://streameasto.cx/ncaab",
+  crackstreams_urls = [
+      "https://crackstreams.page/nflstreams/live",
+      "https://crackstreams.page/nbastreams/live1",
+      "https://crackstreams.page/mlbstreams/live",
+      "https://crackstreams.page/cfbstreams/live",
+      "https://crackstreams.page/ncaabstreams/live",
   ]
 
   all_links = []
@@ -191,9 +181,9 @@ if __name__ == "__main__":
     links = scrape_isportsurge(url)
     all_links.extend(links)
 
-  # Scrape StreamEast sources
-  for url in streameast_urls:
-    links = scrape_streameast(url)
+  # Scrape Crackstreams sources
+  for url in crackstreams_urls:
+    links = scrape_crackstreams(url)
     all_links.extend(links)
 
   # Package and save all combined links into links.json

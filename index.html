@@ -934,7 +934,9 @@
                 return awayFound && homeFound;
             });
 
-            if (currentLeagueKey === 'nfl') {
+            // Only add Redzone links if this specific game card is the Redzone card
+            const isRedzoneCard = (homeTeamObj?.name === 'Redzone' || awayTeamObj?.name === 'Redzone');
+            if (currentLeagueKey === 'nfl' && isRedzoneCard) {
                 const redzoneLinks = getRedzoneLinks();
                 matchedLinks = matchedLinks.concat(redzoneLinks);
             }
@@ -1683,7 +1685,7 @@
                                 </div>
                             </div>
                             <div class="card-footer" style="padding-top: 4px; margin-top: 2px;">
-                                ${createStreamsDropdown({ name: 'Redzone' }, { name: 'NFL' })}
+                                ${createStreamsDropdown({ name: 'Redzone' }, { name: 'Redzone' })}
                             </div>
                         </div>
                     `;

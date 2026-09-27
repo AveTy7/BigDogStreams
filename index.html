@@ -47,8 +47,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
+            flex-wrap: nowrap; /* Locked to one line */
+            gap: 16px;
         }
 
         h1 {
@@ -60,7 +60,9 @@
         .nav-tabs {
             display: flex;
             gap: 8px;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            white-space: nowrap;
         }
 
         .tab-btn {
@@ -84,6 +86,11 @@
             background-color: var(--accent);
             color: var(--bg-primary);
             border-color: var(--accent);
+        }
+
+        /* Hides the Test tab visually while keeping its DOM element and underlying data functional */
+        .tab-btn[onclick*="test"] {
+            display: none !important;
         }
 
         .filter-bar {

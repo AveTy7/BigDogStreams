@@ -852,7 +852,6 @@
             return `<span style="color: var(--text-secondary);">NA</span>`;
         }
 
-        // Helper to format provider site names nicely and handle deduplication & numbering
         function getProviderName(urlStr) {
             try {
                 const urlObj = new URL(urlStr);
@@ -868,7 +867,6 @@
             }
         }
 
-        // Generate Streams Dropdown for Game Cards (Updated with strict Both-Teams Match Logic)
         function createStreamsDropdown(homeTeamObj, awayTeamObj) {
             const linksList = availableLinks.length > 0 ? availableLinks : (testJsonData.links || []);
             
@@ -900,7 +898,6 @@
             `;
 
             if (matchedLinks.length > 0) {
-                // Group and count provider names to handle Source 1, Source 2 numbering
                 const providerCounts = {};
                 matchedLinks.forEach(link => {
                     const sourceRef = link.source_site || link.href;
@@ -1648,7 +1645,6 @@
                         <div>
                             <div class="game-status-bar">
                                 ${statusBadge}
-                                <span>${event.season?.year || ''}</span>
                             </div>
                             <div class="teams-container">
                                 <div class="team-row">

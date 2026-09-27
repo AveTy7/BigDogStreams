@@ -947,12 +947,17 @@
                 (homeTeamObj?.location || '').toLowerCase()
             ].filter(n => n.length > 2);
 
-            const matchedLinks = linksList.filter(item => {
+            let matchedLinks = linksList.filter(item => {
                 const cleanedText = cleanMatchupText(item.text);
                 const awayFound = awayNames.some(n => cleanedText.includes(n));
                 const homeFound = homeNames.some(n => cleanedText.includes(n));
                 return awayFound && homeFound;
             });
+
+            if (currentLeagueKey === 'nfl') {
+                const redzoneLinks = getRedzoneLinks();
+                matchedLinks = matchedLinks.concat(redzoneLinks);
+            }
 
             let dropdownHtml = `
                 <div class="streams-dropdown">
@@ -975,7 +980,14 @@
                     const pName = getProviderName(sourceRef);
                     
                     let label = pName;
-                    if (providerCounts[pName] > 1) {
+                    const textLower = (link.text || '').toLowerCase();
+                    const siteLower = (link.source_site || '').toLowerCase();
+                    const hrefLower = (link.href || '').toLowerCase();
+                    const isRedzone = textLower === 'redzone' || textLower.includes('redzone') || siteLower.includes('redzone') || hrefLower.includes('redzone');
+
+                    if (isRedzone) {
+                        label = `Redzone (${pName})`;
+                    } else if (providerCounts[pName] > 1) {
                         providerSeenIndices[pName] = (providerSeenIndices[pName] || 0) + 1;
                         label = `${pName} ${providerSeenIndices[pName]}`;
                     }
@@ -1672,56 +1684,9 @@
 
             let gridHTML = '<div class="games-grid">';
 
-            // If we are on the NFL tab, insert Redzone card(s) first in the grid
-            if (currentLeagueKey === 'nfl') {
-                const redzoneLinks = getRedzoneLinks();
-                if (redzoneLinks.length > 0) {
-                    const providerCounts = {};
-                    redzoneLinks.forEach(link => {
-                        const sourceRef = link.source_site || link.href;
-                        const pName = getProviderName(sourceRef);
-                        providerCounts[pName] = (providerCounts[pName] || 0) + 1;
-                    });
-
-                    const providerSeenIndices = {};
-
-                    redzoneLinks.forEach(link => {
-                        const sourceRef = link.source_site || link.href;
-                        const pName = getProviderName(sourceRef);
-                        
-                        let label = pName;
-                        if (providerCounts[pName] > 1) {
-                            providerSeenIndices[pName] = (providerSeenIndices[pName] || 0) + 1;
-                            label = `${pName} ${providerSeenIndices[pName]}`;
-                        } else if (redzoneLinks.length === 1) {
-                            label = 'Redzone Stream';
-                        }
-
-                        gridHTML += `
-                            <div class="redzone-card">
-                                <div>
-                                    <div class="redzone-card-header">
-                                        <div class="status-live"><span class="pulse-dot"></span> LIVE • Redzone Feed</div>
-                                    </div>
-                                    <div class="redzone-card-title-row" style="margin-top: 4px; margin-bottom: 2px;">
-                                        <div style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary);">NFL Redzone (${label})</div>
-                                    </div>
-                                </div>
-                                <div class="card-footer" style="margin-top: 8px;">
-                                    <span style="font-size: 0.8rem; color: var(--text-secondary);">Source: ${pName}</span>
-                                    <a class="link-badge" href="${link.href}" target="_blank">Watch Redzone →</a>
-                                </div>
-                            </div>
-                        `;
-                    });
-                }
-            }
-
             if (!events || events.length === 0) {
-                if (currentLeagueKey !== 'nfl' || getRedzoneLinks().length === 0) {
-                    dynamicArea.innerHTML = `<div class="no-data">No games scheduled or available for this filter right now.</div>`;
-                    return;
-                }
+                dynamicArea.innerHTML = `<div class="no-data">No games scheduled or available for this filter right now.</div>`;
+                return;
             } else {
                 events.sort((a, b) => {
                     const getPriority = (event) => {

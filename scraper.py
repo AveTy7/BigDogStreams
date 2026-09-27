@@ -4,6 +4,7 @@ import requests
 
 
 def scrape_mybuffstreams(target_url):
+  # UNTOUCHED: Your original MyBuffStreams headers and parsing logic
   headers = {
       "User-Agent": (
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,"
@@ -52,16 +53,23 @@ def scrape_mybuffstreams(target_url):
 
 
 def scrape_strikeout(target_url):
+  # UPDATED ONLY HERE: Enhanced headers and data-openurl attribute extraction
   headers = {
       "User-Agent": (
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,"
-          " like Gecko) Chrome/120.0.0.0 Safari/537.36"
-      )
+          " like Gecko) Chrome/122.0.0.0 Safari/537.36"
+      ),
+      "Accept": (
+          "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,"
+          "image/webp,image/apng,*/*;q=0.8"
+      ),
+      "Accept-Language": "en-US,en;q=0.9",
+      "Referer": "https://strikeout.im/",
   }
 
   try:
     print(f"Fetching content from StrikeOut: {target_url}")
-    response = requests.get(target_url, headers=headers)
+    response = requests.get(target_url, headers=headers, timeout=15)
     response.raise_for_status()
   except requests.exceptions.RequestException as e:
     print(f"Error fetching {target_url}: {e}")
@@ -70,17 +78,11 @@ def scrape_strikeout(target_url):
   soup = BeautifulSoup(response.text, "html.parser")
   site_links = []
 
-  # DEBUG: Let's check how many total tags and buttons exist
-  all_buttons = soup.find_all(class_=lambda x: x and "btn" in x)
-  print(f"  [DEBUG] Found {len(all_buttons)} elements with 'btn' in class.")
-
-  # Check if any element has *any* data-* attribute
-  data_elems = [tag for tag in soup.find_all(True) if tag.attrs]
-  print(f"  [DEBUG] Total elements with attributes: {len(data_elems)}")
-
-  # Find anchor tags containing data-openurl
   matching_tags = soup.find_all("a", attrs={"data-openurl": True})
-  print(f"  [DEBUG] Found {len(matching_tags)} tags with data-openurl.")
+  print(
+      f"  [DEBUG] StrikeOut fetched successfully. Found {len(matching_tags)}"
+      " data-openurl links."
+  )
 
   for a_tag in matching_tags:
     open_url = a_tag["data-openurl"]
@@ -121,14 +123,17 @@ if __name__ == "__main__":
 
   all_links = []
 
+  # Scrape MyBuffStreams sources
   for url in mybuffstreams_urls:
     links = scrape_mybuffstreams(url)
     all_links.extend(links)
 
+  # Scrape StrikeOut sources
   for url in strikeout_urls:
     links = scrape_strikeout(url)
     all_links.extend(links)
 
+  # Package and save all combined links into links.json
   output_data = {"links": all_links}
 
   with open("links.json", "w") as f:

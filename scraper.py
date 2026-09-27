@@ -70,21 +70,27 @@ def scrape_strikeout(target_url):
   soup = BeautifulSoup(response.text, "html.parser")
   site_links = []
 
-  # StrikeOut-specific parsing strategy 
-  # (Modify or target specific classes/tags here if needed based on inspection)
-  for a_tag in soup.find_all("a", href=True):
-    href = a_tag["href"]
+  # Find all anchor tags that contain the data-openurl attribute
+  for a_tag in soup.find_all("a", attrs={"data-openurl": True}):
+    open_url = a_tag["data-openurl"]
     text = a_tag.get_text(strip=True)
 
-    if href and href != "#":
-      link_entry = {
-          "source_site": target_url,
-          "text": text if text else "(No text)",
-          "href": href,
-      }
+    # Prepend strikeout.im cleanly to the path
+    if open_url.startswith("/"):
+      full_href = f"https://strikeout.im{open_url}"
+    elif open_url.startswith("http"):
+      full_href = open_url
+    else:
+      full_href = f"https://strikeout.im/{open_url}"
 
-      if link_entry not in site_links:
-        site_links.append(link_entry)
+    link_entry = {
+        "source_site": target_url,
+        "text": text if text else "(No text)",
+        "href": full_href,
+    }
+
+    if link_entry not in site_links:
+      site_links.append(link_entry)
 
   return site_links
 
@@ -115,7 +121,7 @@ if __name__ == "__main__":
     links = scrape_strikeout(url)
     all_links.extend(links)
 
-  # Package everything into links.json for the web app
+  # Package and save all combined links into links.json
   output_data = {"links": all_links}
 
   with open("links.json", "w") as f:

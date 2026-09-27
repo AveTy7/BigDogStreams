@@ -1099,7 +1099,8 @@
                 const conferenceSelect = document.getElementById('conference-select');
                 const selectedConf = cfg.conferences[conferenceSelect.selectedIndex];
 
-                if (selectedConf && selectedConf.name === 'FCS') {
+                // Distinct handling for FCS and FBS Rankings
+                if (selectedConf && selectedConf.type === 'rankings-fcs') {
                     const url = `https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/rankings`;
                     try {
                         const res = await fetch(url);
@@ -1928,13 +1929,24 @@
             const dynamicArea = getActiveContentContainer();
             const rankingsList = data.rankings || [];
             
+            // Explicitly search and filter for the correct poll type (FBS vs FCS)
             let poll = rankingsList.find(p => {
-                const name = (p.name || p.headline || '').toLowerCase();
+                const name = (p.name || p.headline || p.shortName || '').toLowerCase();
+                const type = (p.type || '').toLowerCase();
                 if (searchFilter === 'fcs') {
-                    return name.includes('fcs') || name.includes('stats perform') || p.type === 'fcs';
+                    return name.includes('fcs') || name.includes('stats perform') || type.includes('fcs');
                 }
-                return name.includes('ap') || name.includes('fbs') || p.type === 'ap';
-            }) || (searchFilter === 'fcs' ? rankingsList[1] : rankingsList[0]) || rankingsList[0];
+                return name.includes('ap') || name.includes('fbs') || type.includes('ap') || type.includes('fbs');
+            });
+
+            // Fallback safety if specific name isn't caught, using array indexing based on filter type
+            if (!poll) {
+                if (searchFilter === 'fcs') {
+                    poll = rankingsList.find(p => JSON.stringify(p).toLowerCase().includes('fcs')) || rankingsList[1] || rankingsList[0];
+                } else {
+                    poll = rankingsList[0];
+                }
+            }
 
             if (!poll || !poll.ranks) {
                 dynamicArea.innerHTML = `<div class="no-data">Rankings currently unavailable.</div>`;

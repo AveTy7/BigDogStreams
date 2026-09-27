@@ -1104,22 +1104,7 @@
                     try {
                         const res = await fetch(url);
                         const data = await res.json();
-                        const fcsPoll = data.rankings?.find(p => {
-                            const name = (p.name || p.headline || '').toLowerCase();
-                            return name.includes('fcs') || name.includes('stats perform') || p.type === 'fcs';
-                        }) || data.rankings?.[1] || data.rankings?.[0];
-
-                        if (fcsPoll && fcsPoll.ranks) {
-                            renderSpecificPoll(fcsPoll, 'FCS Top 25 Rankings');
-                            return;
-                        }
-                    } catch (e) {}
-
-                    try {
-                        const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings?groups=81`;
-                        const res = await fetch(url);
-                        const data = await res.json();
-                        renderFilteredCollegeStandings(data, 'FCS Top Teams', '81');
+                        renderCollegeRankings(data, 'FCS', 'fcs');
                         return;
                     } catch (e) {}
                 }
@@ -1129,7 +1114,7 @@
                     try {
                         const res = await fetch(url);
                         const data = await res.json();
-                        renderCollegeRankings(data, 'FBS');
+                        renderCollegeRankings(data, 'FBS', 'fbs');
                         return;
                     } catch (e) {}
                 } else if (selectedConf && selectedConf.type === 'standings') {
@@ -1939,21 +1924,24 @@
             dynamicArea.innerHTML = html;
         }
 
-        function renderCollegeRankings(data, targetType) {
+        function renderCollegeRankings(data, targetType, searchFilter = '') {
             const dynamicArea = getActiveContentContainer();
             const rankingsList = data.rankings || [];
             
             let poll = rankingsList.find(p => {
                 const name = (p.name || p.headline || '').toLowerCase();
+                if (searchFilter === 'fcs') {
+                    return name.includes('fcs') || name.includes('stats perform') || p.type === 'fcs';
+                }
                 return name.includes('ap') || name.includes('fbs') || p.type === 'ap';
-            }) || rankingsList[0];
+            }) || (searchFilter === 'fcs' ? rankingsList[1] : rankingsList[0]) || rankingsList[0];
 
             if (!poll || !poll.ranks) {
                 dynamicArea.innerHTML = `<div class="no-data">Rankings currently unavailable.</div>`;
                 return;
             }
 
-            renderSpecificPoll(poll, `Top 25 ${targetType} (${poll.name || 'fbs'})`);
+            renderSpecificPoll(poll, `Top 25 ${targetType} (${poll.name || targetType})`);
         }
 
         function renderSpecificPoll(poll, titleText) {
@@ -1972,7 +1960,6 @@
                        <tbody>
             `;
 
-            poll.ranks.ranks ? (poll.ranks = poll.ranks) : null;
             const ranksArr = poll.ranks || [];
 
             ranksArr.forEach(rank => {

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tyler's Sports Hub & Live Stream Matcher</title>
+    <title>Big Dog Streams</title>
     <style>
         :root {
             --bg-primary: #0f172a;
@@ -577,7 +577,7 @@
 
     <header>
         <div class="header-top">
-            <h1>Tyler's Sports Hub & Live Streams</h1>
+            <h1>Big Dog Streams</h1>
             <div class="nav-tabs">
                 <button class="tab-btn active" onclick="switchLeague('nfl', this)">NFL</button>
                 <button class="tab-btn" onclick="switchLeague('nba', this)">NBA</button>
@@ -1764,7 +1764,28 @@
         function renderCollegeConferenceStandings(data, confName) {
             const contentArea = document.getElementById('content-area');
             let html = '';
-            const entries = data.standings || data.entries || data.children?.[0]?.standings?.entries || [];
+            
+            let entries = [];
+            if (data.standings && data.standings.entries) {
+                entries = data.standings.entries;
+            } else if (data.entries) {
+                entries = data.entries;
+            } else if (data.children) {
+                const targetChild = data.children.find(c => (c.name || '').toLowerCase() === confName.toLowerCase()) || data.children[0];
+                if (targetChild && targetChild.standings && targetChild.standings.entries) {
+                    entries = targetChild.standings.entries;
+                } else if (targetChild && targetChild.entries) {
+                    entries = targetChild.entries;
+                }
+            }
+
+            if (entries.length === 0 && data.groups) {
+                data.groups.forEach(g => {
+                    if (g.standings && g.standings.entries) {
+                        entries = entries.concat(g.standings.entries);
+                    }
+                });
+            }
 
             if (entries.length === 0) {
                 contentArea.innerHTML = `<div class="no-data">No standings available for ${confName}.</div>`;
@@ -1788,8 +1809,8 @@
             entries.forEach(entry => {
                 const team = entry.team || {};
                 const stats = entry.stats || [];
-                const confRecord = stats.find(s => s.name === 'conference')?.displayValue || '-';
-                const overallRecord = stats.find(s => s.name === 'overall')?.displayValue || '-';
+                const confRecord = stats.find(s => s.name === 'conference' || s.abbreviation === 'CONF')?.displayValue || '-';
+                const overallRecord = stats.find(s => s.name === 'overall' || s.abbreviation === 'OVERALL')?.displayValue || '-';
 
                 const teamLogo = team.logo || (team.logos && team.logos[0] && team.logos[0].href) || '';
                 const teamName = team.displayName || team.name || team.shortDisplayName || '';

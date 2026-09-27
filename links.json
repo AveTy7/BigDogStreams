@@ -72,11 +72,6 @@
         },
         {
             "source_site": "https://mybuffstreams.plus/nflstreams2",
-            "text": "West Georgia Wolves4th quarterFort Valley State WildcatsLive Streams",
-            "href": "https://mybuffstreams.plus/cfb/fort-valley-state-wildcats-west-georgia-wolves/1529376"
-        },
-        {
-            "source_site": "https://mybuffstreams.plus/nflstreams2",
             "text": "Miami HurricanesIn ProgressCentral Michigan ChippewasLive Streams",
             "href": "https://mybuffstreams.plus/cfb/miami-hurricanes-central-michigan-chippewas/1360910"
         },
@@ -282,11 +277,6 @@
         },
         {
             "source_site": "https://mybuffstreams.plus/nflstreams2",
-            "text": "Wingate Bulldogs10:00 PMVirginia-Wise CavaliersLive Streams",
-            "href": "https://mybuffstreams.plus/cfb/wingate-bulldogs-virginia-wise-cavaliers/1360890"
-        },
-        {
-            "source_site": "https://mybuffstreams.plus/nflstreams2",
             "text": "East Stroudsburg Warriors10:35 PMLackawanna FalconsLive Streams",
             "href": "https://mybuffstreams.plus/cfb/lackawanna-falcons-east-stroudsburg-warriors/1360891"
         },
@@ -452,7 +442,7 @@
         },
         {
             "source_site": "https://mybuffstreams.plus/nflstreams2",
-            "text": "Edmonton Elks3rd quarterHamilton Tiger-CatsLive Streams",
+            "text": "Edmonton Elks4th quarterHamilton Tiger-CatsLive Streams",
             "href": "https://mybuffstreams.plus/cfl/hamilton-tiger-cats-edmonton-elks/1360825"
         }
     ]

@@ -47,7 +47,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: nowrap; /* Locked to one line */
+            flex-wrap: nowrap;
             gap: 16px;
         }
 
@@ -88,11 +88,11 @@
             border-color: var(--accent);
         }
 
-        /* Hides the Test tab visually while keeping its DOM element and underlying data functional */
         .tab-btn[onclick*="test"] {
             display: none !important;
         }
 
+        /* Filter bar moved out of header into main */
         .filter-bar {
             display: flex;
             align-items: center;
@@ -103,20 +103,21 @@
             transition: opacity 0.2s ease;
             height: 0;
             overflow: hidden;
+            margin-bottom: 0px;
         }
 
         .filter-bar.visible {
             visibility: visible;
             opacity: 1;
             height: auto;
-            margin-top: 4px;
+            margin-bottom: 20px;
         }
 
         select {
             background-color: var(--bg-primary);
             color: var(--text-primary);
             border: 1px solid var(--border);
-            padding: 6px 12px;
+            padding: 8px 12px;
             border-radius: 6px;
             font-size: 0.9rem;
             outline: none;
@@ -131,7 +132,7 @@
             background-color: transparent;
             color: var(--accent);
             border: 1px solid var(--accent);
-            padding: 6px 14px;
+            padding: 8px 16px;
             border-radius: 6px;
             cursor: pointer;
             font-weight: 600;
@@ -153,7 +154,7 @@
             background-color: transparent;
             color: var(--text-secondary);
             border: 1px solid var(--border);
-            padding: 6px 14px;
+            padding: 8px 16px;
             border-radius: 6px;
             cursor: pointer;
             font-weight: 600;
@@ -322,7 +323,6 @@
             text-decoration: underline;
         }
 
-        /* Streams Dropdown Styles */
         .streams-dropdown {
             position: relative;
             display: inline-block;
@@ -596,14 +596,15 @@
                 <button class="tab-btn" onclick="switchLeague('test', this)">Test</button>
             </div>
         </div>
+    </header>
+
+    <main id="content-area">
+        <!-- Filter bar is now placed inside main content area -->
         <div class="filter-bar" id="filter-container">
             <select id="conference-select" class="hidden" onchange="handleFilterChange()"></select>
             <button class="action-btn" id="standings-toggle-btn" onclick="toggleStandingsView()">View Standings</button>
             <button class="secondary-btn" id="secondary-standings-btn" onclick="toggleWildCardView()">View Wild Card</button>
         </div>
-    </header>
-
-    <main id="content-area">
         <div class="loading">Select a league above to start...</div>
     </main>
 
@@ -740,16 +741,28 @@
             allFetchedGames['cfb'] = Array.from(uniqueMap.values());
         }
 
+        function getActiveContentContainer() {
+            let container = document.getElementById('dynamic-content-area');
+            if (!container) {
+                const mainArea = document.getElementById('content-area');
+                // Keep filter-bar intact, create dynamic container for games/standings below it
+                container = document.createElement('div');
+                container.id = 'dynamic-content-area';
+                mainArea.appendChild(container);
+            }
+            return container;
+        }
+
         async function loadData() {
             currentView = 'hub';
-            const contentArea = document.getElementById('content-area');
+            const dynamicArea = getActiveContentContainer();
             
             if (currentLeagueKey === 'test') {
                 renderTestTab();
                 return;
             }
 
-            contentArea.innerHTML = '<div class="loading">Loading...</div>';
+            dynamicArea.innerHTML = '<div class="loading">Loading...</div>';
 
             if (isShowingStandings) {
                 if (isShowingWildCard && currentLeagueKey === 'mlb') {
@@ -952,8 +965,8 @@
         });
 
         async function renderTestTab() {
-            const contentArea = document.getElementById('content-area');
-            contentArea.innerHTML = '<div class="loading">Loading current JSON data...</div>';
+            const dynamicArea = getActiveContentContainer();
+            dynamicArea.innerHTML = '<div class="loading">Loading current JSON data...</div>';
 
             await loadLinksJson();
             const links = availableLinks.length > 0 ? availableLinks : (testJsonData.links || []);
@@ -993,12 +1006,12 @@
             });
 
             html += `</tbody></table></div></div>`;
-            contentArea.innerHTML = html;
+            dynamicArea.innerHTML = html;
         }
 
         async function fetchScores() {
             const cfg = endpoints[currentLeagueKey];
-            const contentArea = document.getElementById('content-area');
+            const dynamicArea = getActiveContentContainer();
             
             let queryParam = '';
             if (cfg.conferences) {
@@ -1026,13 +1039,13 @@
                 renderGames(cachedEvents);
             } catch (error) {
                 console.error(error);
-                contentArea.innerHTML = `<div class="error">Unable to load scores right now. Please try again later.</div>`;
+                dynamicArea.innerHTML = `<div class="error">Unable to load scores right now. Please try again later.</div>`;
             }
         }
 
         async function fetchStandings() {
             const cfg = endpoints[currentLeagueKey];
-            const contentArea = document.getElementById('content-area');
+            const dynamicArea = getActiveContentContainer();
 
             if (cfg.type === 'pro') {
                 const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings?level=3`;
@@ -1042,7 +1055,7 @@
                     renderProStandings(data);
                     return;
                 } catch (e) {
-                    contentArea.innerHTML = `<div class="error">Unable to load pro standings.</div>`;
+                    dynamicArea.innerHTML = `<div class="error">Unable to load pro standings.</div>`;
                     return;
                 }
             }
@@ -1098,23 +1111,23 @@
                 }
             }
 
-            contentArea.innerHTML = `<div class="no-data">Standings unavailable for this selection.</div>`;
+            dynamicArea.innerHTML = `<div class="no-data">Standings unavailable for this selection.</div>`;
         }
 
         async function fetchMLBWildCardStandings() {
-            const contentArea = document.getElementById('content-area');
+            const dynamicArea = getActiveContentContainer();
             const url = `https://site.api.espn.com/apis/v2/sports/baseball/mlb/standings?level=3`;
             try {
                 const res = await fetch(url);
                 const data = await res.json();
                 renderMLBWildCard(data);
             } catch (e) {
-                contentArea.innerHTML = `<div class="error">Unable to load MLB Wild Card standings.</div>`;
+                dynamicArea.innerHTML = `<div class="error">Unable to load MLB Wild Card standings.</div>`;
             }
         }
 
         function renderMLBWildCard(data) {
-            const contentArea = document.getElementById('content-area');
+            const dynamicArea = getActiveContentContainer();
             let html = '';
             let leagues = [];
 
@@ -1137,7 +1150,7 @@
             }
 
             if (leagues.length === 0) {
-                contentArea.innerHTML = `<div class="no-data">No Wild Card standings available.</div>`;
+                dynamicArea.innerHTML = `<div class="no-data">No Wild Card standings available.</div>`;
                 return;
             }
 
@@ -1254,13 +1267,13 @@
                 html += `</tbody></table></div>`;
             });
 
-            contentArea.innerHTML = html;
+            dynamicArea.innerHTML = html;
         }
 
         async function openBoxScore(eventId) {
             currentView = 'boxscore';
-            const contentArea = document.getElementById('content-area');
-            contentArea.innerHTML = '<div class="loading">Loading box score...</div>';
+            const dynamicArea = getActiveContentContainer();
+            dynamicArea.innerHTML = '<div class="loading">Loading box score...</div>';
 
             const cfg = endpoints[currentLeagueKey];
             const url = `https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/summary?event=${eventId}`;
@@ -1271,7 +1284,7 @@
                 globalBoxScoreData = await res.json();
                 renderBoxScore(globalBoxScoreData);
             } catch (err) {
-                contentArea.innerHTML = `
+                dynamicArea.innerHTML = `
                     <div class="boxscore-header">
                         <button class="back-btn" onclick="loadData()">← Back to Scores</button>
                     </div>
@@ -1281,10 +1294,10 @@
         }
 
         function renderBoxScore(data) {
-            const contentArea = document.getElementById('content-area');
+            const dynamicArea = getActiveContentContainer();
             const competition = data.header?.competitions?.[0] || data.competitions?.[0];
             if (!competition) {
-                contentArea.innerHTML = `<div class="error">Matchup details not found.</div>`;
+                dynamicArea.innerHTML = `<div class="error">Matchup details not found.</div>`;
                 return;
             }
 
@@ -1447,7 +1460,7 @@
                 `;
             }
 
-            contentArea.innerHTML = html;
+            dynamicArea.innerHTML = html;
             if (data.boxscore && data.boxscore.players && data.boxscore.players.length > 0) {
                 renderPlayerStatsForTeam(data.boxscore.players[0].team.id);
             }
@@ -1614,10 +1627,10 @@
         }
 
         function renderGames(events) {
-            const contentArea = document.getElementById('content-area');
+            const dynamicArea = getActiveContentContainer();
 
             if (!events || events.length === 0) {
-                contentArea.innerHTML = `<div class="no-data">No games scheduled or available for this filter right now.</div>`;
+                dynamicArea.innerHTML = `<div class="no-data">No games scheduled or available for this filter right now.</div>`;
                 return;
             }
 
@@ -1685,11 +1698,11 @@
             });
 
             gridHTML += '</div>';
-            contentArea.innerHTML = gridHTML;
+            dynamicArea.innerHTML = gridHTML;
         }
 
         function renderProStandings(data) {
-            const contentArea = document.getElementById('content-area');
+            const dynamicArea = getActiveContentContainer();
             let html = '';
             let divisions = [];
             
@@ -1713,7 +1726,7 @@
             }
 
             if (divisions.length === 0) {
-                contentArea.innerHTML = `<div class="no-data">No pro standings available.</div>`;
+                dynamicArea.innerHTML = `<div class="no-data">No pro standings available.</div>`;
                 return;
             }
 
@@ -1771,11 +1784,11 @@
                 html += `</tbody></table></div>`;
             });
 
-            contentArea.innerHTML = html;
+            dynamicArea.innerHTML = html;
         }
 
         function renderFilteredCollegeStandings(data, confName, targetGroupId) {
-            const contentArea = document.getElementById('content-area');
+            const dynamicArea = getActiveContentContainer();
             let matchedEntries = [];
 
             function findGroupEntries(node) {
@@ -1809,7 +1822,7 @@
             }
 
             if (matchedEntries.length === 0) {
-                contentArea.innerHTML = `<div class="no-data">No standings available for ${confName}.</div>`;
+                dynamicArea.innerHTML = `<div class="no-data">No standings available for ${confName}.</div>`;
                 return;
             }
 
@@ -1849,11 +1862,11 @@
             });
 
             html += `</tbody></table></div>`;
-            contentArea.innerHTML = html;
+            dynamicArea.innerHTML = html;
         }
 
         function renderCollegeRankings(data, targetType) {
-            const contentArea = document.getElementById('content-area');
+            const dynamicArea = getActiveContentContainer();
             const rankingsList = data.rankings || [];
             
             let poll = rankingsList.find(p => {
@@ -1862,7 +1875,7 @@
             }) || rankingsList[0];
 
             if (!poll || !poll.ranks) {
-                contentArea.innerHTML = `<div class="no-data">Rankings currently unavailable.</div>`;
+                dynamicArea.innerHTML = `<div class="no-data">Rankings currently unavailable.</div>`;
                 return;
             }
 
@@ -1870,7 +1883,7 @@
         }
 
         function renderSpecificPoll(poll, titleText) {
-            const contentArea = document.getElementById('content-area');
+            const dynamicArea = getActiveContentContainer();
             let html = `
                 <div class="standings-section">
                     <div class="standings-title">${titleText}</div>
@@ -1903,7 +1916,7 @@
             });
 
             html += `</tbody></table></div>`;
-            contentArea.innerHTML = html;
+            dynamicArea.innerHTML = html;
         }
 
         backgroundPrefetch().then(() => {

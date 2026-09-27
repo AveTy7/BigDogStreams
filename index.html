@@ -868,18 +868,29 @@
             }
         }
 
-        // Generate Streams Dropdown for Game Cards
-        function createStreamsDropdown(homeTeamName, awayTeamName) {
+        // Generate Streams Dropdown for Game Cards (Updated with strict Both-Teams Match Logic)
+        function createStreamsDropdown(homeTeamObj, awayTeamObj) {
             const linksList = availableLinks.length > 0 ? availableLinks : (testJsonData.links || []);
             
-            const homeKeywords = homeTeamName.toLowerCase().split(' ').filter(w => w.length > 2);
-            const awayKeywords = awayTeamName.toLowerCase().split(' ').filter(w => w.length > 2);
+            const awayNames = [
+                (awayTeamObj?.shortDisplayName || '').toLowerCase(),
+                (awayTeamObj?.name || '').toLowerCase(),
+                (awayTeamObj?.displayName || '').toLowerCase(),
+                (awayTeamObj?.location || '').toLowerCase()
+            ].filter(n => n.length > 2);
+
+            const homeNames = [
+                (homeTeamObj?.shortDisplayName || '').toLowerCase(),
+                (homeTeamObj?.name || '').toLowerCase(),
+                (homeTeamObj?.displayName || '').toLowerCase(),
+                (homeTeamObj?.location || '').toLowerCase()
+            ].filter(n => n.length > 2);
 
             const matchedLinks = linksList.filter(item => {
-                const text = item.text.toLowerCase();
-                const matchesHome = homeKeywords.some(keyword => text.includes(keyword));
-                const matchesAway = awayKeywords.some(keyword => text.includes(keyword));
-                return matchesHome || matchesAway;
+                const cleanedText = cleanMatchupText(item.text);
+                const awayFound = awayNames.some(n => cleanedText.includes(n));
+                const homeFound = homeNames.some(n => cleanedText.includes(n));
+                return awayFound && homeFound;
             });
 
             let dropdownHtml = `
@@ -889,12 +900,9 @@
             `;
 
             if (matchedLinks.length > 0) {
-                // Deduplicate by href
-                const uniqueByHref = Array.from(new Map(matchedLinks.map(item => [item.href, item])).values());
-
                 // Group and count provider names to handle Source 1, Source 2 numbering
                 const providerCounts = {};
-                uniqueByHref.forEach(link => {
+                matchedLinks.forEach(link => {
                     const sourceRef = link.source_site || link.href;
                     const pName = getProviderName(sourceRef);
                     providerCounts[pName] = (providerCounts[pName] || 0) + 1;
@@ -902,7 +910,7 @@
 
                 const providerSeenIndices = {};
 
-                uniqueByHref.forEach(link => {
+                matchedLinks.forEach(link => {
                     const sourceRef = link.source_site || link.href;
                     const pName = getProviderName(sourceRef);
                     
@@ -1660,7 +1668,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            ${createStreamsDropdown(homeTeamName, awayTeamName)}
+                            ${createStreamsDropdown(homeTeam.team, awayTeam.team)}
                             <span class="view-boxscore-hint" onclick="openBoxScore('${event.id}')">Box Score →</span>
                         </div>
                     </div>

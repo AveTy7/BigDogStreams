@@ -14,10 +14,10 @@ def scrape_mybuffstreams(target_url):
 
   try:
     print(f"Fetching content from MyBuffStreams: {target_url}")
-    response = requests.get(target_url, headers=headers)
+    response = requests.get(target_url, headers=headers, timeout=15)
     response.raise_for_status()
   except requests.exceptions.RequestException as e:
-    print(f"Error fetching {target_url}: {e}")
+    print(f"Error fetching MyBuffStreams {target_url}: {e}")
     return []
 
   soup = BeautifulSoup(response.text, "html.parser")
@@ -53,7 +53,6 @@ def scrape_mybuffstreams(target_url):
 
 
 def scrape_strikeout(target_url):
-  # Enhanced headers mimicking a live desktop browser to pass basic bot checks
   headers = {
       "User-Agent": (
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,"
@@ -64,42 +63,27 @@ def scrape_strikeout(target_url):
           "image/webp,image/apng,*/*;q=0.8"
       ),
       "Accept-Language": "en-US,en;q=0.9",
-      "Accept-Encoding": "gzip, deflate, br",
       "Referer": "https://strikeout.im/",
-      "Sec-Ch-Ua": (
-          '"Chromium";v="122", "Not(A:Brand";v="8", "Google Chrome";v="122"'
-      ),
-      "Sec-Ch-Ua-Mobile": "?0",
-      "Sec-Ch-Ua-Platform": '"Windows"',
-      "Sec-Fetch-Dest": "document",
-      "Sec-Fetch-Mode": "navigate",
-      "Sec-Fetch-Site": "same-origin",
-      "Sec-Fetch-User": "?1",
-      "Upgrade-Insecure-Requests": "1",
   }
 
   try:
     print(f"Fetching content from StrikeOut: {target_url}")
-    response = requests.get(target_url, headers=headers, timeout=20)
-    print(
-        f"  [DEBUG] Status Code: {response.status_code} | Content Length:"
-        f" {len(response.text)}"
-    )
+    response = requests.get(target_url, headers=headers, timeout=15)
     response.raise_for_status()
   except requests.exceptions.RequestException as e:
-    print(f"Error fetching {target_url}: {e}")
+    print(f"Error fetching StrikeOut {target_url}: {e}")
     return []
 
   soup = BeautifulSoup(response.text, "html.parser")
   site_links = []
 
-  # Search for tags containing either data-openurl or data-openuri
+  # Look for elements containing data-openurl or data-openuri
   matching_tags = []
   for tag in soup.find_all(True):
     if tag.has_attr("data-openurl") or tag.has_attr("data-openuri"):
       matching_tags.append(tag)
 
-  print(f"  [DEBUG] Found {len(matching_tags)} target attributes on StrikeOut.")
+  print(f"  -> Found {len(matching_tags)} target attributes on {target_url}")
 
   for tag in matching_tags:
     open_url = tag.get("data-openurl") or tag.get("data-openuri")
@@ -153,13 +137,17 @@ if __name__ == "__main__":
     links = scrape_strikeout(url)
     all_links.extend(links)
 
-  # Package and save all combined links into links.json
-  output_data = {"links": all_links}
-
-  with open("links.json", "w") as f:
-    json.dump(output_data, f, indent=4)
-
-  print(
-      f"\nSuccessfully extracted and saved a total of {len(all_links)} links"
-      " to links.json"
-  )
+  # Safety check: Only overwrite links.json if we actually pulled data successfully
+  if len(all_links) > 0:
+    output_data = {"links": all_links}
+    with open("links.json", "w") as f:
+      json.dump(output_data, f, indent=4)
+    print(
+        f"\nSuccessfully extracted and saved a total of {len(all_links)} links"
+        " to links.json"
+    )
+  else:
+    print(
+        "\n[Warning] No links were found across any source. links.json was left"
+        " unchanged to protect existing data."
+    )

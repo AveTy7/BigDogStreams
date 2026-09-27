@@ -812,6 +812,19 @@
                 .trim();
         }
 
+        function determineMatchedLeague(row) {
+            const source = (row.source_site || '').toLowerCase();
+            const href = (row.href || '').toLowerCase();
+            
+            if (source.includes('mlb') || href.includes('/mlb/')) return 'MLB';
+            if (source.includes('nba') || href.includes('/nba/')) return 'NBA';
+            if (source.includes('nfl') || href.includes('/nfl/')) return 'NFL';
+            if (source.includes('cfb') || href.includes('/cfb/')) return 'CFB';
+            if (source.includes('ncaa') || source.includes('cbb') || href.includes('/cbb/') || href.includes('/ncaa/')) return 'CBB';
+            
+            return 'Unknown';
+        }
+
         function findBestMatch(rowText, sourceSite) {
             let lowerRowText = rowText.toLowerCase();
 
@@ -916,6 +929,7 @@
                                     <th>Source Site</th>
                                     <th>Stripped Matchup Text</th>
                                     <th>Matched Game</th>
+                                    <th>League</th>
                                     <th>Stream Link</th>
                                 </tr>
                             </thead>
@@ -925,12 +939,14 @@
             links.forEach((row, index) => {
                 const strippedText = cleanMatchupText(row.text);
                 const matchedGameDisplay = findBestMatch(row.text, row.source_site);
+                const leagueMatch = determineMatchedLeague(row);
                 html += `
                     <tr>
                         <td style="font-weight: 700; width: 50px;">#${index + 1}</td>
                         <td style="color: var(--text-secondary); font-size: 0.85rem;"><a href="${row.source_site}" target="_blank" style="color: var(--text-secondary); text-decoration: none;">${row.source_site}</a></td>
                         <td><code style="background: rgba(0,0,0,0.2); padding: 2px 6px; border-radius: 4px; color: var(--accent);">${strippedText}</code></td>
                         <td>${matchedGameDisplay}</td>
+                        <td><span style="font-weight: 600; color: var(--text-primary);">${leagueMatch}</span></td>
                         <td><a class="link-badge" href="${row.href}" target="_blank">Open Stream →</a></td>
                     </tr>
                 `;

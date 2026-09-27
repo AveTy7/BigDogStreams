@@ -636,7 +636,7 @@
                 type: 'college',
                 conferences: [
                     { name: 'All FBS', param: '?groups=80', type: 'rankings-fbs' },
-                    { name: 'FCS', param: '?groups=81', type: 'standings' },
+                    { name: 'FCS', param: '?groups=81', type: 'rankings-fcs' },
                     { name: 'SEC', param: '?groups=8', type: 'standings' },
                     { name: 'Big Ten', param: '?groups=5', type: 'standings' },
                     { name: 'Big 12', param: '?groups=1', type: 'standings' },
@@ -1100,8 +1100,23 @@
                 const selectedConf = cfg.conferences[conferenceSelect.selectedIndex];
 
                 if (selectedConf && selectedConf.name === 'FCS') {
-                    const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings${selectedConf.param}`;
+                    const url = `https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/rankings`;
                     try {
+                        const res = await fetch(url);
+                        const data = await res.json();
+                        const fcsPoll = data.rankings?.find(p => {
+                            const name = (p.name || p.headline || '').toLowerCase();
+                            return name.includes('fcs') || name.includes('stats perform') || p.type === 'fcs';
+                        }) || data.rankings?.[1] || data.rankings?.[0];
+
+                        if (fcsPoll && fcsPoll.ranks) {
+                            renderSpecificPoll(fcsPoll, 'FCS Top 25 Rankings');
+                            return;
+                        }
+                    } catch (e) {}
+
+                    try {
+                        const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings?groups=81`;
                         const res = await fetch(url);
                         const data = await res.json();
                         renderFilteredCollegeStandings(data, 'FCS Top Teams', '81');
@@ -1957,7 +1972,10 @@
                        <tbody>
             `;
 
-            poll.ranks.forEach(rank => {
+            poll.ranks.ranks ? (poll.ranks = poll.ranks) : null;
+            const ranksArr = poll.ranks || [];
+
+            ranksArr.forEach(rank => {
                 const team = rank.team || {};
                 const teamLogo = team.logo || (team.logos && team.logos[0] && team.logos[0].href) || '';
                 const teamName = team.displayName || team.name || team.shortDisplayName || '';

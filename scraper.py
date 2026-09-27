@@ -70,12 +70,22 @@ def scrape_strikeout(target_url):
   soup = BeautifulSoup(response.text, "html.parser")
   site_links = []
 
-  # Find all anchor tags that contain the data-openurl attribute
-  for a_tag in soup.find_all("a", attrs={"data-openurl": True}):
+  # DEBUG: Let's check how many total tags and buttons exist
+  all_buttons = soup.find_all(class_=lambda x: x and "btn" in x)
+  print(f"  [DEBUG] Found {len(all_buttons)} elements with 'btn' in class.")
+
+  # Check if any element has *any* data-* attribute
+  data_elems = [tag for tag in soup.find_all(True) if tag.attrs]
+  print(f"  [DEBUG] Total elements with attributes: {len(data_elems)}")
+
+  # Find anchor tags containing data-openurl
+  matching_tags = soup.find_all("a", attrs={"data-openurl": True})
+  print(f"  [DEBUG] Found {len(matching_tags)} tags with data-openurl.")
+
+  for a_tag in matching_tags:
     open_url = a_tag["data-openurl"]
     text = a_tag.get_text(strip=True)
 
-    # Prepend strikeout.im cleanly to the path
     if open_url.startswith("/"):
       full_href = f"https://strikeout.im{open_url}"
     elif open_url.startswith("http"):
@@ -111,17 +121,14 @@ if __name__ == "__main__":
 
   all_links = []
 
-  # Scrape MyBuffStreams sources
   for url in mybuffstreams_urls:
     links = scrape_mybuffstreams(url)
     all_links.extend(links)
 
-  # Scrape StrikeOut sources
   for url in strikeout_urls:
     links = scrape_strikeout(url)
     all_links.extend(links)
 
-  # Package and save all combined links into links.json
   output_data = {"links": all_links}
 
   with open("links.json", "w") as f:

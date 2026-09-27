@@ -101,7 +101,7 @@ def scrape_isportsurge(target_url):
 
 
 def scrape_crackstreams(target_url):
-  # NEW: Scrapes all hrefs inside div.space-y-8
+  # UNTOUCHED: Crackstreams logic
   headers = {
       "User-Agent": (
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,"
@@ -146,6 +146,52 @@ def scrape_crackstreams(target_url):
   return site_links
 
 
+def scrape_thetvapp(target_url):
+  # NEW: Scrapes all hrefs inside a.list-group-item
+  headers = {
+      "User-Agent": (
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,"
+          " like Gecko) Chrome/120.0.0.0 Safari/537.36"
+      )
+  }
+
+  try:
+    print(f"Fetching content from TheTVApp: {target_url}")
+    response = requests.get(target_url, headers=headers)
+    response.raise_for_status()
+  except requests.exceptions.RequestException as e:
+    print(f"Error fetching {target_url}: {e}")
+    return []
+
+  soup = BeautifulSoup(response.text, "html.parser")
+  site_links = []
+
+  elements = soup.find_all("a", class_="list-group-item")
+
+  for el in elements:
+    if el.has_attr("href"):
+      href = el["href"]
+      text = el.get_text(strip=True)
+
+      if href.startswith("/"):
+        full_href = f"https://thetvapp.plus{href}"
+      elif href.startswith("http"):
+        full_href = href
+      else:
+        full_href = f"https://thetvapp.plus/{href}"
+
+      link_entry = {
+          "source_site": target_url,
+          "text": text if text else "(No text)",
+          "href": full_href,
+      }
+
+      if link_entry not in site_links:
+        site_links.append(link_entry)
+
+  return site_links
+
+
 if __name__ == "__main__":
   mybuffstreams_urls = [
       "https://mybuffstreams.plus/mlb-live-streams",
@@ -169,22 +215,31 @@ if __name__ == "__main__":
       "https://crackstreams.page/ncaabstreams/live",
   ]
 
+  thetvapp_urls = [
+      "https://thetvapp.plus/watch/nfl-streams",
+      "https://thetvapp.plus/watch/nba-streams",
+      "https://thetvapp.plus/watch/mlb-streams",
+      "https://thetvapp.plus/watch/cfb-streams",
+      "https://thetvapp.plus/watch/ncaab-streams",
+  ]
+
   all_links = []
 
   # Scrape MyBuffStreams sources
   for url in mybuffstreams_urls:
-    links = scrape_mybuffstreams(url)
-    all_links.extend(links)
+    all_links.extend(scrape_mybuffstreams(url))
 
   # Scrape iSportsurge sources
   for url in isportsurge_urls:
-    links = scrape_isportsurge(url)
-    all_links.extend(links)
+    all_links.extend(scrape_isportsurge(url))
 
   # Scrape Crackstreams sources
   for url in crackstreams_urls:
-    links = scrape_crackstreams(url)
-    all_links.extend(links)
+    all_links.extend(scrape_crackstreams(url))
+
+  # Scrape TheTVApp sources
+  for url in thetvapp_urls:
+    all_links.extend(scrape_thetvapp(url))
 
   # Package and save all combined links into links.json
   output_data = {"links": all_links}

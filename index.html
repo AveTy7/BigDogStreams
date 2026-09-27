@@ -379,16 +379,16 @@
             display: block;
         }
 
-        /* Redzone Card formatting */
+        /* Redzone Card formatting - Compacted */
         .redzone-card {
             background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(30, 41, 59, 0.9));
             border: 1px solid rgba(239, 68, 68, 0.4);
             border-radius: 8px;
-            padding: 16px;
+            padding: 8px 12px !important;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            gap: 12px;
+            gap: 4px !important;
             transition: transform 0.2s ease, border-color 0.2s ease;
         }
 
@@ -1669,20 +1669,20 @@
                 const redzoneLinks = getRedzoneLinks();
                 if (redzoneLinks.length > 0) {
                     gridHTML += `
-                        <div class="game-card redzone-card" style="margin-bottom: 16px;">
+                        <div class="game-card redzone-card" style="margin-bottom: 12px;">
                             <div>
-                                <div class="game-status-bar" style="margin-bottom: 6px;">
+                                <div class="game-status-bar" style="margin-bottom: 2px;">
                                     <div class="status-live"><span class="pulse-dot"></span> LIVE • NFL Redzone</div>
                                 </div>
-                                <div class="teams-container" style="gap: 4px;">
+                                <div class="teams-container" style="gap: 2px;">
                                     <div class="team-row">
                                         <div class="team-info">
-                                            <span class="team-name" style="font-size: 0.95rem; font-weight: 600;">NFL Redzone Coverage</span>
+                                            <span class="team-name" style="font-size: 0.9rem; font-weight: 600;">NFL Redzone Coverage</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-footer">
+                            <div class="card-footer" style="padding-top: 4px; margin-top: 2px;">
                                 ${createStreamsDropdown({ name: 'Redzone' }, { name: 'NFL' })}
                                 <span style="color: var(--text-secondary); font-size: 0.75rem;">All Sunday Afternoon Games</span>
                             </div>
@@ -1953,6 +1953,7 @@
                     <div class="standings-title">${titleText}</div>
                     <table class="standings-table">
                        <thead>
+                           fn
                            <tr>
                                <th>Rank</th>
                                <th>Team</th>

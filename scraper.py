@@ -4,7 +4,7 @@ import requests
 
 
 def scrape_mybuffstreams(target_url):
-  # UNTOUCHED: Your original MyBuffStreams logic
+  # UPDATED: Scrapes hrefs matching either the new or old competition classes
   headers = {
       "User-Agent": (
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,"
@@ -23,27 +23,29 @@ def scrape_mybuffstreams(target_url):
   soup = BeautifulSoup(response.text, "html.parser")
   site_links = []
 
-  competition_elements = soup.find_all(class_="competition")
+  # Target elements matching either the new combined class pattern or the old class pattern,
+  # including any <a> tags themselves or <a> tags inside them.
+  elements_to_process = soup.select(
+      "a.d-block.competition.p-4, .d-block.competition.p-4 a,"
+      " a.competition, .competition a"
+  )
 
-  for el in competition_elements:
-    if el.name == "a" and el.has_attr("href"):
-      href = el["href"]
-      text = el.get_text(strip=True)
-      site_links.append(
-          {
-              "source_site": target_url,
-              "text": text if text else "(No text)",
-              "href": href,
-          }
-      )
-
-    for a_tag in el.find_all("a", href=True):
+  for a_tag in elements_to_process:
+    if a_tag.name == "a" and a_tag.has_attr("href"):
       href = a_tag["href"]
       text = a_tag.get_text(strip=True)
+
+      if href.startswith("/"):
+        full_href = f"https://mybuffstreams.plus{href}"
+      elif href.startswith("http"):
+        full_href = href
+      else:
+        full_href = f"https://mybuffstreams.plus/{href}"
+
       link_entry = {
           "source_site": target_url,
           "text": text if text else "(No text)",
-          "href": href,
+          "href": full_href,
       }
 
       if link_entry not in site_links:

@@ -53,6 +53,7 @@ def scrape_mybuffstreams(target_url):
 
 
 def scrape_isportsurge(target_url):
+  # UNTOUCHED: Your original iSportsurge logic
   headers = {
       "User-Agent": (
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,"
@@ -71,7 +72,6 @@ def scrape_isportsurge(target_url):
   soup = BeautifulSoup(response.text, "html.parser")
   site_links = []
 
-  # Target anchor tags matching the specified class
   elements = soup.find_all(
       "a", class_="row MaclariListele align-items-center align-content-center"
   )
@@ -81,13 +81,59 @@ def scrape_isportsurge(target_url):
       href = el["href"]
       text = el.get_text(strip=True)
 
-      # Handle relative paths if necessary
       if href.startswith("/"):
         full_href = f"https://isportsurge.ws{href}"
       elif href.startswith("http"):
         full_href = href
       else:
         full_href = f"https://isportsurge.ws/{href}"
+
+      link_entry = {
+          "source_site": target_url,
+          "text": text if text else "(No text)",
+          "href": full_href,
+      }
+
+      if link_entry not in site_links:
+        site_links.append(link_entry)
+
+  return site_links
+
+
+def scrape_streameast(target_url):
+  # NEW: Scraper for streameasto.cx pulling from <article class="stream-card live">
+  headers = {
+      "User-Agent": (
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,"
+          " like Gecko) Chrome/120.0.0.0 Safari/537.36"
+      )
+  }
+
+  try:
+    print(f"Fetching content from StreamEast: {target_url}")
+    response = requests.get(target_url, headers=headers)
+    response.raise_for_status()
+  except requests.exceptions.RequestException as e:
+    print(f"Error fetching {target_url}: {e}")
+    return []
+
+  soup = BeautifulSoup(response.text, "html.parser")
+  site_links = []
+
+  cards = soup.find_all("article", class_="stream-card live")
+
+  for card in cards:
+    link_tag = card.find("a") if card.name != "a" else card
+    if link_tag and link_tag.has_attr("href"):
+      href = link_tag["href"]
+      text = card.get_text(strip=True)
+
+      if href.startswith("/"):
+        full_href = f"https://streameasto.cx{href}"
+      elif href.startswith("http"):
+        full_href = href
+      else:
+        full_href = f"https://streameasto.cx/{href}"
 
       link_entry = {
           "source_site": target_url,
@@ -116,6 +162,14 @@ if __name__ == "__main__":
       "https://isportsurge.ws/ncaa/livestreams2",
   ]
 
+  streameast_urls = [
+      "https://streameasto.cx/nfl",
+      "https://streameasto.cx/mlb",
+      "https://streameasto.cx/nba",
+      "https://streameasto.cx/cfb",
+      "https://streameasto.cx/ncaab",
+  ]
+
   all_links = []
 
   # Scrape MyBuffStreams sources
@@ -126,6 +180,11 @@ if __name__ == "__main__":
   # Scrape iSportsurge sources
   for url in isportsurge_urls:
     links = scrape_isportsurge(url)
+    all_links.extend(links)
+
+  # Scrape StreamEast sources
+  for url in streameast_urls:
+    links = scrape_streameast(url)
     all_links.extend(links)
 
   # Package and save all combined links into links.json

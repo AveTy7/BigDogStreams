@@ -101,7 +101,7 @@ def scrape_isportsurge(target_url):
 
 
 def scrape_streameast(target_url):
-  # NEW: Scraper for streameasto.cx pulling from <article class="stream-card live">
+  # UPDATED: Uses CSS selectors matching your screenshot structure cleanly
   headers = {
       "User-Agent": (
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,"
@@ -111,7 +111,7 @@ def scrape_streameast(target_url):
 
   try:
     print(f"Fetching content from StreamEast: {target_url}")
-    response = requests.get(target_url, headers=headers)
+    response = requests.get(target_url, headers=headers, timeout=10)
     response.raise_for_status()
   except requests.exceptions.RequestException as e:
     print(f"Error fetching {target_url}: {e}")
@@ -120,13 +120,13 @@ def scrape_streameast(target_url):
   soup = BeautifulSoup(response.text, "html.parser")
   site_links = []
 
-  cards = soup.find_all("article", class_="stream-card live")
+  # Directly target the anchor tags inside the live stream cards shown in your screenshot
+  stream_links = soup.select("article.stream-card.live a.card-link")
 
-  for card in cards:
-    link_tag = card.find("a") if card.name != "a" else card
-    if link_tag and link_tag.has_attr("href"):
-      href = link_tag["href"]
-      text = card.get_text(strip=True)
+  for a_tag in stream_links:
+    if a_tag.has_attr("href"):
+      href = a_tag["href"]
+      text = a_tag.get_text(strip=True)
 
       if href.startswith("/"):
         full_href = f"https://streameasto.cx{href}"

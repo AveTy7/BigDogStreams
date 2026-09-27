@@ -101,29 +101,40 @@ def scrape_isportsurge(target_url):
 
 
 def scrape_streameast(target_url):
-  # UPDATED: Looks for any anchor tags with '/live/' in the href to reliably grab stream paths
   headers = {
       "User-Agent": (
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,"
-          " like Gecko) Chrome/120.0.0.0 Safari/537.36"
-      )
+          " like Gecko) Chrome/121.0.0.0 Safari/537.36"
+      ),
+      "Accept": (
+          "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8"
+      ),
+      "Accept-Language": "en-US,en;q=0.5",
   }
 
   try:
     print(f"Fetching content from StreamEast: {target_url}")
     response = requests.get(target_url, headers=headers, timeout=10)
+    print(
+        f"  [DEBUG] Status Code: {response.status_code}"
+    )  # Check what the server returns
     response.raise_for_status()
   except requests.exceptions.RequestException as e:
-    print(f"Error fetching {target_url}: {e}")
+    print(f"  [DEBUG] Error fetching {target_url}: {e}")
     return []
 
   soup = BeautifulSoup(response.text, "html.parser")
   site_links = []
 
-  # Find all anchor tags where href contains '/live/'
-  for a_tag in soup.find_all("a", href=True):
-    href = a_tag["href"]
-    if "/live/" in href:
+  cards = soup.select("article.stream-card.live")
+  print(
+      f"  [DEBUG] Found {len(cards)} matching cards on {target_url}"
+  )  # Check how many elements matched
+
+  for card in cards:
+    a_tag = card.find("a", class_="card-link") or card.find("a")
+    if a_tag and a_tag.has_attr("href"):
+      href = a_tag["href"]
       text = a_tag.get_text(strip=True)
 
       if href.startswith("/"):

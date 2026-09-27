@@ -967,7 +967,7 @@
                 const textLower = (item.text || '').toLowerCase();
                 const siteLower = (item.source_site || '').toLowerCase();
                 const hrefLower = (item.href || '').toLowerCase();
-                return textLower.includes('redzone') || siteLower.includes('redzone') || hrefLower.includes('redzone');
+                return textLower === 'redzone' || textLower.includes('redzone') || siteLower.includes('redzone') || hrefLower.includes('redzone');
             });
 
             if (redzoneLinks.length === 0) {

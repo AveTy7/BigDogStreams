@@ -1075,7 +1075,7 @@
                         return;
                     } catch (e) {}
                 } else if (selectedConf && selectedConf.type === 'standings') {
-                    const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings`;
+                    const url = `https://site.api.espn.com/apis/v2/sports/${cfg.sport}/${cfg.league}/standings${selectedConf.param}`;
                     try {
                         const res = await fetch(url);
                         const data = await res.json();

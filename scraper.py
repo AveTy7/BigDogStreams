@@ -3,7 +3,7 @@ import json
 import requests
 
 
-def scrape_site(target_url):
+def scrape_strikeout(target_url):
   headers = {
       "User-Agent": (
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,"
@@ -12,7 +12,7 @@ def scrape_site(target_url):
   }
 
   try:
-    print(f"Fetching content from: {target_url}")
+    print(f"Fetching content from StrikeOut: {target_url}")
     response = requests.get(target_url, headers=headers)
     response.raise_for_status()
   except requests.exceptions.RequestException as e:
@@ -22,24 +22,14 @@ def scrape_site(target_url):
   soup = BeautifulSoup(response.text, "html.parser")
   site_links = []
 
-  # Find all elements with class="competition"
-  competition_elements = soup.find_all(class_="competition")
+  # Adjust target tags/classes based on StrikeOut's layout structure
+  # Looking for general event/stream links containers or anchor tags
+  for a_tag in soup.find_all("a", href=True):
+    href = a_tag["href"]
+    text = a_tag.get_text(strip=True)
 
-  for el in competition_elements:
-    if el.name == "a" and el.has_attr("href"):
-      href = el["href"]
-      text = el.get_text(strip=True)
-      site_links.append(
-          {
-              "source_site": target_url,
-              "text": text if text else "(No text)",
-              "href": href,
-          }
-      )
-
-    for a_tag in el.find_all("a", href=True):
-      href = a_tag["href"]
-      text = a_tag.get_text(strip=True)
+    # Filter for relevant internal/external stream links if needed
+    if href and href.startswith("http") or href.startswith("/"):
       link_entry = {
           "source_site": target_url,
           "text": text if text else "(No text)",
@@ -53,25 +43,25 @@ def scrape_site(target_url):
 
 
 if __name__ == "__main__":
-  urls_to_scrape = [
-      "https://mybuffstreams.plus/mlb-live-streams",
-      "https://mybuffstreams.plus/nflstreams2",
-      "https://mybuffstreams.plus/nbastreams2",
+  strikeout_urls = [
+      "https://strikeout.im/nfl",
+      "https://strikeout.im/nba",
+      "https://strikeout.im/mlb",
+      "https://strikeout.im/ncaaf",
   ]
 
-  all_links = []
+  all_strikeout_links = []
 
-  for url in urls_to_scrape:
-    links = scrape_site(url)
-    all_links.extend(links)
+  for url in strikeout_urls:
+    links = scrape_strikeout(url)
+    all_strikeout_links.extend(links)
 
-  # Package and save all links into links.json
-  output_data = {"links": all_links}
+  output_data = {"links": all_strikeout_links}
 
-  with open("links.json", "w") as f:
+  with open("strikeout_links.json", "w") as f:
     json.dump(output_data, f, indent=4)
 
   print(
-      f"\nSuccessfully extracted and saved a total of {len(all_links)} links"
-      " to links.json"
+      f"\nSuccessfully extracted and saved a total of"
+      f" {len(all_strikeout_links)} links to strikeout_links.json"
   )

@@ -4,6 +4,7 @@ import requests
 
 
 def scrape_mybuffstreams(target_url):
+  # UNTOUCHED: Your original MyBuffStreams logic
   headers = {
       "User-Agent": (
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,"
@@ -52,6 +53,7 @@ def scrape_mybuffstreams(target_url):
 
 
 def scrape_strikeout(target_url):
+  # Enhanced headers mimicking a live desktop browser to pass basic bot checks
   headers = {
       "User-Agent": (
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,"
@@ -62,12 +64,27 @@ def scrape_strikeout(target_url):
           "image/webp,image/apng,*/*;q=0.8"
       ),
       "Accept-Language": "en-US,en;q=0.9",
+      "Accept-Encoding": "gzip, deflate, br",
       "Referer": "https://strikeout.im/",
+      "Sec-Ch-Ua": (
+          '"Chromium";v="122", "Not(A:Brand";v="8", "Google Chrome";v="122"'
+      ),
+      "Sec-Ch-Ua-Mobile": "?0",
+      "Sec-Ch-Ua-Platform": '"Windows"',
+      "Sec-Fetch-Dest": "document",
+      "Sec-Fetch-Mode": "navigate",
+      "Sec-Fetch-Site": "same-origin",
+      "Sec-Fetch-User": "?1",
+      "Upgrade-Insecure-Requests": "1",
   }
 
   try:
     print(f"Fetching content from StrikeOut: {target_url}")
-    response = requests.get(target_url, headers=headers, timeout=15)
+    response = requests.get(target_url, headers=headers, timeout=20)
+    print(
+        f"  [DEBUG] Status Code: {response.status_code} | Content Length:"
+        f" {len(response.text)}"
+    )
     response.raise_for_status()
   except requests.exceptions.RequestException as e:
     print(f"Error fetching {target_url}: {e}")
@@ -76,16 +93,13 @@ def scrape_strikeout(target_url):
   soup = BeautifulSoup(response.text, "html.parser")
   site_links = []
 
-  # Check for both data-openurl and the data-openuri variant spotted in the HTML inspection
+  # Search for tags containing either data-openurl or data-openuri
   matching_tags = []
   for tag in soup.find_all(True):
     if tag.has_attr("data-openurl") or tag.has_attr("data-openuri"):
       matching_tags.append(tag)
 
-  print(
-      f"  [DEBUG] StrikeOut fetched successfully. Found {len(matching_tags)}"
-      " target attributes."
-  )
+  print(f"  [DEBUG] Found {len(matching_tags)} target attributes on StrikeOut.")
 
   for tag in matching_tags:
     open_url = tag.get("data-openurl") or tag.get("data-openuri")

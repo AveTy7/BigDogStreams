@@ -37,10 +37,10 @@
         header {
             background-color: var(--bg-secondary);
             border-bottom: 1px solid var(--border);
-            padding: 16px 24px;
+            padding: 12px 24px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 12px;
         }
 
         .header-top {
@@ -59,9 +59,9 @@
 
         .nav-tabs {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             flex-wrap: nowrap;
-            overflow-x: auto;
+            overflow-x: visible;
             white-space: nowrap;
         }
 
@@ -69,11 +69,11 @@
             background-color: var(--bg-primary);
             color: var(--text-secondary);
             border: 1px solid var(--border);
-            padding: 8px 16px;
+            padding: 6px 12px;
             border-radius: 6px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             transition: all 0.2s ease;
         }
 
@@ -110,7 +110,7 @@
             visibility: visible;
             opacity: 1;
             height: auto;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         select {
@@ -179,7 +179,7 @@
 
         main {
             flex: 1;
-            padding: 24px;
+            padding: 16px 24px 24px 24px;
             max-width: 1400px;
             width: 100%;
             margin: 0 auto;
@@ -605,7 +605,6 @@
             <button class="action-btn" id="standings-toggle-btn" onclick="toggleStandingsView()">View Standings</button>
             <button class="secondary-btn" id="secondary-standings-btn" onclick="toggleWildCardView()">View Wild Card</button>
         </div>
-        <div class="loading">Select a league above to start...</div>
     </main>
 
     <script>
@@ -745,7 +744,6 @@
             let container = document.getElementById('dynamic-content-area');
             if (!container) {
                 const mainArea = document.getElementById('content-area');
-                // Keep filter-bar intact, create dynamic container for games/standings below it
                 container = document.createElement('div');
                 container.id = 'dynamic-content-area';
                 mainArea.appendChild(container);
@@ -1894,7 +1892,7 @@
                                <th>Team</th>
                                <th>Record</th>
                            </tr>
-                       </thead>
+                     </thead>
                        <tbody>
             `;
 

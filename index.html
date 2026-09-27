@@ -1932,8 +1932,9 @@
             let poll = rankingsList.find(p => {
                 const name = (p.name || p.headline || p.shortName || '').toLowerCase();
                 const type = (p.type || '').toLowerCase();
+                const desc = (p.description || '').toLowerCase();
                 if (searchFilter === 'fcs') {
-                    return name.includes('fcs') || name.includes('stats perform') || type.includes('fcs');
+                    return name.includes('fcs') || type.includes('fcs') || desc.includes('fcs');
                 }
                 return name.includes('ap') || name.includes('fbs') || type.includes('ap') || type.includes('fbs');
             });

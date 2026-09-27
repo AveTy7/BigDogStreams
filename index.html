@@ -179,6 +179,68 @@
             color: var(--accent);
         }
 
+        /* Redzone Dropdown styling matching the streams dropdown */
+        .redzone-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .redzone-btn {
+            background-color: transparent;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            display: none;
+        }
+
+        .redzone-btn.visible {
+            display: inline-block;
+        }
+
+        .redzone-btn:hover {
+            background-color: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .redzone-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--bg-secondary);
+            min-width: 200px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.4);
+            z-index: 50;
+            margin-top: 4px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .redzone-content a {
+            color: var(--text-primary);
+            padding: 8px 12px;
+            text-decoration: none;
+            display: block;
+            font-size: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .redzone-content a:hover {
+            background-color: var(--bg-primary);
+            color: var(--accent);
+        }
+
+        .redzone-dropdown.active .redzone-content {
+            display: block;
+        }
+
         main {
             flex: 1;
             padding: 16px 24px 24px 24px;
@@ -605,6 +667,12 @@
         <div class="filter-bar" id="filter-container">
             <select id="conference-select" class="hidden" onchange="handleFilterChange()"></select>
             <button class="action-btn" id="standings-toggle-btn" onclick="toggleStandingsView()">View Standings</button>
+            <div class="redzone-dropdown" id="redzone-dropdown-container">
+                <button class="redzone-btn" id="redzone-toggle-btn" onclick="toggleRedzoneDropdown(event, this)">Redzone ▼</button>
+                <div class="redzone-content" id="redzone-content-list">
+                    <a href="#" onclick="return false;" style="color: var(--text-secondary); cursor: default;">No Redzone links found</a>
+                </div>
+            </div>
             <button class="secondary-btn" id="secondary-standings-btn" onclick="toggleWildCardView()">View Wild Card</button>
         </div>
     </main>
@@ -675,6 +743,7 @@
                 console.warn('Could not load links.json:', err);
                 availableLinks = testJsonData.links || [];
             }
+            updateRedzoneDropdownContent();
         }
 
         let testJsonData = {
@@ -889,6 +958,63 @@
             }
         }
 
+        function updateRedzoneDropdownContent() {
+            const container = document.getElementById('redzone-content-list');
+            if (!container) return;
+
+            const linksList = availableLinks.length > 0 ? availableLinks : (testJsonData.links || []);
+            const redzoneLinks = linksList.filter(item => {
+                const textLower = (item.text || '').toLowerCase();
+                const siteLower = (item.source_site || '').toLowerCase();
+                const hrefLower = (item.href || '').toLowerCase();
+                return textLower.includes('redzone') || siteLower.includes('redzone') || hrefLower.includes('redzone');
+            });
+
+            if (redzoneLinks.length === 0) {
+                container.innerHTML = `<a href="#" onclick="return false;" style="color: var(--text-secondary); cursor: default;">No Redzone links found</a>`;
+                return;
+            }
+
+            const providerCounts = {};
+            redzoneLinks.forEach(link => {
+                const sourceRef = link.source_site || link.href;
+                const pName = getProviderName(sourceRef);
+                providerCounts[pName] = (providerCounts[pName] || 0) + 1;
+            });
+
+            const providerSeenIndices = {};
+            let html = '';
+
+            redzoneLinks.forEach(link => {
+                const sourceRef = link.source_site || link.href;
+                const pName = getProviderName(sourceRef);
+                
+                let label = pName;
+                if (providerCounts[pName] > 1) {
+                    providerSeenIndices[pName] = (providerSeenIndices[pName] || 0) + 1;
+                    label = `${pName} ${providerSeenIndices[pName]}`;
+                } else if (redzoneLinks.length === 1) {
+                    label = 'Redzone Stream';
+                }
+
+                html += `<a href="${link.href}" target="_blank">${label}</a>`;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function toggleRedzoneDropdown(event, button) {
+            event.stopPropagation();
+            const dropdown = button.parentElement;
+            document.querySelectorAll('.redzone-dropdown').forEach(d => {
+                if (d !== dropdown) d.classList.remove('active');
+            });
+            document.querySelectorAll('.streams-dropdown').forEach(d => {
+                d.classList.remove('active');
+            });
+            dropdown.classList.toggle('active');
+        }
+
         function createStreamsDropdown(homeTeamObj, awayTeamObj) {
             const linksList = availableLinks.length > 0 ? availableLinks : (testJsonData.links || []);
             
@@ -955,11 +1081,17 @@
             document.querySelectorAll('.streams-dropdown').forEach(d => {
                 if (d !== dropdown) d.classList.remove('active');
             });
+            document.querySelectorAll('.redzone-dropdown').forEach(d => {
+                d.classList.remove('active');
+            });
             dropdown.classList.toggle('active');
         }
 
         window.addEventListener('click', () => {
             document.querySelectorAll('.streams-dropdown').forEach(d => {
+                d.classList.remove('active');
+            });
+            document.querySelectorAll('.redzone-dropdown').forEach(d => {
                 d.classList.remove('active');
             });
         });
@@ -1536,6 +1668,7 @@
             const cfg = endpoints[leagueKey];
             const filterContainer = document.getElementById('filter-container');
             const conferenceSelect = document.getElementById('conference-select');
+            const redzoneBtn = document.getElementById('redzone-toggle-btn');
 
             if (leagueKey === 'test') {
                 filterContainer.classList.remove('visible');
@@ -1544,6 +1677,13 @@
             }
 
             filterContainer.classList.add('visible');
+
+            if (leagueKey === 'nfl' || leagueKey === 'cfb') {
+                redzoneBtn.classList.add('visible');
+            } else {
+                redzoneBtn.classList.remove('visible');
+                document.getElementById('redzone-dropdown-container').classList.remove('active');
+            }
 
             if (cfg.conferences) {
                 conferenceSelect.classList.remove('hidden');

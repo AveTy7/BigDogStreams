@@ -3,62 +3,82 @@
         {
             "source_site": "https://mybuffstreams.plus/mlb-live-streams",
             "text": "Atlanta Braves06:00 PMPhiladelphia PhilliesLive Streams",
-            "href": "https://mybuffstreams.plus/mlb-playoffs/atlanta-braves-philadelphia-phillies/1536559"
+            "href": "https://mybuffstreams.plus/mlb-playoffs/atlanta-braves-philadelphia-phillies/1539430"
         },
         {
             "source_site": "https://mybuffstreams.plus/mlb-live-streams",
             "text": "Houston Astros09:00 PMChicago White SoxLive Streams",
-            "href": "https://mybuffstreams.plus/mlb-playoffs/houston-astros-chicago-white-sox/1536560"
+            "href": "https://mybuffstreams.plus/mlb-playoffs/houston-astros-chicago-white-sox/1539431"
         },
         {
             "source_site": "https://mybuffstreams.plus/mlb-live-streams",
             "text": "New York Yankees12:00 AMBoston Red SoxLive Streams",
-            "href": "https://mybuffstreams.plus/mlb-playoffs/new-york-yankees-boston-red-sox/1536561"
+            "href": "https://mybuffstreams.plus/mlb-playoffs/new-york-yankees-boston-red-sox/1539432"
         },
         {
             "source_site": "https://mybuffstreams.plus/mlb-live-streams",
             "text": "San Diego Padres02:00 AMChicago CubsLive Streams",
-            "href": "https://mybuffstreams.plus/mlb-playoffs/san-diego-padres-chicago-cubs/1536562"
+            "href": "https://mybuffstreams.plus/mlb-playoffs/san-diego-padres-chicago-cubs/1539433"
+        },
+        {
+            "source_site": "https://mybuffstreams.plus/nflstreams2",
+            "text": "New Mexico State Aggies12:00 AMWestern Kentucky HilltoppersLive Streams",
+            "href": "https://mybuffstreams.plus/cfb/western-kentucky-hilltoppers-new-mexico-state-aggies/1536216"
+        },
+        {
+            "source_site": "https://mybuffstreams.plus/nflstreams2",
+            "text": "Tulsa Golden Hurricane01:00 AMNorth Texas Mean GreenLive Streams",
+            "href": "https://mybuffstreams.plus/cfb/tulsa-golden-hurricane-north-texas-mean-green/1536217"
+        },
+        {
+            "source_site": "https://mybuffstreams.plus/nflstreams2",
+            "text": "Cleveland Browns12:15 AMPittsburgh SteelersLive Streams",
+            "href": "https://mybuffstreams.plus/nfl/cleveland-browns-pittsburgh-steelers/1536215"
         },
         {
             "source_site": "https://mybuffstreams.plus/nbastreams2",
-            "text": "Washington Mystics11:00 PMAtlanta DreamLive Streams",
-            "href": "https://mybuffstreams.plus/wnba-playoffs/atlanta-dream-washington-mystics/1537005"
+            "text": "Las Vegas Aces01:00 AMIndiana FeverLive Streams",
+            "href": "https://mybuffstreams.plus/wnba-playoffs/las-vegas-aces-indiana-fever/1539770"
         },
         {
-            "source_site": "https://mybuffstreams.plus/nbastreams2",
-            "text": "Dallas Wings01:00 AMGolden State ValkyriesLive Streams",
-            "href": "https://mybuffstreams.plus/wnba-playoffs/golden-state-valkyries-dallas-wings/1537006"
-        },
-        {
-            "source_site": "https://isportsurge.ws/nba/livestreams3",
-            "text": "10 hours from nowWashington MysticsAtlanta DreamWNBA10 hours from now",
-            "href": "https://isportsurge.ws/watch/wnba-playoffs/atlanta-dream-washington-mystics/448805460"
+            "source_site": "https://isportsurge.ws/nfl/livestreams3",
+            "text": "12 hours from nowCleveland BrownsPittsburgh SteelersNFL12 hours from now",
+            "href": "https://isportsurge.ws/watch/nfl/cleveland-browns-pittsburgh-steelers/448574780"
         },
         {
             "source_site": "https://isportsurge.ws/nba/livestreams3",
-            "text": "12 hours from nowDallas WingsGolden State ValkyriesWNBA12 hours from now",
-            "href": "https://isportsurge.ws/watch/wnba-playoffs/golden-state-valkyries-dallas-wings/448805752"
+            "text": "12 hours from nowLas Vegas AcesIndiana FeverWNBA12 hours from now",
+            "href": "https://isportsurge.ws/watch/wnba-playoffs/las-vegas-aces-indiana-fever/449612840"
         },
         {
             "source_site": "https://isportsurge.ws/mlb/livestreams2",
             "text": "5 hours from nowAtlanta BravesPhiladelphia PhilliesMLB5 hours from now",
-            "href": "https://isportsurge.ws/watch/mlb-playoffs/atlanta-braves-philadelphia-phillies/448675228"
+            "href": "https://isportsurge.ws/watch/mlb-playoffs/atlanta-braves-philadelphia-phillies/449513560"
         },
         {
             "source_site": "https://isportsurge.ws/mlb/livestreams2",
             "text": "8 hours from nowHouston AstrosChicago White SoxMLB8 hours from now",
-            "href": "https://isportsurge.ws/watch/mlb-playoffs/houston-astros-chicago-white-sox/448675520"
+            "href": "https://isportsurge.ws/watch/mlb-playoffs/houston-astros-chicago-white-sox/449513852"
         },
         {
             "source_site": "https://isportsurge.ws/mlb/livestreams2",
             "text": "11 hours from nowNew York YankeesBoston Red SoxMLB11 hours from now",
-            "href": "https://isportsurge.ws/watch/mlb-playoffs/new-york-yankees-boston-red-sox/448675812"
+            "href": "https://isportsurge.ws/watch/mlb-playoffs/new-york-yankees-boston-red-sox/449514144"
         },
         {
             "source_site": "https://isportsurge.ws/mlb/livestreams2",
             "text": "13 hours from nowSan Diego PadresChicago CubsMLB13 hours from now",
-            "href": "https://isportsurge.ws/watch/mlb-playoffs/san-diego-padres-chicago-cubs/448676104"
+            "href": "https://isportsurge.ws/watch/mlb-playoffs/san-diego-padres-chicago-cubs/449514436"
+        },
+        {
+            "source_site": "https://isportsurge.ws/cfb/livestreams2",
+            "text": "11 hours from nowNew Mexico St.Western KentuckyCFB11 hours from now",
+            "href": "https://isportsurge.ws/watch/cfb/western-kentucky-hilltoppers-new-mexico-state-aggies/448575072"
+        },
+        {
+            "source_site": "https://isportsurge.ws/cfb/livestreams2",
+            "text": "12 hours from nowTulsaNorth TexasCFB12 hours from now",
+            "href": "https://isportsurge.ws/watch/cfb/tulsa-golden-hurricane-north-texas-mean-green/448575364"
         },
         {
             "source_site": "https://crackstreams.page/nflstreams/live",
@@ -67,33 +87,28 @@
         },
         {
             "source_site": "https://crackstreams.page/nbastreams/live1",
-            "text": "Washington Mystics vs Atlanta Dream19:00 ET - Sep/30/2026",
-            "href": "https://crackstreams.page/live/wnba-playoffs/mystics-dream-live-streaming-663986160"
-        },
-        {
-            "source_site": "https://crackstreams.page/nbastreams/live1",
-            "text": "Dallas Wings vs Golden State Valkyries21:00 ET - Sep/30/2026",
-            "href": "https://crackstreams.page/live/wnba-playoffs/wings-valkyries-live-streaming-663986592"
+            "text": "Las Vegas Aces vs Indiana Fever21:00 ET - Oct/01/2026",
+            "href": "https://crackstreams.page/live/wnba-playoffs/aces-fever-live-streaming-665180640"
         },
         {
             "source_site": "https://crackstreams.page/mlbstreams/live",
-            "text": "Atlanta Braves vs Philadelphia Phillies14:00 ET - Sep/30/2026",
-            "href": "https://crackstreams.page/live/mlb-playoffs/braves-phillies-live-streaming-663793488"
+            "text": "Atlanta Braves vs Philadelphia Phillies14:00 ET - Oct/01/2026",
+            "href": "https://crackstreams.page/live/mlb-playoffs/braves-phillies-live-streaming-665033760"
         },
         {
             "source_site": "https://crackstreams.page/mlbstreams/live",
-            "text": "Houston Astros vs Chicago White Sox17:00 ET - Sep/30/2026",
-            "href": "https://crackstreams.page/live/mlb-playoffs/astros-white-sox-live-streaming-663793920"
+            "text": "Houston Astros vs Chicago White Sox17:00 ET - Oct/01/2026",
+            "href": "https://crackstreams.page/live/mlb-playoffs/astros-white-sox-live-streaming-665034192"
         },
         {
             "source_site": "https://crackstreams.page/mlbstreams/live",
-            "text": "New York Yankees vs Boston Red Sox20:00 ET - Sep/30/2026",
-            "href": "https://crackstreams.page/live/mlb-playoffs/yankees-red-sox-live-streaming-663794352"
+            "text": "New York Yankees vs Boston Red Sox20:00 ET - Oct/01/2026",
+            "href": "https://crackstreams.page/live/mlb-playoffs/yankees-red-sox-live-streaming-665034624"
         },
         {
             "source_site": "https://crackstreams.page/mlbstreams/live",
-            "text": "San Diego Padres vs Chicago Cubs22:00 ET - Sep/30/2026",
-            "href": "https://crackstreams.page/live/mlb-playoffs/padres-cubs-live-streaming-663794784"
+            "text": "San Diego Padres vs Chicago Cubs22:00 ET - Oct/01/2026",
+            "href": "https://crackstreams.page/live/mlb-playoffs/padres-cubs-live-streaming-665035056"
         },
         {
             "source_site": "https://crackstreams.page/cfbstreams/live",
@@ -106,44 +121,59 @@
             "href": "https://crackstreams.page/live/cfb/tulsa-north-texas-live-streaming-663645744"
         },
         {
-            "source_site": "https://thetvapp.plus/watch/mlb-streams",
-            "text": "MLBAtlanta Braves vs Philadelphia Phillies:FinalHD",
-            "href": "https://thetvapp.plus/tv-live/mlb-playoffs/atlanta-braves-philadelphia-phillies/8669392368"
+            "source_site": "https://thetvapp.plus/watch/nfl-streams",
+            "text": "NFLCleveland Browns vs Pittsburgh Steelers:12 hours from nowHD",
+            "href": "https://thetvapp.plus/tv-live/nfl/cleveland-browns-pittsburgh-steelers/8688832040"
         },
         {
             "source_site": "https://thetvapp.plus/watch/mlb-streams",
             "text": "MLBAtlanta Braves vs Philadelphia Phillies:5 hours from nowHD",
-            "href": "https://thetvapp.plus/tv-live/mlb-playoffs/atlanta-braves-philadelphia-phillies/8690777704"
+            "href": "https://thetvapp.plus/tv-live/mlb-playoffs/atlanta-braves-philadelphia-phillies/8707016080"
         },
         {
             "source_site": "https://thetvapp.plus/watch/mlb-streams",
             "text": "MLBHouston Astros vs Chicago White Sox:8 hours from nowHD",
-            "href": "https://thetvapp.plus/tv-live/mlb-playoffs/houston-astros-chicago-white-sox/8690783360"
+            "href": "https://thetvapp.plus/tv-live/mlb-playoffs/houston-astros-chicago-white-sox/8707021736"
         },
         {
             "source_site": "https://thetvapp.plus/watch/mlb-streams",
             "text": "MLBNew York Yankees vs Boston Red Sox:11 hours from nowHD",
-            "href": "https://thetvapp.plus/tv-live/mlb-playoffs/new-york-yankees-boston-red-sox/8690789016"
+            "href": "https://thetvapp.plus/tv-live/mlb-playoffs/new-york-yankees-boston-red-sox/8707027392"
         },
         {
             "source_site": "https://thetvapp.plus/watch/mlb-streams",
             "text": "MLBSan Diego Padres vs Chicago Cubs:13 hours from nowHD",
-            "href": "https://thetvapp.plus/tv-live/mlb-playoffs/san-diego-padres-chicago-cubs/8690794672"
+            "href": "https://thetvapp.plus/tv-live/mlb-playoffs/san-diego-padres-chicago-cubs/8707033048"
+        },
+        {
+            "source_site": "https://thetvapp.plus/watch/mlb-streams",
+            "text": "MLBAtlanta Braves vs Philadelphia Phillies:FinalHD",
+            "href": "https://thetvapp.plus/tv-live/mlb-playoffs/atlanta-braves-philadelphia-phillies/8690777704"
         },
         {
             "source_site": "https://thetvapp.plus/watch/mlb-streams",
             "text": "MLBHouston Astros vs Chicago White Sox:FinalHD",
-            "href": "https://thetvapp.plus/tv-live/mlb-playoffs/houston-astros-chicago-white-sox/8690704176"
+            "href": "https://thetvapp.plus/tv-live/mlb-playoffs/houston-astros-chicago-white-sox/8690783360"
         },
         {
             "source_site": "https://thetvapp.plus/watch/mlb-streams",
             "text": "MLBNew York Yankees vs Boston Red Sox:FinalHD",
-            "href": "https://thetvapp.plus/tv-live/mlb-playoffs/new-york-yankees-boston-red-sox/8669398024"
+            "href": "https://thetvapp.plus/tv-live/mlb-playoffs/new-york-yankees-boston-red-sox/8690789016"
         },
         {
             "source_site": "https://thetvapp.plus/watch/mlb-streams",
             "text": "MLBSan Diego Padres vs Chicago Cubs:FinalHD",
-            "href": "https://thetvapp.plus/tv-live/mlb-playoffs/san-diego-padres-chicago-cubs/8690596712"
+            "href": "https://thetvapp.plus/tv-live/mlb-playoffs/san-diego-padres-chicago-cubs/8690794672"
+        },
+        {
+            "source_site": "https://thetvapp.plus/watch/cfb-streams",
+            "text": "CFBNew Mexico State Aggies vs Western Kentucky Hilltoppers:11 hours from nowHD",
+            "href": "https://thetvapp.plus/tv-live/cfb/western-kentucky-hilltoppers-new-mexico-state-aggies/8688837696"
+        },
+        {
+            "source_site": "https://thetvapp.plus/watch/cfb-streams",
+            "text": "CFBTulsa Golden Hurricane vs North Texas Mean Green:12 hours from nowHD",
+            "href": "https://thetvapp.plus/tv-live/cfb/tulsa-golden-hurricane-north-texas-mean-green/8688843352"
         }
     ]
 }

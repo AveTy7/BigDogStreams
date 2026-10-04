@@ -39,10 +39,10 @@
         header {
             background-color: var(--bg-secondary);
             border-bottom: 1px solid var(--border);
-            padding: 10px 24px;
+            padding: 8px 12px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
 
         .header-top {
@@ -50,7 +50,7 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: nowrap;
-            gap: 10px;
+            gap: 6px;
             max-width: 1400px;
             width: 100%;
             margin: 0 auto;
@@ -64,28 +64,21 @@
 
         .nav-tabs {
             display: flex;
-            gap: 4px;
+            gap: 2px;
             flex-wrap: nowrap;
-            overflow-x: auto;
-            white-space: nowrap;
+            overflow: visible;
             max-width: 100%;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-        }
-
-        .nav-tabs::-webkit-scrollbar {
-            display: none;
         }
 
         .tab-btn {
             background-color: var(--bg-primary);
             color: var(--text-secondary);
             border: 1px solid var(--border);
-            padding: 5px 8px;
-            border-radius: 6px;
+            padding: 4px 6px;
+            border-radius: 4px;
             cursor: pointer;
             font-weight: 600;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             transition: all 0.2s ease;
             flex-shrink: 0;
         }
@@ -618,8 +611,8 @@
 
     <header>
         <div class="header-top">
-            <a href="https://avety7.github.io/BigDogStreams/" style="display: inline-flex; align-items: center; text-decoration: none; flex-shrink: 0;">
-                <img src="IMG_0905.jpeg" alt="Big Dog Streams Logo" style="max-height: 38px; width: auto; vertical-align: middle;">
+            <a href="https://avety7.github.io/BigDogStreams/" style="display: inline-flex; align-items: center; text-decoration: none; flex-shrink: 0; margin-left: -4px;">
+                <img src="IMG_0905.jpeg" alt="Big Dog Streams Logo" style="max-height: 32px; width: auto; vertical-align: middle;">
             </a>
             <div class="nav-tabs">
                 <button class="tab-btn active" onclick="switchLeague('nfl', this)">NFL</button>
@@ -1930,7 +1923,7 @@
                        <tbody>
             `;
 
-            matchedEntries.forEach(entry => {
+            matchedEntries.evaluate = matchedEntries.forEach(entry => {
                 const team = entry.team || {};
                 const stats = entry.stats || [];
                 const confRecord = stats.find(s => s.name === 'conference' || s.abbreviation === 'CONF')?.displayValue || '-';

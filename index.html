@@ -1018,7 +1018,7 @@
         }
 
         async function renderMmaTab() {
-            const dynamicArea = getActiveContentContainer();
+            const dynamicArea = document.getElementById('dynamic-content-area') || getActiveContentContainer();
             dynamicArea.innerHTML = '<div class="loading">Loading MMA, Boxing & Combat Sports schedule...</div>';
 
             await loadLinksJson();
@@ -1078,6 +1078,7 @@
                     const dateStr = comp?.date ? new Date(comp.date).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' }) : 'Sat, Oct 10';
                     const timeStr = comp?.date ? new Date(comp.date).toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' }) : '9:00 PM ET';
                     const network = comp?.broadcasts?.[0]?.names?.[0] || 'ESPN+ PPV';
+                    const eventDateObj = comp?.date ? new Date(comp.date) : new Date();
 
                     eventsArray.push({
                         displayTitle: title,
@@ -1085,7 +1086,8 @@
                         dateStr: dateStr,
                         timeStr: timeStr,
                         network: network,
-                        isBoxing: true
+                        isBoxing: true,
+                        dateObj: eventDateObj
                     });
                 });
             }
@@ -1095,6 +1097,7 @@
                     ev.dateStr = idx === 0 ? "Tonight" : "Sat, Oct 10";
                     ev.timeStr = idx === 0 ? "10:00 PM ET" : "9:00 PM ET";
                     ev.network = ev.displayTitle.toLowerCase().includes('ppv') ? "ESPN+ PPV" : (ev.displayTitle.toLowerCase().includes('ufc') ? "ESPN / ESPN+" : "DAZN");
+                    ev.dateObj = new Date();
                 }
             });
 
@@ -1105,14 +1108,16 @@
                         links: [],
                         dateStr: "Sat, Nov 16",
                         timeStr: "10:00 PM ET",
-                        network: "ESPN+ PPV"
+                        network: "ESPN+ PPV",
+                        dateObj: new Date()
                     },
                     {
                         displayTitle: "Boxing: Championship Night",
                         links: [],
                         dateStr: "Sat, Nov 23",
                         timeStr: "9:00 PM ET",
-                        network: "DAZN"
+                        network: "DAZN",
+                        dateObj: new Date()
                     }
                 ];
             }
@@ -1198,8 +1203,19 @@
                 return tableHtml;
             };
 
-            const thisWeekEvents = eventsArray.slice(0, 2);
-            html += renderEspnScheduleTable("This Week", thisWeekEvents);
+            const now = new Date();
+            const oneWeekFromNow = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+
+            const nextWeekEvents = eventsArray.filter(ev => {
+                if (!ev.dateObj) return true;
+                return ev.dateObj >= now && ev.dateObj <= oneWeekFromNow;
+            });
+
+            if (nextWeekEvents.length === 0) {
+                nextWeekEvents.push(...eventsArray.slice(0, 2));
+            }
+
+            html += renderEspnScheduleTable("This week", nextWeekEvents);
 
             dynamicArea.innerHTML = html;
         }

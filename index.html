@@ -1025,12 +1025,18 @@
                 return;
             }
 
-            // Consolidate similar events by normalized key
+            // Step 1 & 2: Clean titles by stripping out date/time info first, then consolidate similar events
             const consolidatedMap = new Map();
 
             displayLinks.forEach(link => {
                 let rawText = link.text || 'MMA Event';
+                
+                // Clean up date, time, day info, and status markers from the title text
                 let cleaned = rawText
+                    .replace(/\b(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s*\d{1,2}(?:st|nd|rd|th)?(?:,\s*\d{4})?\b/gi, '') // Month + Date (e.g., Oct 3, October 3rd)
+                    .replace(/\b(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b/gi, '') // Days of week
+                    .replace(/\b\d{1,2}\/\d{1,2}(?:\/\d{2,4})?\b/g, '') // Numeric dates like 10/3 or 10/03/2026
+                    .replace(/\b\d{1,2}:\d{2}\s*(?:am|pm)?\b/gi, '') // Times like 8:00 PM, 10:30
                     .replace(/live\s*streams/gi, '')
                     .replace(/in\s*progress/gi, '')
                     .replace(/watch/gi, '')
@@ -1039,7 +1045,7 @@
 
                 if (!cleaned) cleaned = 'Combat Sports Event';
 
-                // Create a normalized key for matching similar event titles (ignoring case, extra punctuation, or minor spacing differences)
+                // Create a normalized key for matching similar event titles after cleaning
                 let normKey = cleaned.toLowerCase().replace(/[^a-z0-9]/g, '');
                 
                 // Group similar UFC / Boxing titles intelligently if they share core keywords or fighter names

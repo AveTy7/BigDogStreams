@@ -787,7 +787,7 @@
             }
 
             if (currentLeagueKey === 'mma') {
-                dynamicArea.innerHTML = '<div class="no-data">No data available yet.</div>';
+                await renderMmaTab();
                 return;
             }
 
@@ -1000,6 +1000,70 @@
 
             dropdownHtml += `</div></div>`;
             return dropdownHtml;
+        }
+
+        async function renderMmaTab() {
+            const dynamicArea = getActiveContentContainer();
+            dynamicArea.innerHTML = '<div class="loading">Loading MMA & Boxing streams...</div>';
+
+            await loadLinksJson();
+            const linksList = availableLinks.length > 0 ? availableLinks : (testJsonData.links || []);
+
+            // Filter for MMA or Boxing from links
+            const mmaLinks = linksList.filter(item => {
+                const textLower = (item.text || '').toLowerCase();
+                const siteLower = (item.source_site || '').toLowerCase();
+                const hrefLower = (item.href || '').toLowerCase();
+                return textLower.includes('mma') || textLower.includes('ufc') || textLower.includes('boxing') ||
+                       siteLower.includes('mma') || siteLower.includes('ufc') || siteLower.includes('boxing') ||
+                       hrefLower.includes('/mma/') || hrefLower.includes('/ufc/') || hrefLower.includes('/boxing/');
+            });
+
+            // If none specifically categorized by URL/text keywords, group all links or show a clean fallback
+            const displayLinks = mmaLinks.length > 0 ? mmaLinks : linksList;
+
+            if (!displayLinks || displayLinks.length === 0) {
+                dynamicArea.innerHTML = `<div class="no-data">No MMA or Boxing streams available right now.</div>`;
+                return;
+            }
+
+            let gridHTML = '<div class="games-grid">';
+
+            displayLinks.forEach(link => {
+                let rawText = link.text || 'MMA Event';
+                let cleanedEvtText = rawText
+                    .replace(/live\s*streams/gi, '')
+                    .replace(/in\s*progress/gi, '')
+                    .trim();
+                
+                if (!cleanedEvtText) cleanedEvtText = 'Combat Sports Event';
+
+                const pName = getProviderName(link.source_site || link.href);
+
+                gridHTML += `
+                    <div class="game-card">
+                        <div>
+                            <div class="game-status-bar">
+                                <div class="status-live"><span class="pulse-dot"></span> LIVE • Combat Sports</div>
+                            </div>
+                            <div class="teams-container" style="gap: 12px; padding: 4px 0;">
+                                <div class="team-row">
+                                    <div class="team-info">
+                                        <span class="team-name" style="font-size: 1rem; font-weight: 700; line-height: 1.3;">${cleanedEvtText}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span style="color: var(--text-secondary); font-size: 0.8rem; font-weight: 600;">Provider: ${pName}</span>
+                            <a class="streams-btn" href="${link.href}" target="_blank" style="text-decoration: none; padding: 5px 12px;">Watch Stream →</a>
+                        </div>
+                    </div>
+                `;
+            });
+
+            gridHTML += '</div>';
+            dynamicArea.innerHTML = gridHTML;
         }
 
         function toggleStreamsDropdown(event, button) {

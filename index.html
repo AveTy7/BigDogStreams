@@ -66,8 +66,15 @@
             display: flex;
             gap: 4px;
             flex-wrap: nowrap;
-            overflow-x: visible;
+            overflow-x: auto;
             white-space: nowrap;
+            max-width: 100%;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .nav-tabs::-webkit-scrollbar {
+            display: none;
         }
 
         .tab-btn {
@@ -80,6 +87,7 @@
             font-weight: 600;
             font-size: 0.75rem;
             transition: all 0.2s ease;
+            flex-shrink: 0;
         }
 
         .tab-btn:hover {
@@ -610,7 +618,7 @@
 
     <header>
         <div class="header-top">
-            <a href="https://avety7.github.io/BigDogStreams/" style="display: inline-block; text-decoration: none;">
+            <a href="https://avety7.github.io/BigDogStreams/" style="display: inline-flex; align-items: center; text-decoration: none; flex-shrink: 0;">
                 <img src="IMG_0905.jpeg" alt="Big Dog Streams Logo" style="max-height: 38px; width: auto; vertical-align: middle;">
             </a>
             <div class="nav-tabs">

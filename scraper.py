@@ -199,7 +199,8 @@ if __name__ == "__main__":
       "https://mybuffstreams.plus/mlb-live-streams",
       "https://mybuffstreams.plus/nflstreams2",
       "https://mybuffstreams.plus/nbastreams2",
-      "https://mybuffstreams.plus/mmastreams2",  # Added
+      "https://mybuffstreams.plus/mmastreams2", 
+          "https://mybuffstreams.plus/boxingstreams2", 
   ]
 
   isportsurge_urls = [
@@ -208,7 +209,8 @@ if __name__ == "__main__":
       "https://isportsurge.ws/mlb/livestreams2",
       "https://isportsurge.ws/cfb/livestreams2",
       "https://isportsurge.ws/ncaa/livestreams2",
-      "https://isportsurge.ws/mma/livestreams3",  # Added
+      "https://isportsurge.ws/mma/livestreams3",
+      "https://isportsurge.ws/boxing/livestreams3",
   ]
 
   crackstreams_urls = [
@@ -217,7 +219,8 @@ if __name__ == "__main__":
       "https://crackstreams.page/mlbstreams/live",
       "https://crackstreams.page/cfbstreams/live",
       "https://crackstreams.page/ncaabstreams/live",
-      "https://crackstreams.page/mmastreams/live",  # Added
+      "https://crackstreams.page/mmastreams/live",
+      "https://crackstreams.page/boxingstreams/live",
   ]
 
   thetvapp_urls = [
@@ -226,7 +229,8 @@ if __name__ == "__main__":
       "https://thetvapp.plus/watch/mlb-streams",
       "https://thetvapp.plus/watch/cfb-streams",
       "https://thetvapp.plus/watch/ncaab-streams",
-      "https://thetvapp.plus/watch/mma-streams",  # Added
+      "https://thetvapp.plus/watch/mma-streams",
+      "https://thetvapp.plus/watch/boxing-streams",
   ]
 
   all_links = []

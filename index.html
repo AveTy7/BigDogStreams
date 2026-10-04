@@ -1071,7 +1071,6 @@
 
             let eventsArray = Array.from(consolidatedMap.values());
 
-            // Add official ESPN Boxing schedule events if available
             if (espnBoxingEvents && espnBoxingEvents.length > 0) {
                 espnBoxingEvents.forEach(boxEv => {
                     const comp = boxEv.competitions?.[0];
@@ -1099,7 +1098,6 @@
                 }
             });
 
-            // Fallback mock events if no raw links or ESPN events were found so the table is never blank
             if (eventsArray.length === 0) {
                 eventsArray = [
                     {
@@ -1200,12 +1198,8 @@
                 return tableHtml;
             };
 
-            // Split events into "This Week's Events" (first 2 items) and "Upcoming Events" (remaining items)
             const thisWeekEvents = eventsArray.slice(0, 2);
-            const upcomingEvents = eventsArray.slice(2);
-
-            html += renderEspnScheduleTable("This Week's Events", thisWeekEvents);
-            html += renderEspnScheduleTable("Upcoming Events", upcomingEvents);
+            html += renderEspnScheduleTable("This Week", thisWeekEvents);
 
             dynamicArea.innerHTML = html;
         }

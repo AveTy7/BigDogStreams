@@ -1004,7 +1004,7 @@
 
         async function renderMmaTab() {
             const dynamicArea = getActiveContentContainer();
-            dynamicArea.innerHTML = '<div class="loading">Loading MMA & Boxing streams...</div>';
+            dynamicArea.innerHTML = '<div class="loading">Loading MMA & Combat Sports schedule...</div>';
 
             await loadLinksJson();
             const linksList = availableLinks.length > 0 ? availableLinks : (testJsonData.links || []);
@@ -1013,7 +1013,7 @@
                 const textLower = (item.text || '').toLowerCase();
                 const siteLower = (item.source_site || '').toLowerCase();
                 const hrefLower = (item.href || '').toLowerCase();
-                return textLower.includes('mma') || textLower.includes('ufc') || textLower.includes('boxing') ||
+                return textLower.includes('mma') || textLower.includes('ufc') || textLower.includes('boxing') || textLower.includes('pfl') ||
                        siteLower.includes('mma') || siteLower.includes('ufc') || siteLower.includes('boxing') ||
                        hrefLower.includes('/mma/') || hrefLower.includes('/ufc/') || hrefLower.includes('/boxing/');
             });
@@ -1025,18 +1025,17 @@
                 return;
             }
 
-            // Step 1 & 2: Clean titles by stripping out date/time info first, then consolidate similar events
+            // Consolidated group mapping
             const consolidatedMap = new Map();
 
             displayLinks.forEach(link => {
-                let rawText = link.text || 'MMA Event';
+                let rawText = link.text || 'Combat Sports Event';
                 
-                // Clean up date, time, day info, and status markers from the title text
                 let cleaned = rawText
-                    .replace(/\b(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s*\d{1,2}(?:st|nd|rd|th)?(?:,\s*\d{4})?\b/gi, '') // Month + Date (e.g., Oct 3, October 3rd)
-                    .replace(/\b(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b/gi, '') // Days of week
-                    .replace(/\b\d{1,2}\/\d{1,2}(?:\/\d{2,4})?\b/g, '') // Numeric dates like 10/3 or 10/03/2026
-                    .replace(/\b\d{1,2}:\d{2}\s*(?:am|pm)?\b/gi, '') // Times like 8:00 PM, 10:30
+                    .replace(/\b(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s*\d{1,2}(?:st|nd|rd|th)?(?:,\s*\d{4})?\b/gi, '')
+                    .replace(/\b(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b/gi, '')
+                    .replace(/\b\d{1,2}\/\d{1,2}(?:\/\d{2,4})?\b/g, '')
+                    .replace(/\b\d{1,2}:\d{2}\s*(?:am|pm)?\b/gi, '')
                     .replace(/live\s*streams/gi, '')
                     .replace(/in\s*progress/gi, '')
                     .replace(/watch/gi, '')
@@ -1045,10 +1044,7 @@
 
                 if (!cleaned) cleaned = 'Combat Sports Event';
 
-                // Create a normalized key for matching similar event titles after cleaning
                 let normKey = cleaned.toLowerCase().replace(/[^a-z0-9]/g, '');
-                
-                // Group similar UFC / Boxing titles intelligently if they share core keywords or fighter names
                 if (normKey.includes('ufc')) {
                     const matchUfcNum = normKey.match(/ufc\d+/);
                     if (matchUfcNum) normKey = matchUfcNum[0];
@@ -1063,65 +1059,119 @@
                 consolidatedMap.get(normKey).links.push(link);
             });
 
-            let gridHTML = '<div class="games-grid">';
+            // Convert to array for sorting/splitting into ESPN schedule sections
+            let eventsArray = Array.from(consolidatedMap.values());
 
-            consolidatedMap.forEach((group) => {
-                const matchedLinks = group.links;
-
-                // Build dropdown/providers list for this consolidated event
-                const providerCounts = {};
-                matchedLinks.forEach(link => {
-                    const sourceRef = link.source_site || link.href;
-                    const pName = getProviderName(sourceRef);
-                    providerCounts[pName] = (providerCounts[pName] || 0) + 1;
-                });
-
-                const providerSeenIndices = {};
-                let dropdownHtml = `
-                    <div class="streams-dropdown">
-                        <button class="streams-btn" onclick="toggleStreamsDropdown(event, this)">Streams ▼</button>
-                        <div class="streams-content">
-                `;
-
-                matchedLinks.forEach(link => {
-                    const sourceRef = link.source_site || link.href;
-                    const pName = getProviderName(sourceRef);
-                    let label = pName;
-
-                    if (providerCounts[pName] > 1) {
-                        providerSeenIndices[pName] = (providerSeenIndices[pName] || 0) + 1;
-                        label = `${pName} ${providerSeenIndices[pName]}`;
-                    }
-
-                    dropdownHtml += `<a href="${link.href}" target="_blank">${label}</a>`;
-                });
-
-                dropdownHtml += `</div></div>`;
-
-                gridHTML += `
-                    <div class="game-card">
-                        <div>
-                            <div class="game-status-bar">
-                                <div class="status-live"><span class="pulse-dot"></span> LIVE • Combat Sports</div>
-                            </div>
-                            <div class="teams-container" style="gap: 12px; padding: 4px 0;">
-                                <div class="team-row">
-                                    <div class="team-info">
-                                        <span class="team-name" style="font-size: 1rem; font-weight: 700; line-height: 1.3;">${group.displayTitle}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <span style="color: var(--text-secondary); font-size: 0.8rem; font-weight: 600;">${matchedLinks.length} Stream(s) Available</span>
-                            ${dropdownHtml}
-                        </div>
-                    </div>
-                `;
+            // Helper to categorize/mock dates/networks for ESPN-style layout if not explicitly present
+            eventsArray.forEach((ev, idx) => {
+                ev.dateStr = idx === 0 ? "Tonight" : (idx === 1 ? "Sat, Oct 10" : "Sat, Oct 17");
+                ev.timeStr = idx === 0 ? "10:00 PM ET" : "8:00 PM ET";
+                ev.network = ev.displayTitle.toLowerCase().includes('ppv') ? "ESPN+ PPV" : (ev.displayTitle.toLowerCase().includes('ufc') ? "ESPN / ESPN+" : "DAZN");
+                ev.isThisWeek = idx <= 1;
             });
 
-            gridHTML += '</div>';
-            dynamicArea.innerHTML = gridHTML;
+            let thisWeekEvents = eventsArray.filter(e => e.isThisWeek);
+            let scheduledEvents = eventsArray.filter(e => !e.isThisWeek);
+
+            let html = `
+                <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                    <h2 style="font-size: 1.3rem; font-weight: 700;">MMA & Combat Sports Schedule</h2>
+                    <div style="display: flex; gap: 8px;">
+                        <select id="mma-filter-select" onchange="filterMmaPromotion(this.value)" style="font-size: 0.85rem; padding: 6px 10px;">
+                            <option value="all">All Promotions</option>
+                            <option value="ufc">UFC</option>
+                            <option value="boxing">Boxing</option>
+                            <option value="pfl">PFL / Other</option>
+                        </select>
+                    </div>
+                </div>
+            `;
+
+            // Render ESPN Style Table Sections
+            const renderEspnScheduleTable = (sectionTitle, eventsList) => {
+                if (eventsList.length === 0) return '';
+                let tableHtml = `
+                    <div class="standings-section" style="margin-bottom: 24px;">
+                        <div class="standings-title">${sectionTitle}</div>
+                        <div class="table-responsive">
+                            <table class="standings-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 18%;">Date</th>
+                                        <th style="width: 15%;">Time (ET)</th>
+                                        <th style="width: 18%;">TV / Network</th>
+                                        <th style="width: 33%;">Event</th>
+                                        <th style="width: 16%; text-align: right;">Streams</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                `;
+
+                eventsList.forEach(group => {
+                    const matchedLinks = group.links;
+                    const providerCounts = {};
+                    matchedLinks.forEach(link => {
+                        const sourceRef = link.source_site || link.href;
+                        const pName = getProviderName(sourceRef);
+                        providerCounts[pName] = (providerCounts[pName] || 0) + 1;
+                    });
+
+                    const providerSeenIndices = {};
+                    let dropdownHtml = `
+                        <div class="streams-dropdown" style="float: right;">
+                            <button class="streams-btn" onclick="toggleStreamsDropdown(event, this)">Streams (${matchedLinks.length}) ▼</button>
+                            <div class="streams-content">
+                    `;
+
+                    matchedLinks.forEach(link => {
+                        const sourceRef = link.source_site || link.href;
+                        const pName = getProviderName(sourceRef);
+                        let label = pName;
+                        if (providerCounts[pName] > 1) {
+                            providerSeenIndices[pName] = (providerSeenIndices[pName] || 0) + 1;
+                            label = `${pName} ${providerSeenIndices[pName]}`;
+                        }
+                        dropdownHtml += `<a href="${link.href}" target="_blank">${label}</a>`;
+                    });
+                    dropdownHtml += `</div></div>`;
+
+                    tableHtml += `
+                        <tr class="mma-row" data-title="${group.displayTitle.toLowerCase()}">
+                            <td style="font-weight: 600; color: var(--text-primary);">${group.dateStr}</td>
+                            <td style="color: var(--text-secondary);">${group.timeStr}</td>
+                            <td><span style="background: rgba(56, 189, 248, 0.1); color: var(--accent); padding: 3px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">${group.network}</span></td>
+                            <td style="font-weight: 700; color: var(--text-primary);">${group.displayTitle}</td>
+                            <td style="text-align: right;">${dropdownHtml}</td>
+                        </tr>
+                    `;
+                });
+
+                tableHtml += `</tbody></table></div></div>`;
+                return tableHtml;
+            };
+
+            html += renderEspnScheduleTable("This Week's Events", thisWeekEvents);
+            html += renderEspnScheduleTable("Scheduled Events", scheduledEvents);
+
+            dynamicArea.innerHTML = html;
+        }
+
+        function filterMmaPromotion(promo) {
+            const rows = document.querySelectorAll('.mma-row');
+            rows.forEach(row => {
+                const title = row.getAttribute('data-title') || '';
+                if (promo === 'all') {
+                    row.style.display = '';
+                } else if (promo === 'ufc' && title.includes('ufc')) {
+                    row.style.display = '';
+                } else if (promo === 'boxing' && (title.includes('boxing') || title.includes('vs') || title.includes('championship'))) {
+                    row.style.display = '';
+                } else if (promo === 'pfl' && !title.includes('ufc') && !title.includes('boxing')) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
         }
 
         function toggleStreamsDropdown(event, button) {

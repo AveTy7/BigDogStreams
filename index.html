@@ -612,6 +612,7 @@
                 <button class="tab-btn" onclick="switchLeague('mlb', this)">MLB</button>
                 <button class="tab-btn" onclick="switchLeague('cfb', this)">CFB</button>
                 <button class="tab-btn" onclick="switchLeague('cbb', this)">CBB</button>
+                <button class="tab-btn" onclick="switchLeague('mma', this)">MMA</button>
                 <button class="tab-btn" onclick="switchLeague('test', this)">Test</button>
             </div>
         </div>
@@ -662,6 +663,10 @@
                     { name: 'ACC', param: '?groups=2', type: 'standings' },
                     { name: 'Big East', param: '?groups=4', type: 'standings' }
                 ]
+            },
+            mma: {
+                type: 'mma',
+                conferences: null
             },
             test: {
                 type: 'test',
@@ -770,6 +775,11 @@
             
             if (currentLeagueKey === 'test') {
                 renderTestTab();
+                return;
+            }
+
+            if (currentLeagueKey === 'mma') {
+                dynamicArea.innerHTML = '<div class="no-data">No data available yet.</div>';
                 return;
             }
 
@@ -1574,7 +1584,7 @@
             const filterContainer = document.getElementById('filter-container');
             const conferenceSelect = document.getElementById('conference-select');
 
-            if (leagueKey === 'test') {
+            if (leagueKey === 'test' || leagueKey === 'mma') {
                 filterContainer.classList.remove('visible');
                 loadData();
                 return;

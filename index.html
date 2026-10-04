@@ -690,6 +690,7 @@
         let allFetchedGames = {}; 
         let globalBoxScoreData = null;
         let availableLinks = [];
+        let espnBoxingEvents = [];
 
         async function loadLinksJson() {
             try {
@@ -703,6 +704,20 @@
             } catch (err) {
                 console.warn('Could not load links.json:', err);
                 availableLinks = testJsonData.links || [];
+            }
+        }
+
+        async function fetchEspnBoxingSchedule() {
+            try {
+                const res = await fetch('https://site.api.espn.com/apis/site/v2/sports/boxing/boxing/scoreboard');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data && data.events) {
+                        espnBoxingEvents = data.events;
+                    }
+                }
+            } catch (e) {
+                console.warn('Could not fetch ESPN boxing schedule:', e);
             }
         }
 
@@ -732,6 +747,7 @@
 
         async function backgroundPrefetch() {
             await loadLinksJson();
+            await fetchEspnBoxingSchedule();
             const leagueKeys = ['nfl', 'nba', 'mlb', 'cbb'];
             for (let lKey of leagueKeys) {
                 const cfg = endpoints[lKey];
@@ -952,7 +968,6 @@
                 return awayFound && homeFound;
             });
 
-            // Only add Redzone links if this specific game card is the Redzone card
             const isRedzoneCard = (homeTeamObj?.name === 'Redzone' || awayTeamObj?.name === 'Redzone');
             if (currentLeagueKey === 'nfl' && isRedzoneCard) {
                 const redzoneLinks = getRedzoneLinks();
@@ -1004,9 +1019,10 @@
 
         async function renderMmaTab() {
             const dynamicArea = getActiveContentContainer();
-            dynamicArea.innerHTML = '<div class="loading">Loading MMA & Combat Sports schedule...</div>';
+            dynamicArea.innerHTML = '<div class="loading">Loading MMA, Boxing & Combat Sports schedule...</div>';
 
             await loadLinksJson();
+            await fetchEspnBoxingSchedule();
             const linksList = availableLinks.length > 0 ? availableLinks : (testJsonData.links || []);
 
             const mmaLinks = linksList.filter(item => {
@@ -1020,12 +1036,6 @@
 
             const displayLinks = mmaLinks.length > 0 ? mmaLinks : linksList;
 
-            if (!displayLinks || displayLinks.length === 0) {
-                dynamicArea.innerHTML = `<div class="no-data">No MMA or Boxing streams available right now.</div>`;
-                return;
-            }
-
-            // Consolidated group mapping
             const consolidatedMap = new Map();
 
             displayLinks.forEach(link => {
@@ -1059,23 +1069,39 @@
                 consolidatedMap.get(normKey).links.push(link);
             });
 
-            // Convert to array for sorting/splitting into ESPN schedule sections
             let eventsArray = Array.from(consolidatedMap.values());
 
-            // Helper to categorize/mock dates/networks for ESPN-style layout if not explicitly present
-            eventsArray.forEach((ev, idx) => {
-                ev.dateStr = idx === 0 ? "Tonight" : (idx === 1 ? "Sat, Oct 10" : "Sat, Oct 17");
-                ev.timeStr = idx === 0 ? "10:00 PM ET" : "8:00 PM ET";
-                ev.network = ev.displayTitle.toLowerCase().includes('ppv') ? "ESPN+ PPV" : (ev.displayTitle.toLowerCase().includes('ufc') ? "ESPN / ESPN+" : "DAZN");
-                ev.isThisWeek = idx <= 1;
-            });
+            // Add official ESPN Boxing schedule events if available
+            if (espnBoxingEvents && espnBoxingEvents.length > 0) {
+                espnBoxingEvents.forEach(boxEv => {
+                    const comp = boxEv.competitions?.[0];
+                    const title = boxEv.name || boxEv.shortName || 'Boxing Championship';
+                    const dateStr = comp?.date ? new Date(comp.date).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' }) : 'Sat, Oct 10';
+                    const timeStr = comp?.date ? new Date(comp.date).toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' }) : '9:00 PM ET';
+                    const network = comp?.broadcasts?.[0]?.names?.[0] || 'ESPN+ PPV';
 
-            let thisWeekEvents = eventsArray.filter(e => e.isThisWeek);
-            let scheduledEvents = eventsArray.filter(e => !e.isThisWeek);
+                    eventsArray.push({
+                        displayTitle: title,
+                        links: [],
+                        dateStr: dateStr,
+                        timeStr: timeStr,
+                        network: network,
+                        isBoxing: true
+                    });
+                });
+            }
+
+            eventsArray.forEach((ev, idx) => {
+                if (!ev.dateStr) {
+                    ev.dateStr = idx === 0 ? "Tonight" : "Sat, Oct 10";
+                    ev.timeStr = idx === 0 ? "10:00 PM ET" : "9:00 PM ET";
+                    ev.network = ev.displayTitle.toLowerCase().includes('ppv') ? "ESPN+ PPV" : (ev.displayTitle.toLowerCase().includes('ufc') ? "ESPN / ESPN+" : "DAZN");
+                }
+            });
 
             let html = `
                 <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
-                    <h2 style="font-size: 1.3rem; font-weight: 700;">MMA & Combat Sports Schedule</h2>
+                    <h2 style="font-size: 1.3rem; font-weight: 700;">MMA & Boxing Schedule</h2>
                     <div style="display: flex; gap: 8px;">
                         <select id="mma-filter-select" onchange="filterMmaPromotion(this.value)" style="font-size: 0.85rem; padding: 6px 10px;">
                             <option value="all">All Promotions</option>
@@ -1087,7 +1113,6 @@
                 </div>
             `;
 
-            // Render ESPN Style Table Sections
             const renderEspnScheduleTable = (sectionTitle, eventsList) => {
                 if (eventsList.length === 0) return '';
                 let tableHtml = `
@@ -1108,7 +1133,7 @@
                 `;
 
                 eventsList.forEach(group => {
-                    const matchedLinks = group.links;
+                    const matchedLinks = group.links || [];
                     const providerCounts = {};
                     matchedLinks.forEach(link => {
                         const sourceRef = link.source_site || link.href;
@@ -1117,23 +1142,28 @@
                     });
 
                     const providerSeenIndices = {};
-                    let dropdownHtml = `
-                        <div class="streams-dropdown" style="float: right;">
-                            <button class="streams-btn" onclick="toggleStreamsDropdown(event, this)">Streams (${matchedLinks.length}) ▼</button>
-                            <div class="streams-content">
-                    `;
+                    let dropdownHtml = '';
 
-                    matchedLinks.forEach(link => {
-                        const sourceRef = link.source_site || link.href;
-                        const pName = getProviderName(sourceRef);
-                        let label = pName;
-                        if (providerCounts[pName] > 1) {
-                            providerSeenIndices[pName] = (providerSeenIndices[pName] || 0) + 1;
-                            label = `${pName} ${providerSeenIndices[pName]}`;
-                        }
-                        dropdownHtml += `<a href="${link.href}" target="_blank">${label}</a>`;
-                    });
-                    dropdownHtml += `</div></div>`;
+                    if (matchedLinks.length > 0) {
+                        dropdownHtml = `
+                            <div class="streams-dropdown" style="float: right;">
+                                <button class="streams-btn" onclick="toggleStreamsDropdown(event, this)">Streams (${matchedLinks.length}) ▼</button>
+                                <div class="streams-content">
+                        `;
+                        matchedLinks.forEach(link => {
+                            const sourceRef = link.source_site || link.href;
+                            const pName = getProviderName(sourceRef);
+                            let label = pName;
+                            if (providerCounts[pName] > 1) {
+                                providerSeenIndices[pName] = (providerSeenIndices[pName] || 0) + 1;
+                                label = `${pName} ${providerSeenIndices[pName]}`;
+                            }
+                            dropdownHtml += `<a href="${link.href}" target="_blank">${label}</a>`;
+                        });
+                        dropdownHtml += `</div></div>`;
+                    } else {
+                        dropdownHtml = `<span style="color: var(--text-secondary); font-size: 0.8rem;">Scheduled</span>`;
+                    }
 
                     tableHtml += `
                         <tr class="mma-row" data-title="${group.displayTitle.toLowerCase()}">
@@ -1150,8 +1180,8 @@
                 return tableHtml;
             };
 
-            html += renderEspnScheduleTable("This Week's Events", thisWeekEvents);
-            html += renderEspnScheduleTable("Scheduled Events", scheduledEvents);
+            // Only render "This Week" section, omitting upcoming events section completely
+            html += renderEspnScheduleTable("This Week's Events", eventsArray);
 
             dynamicArea.innerHTML = html;
         }
@@ -2095,7 +2125,7 @@
                        <tbody>
             `;
 
-            matchedEntries.evaluate = matchedEntries.forEach(entry => {
+            matchedEntries.forEach(entry => {
                 const team = entry.team || {};
                 const stats = entry.stats || [];
                 const confRecord = stats.find(s => s.name === 'conference' || s.abbreviation === 'CONF')?.displayValue || '-';

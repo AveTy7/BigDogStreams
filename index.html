@@ -39,7 +39,7 @@
         header {
             background-color: var(--bg-secondary);
             border-bottom: 1px solid var(--border);
-            padding: 10px 20px;
+            padding: 10px 24px;
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -51,6 +51,9 @@
             align-items: center;
             flex-wrap: nowrap;
             gap: 10px;
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
         }
 
         h1 {
@@ -105,6 +108,10 @@
             height: 0;
             overflow: hidden;
             margin-bottom: 0px;
+            max-width: 1400px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .filter-bar.visible {
@@ -1118,7 +1125,6 @@
                         return;
                     } catch (e) {}
                 } else if (selectedConf && selectedConf.type === 'rankings-fcs') {
-                    // Separated FCS poll/rankings logic to prevent FBS poll fallback
                     try {
                         const url = `https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/rankings`;
                         const res = await fetch(url);
@@ -1678,7 +1684,6 @@
 
             let gridHTML = '';
 
-            // If NFL, inject Redzone card at the top if links are available
             if (currentLeagueKey === 'nfl') {
                 const redzoneLinks = getRedzoneLinks();
                 if (redzoneLinks.length > 0) {

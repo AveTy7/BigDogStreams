@@ -1009,7 +1009,6 @@
             await loadLinksJson();
             const linksList = availableLinks.length > 0 ? availableLinks : (testJsonData.links || []);
 
-            // Filter for MMA or Boxing from links
             const mmaLinks = linksList.filter(item => {
                 const textLower = (item.text || '').toLowerCase();
                 const siteLower = (item.source_site || '').toLowerCase();
@@ -1019,7 +1018,6 @@
                        hrefLower.includes('/mma/') || hrefLower.includes('/ufc/') || hrefLower.includes('/boxing/');
             });
 
-            // If none specifically categorized by URL/text keywords, group all links or show a clean fallback
             const displayLinks = mmaLinks.length > 0 ? mmaLinks : linksList;
 
             if (!displayLinks || displayLinks.length === 0) {
@@ -1027,18 +1025,72 @@
                 return;
             }
 
-            let gridHTML = '<div class="games-grid">';
+            // Consolidate similar events by normalized key
+            const consolidatedMap = new Map();
 
             displayLinks.forEach(link => {
                 let rawText = link.text || 'MMA Event';
-                let cleanedEvtText = rawText
+                let cleaned = rawText
                     .replace(/live\s*streams/gi, '')
                     .replace(/in\s*progress/gi, '')
+                    .replace(/watch/gi, '')
+                    .replace(/\s+/g, ' ')
                     .trim();
-                
-                if (!cleanedEvtText) cleanedEvtText = 'Combat Sports Event';
 
-                const pName = getProviderName(link.source_site || link.href);
+                if (!cleaned) cleaned = 'Combat Sports Event';
+
+                // Create a normalized key for matching similar event titles (ignoring case, extra punctuation, or minor spacing differences)
+                let normKey = cleaned.toLowerCase().replace(/[^a-z0-9]/g, '');
+                
+                // Group similar UFC / Boxing titles intelligently if they share core keywords or fighter names
+                if (normKey.includes('ufc')) {
+                    const matchUfcNum = normKey.match(/ufc\d+/);
+                    if (matchUfcNum) normKey = matchUfcNum[0];
+                }
+
+                if (!consolidatedMap.has(normKey)) {
+                    consolidatedMap.set(normKey, {
+                        displayTitle: cleaned,
+                        links: []
+                    });
+                }
+                consolidatedMap.get(normKey).links.push(link);
+            });
+
+            let gridHTML = '<div class="games-grid">';
+
+            consolidatedMap.forEach((group) => {
+                const matchedLinks = group.links;
+
+                // Build dropdown/providers list for this consolidated event
+                const providerCounts = {};
+                matchedLinks.forEach(link => {
+                    const sourceRef = link.source_site || link.href;
+                    const pName = getProviderName(sourceRef);
+                    providerCounts[pName] = (providerCounts[pName] || 0) + 1;
+                });
+
+                const providerSeenIndices = {};
+                let dropdownHtml = `
+                    <div class="streams-dropdown">
+                        <button class="streams-btn" onclick="toggleStreamsDropdown(event, this)">Streams ▼</button>
+                        <div class="streams-content">
+                `;
+
+                matchedLinks.forEach(link => {
+                    const sourceRef = link.source_site || link.href;
+                    const pName = getProviderName(sourceRef);
+                    let label = pName;
+
+                    if (providerCounts[pName] > 1) {
+                        providerSeenIndices[pName] = (providerSeenIndices[pName] || 0) + 1;
+                        label = `${pName} ${providerSeenIndices[pName]}`;
+                    }
+
+                    dropdownHtml += `<a href="${link.href}" target="_blank">${label}</a>`;
+                });
+
+                dropdownHtml += `</div></div>`;
 
                 gridHTML += `
                     <div class="game-card">
@@ -1049,14 +1101,14 @@
                             <div class="teams-container" style="gap: 12px; padding: 4px 0;">
                                 <div class="team-row">
                                     <div class="team-info">
-                                        <span class="team-name" style="font-size: 1rem; font-weight: 700; line-height: 1.3;">${cleanedEvtText}</span>
+                                        <span class="team-name" style="font-size: 1rem; font-weight: 700; line-height: 1.3;">${group.displayTitle}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer">
-                            <span style="color: var(--text-secondary); font-size: 0.8rem; font-weight: 600;">Provider: ${pName}</span>
-                            <a class="streams-btn" href="${link.href}" target="_blank" style="text-decoration: none; padding: 5px 12px;">Watch Stream →</a>
+                            <span style="color: var(--text-secondary); font-size: 0.8rem; font-weight: 600;">${matchedLinks.length} Stream(s) Available</span>
+                            ${dropdownHtml}
                         </div>
                     </div>
                 `;

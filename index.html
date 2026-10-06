@@ -405,6 +405,24 @@
             border-color: var(--danger);
         }
 
+        /* Manningcast Card formatting - Compacted */
+        .manningcast-card {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(30, 41, 59, 0.9));
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            border-radius: 8px;
+            padding: 8px 12px !important;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 4px !important;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .manningcast-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }
+
         .standings-section {
             background-color: var(--bg-card);
             border: 1px solid var(--border);
@@ -928,6 +946,16 @@
             });
         }
 
+        function getManningcastLinks() {
+            const linksList = availableLinks.length > 0 ? availableLinks : (testJsonData.links || []);
+            return linksList.filter(item => {
+                const textLower = (item.text || '').toLowerCase();
+                const siteLower = (item.source_site || '').toLowerCase();
+                const hrefLower = (item.href || '').toLowerCase();
+                return textLower === 'manningcast' || textLower.includes('manningcast') || siteLower.includes('manningcast') || hrefLower.includes('manningcast');
+            });
+        }
+
         function createStreamsDropdown(homeTeamObj, awayTeamObj) {
             const linksList = availableLinks.length > 0 ? availableLinks : (testJsonData.links || []);
             
@@ -959,6 +987,13 @@
                 matchedLinks = matchedLinks.concat(redzoneLinks);
             }
 
+            // Only add Manningcast links if this specific game card is the Manningcast card
+            const isManningcastCard = (homeTeamObj?.name === 'Manningcast' || awayTeamObj?.name === 'Manningcast');
+            if (currentLeagueKey === 'nfl' && isManningcastCard) {
+                const manningcastLinks = getManningcastLinks();
+                matchedLinks = matchedLinks.concat(manningcastLinks);
+            }
+
             let dropdownHtml = `
                 <div class="streams-dropdown">
                     <button class="streams-btn" onclick="toggleStreamsDropdown(event, this)">Streams ▼</button>
@@ -984,9 +1019,12 @@
                     const siteLower = (link.source_site || '').toLowerCase();
                     const hrefLower = (link.href || '').toLowerCase();
                     const isRedzone = textLower === 'redzone' || textLower.includes('redzone') || siteLower.includes('redzone') || hrefLower.includes('redzone');
+                    const isManningcast = textLower === 'manningcast' || textLower.includes('manningcast') || siteLower.includes('manningcast') || hrefLower.includes('manningcast');
 
                     if (isRedzone) {
                         label = `Redzone (${pName})`;
+                    } else if (isManningcast) {
+                        label = `Manningcast (${pName})`;
                     } else if (providerCounts[pName] > 1) {
                         providerSeenIndices[pName] = (providerSeenIndices[pName] || 0) + 1;
                         label = `${pName} ${providerSeenIndices[pName]}`;
@@ -1708,12 +1746,35 @@
                         </div>
                     `;
                 }
+
+                const manningcastLinks = getManningcastLinks();
+                if (manningcastLinks.length > 0) {
+                    gridHTML += `
+                        <div class="game-card manningcast-card" style="margin-bottom: 12px;">
+                            <div>
+                                <div class="game-status-bar" style="margin-bottom: 2px;">
+                                    <div class="status-live" style="color: var(--accent);"><span class="pulse-dot" style="background-color: var(--accent); box-shadow: 0 0 0 rgba(56, 189, 248, 0.4);"></span> LIVE • Manningcast</div>
+                                </div>
+                                <div class="teams-container" style="gap: 2px;">
+                                    <div class="team-row">
+                                        <div class="team-info">
+                                            <span class="team-name" style="font-size: 0.9rem; font-weight: 600;">Manningcast Coverage</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer" style="padding-top: 4px; margin-top: 2px;">
+                                ${createStreamsDropdown({ name: 'Manningcast' }, { name: 'Manningcast' })}
+                            </div>
+                        </div>
+                    `;
+                }
             }
 
             gridHTML += '<div class="games-grid">';
 
             if (!events || events.length === 0) {
-                if (currentLeagueKey !== 'nfl' || gridHTML.indexOf('redzone-card') === -1) {
+                if (currentLeagueKey !== 'nfl' || (gridHTML.indexOf('redzone-card') === -1 && gridHTML.indexOf('manningcast-card') === -1)) {
                     dynamicArea.innerHTML = `<div class="no-data">No games scheduled or available for this filter right now.</div>`;
                     return;
                 }

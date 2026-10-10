@@ -314,8 +314,7 @@
         .team-odds {
             font-size: 0.75rem;
             font-weight: 600;
-            margin-left: auto;
-            margin-right: 10px;
+            margin-right: 12px;
         }
 
         .odds-positive {
@@ -987,7 +986,7 @@
             });
         }
 
-        function getTeamSpread(teamObj) {
+        function getTeamSpread(teamObj, opponentObj) {
             if (!oddsDataCache) return '';
 
             const gamesList = Array.isArray(oddsDataCache) 
@@ -1003,15 +1002,24 @@
                 teamObj?.location
             ].filter(Boolean).map(n => n.toLowerCase().trim());
 
+            const opponentNames = [
+                opponentObj?.displayName,
+                opponentObj?.name,
+                opponentObj?.shortDisplayName,
+                opponentObj?.location
+            ].filter(Boolean).map(n => n.toLowerCase().trim());
+
             for (let game of gamesList) {
                 if (!game || typeof game !== 'object') continue;
 
                 const gameTeam = (game.team || '').toLowerCase().trim();
+                const gameOpponent = (game.opponent || '').toLowerCase().trim();
                 const spreadVal = game.spread;
 
-                const isMatch = teamNames.some(n => gameTeam.includes(n) || n.includes(gameTeam));
+                const teamMatches = teamNames.some(n => gameTeam.includes(n) || n.includes(gameTeam));
+                const opponentMatches = opponentNames.some(n => gameOpponent.includes(n) || n.includes(gameOpponent));
 
-                if (isMatch && spreadVal !== undefined && spreadVal !== null) {
+                if (teamMatches && opponentMatches && spreadVal !== undefined && spreadVal !== null) {
                     const num = parseFloat(spreadVal);
                     if (isNaN(num)) return spreadVal;
                     return num > 0 ? `+${num}` : `${num}`;
@@ -1871,8 +1879,8 @@
                     const homeTeamName = homeTeam.team.shortDisplayName || homeTeam.team.name;
                     const awayTeamName = awayTeam.team.shortDisplayName || awayTeam.team.name;
 
-                    const awaySpread = getTeamSpread(awayTeam.team);
-                    const homeSpread = getTeamSpread(homeTeam.team);
+                    const awaySpread = getTeamSpread(awayTeam.team, homeTeam.team);
+                    const homeSpread = getTeamSpread(homeTeam.team, awayTeam.team);
 
                     const getOddsHtml = (spread) => {
                         if (!spread) return '';
@@ -1893,8 +1901,8 @@
                                             <span class="team-name">${awayTeamName}</span>
                                         </div>
                                         <div style="display: flex; align-items: center; margin-left: auto;">
-                                            ${getOddsHtml(awaySpread)}
                                             <span class="team-score">${statusType === 'pre' ? '-' : (awayTeam.score || '0')}</span>
+                                            ${getOddsHtml(awaySpread)}
                                         </div>
                                     </div>
                                     <div class="team-row">
@@ -1903,8 +1911,8 @@
                                             <span class="team-name">${homeTeamName}</span>
                                         </div>
                                         <div style="display: flex; align-items: center; margin-left: auto;">
-                                            ${getOddsHtml(homeSpread)}
                                             <span class="team-score">${statusType === 'pre' ? '-' : (homeTeam.score || '0')}</span>
+                                            ${getOddsHtml(homeSpread)}
                                         </div>
                                     </div>
                                 </div>

@@ -8,6 +8,7 @@ API_KEY = "4ff5d35d05a7ea89db9e932712d6d69d"
 targets = [
     {"sport_key": "americanfootball_nfl", "label": "NFL"},
     {"sport_key": "americanfootball_ncaaf", "label": "NCAAF"},
+    {"sport_key": "americanfootball_ncaaf_fcs", "label": "NCAAF FCS"},
     {"sport_key": "baseball_mlb", "label": "MLB"},
     {"sport_key": "basketball_ncaab", "label": "CBK"},
     {"sport_key": "basketball_nba", "label": "NBA"},

@@ -819,6 +819,10 @@
             currentView = 'hub';
             const dynamicArea = getActiveContentContainer();
             
+            if (Object.keys(oddsDataCache).length === 0) {
+                await loadOddsJson();
+            }
+
             if (currentLeagueKey === 'test') {
                 renderTestTab();
                 return;
@@ -977,43 +981,57 @@
         }
 
         function getTeamSpread(teamObj) {
-            if (!oddsDataCache || Object.keys(oddsDataCache).length === 0) return '';
-            
-            // Flexible matching against odds data structure
+            if (!oddsDataCache) return '';
+
+            const gamesList = Array.isArray(oddsDataCache) 
+                ? oddsDataCache 
+                : (oddsDataCache.events || oddsDataCache.games || Object.values(oddsDataCache));
+
+            if (!gamesList || gamesList.length === 0) return '';
+
             const teamNames = [
                 teamObj?.displayName,
                 teamObj?.name,
                 teamObj?.shortDisplayName,
-                teamObj?.abbreviation
-            ].filter(Boolean).map(n => n.toLowerCase());
+                teamObj?.location
+            ].filter(Boolean).map(n => n.toLowerCase().trim());
 
-            // Traverse oddsDataCache for matching team spread
-            for (let key in oddsDataCache) {
-                const gameObj = oddsDataCache[key];
-                // Check if gameObj has odds info or check matching team properties
-                if (gameObj && typeof gameObj === 'object') {
-                    // Assuming odds_data.json might store events or team-based mappings
-                    const homeTeamOdds = (gameObj.home_team || '').toLowerCase();
-                    const awayTeamOdds = (gameObj.away_team || '').toLowerCase();
-                    
-                    const isHomeMatch = teamNames.some(n => homeTeamOdds.includes(n) || n.includes(homeTeamOdds));
-                    const isAwayMatch = teamNames.some(n => awayTeamOdds.includes(n) || n.includes(awayTeamOdds));
+            for (let game of gamesList) {
+                if (!game || typeof game !== 'object') continue;
 
-                    if (isHomeMatch && gameObj.home_spread) return gameObj.home_spread;
-                    if (isAwayMatch && gameObj.away_spread) return gameObj.away_spread;
-                }
-            }
+                const homeName = (game.home_team || game.homeTeam || '').toLowerCase();
+                const awayName = (game.away_team || game.awayTeam || '').toLowerCase();
 
-            // Direct property check if oddsDataCache is structured as team keys
-            for (let name of teamNames) {
-                if (oddsDataCache[name]) {
-                    return oddsDataCache[name].spread || oddsDataCache[name];
+                const isHome = teamNames.some(n => homeName.includes(n) || n.includes(homeName));
+                const isAway = teamNames.some(n => awayName.includes(n) || n.includes(awayName));
+
+                if (isHome || isAway) {
+                    let point = null;
+
+                    if (isHome && (game.home_spread !== undefined || game.homePoint !== undefined)) {
+                        point = game.home_spread ?? game.homePoint;
+                    } else if (isAway && (game.away_spread !== undefined || game.awayPoint !== undefined)) {
+                        point = game.away_spread ?? game.awayPoint;
+                    } else if (game.bookmakers && game.bookmakers.length > 0) {
+                        const market = game.bookmakers[0]?.markets?.find(m => m.key === 'spreads');
+                        if (market && market.outcomes) {
+                            const outcome = market.outcomes.find(o => 
+                                teamNames.some(n => o.name.toLowerCase().includes(n) || n.includes(o.name.toLowerCase()))
+                            );
+                            if (outcome) point = outcome.point;
+                        }
+                    }
+
+                    if (point !== null && point !== undefined) {
+                        const num = parseFloat(point);
+                        if (isNaN(num)) return point;
+                        return num > 0 ? `+${num}` : `${num}`;
+                    }
                 }
             }
 
             return '';
         }
-
         function createStreamsDropdown(homeTeamObj, awayTeamObj) {
             const linksList = availableLinks.length > 0 ? availableLinks : (testJsonData.links || []);
             

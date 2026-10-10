@@ -311,6 +311,14 @@
             font-weight: 700;
         }
 
+        .team-odds {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-left: auto;
+            margin-right: 12px;
+        }
+
         .card-footer {
             border-top: 1px solid var(--border);
             padding-top: 8px;
@@ -387,7 +395,6 @@
             display: block;
         }
 
-        /* Redzone Card formatting - Compacted */
         .redzone-card {
             background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(30, 41, 59, 0.9));
             border: 1px solid rgba(239, 68, 68, 0.4);
@@ -405,7 +412,6 @@
             border-color: var(--danger);
         }
 
-        /* Manningcast Card formatting - Compacted */
         .manningcast-card {
             background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(30, 41, 59, 0.9));
             border: 1px solid rgba(56, 189, 248, 0.4);
@@ -651,7 +657,6 @@
             <button class="secondary-btn" id="secondary-standings-btn" onclick="toggleWildCardView()">View Wild Card</button>
         </div>
     </main>
-
     <script>
         const endpoints = {
             nfl: { sport: 'football', league: 'nfl', type: 'pro', conferences: null },
@@ -708,6 +713,7 @@
         let allFetchedGames = {}; 
         let globalBoxScoreData = null;
         let availableLinks = [];
+        let oddsDataCache = {};
 
         async function loadLinksJson() {
             try {
@@ -721,6 +727,19 @@
             } catch (err) {
                 console.warn('Could not load links.json:', err);
                 availableLinks = testJsonData.links || [];
+            }
+        }
+
+        async function loadOddsJson() {
+            try {
+                const response = await fetch('odds_data.json?t=' + Date.now());
+                if (response.ok) {
+                    const data = await response.json();
+                    oddsDataCache = data || {};
+                }
+            } catch (err) {
+                console.warn('Could not load odds_data.json:', err);
+                oddsDataCache = {};
             }
         }
 
@@ -750,6 +769,7 @@
 
         async function backgroundPrefetch() {
             await loadLinksJson();
+            await loadOddsJson();
             const leagueKeys = ['nfl', 'nba', 'mlb', 'cbb'];
             for (let lKey of leagueKeys) {
                 const cfg = endpoints[lKey];
@@ -956,6 +976,44 @@
             });
         }
 
+        function getTeamSpread(teamObj) {
+            if (!oddsDataCache || Object.keys(oddsDataCache).length === 0) return '';
+            
+            // Flexible matching against odds data structure
+            const teamNames = [
+                teamObj?.displayName,
+                teamObj?.name,
+                teamObj?.shortDisplayName,
+                teamObj?.abbreviation
+            ].filter(Boolean).map(n => n.toLowerCase());
+
+            // Traverse oddsDataCache for matching team spread
+            for (let key in oddsDataCache) {
+                const gameObj = oddsDataCache[key];
+                // Check if gameObj has odds info or check matching team properties
+                if (gameObj && typeof gameObj === 'object') {
+                    // Assuming odds_data.json might store events or team-based mappings
+                    const homeTeamOdds = (gameObj.home_team || '').toLowerCase();
+                    const awayTeamOdds = (gameObj.away_team || '').toLowerCase();
+                    
+                    const isHomeMatch = teamNames.some(n => homeTeamOdds.includes(n) || n.includes(homeTeamOdds));
+                    const isAwayMatch = teamNames.some(n => awayTeamOdds.includes(n) || n.includes(awayTeamOdds));
+
+                    if (isHomeMatch && gameObj.home_spread) return gameObj.home_spread;
+                    if (isAwayMatch && gameObj.away_spread) return gameObj.away_spread;
+                }
+            }
+
+            // Direct property check if oddsDataCache is structured as team keys
+            for (let name of teamNames) {
+                if (oddsDataCache[name]) {
+                    return oddsDataCache[name].spread || oddsDataCache[name];
+                }
+            }
+
+            return '';
+        }
+
         function createStreamsDropdown(homeTeamObj, awayTeamObj) {
             const linksList = availableLinks.length > 0 ? availableLinks : (testJsonData.links || []);
             
@@ -980,14 +1038,12 @@
                 return awayFound && homeFound;
             });
 
-            // Only add Redzone links if this specific game card is the Redzone card
             const isRedzoneCard = (homeTeamObj?.name === 'Redzone' || awayTeamObj?.name === 'Redzone');
             if (currentLeagueKey === 'nfl' && isRedzoneCard) {
                 const redzoneLinks = getRedzoneLinks();
                 matchedLinks = matchedLinks.concat(redzoneLinks);
             }
 
-            // Only add Manningcast links if this specific game card is the Manningcast card
             const isManningcastCard = (homeTeamObj?.name === 'Manningcast' || awayTeamObj?.name === 'Manningcast');
             if (currentLeagueKey === 'nfl' && isManningcastCard) {
                 const manningcastLinks = getManningcastLinks();
@@ -1809,6 +1865,9 @@
                     const homeTeamName = homeTeam.team.shortDisplayName || homeTeam.team.name;
                     const awayTeamName = awayTeam.team.shortDisplayName || awayTeam.team.name;
 
+                    const awaySpread = getTeamSpread(awayTeam.team);
+                    const homeSpread = getTeamSpread(homeTeam.team);
+
                     gridHTML += `
                         <div class="game-card">
                             <div>
@@ -1821,6 +1880,7 @@
                                             <img class="team-logo" src="${awayTeam.team.logo || ''}" alt="" onerror="this.style.display='none'">
                                             <span class="team-name">${awayTeamName}</span>
                                         </div>
+                                        ${awaySpread ? `<span class="team-odds">${awaySpread}</span>` : ''}
                                         <span class="team-score">${statusType === 'pre' ? '-' : (awayTeam.score || '0')}</span>
                                     </div>
                                     <div class="team-row">
@@ -1828,6 +1888,7 @@
                                             <img class="team-logo" src="${homeTeam.team.logo || ''}" alt="" onerror="this.style.display='none'">
                                             <span class="team-name">${homeTeamName}</span>
                                         </div>
+                                        ${homeSpread ? `<span class="team-odds">${homeSpread}</span>` : ''}
                                         <span class="team-score">${statusType === 'pre' ? '-' : (homeTeam.score || '0')}</span>
                                     </div>
                                 </div>

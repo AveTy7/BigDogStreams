@@ -1,0 +1,39 @@
+name: Scrape OddsTrader NFL
+
+on:
+  schedule:
+    # Runs twice a day at 8:00 AM and 8:00 PM UTC
+    - cron: '0 8,20 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+
+# Required permissions to commit changes back to the repo
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Run scraper script
+        run: python scraper_odds.py
+
+      - name: Commit and push changes if odds updated
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Check if odds_data.json has changes
+          git status
+          git add odds_data.json
+          
+          # Commit only if there are changes, then push
+          git commit -m "Update automated odds data [skip ci]" || echo "No changes to commit"
+          git push

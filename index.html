@@ -1013,6 +1013,13 @@
             for (let game of gamesList) {
                 if (!game || typeof game !== 'object') continue;
 
+                if (currentLeagueKey === 'cfb') {
+                    const sourceLabel = (game.source || '').toLowerCase();
+                    const isFcsTabActive = document.getElementById('conference-select')?.value?.includes('groups=81');
+                    if (isFcsTabActive && !sourceLabel.includes('fcs')) continue;
+                    if (!isFcsTabActive && sourceLabel.includes('fcs')) continue;
+                }
+
                 const gameTeam = (game.team || '').toLowerCase().trim();
                 const gameOpponent = (game.opponent || '').toLowerCase().trim();
                 const spreadVal = game.spread;

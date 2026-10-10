@@ -312,11 +312,18 @@
         }
 
         .team-odds {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
+            font-size: 0.75rem;
             font-weight: 600;
             margin-left: auto;
-            margin-right: 12px;
+            margin-right: 10px;
+        }
+
+        .odds-positive {
+            color: var(--success);
+        }
+
+        .odds-negative {
+            color: var(--danger);
         }
 
         .card-footer {
@@ -1774,7 +1781,7 @@
         }
 
         function renderGames(events) {
-            const dynamicArea = getActiveContentContainer();
+            const dynamicArea = document.getElementById('dynamic-content-area');
 
             let gridHTML = '';
 
@@ -1867,6 +1874,12 @@
                     const awaySpread = getTeamSpread(awayTeam.team);
                     const homeSpread = getTeamSpread(homeTeam.team);
 
+                    const getOddsHtml = (spread) => {
+                        if (!spread) return '';
+                        const colorClass = spread.startsWith('+') ? 'odds-positive' : (spread.startsWith('-') ? 'odds-negative' : '');
+                        return `<span class="team-odds ${colorClass}">${spread}</span>`;
+                    };
+
                     gridHTML += `
                         <div class="game-card">
                             <div>
@@ -1879,16 +1892,20 @@
                                             <img class="team-logo" src="${awayTeam.team.logo || ''}" alt="" onerror="this.style.display='none'">
                                             <span class="team-name">${awayTeamName}</span>
                                         </div>
-                                        ${awaySpread ? `<span class="team-odds">${awaySpread}</span>` : ''}
-                                        <span class="team-score">${statusType === 'pre' ? '-' : (awayTeam.score || '0')}</span>
+                                        <div style="display: flex; align-items: center; margin-left: auto;">
+                                            ${getOddsHtml(awaySpread)}
+                                            <span class="team-score">${statusType === 'pre' ? '-' : (awayTeam.score || '0')}</span>
+                                        </div>
                                     </div>
                                     <div class="team-row">
                                         <div class="team-info">
                                             <img class="team-logo" src="${homeTeam.team.logo || ''}" alt="" onerror="this.style.display='none'">
                                             <span class="team-name">${homeTeamName}</span>
                                         </div>
-                                        ${homeSpread ? `<span class="team-odds">${homeSpread}</span>` : ''}
-                                        <span class="team-score">${statusType === 'pre' ? '-' : (homeTeam.score || '0')}</span>
+                                        <div style="display: flex; align-items: center; margin-left: auto;">
+                                            ${getOddsHtml(homeSpread)}
+                                            <span class="team-score">${statusType === 'pre' ? '-' : (homeTeam.score || '0')}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

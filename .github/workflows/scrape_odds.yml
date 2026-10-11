@@ -2,8 +2,8 @@ name: Scrape OddsTrader NFL
 
 on:
   schedule:
-    # Runs twice a day at 8:00 AM and 8:00 PM UTC
-    - cron: '0 8,20 * * *'
+    - cron: '0 8 * * *'
+      timezone: 'America/Denver'
   workflow_dispatch: # Allows manual trigger from GitHub Actions tab
 
 # Required permissions to commit changes back to the repo

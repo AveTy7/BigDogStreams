@@ -2,47 +2,57 @@
     "links": [
         {
             "source_site": "https://mybuffstreams.plus/mlb-live-streams",
-            "text": "Tampa Bay Rays12:00 AMCleveland GuardiansLive Streams",
-            "href": "https://mybuffstreams.plus/mlb-playoffs/tampa-bay-rays-cleveland-guardians/1566238"
+            "text": "Los Angeles Dodgers12:00 AMMilwaukee BrewersLive Streams",
+            "href": "https://mybuffstreams.plus/mlb-playoffs/los-angeles-dodgers-milwaukee-brewers/1566299"
         },
         {
             "source_site": "https://mybuffstreams.plus/nflstreams2",
-            "text": "Middle Tennessee Blue Raiders11:00 PMDelaware Blue HensLive Streams",
-            "href": "https://mybuffstreams.plus/cfb/delaware-blue-hens-middle-tennessee-blue-raiders/1536940"
+            "text": "Missouri State Bears11:30 PMKennesaw State OwlsLive Streams",
+            "href": "https://mybuffstreams.plus/cfb/missouri-state-bears-kennesaw-state-owls/1536942"
         },
         {
             "source_site": "https://mybuffstreams.plus/nflstreams2",
-            "text": "Jacksonville State Gamecocks12:00 AMFlorida Intl Golden PanthersLive Streams",
-            "href": "https://mybuffstreams.plus/cfb/jacksonville-state-gamecocks-florida-intl-golden-panthers/1536941"
+            "text": "Sam Houston State Bearkats12:00 AMWestern Kentucky HilltoppersLive Streams",
+            "href": "https://mybuffstreams.plus/cfb/sam-houston-state-bearkats-western-kentucky-hilltoppers/1536943"
         },
         {
             "source_site": "https://mybuffstreams.plus/nbastreams2",
-            "text": "Orlando Magic11:00 PMCleveland CavaliersLive Streams",
-            "href": "https://mybuffstreams.plus/nba-preseason/orlando-magic-cleveland-cavaliers/1527845"
+            "text": "Boston Celtics11:30 PMCharlotte HornetsLive Streams",
+            "href": "https://mybuffstreams.plus/nba-preseason/charlotte-hornets-boston-celtics/1527902"
         },
         {
             "source_site": "https://mybuffstreams.plus/nbastreams2",
-            "text": "Toronto Raptors11:00 PMNew York KnicksLive Streams",
-            "href": "https://mybuffstreams.plus/nba-preseason/toronto-raptors-new-york-knicks/1527846"
+            "text": "Miami Heat11:30 PMBrooklyn NetsLive Streams",
+            "href": "https://mybuffstreams.plus/nba-preseason/brooklyn-nets-miami-heat/1527903"
         },
         {
             "source_site": "https://mybuffstreams.plus/nbastreams2",
-            "text": "Oklahoma City Thunder12:00 AMIndiana PacersLive Streams",
-            "href": "https://mybuffstreams.plus/nba-preseason/indiana-pacers-oklahoma-city-thunder/1527847"
+            "text": "Dallas Mavericks12:00 AMNew Orleans PelicansLive Streams",
+            "href": "https://mybuffstreams.plus/nba-preseason/new-orleans-pelicans-dallas-mavericks/1527904"
         },
         {
             "source_site": "https://mybuffstreams.plus/nbastreams2",
-            "text": "Los Angeles Lakers02:00 AMGolden State WarriorsLive Streams",
-            "href": "https://mybuffstreams.plus/nba-preseason/golden-state-warriors-los-angeles-lakers/1527784"
+            "text": "Milwaukee Bucks12:00 AMChicago BullsLive Streams",
+            "href": "https://mybuffstreams.plus/nba-preseason/milwaukee-bucks-chicago-bulls/1527905"
         },
         {
             "source_site": "https://mybuffstreams.plus/nbastreams2",
-            "text": "Sacramento Kings02:00 AMPortland Trail BlazersLive Streams",
-            "href": "https://mybuffstreams.plus/nba-preseason/portland-trail-blazers-sacramento-kings/1527848"
+            "text": "Minnesota Timberwolves12:00 AMDetroit PistonsLive Streams",
+            "href": "https://mybuffstreams.plus/nba-preseason/minnesota-timberwolves-detroit-pistons/1527906"
+        },
+        {
+            "source_site": "https://mybuffstreams.plus/nbastreams2",
+            "text": "San Antonio Spurs12:00 AMPhoenix SunsLive Streams",
+            "href": "https://mybuffstreams.plus/nba-preseason/san-antonio-spurs-phoenix-suns/1527971"
+        },
+        {
+            "source_site": "https://mybuffstreams.plus/nbastreams2",
+            "text": "Los Angeles Clippers02:30 AMDenver NuggetsLive Streams",
+            "href": "https://mybuffstreams.plus/nba-preseason/los-angeles-clippers-denver-nuggets/1527907"
         },
         {
             "source_site": "https://mybuffstreams.plus/mmastreams2",
-            "text": "PFL Chicago: Carmouche vs. Bishop 2\n            - 06:00 PM ET3 days from nowLive Streams",
+            "text": "PFL Chicago: Carmouche vs. Bishop 2\n            - 06:00 PM ET2 days from nowLive Streams",
             "href": "https://mybuffstreams.plus/title-game/pfl/pfl-chicago-carmouche-vs-bishop-2-live-streams-links"
         },
         {
@@ -52,68 +62,78 @@
         },
         {
             "source_site": "https://mybuffstreams.plus/mmastreams2",
-            "text": "Dana White's Contender Series: Season 10, Week 10\n            - 07:00 PM ET2 hours from nowLive Streams",
-            "href": "https://mybuffstreams.plus/title-game/ufc/dana-white-s-contender-series-season-10-week-10-live-streams-links"
-        },
-        {
-            "source_site": "https://mybuffstreams.plus/mmastreams2",
-            "text": "UFC Fight Night: Buckley vs. Malott\n            - 05:00 PM ET4 days from nowLive Streams",
+            "text": "UFC Fight Night: Buckley vs. Malott\n            - 05:00 PM ET3 days from nowLive Streams",
             "href": "https://mybuffstreams.plus/title-game/ufc/ufc-fight-night-edmonton-live-streams-links"
         },
         {
+            "source_site": "https://mybuffstreams.plus/mmastreams2",
+            "text": "UFC 333: Volkanovski vs. Evloev\n            - 10:00 AM ET1 week from nowLive Streams",
+            "href": "https://mybuffstreams.plus/title-game/ufc/ufc-333-volkanovski-vs-evloev-live-streams-links"
+        },
+        {
             "source_site": "https://mybuffstreams.plus/boxingstreams2",
-            "text": "Joshua Kevin Anton vs Freudis Rojas\n            - 05:00 PM ET3 days from nowLive Streams",
+            "text": "Joshua Kevin Anton vs Freudis Rojas\n            - 05:00 PM ET2 days from nowLive Streams",
             "href": "https://mybuffstreams.plus/title-game/boxing/joshua-kevin-anton-vs-freudis-rojas-live-streams-links"
         },
         {
             "source_site": "https://mybuffstreams.plus/boxingstreams2",
-            "text": "Daniel Dubois vs Fabio Wardley\n            - 02:00 PM ET3 days from nowLive Streams",
+            "text": "Daniel Dubois vs Fabio Wardley\n            - 02:00 PM ET2 days from nowLive Streams",
             "href": "https://mybuffstreams.plus/title-game/boxing/daniel-dubois-vs-fabio-wardley-live-streams-links"
         },
         {
             "source_site": "https://mybuffstreams.plus/boxingstreams2",
-            "text": "Sebastian Fundora vs Ermal Hadribeaj\n            - 07:30 PM ET4 days from nowLive Streams",
+            "text": "Sebastian Fundora vs Ermal Hadribeaj\n            - 07:30 PM ET3 days from nowLive Streams",
             "href": "https://mybuffstreams.plus/title-game/boxing/sebastian-fundora-vs-ermal-hadribeaj-live-streams-links"
         },
         {
             "source_site": "https://isportsurge.ws/nba/livestreams3",
-            "text": "2 hours from nowOrlando MagicCleveland CavaliersNBA Preseason2 hours from now",
-            "href": "https://isportsurge.ws/watch/nba-preseason/orlando-magic-cleveland-cavaliers/446130740"
+            "text": "5 hours from nowBoston CelticsCharlotte HornetsNBA Preseason5 hours from now",
+            "href": "https://isportsurge.ws/watch/nba-preseason/charlotte-hornets-boston-celtics/446147384"
         },
         {
             "source_site": "https://isportsurge.ws/nba/livestreams3",
-            "text": "2 hours from nowToronto RaptorsNew York KnicksNBA Preseason2 hours from now",
-            "href": "https://isportsurge.ws/watch/nba-preseason/toronto-raptors-new-york-knicks/446131032"
+            "text": "5 hours from nowMiami HeatBrooklyn NetsNBA Preseason5 hours from now",
+            "href": "https://isportsurge.ws/watch/nba-preseason/brooklyn-nets-miami-heat/446147676"
         },
         {
             "source_site": "https://isportsurge.ws/nba/livestreams3",
-            "text": "3 hours from nowOklahoma City ThunderIndiana PacersNBA Preseason3 hours from now",
-            "href": "https://isportsurge.ws/watch/nba-preseason/indiana-pacers-oklahoma-city-thunder/446131324"
+            "text": "5 hours from nowDallas MavericksNew Orleans PelicansNBA Preseason5 hours from now",
+            "href": "https://isportsurge.ws/watch/nba-preseason/new-orleans-pelicans-dallas-mavericks/446147968"
         },
         {
             "source_site": "https://isportsurge.ws/nba/livestreams3",
-            "text": "5 hours from nowLos Angeles LakersGolden State WarriorsNBA Preseason5 hours from now",
-            "href": "https://isportsurge.ws/watch/nba-preseason/golden-state-warriors-los-angeles-lakers/446112928"
+            "text": "5 hours from nowMilwaukee BucksChicago BullsNBA Preseason5 hours from now",
+            "href": "https://isportsurge.ws/watch/nba-preseason/milwaukee-bucks-chicago-bulls/446148260"
         },
         {
             "source_site": "https://isportsurge.ws/nba/livestreams3",
-            "text": "5 hours from nowSacramento KingsPortland Trail BlazersNBA Preseason5 hours from now",
-            "href": "https://isportsurge.ws/watch/nba-preseason/portland-trail-blazers-sacramento-kings/446131616"
+            "text": "5 hours from nowMinnesota TimberwolvesDetroit PistonsNBA Preseason5 hours from now",
+            "href": "https://isportsurge.ws/watch/nba-preseason/minnesota-timberwolves-detroit-pistons/446148552"
+        },
+        {
+            "source_site": "https://isportsurge.ws/nba/livestreams3",
+            "text": "5 hours from nowSan Antonio SpursPhoenix SunsNBA Preseason5 hours from now",
+            "href": "https://isportsurge.ws/watch/nba-preseason/san-antonio-spurs-phoenix-suns/446167532"
+        },
+        {
+            "source_site": "https://isportsurge.ws/nba/livestreams3",
+            "text": "8 hours from nowLos Angeles ClippersDenver NuggetsNBA Preseason8 hours from now",
+            "href": "https://isportsurge.ws/watch/nba-preseason/los-angeles-clippers-denver-nuggets/446148844"
         },
         {
             "source_site": "https://isportsurge.ws/mlb/livestreams2",
-            "text": "3 hours from nowTampa Bay RaysCleveland GuardiansMLB3 hours from now",
-            "href": "https://isportsurge.ws/watch/mlb-playoffs/tampa-bay-rays-cleveland-guardians/457341496"
+            "text": "5 hours from nowLos Angeles DodgersMilwaukee BrewersMLB5 hours from now",
+            "href": "https://isportsurge.ws/watch/mlb-playoffs/los-angeles-dodgers-milwaukee-brewers/457359308"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "2 hours from nowMiddle Tennessee St.DelawareCFB2 hours from now",
-            "href": "https://isportsurge.ws/watch/cfb/delaware-blue-hens-middle-tennessee-blue-raiders/448786480"
+            "text": "5 hours from nowMissouri StateKennesaw St.CFB5 hours from now",
+            "href": "https://isportsurge.ws/watch/cfb/missouri-state-bears-kennesaw-state-owls/448787064"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "3 hours from nowJacksonville StateFlorida Int.CFB3 hours from now",
-            "href": "https://isportsurge.ws/watch/cfb/jacksonville-state-gamecocks-florida-intl-golden-panthers/448786772"
+            "text": "5 hours from nowSam Houston StateWestern KentuckyCFB5 hours from now",
+            "href": "https://isportsurge.ws/watch/cfb/sam-houston-state-bearkats-western-kentucky-hilltoppers/448787356"
         },
         {
             "source_site": "https://isportsurge.ws/mma/livestreams3",
@@ -122,32 +142,32 @@
         },
         {
             "source_site": "https://isportsurge.ws/mma/livestreams3",
-            "text": "2 hours from nowDana White's Contender Series: Season 10, Week 10UFC2 hours from now",
-            "href": "https://isportsurge.ws/event/ufc/dana-white-s-contender-series-season-10-week-10-live-streaming-links"
-        },
-        {
-            "source_site": "https://isportsurge.ws/mma/livestreams3",
-            "text": "3 days from nowPFL Chicago: Carmouche vs. Bishop 2PFL3 days from now",
+            "text": "2 days from nowPFL Chicago: Carmouche vs. Bishop 2PFL2 days from now",
             "href": "https://isportsurge.ws/event/pfl/pfl-chicago-carmouche-vs-bishop-2-live-streaming-links"
         },
         {
             "source_site": "https://isportsurge.ws/mma/livestreams3",
-            "text": "4 days from nowUFC Fight Night: Buckley vs. MalottUFC4 days from now",
+            "text": "3 days from nowUFC Fight Night: Buckley vs. MalottUFC3 days from now",
             "href": "https://isportsurge.ws/event/ufc/ufc-fight-night-edmonton-live-streaming-links"
         },
         {
+            "source_site": "https://isportsurge.ws/mma/livestreams3",
+            "text": "1 week from nowUFC 333: Volkanovski vs. EvloevUFC1 week from now",
+            "href": "https://isportsurge.ws/event/ufc/ufc-333-volkanovski-vs-evloev-live-streaming-links"
+        },
+        {
             "source_site": "https://isportsurge.ws/boxing/livestreams3",
-            "text": "3 days from nowJoshua Kevin Anton vs Freudis RojasBoxing3 days from now",
+            "text": "2 days from nowJoshua Kevin Anton vs Freudis RojasBoxing2 days from now",
             "href": "https://isportsurge.ws/event/boxing/joshua-kevin-anton-vs-freudis-rojas-live-streaming-links"
         },
         {
             "source_site": "https://isportsurge.ws/boxing/livestreams3",
-            "text": "3 days from nowDaniel Dubois vs Fabio WardleyBoxing3 days from now",
+            "text": "2 days from nowDaniel Dubois vs Fabio WardleyBoxing2 days from now",
             "href": "https://isportsurge.ws/event/boxing/daniel-dubois-vs-fabio-wardley-live-streaming-links"
         },
         {
             "source_site": "https://isportsurge.ws/boxing/livestreams3",
-            "text": "4 days from nowSebastian Fundora vs Ermal HadribeajBoxing4 days from now",
+            "text": "3 days from nowSebastian Fundora vs Ermal HadribeajBoxing3 days from now",
             "href": "https://isportsurge.ws/event/boxing/sebastian-fundora-vs-ermal-hadribeaj-live-streaming-links"
         },
         {
@@ -157,43 +177,53 @@
         },
         {
             "source_site": "https://crackstreams.page/nbastreams/live1",
-            "text": "Orlando Magic vs Cleveland Cavaliers19:00 ET - Oct/13/2026",
-            "href": "https://crackstreams.page/live/nba-preseason/magic-cavaliers-live-streaming-660029040"
+            "text": "Boston Celtics vs Charlotte Hornets19:30 ET - Oct/14/2026",
+            "href": "https://crackstreams.page/live/nba-preseason/celtics-hornets-live-streaming-660053664"
         },
         {
             "source_site": "https://crackstreams.page/nbastreams/live1",
-            "text": "Toronto Raptors vs New York Knicks19:00 ET - Oct/13/2026",
-            "href": "https://crackstreams.page/live/nba-preseason/raptors-knicks-live-streaming-660029472"
+            "text": "Miami Heat vs Brooklyn Nets19:30 ET - Oct/14/2026",
+            "href": "https://crackstreams.page/live/nba-preseason/heat-nets-live-streaming-660054096"
         },
         {
             "source_site": "https://crackstreams.page/nbastreams/live1",
-            "text": "Oklahoma City Thunder vs Indiana Pacers20:00 ET - Oct/13/2026",
-            "href": "https://crackstreams.page/live/nba-preseason/thunder-pacers-live-streaming-660029904"
+            "text": "Dallas Mavericks vs New Orleans Pelicans20:00 ET - Oct/14/2026",
+            "href": "https://crackstreams.page/live/nba-preseason/mavericks-pelicans-live-streaming-660054528"
         },
         {
             "source_site": "https://crackstreams.page/nbastreams/live1",
-            "text": "Los Angeles Lakers vs Golden State Warriors22:00 ET - Oct/13/2026",
-            "href": "https://crackstreams.page/live/nba-preseason/lakers-warriors-live-streaming-660002688"
+            "text": "Milwaukee Bucks vs Chicago Bulls20:00 ET - Oct/14/2026",
+            "href": "https://crackstreams.page/live/nba-preseason/bucks-bulls-live-streaming-660054960"
         },
         {
             "source_site": "https://crackstreams.page/nbastreams/live1",
-            "text": "Sacramento Kings vs Portland Trail Blazers22:00 ET - Oct/13/2026",
-            "href": "https://crackstreams.page/live/nba-preseason/kings-trail-blazers-live-streaming-660030336"
+            "text": "Minnesota Timberwolves vs Detroit Pistons20:00 ET - Oct/14/2026",
+            "href": "https://crackstreams.page/live/nba-preseason/timberwolves-pistons-live-streaming-660055392"
+        },
+        {
+            "source_site": "https://crackstreams.page/nbastreams/live1",
+            "text": "San Antonio Spurs vs Phoenix Suns20:00 ET - Oct/14/2026",
+            "href": "https://crackstreams.page/live/nba-preseason/spurs-suns-live-streaming-660083472"
+        },
+        {
+            "source_site": "https://crackstreams.page/nbastreams/live1",
+            "text": "Los Angeles Clippers vs Denver Nuggets22:30 ET - Oct/14/2026",
+            "href": "https://crackstreams.page/live/nba-preseason/clippers-nuggets-live-streaming-660055824"
         },
         {
             "source_site": "https://crackstreams.page/mlbstreams/live",
-            "text": "Tampa Bay Rays vs Cleveland Guardians20:00 ET - Oct/13/2026",
-            "href": "https://crackstreams.page/live/mlb-playoffs/rays-guardians-live-streaming-676614816"
+            "text": "Los Angeles Dodgers vs Milwaukee Brewers20:00 ET - Oct/14/2026",
+            "href": "https://crackstreams.page/live/mlb-playoffs/dodgers-brewers-live-streaming-676641168"
         },
         {
             "source_site": "https://crackstreams.page/cfbstreams/live",
-            "text": "Middle Tennessee Blue Raiders vs Delaware Blue Hens19:00 ET - Oct/13/2026",
-            "href": "https://crackstreams.page/live/cfb/middle-tennessee-st-delaware-live-streaming-663958080"
+            "text": "Missouri State Bears vs Kennesaw State Owls19:30 ET - Oct/14/2026",
+            "href": "https://crackstreams.page/live/cfb/missouri-state-kennesaw-st-live-streaming-663958944"
         },
         {
             "source_site": "https://crackstreams.page/cfbstreams/live",
-            "text": "Jacksonville State Gamecocks vs Florida Intl Golden Panthers20:00 ET - Oct/13/2026",
-            "href": "https://crackstreams.page/live/cfb/jacksonville-state-florida-int-live-streaming-663958512"
+            "text": "Sam Houston State Bearkats vs Western Kentucky Hilltoppers20:00 ET - Oct/14/2026",
+            "href": "https://crackstreams.page/live/cfb/sam-houston-state-western-kentucky-live-streaming-663959376"
         },
         {
             "source_site": "https://crackstreams.page/mmastreams/live",
@@ -207,13 +237,13 @@
         },
         {
             "source_site": "https://crackstreams.page/mmastreams/live",
-            "text": "Dana White's Contender Series: Season 10, Week 1019:00 ET - Oct/13/2026",
-            "href": "https://crackstreams.page/live-event/dana-white-s-contender-series-season-10-week-10-live-stream"
+            "text": "UFC Fight Night: Buckley vs. Malott17:00 ET - Oct/17/2026",
+            "href": "https://crackstreams.page/live-event/ufc-fight-night-edmonton-live-stream"
         },
         {
             "source_site": "https://crackstreams.page/mmastreams/live",
-            "text": "UFC Fight Night: Buckley vs. Malott17:00 ET - Oct/17/2026",
-            "href": "https://crackstreams.page/live-event/ufc-fight-night-edmonton-live-stream"
+            "text": "UFC 333: Volkanovski vs. Evloev10:00 ET - Oct/24/2026",
+            "href": "https://crackstreams.page/live-event/ufc-333-volkanovski-vs-evloev-live-stream"
         },
         {
             "source_site": "https://crackstreams.page/boxingstreams/live",
@@ -231,83 +261,88 @@
             "href": "https://crackstreams.page/live-event/sebastian-fundora-vs-ermal-hadribeaj-live-stream"
         },
         {
-            "source_site": "https://thetvapp.plus/watch/nfl-streams",
-            "text": "NFLLos Angeles Rams vs Buffalo Bills:FinalHD",
-            "href": "https://thetvapp.plus/tv-live/nfl/buffalo-bills-los-angeles-rams/8692887392"
+            "source_site": "https://thetvapp.plus/watch/nba-streams",
+            "text": "NBA PreseasonBoston Celtics vs Charlotte Hornets:5 hours from nowHD",
+            "href": "https://thetvapp.plus/tv-live/nba-preseason/charlotte-hornets-boston-celtics/8641813712"
         },
         {
             "source_site": "https://thetvapp.plus/watch/nba-streams",
-            "text": "NBA PreseasonOrlando Magic vs Cleveland Cavaliers:2 hours from nowHD",
+            "text": "NBA PreseasonMiami Heat vs Brooklyn Nets:5 hours from nowHD",
+            "href": "https://thetvapp.plus/tv-live/nba-preseason/brooklyn-nets-miami-heat/8641819368"
+        },
+        {
+            "source_site": "https://thetvapp.plus/watch/nba-streams",
+            "text": "NBA PreseasonDallas Mavericks vs New Orleans Pelicans:5 hours from nowHD",
+            "href": "https://thetvapp.plus/tv-live/nba-preseason/new-orleans-pelicans-dallas-mavericks/8641825024"
+        },
+        {
+            "source_site": "https://thetvapp.plus/watch/nba-streams",
+            "text": "NBA PreseasonMilwaukee Bucks vs Chicago Bulls:5 hours from nowHD",
+            "href": "https://thetvapp.plus/tv-live/nba-preseason/milwaukee-bucks-chicago-bulls/8641830680"
+        },
+        {
+            "source_site": "https://thetvapp.plus/watch/nba-streams",
+            "text": "NBA PreseasonMinnesota Timberwolves vs Detroit Pistons:5 hours from nowHD",
+            "href": "https://thetvapp.plus/tv-live/nba-preseason/minnesota-timberwolves-detroit-pistons/8641836336"
+        },
+        {
+            "source_site": "https://thetvapp.plus/watch/nba-streams",
+            "text": "NBA PreseasonSan Antonio Spurs vs Phoenix Suns:5 hours from nowHD",
+            "href": "https://thetvapp.plus/tv-live/nba-preseason/san-antonio-spurs-phoenix-suns/8642203976"
+        },
+        {
+            "source_site": "https://thetvapp.plus/watch/nba-streams",
+            "text": "NBA PreseasonOrlando Magic vs Cleveland Cavaliers:FinalHD",
             "href": "https://thetvapp.plus/tv-live/nba-preseason/orlando-magic-cleveland-cavaliers/8641491320"
         },
         {
             "source_site": "https://thetvapp.plus/watch/nba-streams",
-            "text": "NBA PreseasonToronto Raptors vs New York Knicks:2 hours from nowHD",
+            "text": "NBA PreseasonToronto Raptors vs New York Knicks:FinalHD",
             "href": "https://thetvapp.plus/tv-live/nba-preseason/toronto-raptors-new-york-knicks/8641496976"
         },
         {
             "source_site": "https://thetvapp.plus/watch/nba-streams",
-            "text": "NBA PreseasonOklahoma City Thunder vs Indiana Pacers:3 hours from nowHD",
+            "text": "NBA PreseasonOklahoma City Thunder vs Indiana Pacers:FinalHD",
             "href": "https://thetvapp.plus/tv-live/nba-preseason/indiana-pacers-oklahoma-city-thunder/8641502632"
         },
         {
             "source_site": "https://thetvapp.plus/watch/nba-streams",
-            "text": "NBA PreseasonLos Angeles Lakers vs Golden State Warriors:5 hours from nowHD",
+            "text": "NBA PreseasonLos Angeles Lakers vs Golden State Warriors:FinalHD",
             "href": "https://thetvapp.plus/tv-live/nba-preseason/golden-state-warriors-los-angeles-lakers/8641146304"
         },
         {
             "source_site": "https://thetvapp.plus/watch/nba-streams",
-            "text": "NBA PreseasonSacramento Kings vs Portland Trail Blazers:5 hours from nowHD",
+            "text": "NBA PreseasonSacramento Kings vs Portland Trail Blazers:FinalHD",
             "href": "https://thetvapp.plus/tv-live/nba-preseason/portland-trail-blazers-sacramento-kings/8641508288"
         },
         {
-            "source_site": "https://thetvapp.plus/watch/nba-streams",
-            "text": "NBA PreseasonPortland Trail Blazers vs London Lions:EndedHD",
-            "href": "https://thetvapp.plus/tv-live/nba-preseason/london-lions-portland-trail-blazers/8641118024"
-        },
-        {
-            "source_site": "https://thetvapp.plus/watch/nba-streams",
-            "text": "NBA PreseasonAtlanta Hawks vs Oklahoma City Thunder:FinalHD",
-            "href": "https://thetvapp.plus/tv-live/nba-preseason/atlanta-hawks-oklahoma-city-thunder/8641123680"
-        },
-        {
-            "source_site": "https://thetvapp.plus/watch/nba-streams",
-            "text": "NBA PreseasonWashington Wizards vs Brooklyn Nets:FinalHD",
-            "href": "https://thetvapp.plus/tv-live/nba-preseason/brooklyn-nets-washington-wizards/8641129336"
-        },
-        {
-            "source_site": "https://thetvapp.plus/watch/nba-streams",
-            "text": "NBA PreseasonNew York Knicks vs Minnesota Timberwolves:FinalHD",
-            "href": "https://thetvapp.plus/tv-live/nba-preseason/minnesota-timberwolves-new-york-knicks/8641134992"
-        },
-        {
-            "source_site": "https://thetvapp.plus/watch/nba-streams",
-            "text": "NBA PreseasonUtah Jazz vs San Antonio Spurs:FinalHD",
-            "href": "https://thetvapp.plus/tv-live/nba-preseason/utah-jazz-san-antonio-spurs/8641140648"
-        },
-        {
             "source_site": "https://thetvapp.plus/watch/mlb-streams",
-            "text": "MLBTampa Bay Rays vs Cleveland Guardians:3 hours from nowHD",
-            "href": "https://thetvapp.plus/tv-live/mlb-playoffs/tampa-bay-rays-cleveland-guardians/8858642128"
-        },
-        {
-            "source_site": "https://thetvapp.plus/watch/mlb-streams",
-            "text": "MLBMilwaukee Brewers vs Los Angeles Dodgers:FinalHD",
-            "href": "https://thetvapp.plus/tv-live/mlb-playoffs/los-angeles-dodgers-milwaukee-brewers/8858591224"
+            "text": "MLBLos Angeles Dodgers vs Milwaukee Brewers:5 hours from nowHD",
+            "href": "https://thetvapp.plus/tv-live/mlb-playoffs/los-angeles-dodgers-milwaukee-brewers/8858987144"
         },
         {
             "source_site": "https://thetvapp.plus/watch/mlb-streams",
             "text": "MLBTampa Bay Rays vs Cleveland Guardians:FinalHD",
-            "href": "https://thetvapp.plus/tv-live/mlb-playoffs/tampa-bay-rays-cleveland-guardians/8858596880"
+            "href": "https://thetvapp.plus/tv-live/mlb-playoffs/tampa-bay-rays-cleveland-guardians/8858642128"
         },
         {
             "source_site": "https://thetvapp.plus/watch/cfb-streams",
-            "text": "CFBMiddle Tennessee Blue Raiders vs Delaware Blue Hens:2 hours from nowHD",
+            "text": "CFBMissouri State Bears vs Kennesaw State Owls:5 hours from nowHD",
+            "href": "https://thetvapp.plus/tv-live/cfb/missouri-state-bears-kennesaw-state-owls/8692943952"
+        },
+        {
+            "source_site": "https://thetvapp.plus/watch/cfb-streams",
+            "text": "CFBSam Houston State Bearkats vs Western Kentucky Hilltoppers:5 hours from nowHD",
+            "href": "https://thetvapp.plus/tv-live/cfb/sam-houston-state-bearkats-western-kentucky-hilltoppers/8692949608"
+        },
+        {
+            "source_site": "https://thetvapp.plus/watch/cfb-streams",
+            "text": "CFBMiddle Tennessee Blue Raiders vs Delaware Blue Hens:FinalHD",
             "href": "https://thetvapp.plus/tv-live/cfb/delaware-blue-hens-middle-tennessee-blue-raiders/8692932640"
         },
         {
             "source_site": "https://thetvapp.plus/watch/cfb-streams",
-            "text": "CFBJacksonville State Gamecocks vs Florida Intl Golden Panthers:3 hours from nowHD",
+            "text": "CFBJacksonville State Gamecocks vs Florida Intl Golden Panthers:FinalHD",
             "href": "https://thetvapp.plus/tv-live/cfb/jacksonville-state-gamecocks-florida-intl-golden-panthers/8692938296"
         },
         {
@@ -317,17 +352,12 @@
         },
         {
             "source_site": "https://thetvapp.plus/watch/mma-streams",
-            "text": "UFCDana White's Contender Series: Season 10, Week 10:2 hours from nowHD",
-            "href": "https://thetvapp.plus/live/ufc/dana-white-s-contender-series-season-10-week-10-live-streaming"
-        },
-        {
-            "source_site": "https://thetvapp.plus/watch/mma-streams",
-            "text": "PFLPFL Chicago: Carmouche vs. Bishop 2:3 days from nowHD",
+            "text": "PFLPFL Chicago: Carmouche vs. Bishop 2:2 days from nowHD",
             "href": "https://thetvapp.plus/live/pfl/pfl-chicago-carmouche-vs-bishop-2-live-streaming"
         },
         {
             "source_site": "https://thetvapp.plus/watch/mma-streams",
-            "text": "UFCUFC Fight Night: Buckley vs. Malott:4 days from nowHD",
+            "text": "UFCUFC Fight Night: Buckley vs. Malott:3 days from nowHD",
             "href": "https://thetvapp.plus/live/ufc/ufc-fight-night-edmonton-live-streaming"
         },
         {
@@ -337,17 +367,17 @@
         },
         {
             "source_site": "https://thetvapp.plus/watch/boxing-streams",
-            "text": "BoxingJoshua Kevin Anton vs Freudis Rojas:3 days from nowHD",
+            "text": "BoxingJoshua Kevin Anton vs Freudis Rojas:2 days from nowHD",
             "href": "https://thetvapp.plus/live/boxing/joshua-kevin-anton-vs-freudis-rojas-live-streaming"
         },
         {
             "source_site": "https://thetvapp.plus/watch/boxing-streams",
-            "text": "BoxingDaniel Dubois vs Fabio Wardley:3 days from nowHD",
+            "text": "BoxingDaniel Dubois vs Fabio Wardley:2 days from nowHD",
             "href": "https://thetvapp.plus/live/boxing/daniel-dubois-vs-fabio-wardley-live-streaming"
         },
         {
             "source_site": "https://thetvapp.plus/watch/boxing-streams",
-            "text": "BoxingSebastian Fundora vs Ermal Hadribeaj:4 days from nowHD",
+            "text": "BoxingSebastian Fundora vs Ermal Hadribeaj:3 days from nowHD",
             "href": "https://thetvapp.plus/live/boxing/sebastian-fundora-vs-ermal-hadribeaj-live-streaming"
         },
         {

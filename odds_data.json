@@ -52,7 +52,7 @@
         "source": "NFL",
         "team": "Philadelphia Eagles",
         "opponent": "Carolina Panthers",
-        "spread": 3.5,
+        "spread": 3.0,
         "commence_time": "2026-10-18T17:00:00Z"
     },
     {
@@ -60,7 +60,7 @@
         "source": "NFL",
         "team": "Carolina Panthers",
         "opponent": "Philadelphia Eagles",
-        "spread": -3.5,
+        "spread": -3.0,
         "commence_time": "2026-10-18T17:00:00Z"
     },
     {
@@ -386,293 +386,245 @@
     {
         "id": 49,
         "source": "NCAAF",
-        "team": "Tulane Green Wave",
-        "opponent": "Memphis Tigers",
-        "spread": 6.5,
-        "commence_time": "2026-10-16T23:30:00Z"
+        "team": "Indiana Hoosiers",
+        "opponent": "Ohio State Buckeyes",
+        "spread": 3.5,
+        "commence_time": "2026-10-17T15:57:00Z"
     },
     {
         "id": 50,
         "source": "NCAAF",
-        "team": "Memphis Tigers",
-        "opponent": "Tulane Green Wave",
-        "spread": -6.5,
-        "commence_time": "2026-10-16T23:30:00Z"
+        "team": "Ohio State Buckeyes",
+        "opponent": "Indiana Hoosiers",
+        "spread": -3.5,
+        "commence_time": "2026-10-17T15:57:00Z"
     },
     {
         "id": 51,
         "source": "NCAAF",
-        "team": "Coastal Carolina Chanticleers",
-        "opponent": "Appalachian State Mountaineers",
-        "spread": 1.5,
-        "commence_time": "2026-10-17T00:00:00Z"
+        "team": "Texas Longhorns",
+        "opponent": "Florida Gators",
+        "spread": -16.5,
+        "commence_time": "2026-10-17T15:58:00Z"
     },
     {
         "id": 52,
         "source": "NCAAF",
-        "team": "Appalachian State Mountaineers",
-        "opponent": "Coastal Carolina Chanticleers",
-        "spread": -1.5,
-        "commence_time": "2026-10-17T00:00:00Z"
+        "team": "Florida Gators",
+        "opponent": "Texas Longhorns",
+        "spread": 16.5,
+        "commence_time": "2026-10-17T15:58:00Z"
     },
     {
         "id": 53,
         "source": "NCAAF",
-        "team": "Purdue Boilermakers",
-        "opponent": "Washington Huskies",
-        "spread": -2.5,
-        "commence_time": "2026-10-17T00:00:00Z"
+        "team": "Boston College Eagles",
+        "opponent": "Pittsburgh Panthers",
+        "spread": 7.5,
+        "commence_time": "2026-10-17T16:00:00Z"
     },
     {
         "id": 54,
         "source": "NCAAF",
-        "team": "Washington Huskies",
-        "opponent": "Purdue Boilermakers",
-        "spread": 2.5,
-        "commence_time": "2026-10-17T00:00:00Z"
+        "team": "Pittsburgh Panthers",
+        "opponent": "Boston College Eagles",
+        "spread": -7.5,
+        "commence_time": "2026-10-17T16:00:00Z"
     },
     {
         "id": 55,
         "source": "NCAAF",
-        "team": "Army Black Knights",
-        "opponent": "Florida Atlantic Owls",
-        "spread": -2.5,
+        "team": "West Virginia Mountaineers",
+        "opponent": "Cincinnati Bearcats",
+        "spread": -3.5,
         "commence_time": "2026-10-17T16:00:00Z"
     },
     {
         "id": 56,
         "source": "NCAAF",
-        "team": "Florida Atlantic Owls",
-        "opponent": "Army Black Knights",
-        "spread": 2.5,
+        "team": "Cincinnati Bearcats",
+        "opponent": "West Virginia Mountaineers",
+        "spread": 3.5,
         "commence_time": "2026-10-17T16:00:00Z"
     },
     {
         "id": 57,
         "source": "NCAAF",
-        "team": "Bowling Green Falcons",
-        "opponent": "Ball State Cardinals",
-        "spread": -6.5,
+        "team": "James Madison Dukes",
+        "opponent": "Georgia State Panthers",
+        "spread": -14.5,
         "commence_time": "2026-10-17T16:00:00Z"
     },
     {
         "id": 58,
         "source": "NCAAF",
-        "team": "Ball State Cardinals",
-        "opponent": "Bowling Green Falcons",
-        "spread": 6.5,
+        "team": "Georgia State Panthers",
+        "opponent": "James Madison Dukes",
+        "spread": 14.5,
         "commence_time": "2026-10-17T16:00:00Z"
     },
     {
         "id": 59,
         "source": "NCAAF",
-        "team": "Boston College Eagles",
-        "opponent": "Pittsburgh Panthers",
-        "spread": 6.5,
+        "team": "Michigan State Spartans",
+        "opponent": "Northwestern Wildcats",
+        "spread": 3.5,
         "commence_time": "2026-10-17T16:00:00Z"
     },
     {
         "id": 60,
         "source": "NCAAF",
-        "team": "Pittsburgh Panthers",
-        "opponent": "Boston College Eagles",
-        "spread": -6.5,
+        "team": "Northwestern Wildcats",
+        "opponent": "Michigan State Spartans",
+        "spread": -3.5,
         "commence_time": "2026-10-17T16:00:00Z"
     },
     {
         "id": 61,
         "source": "NCAAF",
-        "team": "Clemson Tigers",
-        "opponent": "Charleston Southern Buccaneers",
-        "spread": -42.5,
+        "team": "SMU Mustangs",
+        "opponent": "Virginia Cavaliers",
+        "spread": -3.5,
         "commence_time": "2026-10-17T16:00:00Z"
     },
     {
         "id": 62,
         "source": "NCAAF",
-        "team": "Charleston Southern Buccaneers",
-        "opponent": "Clemson Tigers",
-        "spread": 42.5,
+        "team": "Virginia Cavaliers",
+        "opponent": "SMU Mustangs",
+        "spread": 3.5,
         "commence_time": "2026-10-17T16:00:00Z"
     },
     {
         "id": 63,
         "source": "NCAAF",
-        "team": "West Virginia Mountaineers",
-        "opponent": "Cincinnati Bearcats",
-        "spread": -1.5,
-        "commence_time": "2026-10-17T16:00:00Z"
+        "team": "Clemson Tigers",
+        "opponent": "Charleston Southern Buccaneers",
+        "spread": -43.5,
+        "commence_time": "2026-10-17T16:02:00Z"
     },
     {
         "id": 64,
         "source": "NCAAF",
-        "team": "Cincinnati Bearcats",
-        "opponent": "West Virginia Mountaineers",
-        "spread": 1.5,
-        "commence_time": "2026-10-17T16:00:00Z"
+        "team": "Charleston Southern Buccaneers",
+        "opponent": "Clemson Tigers",
+        "spread": 43.5,
+        "commence_time": "2026-10-17T16:02:00Z"
     },
     {
         "id": 65,
         "source": "NCAAF",
-        "team": "Texas Longhorns",
-        "opponent": "Florida Gators",
-        "spread": -11.5,
-        "commence_time": "2026-10-17T16:00:00Z"
+        "team": "Kansas State Wildcats",
+        "opponent": "Kansas Jayhawks",
+        "spread": 4.5,
+        "commence_time": "2026-10-17T16:03:30Z"
     },
     {
         "id": 66,
         "source": "NCAAF",
-        "team": "Florida Gators",
-        "opponent": "Texas Longhorns",
-        "spread": 11.5,
-        "commence_time": "2026-10-17T16:00:00Z"
+        "team": "Kansas Jayhawks",
+        "opponent": "Kansas State Wildcats",
+        "spread": -4.5,
+        "commence_time": "2026-10-17T16:03:30Z"
     },
     {
         "id": 67,
         "source": "NCAAF",
-        "team": "James Madison Dukes",
-        "opponent": "Georgia State Panthers",
-        "spread": -10.5,
-        "commence_time": "2026-10-17T16:00:00Z"
+        "team": "Bowling Green Falcons",
+        "opponent": "Ball State Cardinals",
+        "spread": -3.5,
+        "commence_time": "2026-10-17T16:03:31Z"
     },
     {
         "id": 68,
         "source": "NCAAF",
-        "team": "Georgia State Panthers",
-        "opponent": "James Madison Dukes",
-        "spread": 10.5,
-        "commence_time": "2026-10-17T16:00:00Z"
+        "team": "Ball State Cardinals",
+        "opponent": "Bowling Green Falcons",
+        "spread": 3.5,
+        "commence_time": "2026-10-17T16:03:31Z"
     },
     {
         "id": 69,
         "source": "NCAAF",
-        "team": "Indiana Hoosiers",
-        "opponent": "Ohio State Buckeyes",
-        "spread": 3.5,
-        "commence_time": "2026-10-17T16:00:00Z"
+        "team": "Army Black Knights",
+        "opponent": "Florida Atlantic Owls",
+        "spread": -6.5,
+        "commence_time": "2026-10-17T16:04:29Z"
     },
     {
         "id": 70,
         "source": "NCAAF",
-        "team": "Ohio State Buckeyes",
-        "opponent": "Indiana Hoosiers",
-        "spread": -3.5,
-        "commence_time": "2026-10-17T16:00:00Z"
+        "team": "Florida Atlantic Owls",
+        "opponent": "Army Black Knights",
+        "spread": 6.5,
+        "commence_time": "2026-10-17T16:04:29Z"
     },
     {
         "id": 71,
         "source": "NCAAF",
-        "team": "Kansas State Wildcats",
-        "opponent": "Kansas Jayhawks",
-        "spread": -4.5,
-        "commence_time": "2026-10-17T16:00:00Z"
+        "team": "LSU Tigers",
+        "opponent": "Mississippi State Bulldogs",
+        "spread": -30.5,
+        "commence_time": "2026-10-17T16:08:11Z"
     },
     {
         "id": 72,
         "source": "NCAAF",
-        "team": "Kansas Jayhawks",
-        "opponent": "Kansas State Wildcats",
-        "spread": 4.5,
-        "commence_time": "2026-10-17T16:00:00Z"
+        "team": "Mississippi State Bulldogs",
+        "opponent": "LSU Tigers",
+        "spread": 30.5,
+        "commence_time": "2026-10-17T16:08:11Z"
     },
     {
         "id": 73,
         "source": "NCAAF",
-        "team": "LSU Tigers",
-        "opponent": "Mississippi State Bulldogs",
-        "spread": -15.5,
-        "commence_time": "2026-10-17T16:00:00Z"
+        "team": "Maryland Terrapins",
+        "opponent": "Rutgers Scarlet Knights",
+        "spread": -6.5,
+        "commence_time": "2026-10-17T16:30:00Z"
     },
     {
         "id": 74,
         "source": "NCAAF",
-        "team": "Mississippi State Bulldogs",
-        "opponent": "LSU Tigers",
-        "spread": 15.5,
-        "commence_time": "2026-10-17T16:00:00Z"
+        "team": "Rutgers Scarlet Knights",
+        "opponent": "Maryland Terrapins",
+        "spread": 6.5,
+        "commence_time": "2026-10-17T16:30:00Z"
     },
     {
         "id": 75,
         "source": "NCAAF",
-        "team": "Michigan State Spartans",
-        "opponent": "Northwestern Wildcats",
-        "spread": 7.5,
-        "commence_time": "2026-10-17T16:00:00Z"
+        "team": "Buffalo Bulls",
+        "opponent": "UMass Minutemen",
+        "spread": -6.5,
+        "commence_time": "2026-10-17T17:00:00Z"
     },
     {
         "id": 76,
         "source": "NCAAF",
-        "team": "Northwestern Wildcats",
-        "opponent": "Michigan State Spartans",
-        "spread": -7.5,
-        "commence_time": "2026-10-17T16:00:00Z"
+        "team": "UMass Minutemen",
+        "opponent": "Buffalo Bulls",
+        "spread": 6.5,
+        "commence_time": "2026-10-17T17:00:00Z"
     },
     {
         "id": 77,
         "source": "NCAAF",
-        "team": "SMU Mustangs",
-        "opponent": "Virginia Cavaliers",
-        "spread": -9.5,
-        "commence_time": "2026-10-17T16:00:00Z"
+        "team": "Temple Owls",
+        "opponent": "Charlotte 49ers",
+        "spread": -17.5,
+        "commence_time": "2026-10-17T17:00:00Z"
     },
     {
         "id": 78,
         "source": "NCAAF",
-        "team": "Virginia Cavaliers",
-        "opponent": "SMU Mustangs",
-        "spread": 9.5,
-        "commence_time": "2026-10-17T16:00:00Z"
+        "team": "Charlotte 49ers",
+        "opponent": "Temple Owls",
+        "spread": 17.5,
+        "commence_time": "2026-10-17T17:00:00Z"
     },
     {
         "id": 79,
-        "source": "NCAAF",
-        "team": "Maryland Terrapins",
-        "opponent": "Rutgers Scarlet Knights",
-        "spread": -5.5,
-        "commence_time": "2026-10-17T16:30:00Z"
-    },
-    {
-        "id": 80,
-        "source": "NCAAF",
-        "team": "Rutgers Scarlet Knights",
-        "opponent": "Maryland Terrapins",
-        "spread": 5.5,
-        "commence_time": "2026-10-17T16:30:00Z"
-    },
-    {
-        "id": 81,
-        "source": "NCAAF",
-        "team": "Buffalo Bulls",
-        "opponent": "UMass Minutemen",
-        "spread": -7.0,
-        "commence_time": "2026-10-17T17:00:00Z"
-    },
-    {
-        "id": 82,
-        "source": "NCAAF",
-        "team": "UMass Minutemen",
-        "opponent": "Buffalo Bulls",
-        "spread": 7.0,
-        "commence_time": "2026-10-17T17:00:00Z"
-    },
-    {
-        "id": 83,
-        "source": "NCAAF",
-        "team": "Temple Owls",
-        "opponent": "Charlotte 49ers",
-        "spread": -21.0,
-        "commence_time": "2026-10-17T17:00:00Z"
-    },
-    {
-        "id": 84,
-        "source": "NCAAF",
-        "team": "Charlotte 49ers",
-        "opponent": "Temple Owls",
-        "spread": 21.0,
-        "commence_time": "2026-10-17T17:00:00Z"
-    },
-    {
-        "id": 85,
         "source": "NCAAF",
         "team": "Texas A&M Aggies",
         "opponent": "Citadel Bulldogs",
@@ -680,7 +632,7 @@
         "commence_time": "2026-10-17T17:00:00Z"
     },
     {
-        "id": 86,
+        "id": 80,
         "source": "NCAAF",
         "team": "Citadel Bulldogs",
         "opponent": "Texas A&M Aggies",
@@ -688,23 +640,23 @@
         "commence_time": "2026-10-17T17:00:00Z"
     },
     {
-        "id": 87,
+        "id": 81,
         "source": "NCAAF",
         "team": "Central Michigan Chippewas",
         "opponent": "Western Michigan Broncos",
-        "spread": 6.5,
+        "spread": 7.5,
         "commence_time": "2026-10-17T17:30:00Z"
     },
     {
-        "id": 88,
+        "id": 82,
         "source": "NCAAF",
         "team": "Western Michigan Broncos",
         "opponent": "Central Michigan Chippewas",
-        "spread": -6.5,
+        "spread": -7.5,
         "commence_time": "2026-10-17T17:30:00Z"
     },
     {
-        "id": 89,
+        "id": 83,
         "source": "NCAAF",
         "team": "Air Force Falcons",
         "opponent": "UNLV Rebels",
@@ -712,7 +664,7 @@
         "commence_time": "2026-10-17T19:30:00Z"
     },
     {
-        "id": 90,
+        "id": 84,
         "source": "NCAAF",
         "team": "UNLV Rebels",
         "opponent": "Air Force Falcons",
@@ -720,23 +672,23 @@
         "commence_time": "2026-10-17T19:30:00Z"
     },
     {
-        "id": 91,
+        "id": 85,
         "source": "NCAAF",
         "team": "Miami (OH) RedHawks",
         "opponent": "Akron Zips",
-        "spread": -10.0,
+        "spread": -9.5,
         "commence_time": "2026-10-17T19:30:00Z"
     },
     {
-        "id": 92,
+        "id": 86,
         "source": "NCAAF",
         "team": "Akron Zips",
         "opponent": "Miami (OH) RedHawks",
-        "spread": 10.0,
+        "spread": 9.5,
         "commence_time": "2026-10-17T19:30:00Z"
     },
     {
-        "id": 93,
+        "id": 87,
         "source": "NCAAF",
         "team": "Tennessee Volunteers",
         "opponent": "Alabama Crimson Tide",
@@ -744,7 +696,7 @@
         "commence_time": "2026-10-17T19:30:00Z"
     },
     {
-        "id": 94,
+        "id": 88,
         "source": "NCAAF",
         "team": "Alabama Crimson Tide",
         "opponent": "Tennessee Volunteers",
@@ -752,23 +704,23 @@
         "commence_time": "2026-10-17T19:30:00Z"
     },
     {
-        "id": 95,
+        "id": 89,
         "source": "NCAAF",
         "team": "Texas Tech Red Raiders",
         "opponent": "Arizona State Sun Devils",
-        "spread": -15.5,
+        "spread": -16.5,
         "commence_time": "2026-10-17T19:30:00Z"
     },
     {
-        "id": 96,
+        "id": 90,
         "source": "NCAAF",
         "team": "Arizona State Sun Devils",
         "opponent": "Texas Tech Red Raiders",
-        "spread": 15.5,
+        "spread": 16.5,
         "commence_time": "2026-10-17T19:30:00Z"
     },
     {
-        "id": 97,
+        "id": 91,
         "source": "NCAAF",
         "team": "Georgia Bulldogs",
         "opponent": "Auburn Tigers",
@@ -776,7 +728,7 @@
         "commence_time": "2026-10-17T19:30:00Z"
     },
     {
-        "id": 98,
+        "id": 92,
         "source": "NCAAF",
         "team": "Auburn Tigers",
         "opponent": "Georgia Bulldogs",
@@ -784,7 +736,7 @@
         "commence_time": "2026-10-17T19:30:00Z"
     },
     {
-        "id": 99,
+        "id": 93,
         "source": "NCAAF",
         "team": "Duke Blue Devils",
         "opponent": "North Carolina Tar Heels",
@@ -792,7 +744,7 @@
         "commence_time": "2026-10-17T19:30:00Z"
     },
     {
-        "id": 100,
+        "id": 94,
         "source": "NCAAF",
         "team": "North Carolina Tar Heels",
         "opponent": "Duke Blue Devils",
@@ -800,7 +752,7 @@
         "commence_time": "2026-10-17T19:30:00Z"
     },
     {
-        "id": 101,
+        "id": 95,
         "source": "NCAAF",
         "team": "Eastern Michigan Eagles",
         "opponent": "Toledo Rockets",
@@ -808,7 +760,7 @@
         "commence_time": "2026-10-17T19:30:00Z"
     },
     {
-        "id": 102,
+        "id": 96,
         "source": "NCAAF",
         "team": "Toledo Rockets",
         "opponent": "Eastern Michigan Eagles",
@@ -816,71 +768,71 @@
         "commence_time": "2026-10-17T19:30:00Z"
     },
     {
-        "id": 103,
+        "id": 97,
         "source": "NCAAF",
         "team": "Virginia Tech Hokies",
         "opponent": "Georgia Tech Yellow Jackets",
-        "spread": -9.5,
+        "spread": -8.5,
+        "commence_time": "2026-10-17T19:30:00Z"
+    },
+    {
+        "id": 98,
+        "source": "NCAAF",
+        "team": "Georgia Tech Yellow Jackets",
+        "opponent": "Virginia Tech Hokies",
+        "spread": 8.5,
+        "commence_time": "2026-10-17T19:30:00Z"
+    },
+    {
+        "id": 99,
+        "source": "NCAAF",
+        "team": "Michigan Wolverines",
+        "opponent": "Penn State Nittany Lions",
+        "spread": -6.0,
+        "commence_time": "2026-10-17T19:30:00Z"
+    },
+    {
+        "id": 100,
+        "source": "NCAAF",
+        "team": "Penn State Nittany Lions",
+        "opponent": "Michigan Wolverines",
+        "spread": 6.0,
+        "commence_time": "2026-10-17T19:30:00Z"
+    },
+    {
+        "id": 101,
+        "source": "NCAAF",
+        "team": "Ole Miss Rebels",
+        "opponent": "Missouri Tigers",
+        "spread": -3.5,
+        "commence_time": "2026-10-17T19:30:00Z"
+    },
+    {
+        "id": 102,
+        "source": "NCAAF",
+        "team": "Missouri Tigers",
+        "opponent": "Ole Miss Rebels",
+        "spread": 3.5,
+        "commence_time": "2026-10-17T19:30:00Z"
+    },
+    {
+        "id": 103,
+        "source": "NCAAF",
+        "team": "Wyoming Cowboys",
+        "opponent": "Northern Illinois Huskies",
+        "spread": -7.5,
         "commence_time": "2026-10-17T19:30:00Z"
     },
     {
         "id": 104,
         "source": "NCAAF",
-        "team": "Georgia Tech Yellow Jackets",
-        "opponent": "Virginia Tech Hokies",
-        "spread": 9.5,
+        "team": "Northern Illinois Huskies",
+        "opponent": "Wyoming Cowboys",
+        "spread": 7.5,
         "commence_time": "2026-10-17T19:30:00Z"
     },
     {
         "id": 105,
-        "source": "NCAAF",
-        "team": "Michigan Wolverines",
-        "opponent": "Penn State Nittany Lions",
-        "spread": -6.5,
-        "commence_time": "2026-10-17T19:30:00Z"
-    },
-    {
-        "id": 106,
-        "source": "NCAAF",
-        "team": "Penn State Nittany Lions",
-        "opponent": "Michigan Wolverines",
-        "spread": 6.5,
-        "commence_time": "2026-10-17T19:30:00Z"
-    },
-    {
-        "id": 107,
-        "source": "NCAAF",
-        "team": "Ole Miss Rebels",
-        "opponent": "Missouri Tigers",
-        "spread": -5.5,
-        "commence_time": "2026-10-17T19:30:00Z"
-    },
-    {
-        "id": 108,
-        "source": "NCAAF",
-        "team": "Missouri Tigers",
-        "opponent": "Ole Miss Rebels",
-        "spread": 5.5,
-        "commence_time": "2026-10-17T19:30:00Z"
-    },
-    {
-        "id": 109,
-        "source": "NCAAF",
-        "team": "Wyoming Cowboys",
-        "opponent": "Northern Illinois Huskies",
-        "spread": -8.5,
-        "commence_time": "2026-10-17T19:30:00Z"
-    },
-    {
-        "id": 110,
-        "source": "NCAAF",
-        "team": "Northern Illinois Huskies",
-        "opponent": "Wyoming Cowboys",
-        "spread": 8.5,
-        "commence_time": "2026-10-17T19:30:00Z"
-    },
-    {
-        "id": 111,
         "source": "NCAAF",
         "team": "Rice Owls",
         "opponent": "Tulsa Golden Hurricane",
@@ -888,7 +840,7 @@
         "commence_time": "2026-10-17T20:30:00Z"
     },
     {
-        "id": 112,
+        "id": 106,
         "source": "NCAAF",
         "team": "Tulsa Golden Hurricane",
         "opponent": "Rice Owls",
@@ -896,7 +848,7 @@
         "commence_time": "2026-10-17T20:30:00Z"
     },
     {
-        "id": 113,
+        "id": 107,
         "source": "NCAAF",
         "team": "Louisiana Ragin Cajuns",
         "opponent": "Troy Trojans",
@@ -904,7 +856,7 @@
         "commence_time": "2026-10-17T21:00:00Z"
     },
     {
-        "id": 114,
+        "id": 108,
         "source": "NCAAF",
         "team": "Troy Trojans",
         "opponent": "Louisiana Ragin Cajuns",
@@ -912,7 +864,7 @@
         "commence_time": "2026-10-17T21:00:00Z"
     },
     {
-        "id": 115,
+        "id": 109,
         "source": "NCAAF",
         "team": "Oregon State Beavers",
         "opponent": "Washington State Cougars",
@@ -920,7 +872,7 @@
         "commence_time": "2026-10-17T22:00:00Z"
     },
     {
-        "id": 116,
+        "id": 110,
         "source": "NCAAF",
         "team": "Washington State Cougars",
         "opponent": "Oregon State Beavers",
@@ -928,7 +880,7 @@
         "commence_time": "2026-10-17T22:00:00Z"
     },
     {
-        "id": 117,
+        "id": 111,
         "source": "NCAAF",
         "team": "Vanderbilt Commodores",
         "opponent": "Arkansas Razorbacks",
@@ -936,7 +888,7 @@
         "commence_time": "2026-10-17T23:00:00Z"
     },
     {
-        "id": 118,
+        "id": 112,
         "source": "NCAAF",
         "team": "Arkansas Razorbacks",
         "opponent": "Vanderbilt Commodores",
@@ -944,23 +896,23 @@
         "commence_time": "2026-10-17T23:00:00Z"
     },
     {
-        "id": 119,
+        "id": 113,
         "source": "NCAAF",
         "team": "Southern Mississippi Golden Eagles",
         "opponent": "Arkansas State Red Wolves",
-        "spread": 6.5,
+        "spread": 6.0,
         "commence_time": "2026-10-17T23:00:00Z"
     },
     {
-        "id": 120,
+        "id": 114,
         "source": "NCAAF",
         "team": "Arkansas State Red Wolves",
         "opponent": "Southern Mississippi Golden Eagles",
-        "spread": -6.5,
+        "spread": -6.0,
         "commence_time": "2026-10-17T23:00:00Z"
     },
     {
-        "id": 121,
+        "id": 115,
         "source": "NCAAF",
         "team": "Baylor Bears",
         "opponent": "TCU Horned Frogs",
@@ -968,7 +920,7 @@
         "commence_time": "2026-10-17T23:00:00Z"
     },
     {
-        "id": 122,
+        "id": 116,
         "source": "NCAAF",
         "team": "TCU Horned Frogs",
         "opponent": "Baylor Bears",
@@ -976,23 +928,23 @@
         "commence_time": "2026-10-17T23:00:00Z"
     },
     {
-        "id": 123,
+        "id": 117,
         "source": "NCAAF",
         "team": "Miami Hurricanes",
         "opponent": "Florida State Seminoles",
-        "spread": -21.0,
+        "spread": -19.5,
         "commence_time": "2026-10-17T23:00:00Z"
     },
     {
-        "id": 124,
+        "id": 118,
         "source": "NCAAF",
         "team": "Florida State Seminoles",
         "opponent": "Miami Hurricanes",
-        "spread": 21.0,
+        "spread": 19.5,
         "commence_time": "2026-10-17T23:00:00Z"
     },
     {
-        "id": 125,
+        "id": 119,
         "source": "NCAAF",
         "team": "South Florida Bulls",
         "opponent": "Kent State Golden Flashes",
@@ -1000,7 +952,7 @@
         "commence_time": "2026-10-17T23:00:00Z"
     },
     {
-        "id": 126,
+        "id": 120,
         "source": "NCAAF",
         "team": "Kent State Golden Flashes",
         "opponent": "South Florida Bulls",
@@ -1008,7 +960,7 @@
         "commence_time": "2026-10-17T23:00:00Z"
     },
     {
-        "id": 127,
+        "id": 121,
         "source": "NCAAF",
         "team": "North Dakota State Bison",
         "opponent": "Nevada Wolf Pack",
@@ -1016,7 +968,7 @@
         "commence_time": "2026-10-17T23:00:00Z"
     },
     {
-        "id": 128,
+        "id": 122,
         "source": "NCAAF",
         "team": "Nevada Wolf Pack",
         "opponent": "North Dakota State Bison",
@@ -1024,7 +976,7 @@
         "commence_time": "2026-10-17T23:00:00Z"
     },
     {
-        "id": 129,
+        "id": 123,
         "source": "NCAAF",
         "team": "BYU Cougars",
         "opponent": "Notre Dame Fighting Irish",
@@ -1032,7 +984,7 @@
         "commence_time": "2026-10-17T23:30:00Z"
     },
     {
-        "id": 130,
+        "id": 124,
         "source": "NCAAF",
         "team": "Notre Dame Fighting Irish",
         "opponent": "BYU Cougars",
@@ -1040,23 +992,23 @@
         "commence_time": "2026-10-17T23:30:00Z"
     },
     {
-        "id": 131,
+        "id": 125,
         "source": "NCAAF",
         "team": "Stanford Cardinal",
         "opponent": "Elon Phoenix",
-        "spread": -35.5,
+        "spread": -34.5,
         "commence_time": "2026-10-17T23:30:00Z"
     },
     {
-        "id": 132,
+        "id": 126,
         "source": "NCAAF",
         "team": "Elon Phoenix",
         "opponent": "Stanford Cardinal",
-        "spread": 35.5,
+        "spread": 34.5,
         "commence_time": "2026-10-17T23:30:00Z"
     },
     {
-        "id": 133,
+        "id": 127,
         "source": "NCAAF",
         "team": "Houston Cougars",
         "opponent": "Oklahoma State Cowboys",
@@ -1064,7 +1016,7 @@
         "commence_time": "2026-10-17T23:30:00Z"
     },
     {
-        "id": 134,
+        "id": 128,
         "source": "NCAAF",
         "team": "Oklahoma State Cowboys",
         "opponent": "Houston Cougars",
@@ -1072,7 +1024,7 @@
         "commence_time": "2026-10-17T23:30:00Z"
     },
     {
-        "id": 135,
+        "id": 129,
         "source": "NCAAF",
         "team": "Oklahoma Sooners",
         "opponent": "Kentucky Wildcats",
@@ -1080,7 +1032,7 @@
         "commence_time": "2026-10-17T23:30:00Z"
     },
     {
-        "id": 136,
+        "id": 130,
         "source": "NCAAF",
         "team": "Kentucky Wildcats",
         "opponent": "Oklahoma Sooners",
@@ -1088,39 +1040,39 @@
         "commence_time": "2026-10-17T23:30:00Z"
     },
     {
-        "id": 137,
+        "id": 131,
         "source": "NCAAF",
         "team": "Syracuse Orange",
         "opponent": "Louisville Cardinals",
-        "spread": 15.5,
+        "spread": 14.5,
         "commence_time": "2026-10-17T23:30:00Z"
     },
     {
-        "id": 138,
+        "id": 132,
         "source": "NCAAF",
         "team": "Louisville Cardinals",
         "opponent": "Syracuse Orange",
-        "spread": -15.5,
+        "spread": -14.5,
         "commence_time": "2026-10-17T23:30:00Z"
     },
     {
-        "id": 139,
+        "id": 133,
         "source": "NCAAF",
         "team": "UCLA Bruins",
         "opponent": "Wisconsin Badgers",
-        "spread": -2.5,
+        "spread": -1.5,
         "commence_time": "2026-10-17T23:30:00Z"
     },
     {
-        "id": 140,
+        "id": 134,
         "source": "NCAAF",
         "team": "Wisconsin Badgers",
         "opponent": "UCLA Bruins",
-        "spread": 2.5,
+        "spread": 1.5,
         "commence_time": "2026-10-17T23:30:00Z"
     },
     {
-        "id": 141,
+        "id": 135,
         "source": "NCAAF",
         "team": "UL Monroe Warhawks",
         "opponent": "Louisiana Tech Bulldogs",
@@ -1128,7 +1080,7 @@
         "commence_time": "2026-10-18T00:00:00Z"
     },
     {
-        "id": 142,
+        "id": 136,
         "source": "NCAAF",
         "team": "Louisiana Tech Bulldogs",
         "opponent": "UL Monroe Warhawks",
@@ -1136,7 +1088,7 @@
         "commence_time": "2026-10-18T00:00:00Z"
     },
     {
-        "id": 143,
+        "id": 137,
         "source": "NCAAF",
         "team": "UTSA Roadrunners",
         "opponent": "Navy Midshipmen",
@@ -1144,7 +1096,7 @@
         "commence_time": "2026-10-18T00:00:00Z"
     },
     {
-        "id": 144,
+        "id": 138,
         "source": "NCAAF",
         "team": "Navy Midshipmen",
         "opponent": "UTSA Roadrunners",
@@ -1152,7 +1104,7 @@
         "commence_time": "2026-10-18T00:00:00Z"
     },
     {
-        "id": 145,
+        "id": 139,
         "source": "NCAAF",
         "team": "UTEP Miners",
         "opponent": "San Jose State Spartans",
@@ -1160,7 +1112,7 @@
         "commence_time": "2026-10-18T01:00:00Z"
     },
     {
-        "id": 146,
+        "id": 140,
         "source": "NCAAF",
         "team": "San Jose State Spartans",
         "opponent": "UTEP Miners",
@@ -1168,7 +1120,7 @@
         "commence_time": "2026-10-18T01:00:00Z"
     },
     {
-        "id": 147,
+        "id": 141,
         "source": "NCAAF",
         "team": "Sacramento State Hornets",
         "opponent": "Ohio Bobcats",
@@ -1176,7 +1128,7 @@
         "commence_time": "2026-10-18T02:00:00Z"
     },
     {
-        "id": 148,
+        "id": 142,
         "source": "NCAAF",
         "team": "Ohio Bobcats",
         "opponent": "Sacramento State Hornets",
@@ -1184,7 +1136,7 @@
         "commence_time": "2026-10-18T02:00:00Z"
     },
     {
-        "id": 149,
+        "id": 143,
         "source": "NCAAF",
         "team": "Colorado Buffaloes",
         "opponent": "Utah Utes",
@@ -1192,7 +1144,7 @@
         "commence_time": "2026-10-18T02:15:00Z"
     },
     {
-        "id": 150,
+        "id": 144,
         "source": "NCAAF",
         "team": "Utah Utes",
         "opponent": "Colorado Buffaloes",
@@ -1200,7 +1152,7 @@
         "commence_time": "2026-10-18T02:15:00Z"
     },
     {
-        "id": 151,
+        "id": 145,
         "source": "NCAAF",
         "team": "California Golden Bears",
         "opponent": "Wake Forest Demon Deacons",
@@ -1208,7 +1160,7 @@
         "commence_time": "2026-10-18T02:30:00Z"
     },
     {
-        "id": 152,
+        "id": 146,
         "source": "NCAAF",
         "team": "Wake Forest Demon Deacons",
         "opponent": "California Golden Bears",
@@ -1216,7 +1168,7 @@
         "commence_time": "2026-10-18T02:30:00Z"
     },
     {
-        "id": 153,
+        "id": 147,
         "source": "NCAAF",
         "team": "San Diego State Aztecs",
         "opponent": "Fresno State Bulldogs",
@@ -1224,7 +1176,7 @@
         "commence_time": "2026-10-18T02:30:00Z"
     },
     {
-        "id": 154,
+        "id": 148,
         "source": "NCAAF",
         "team": "Fresno State Bulldogs",
         "opponent": "San Diego State Aztecs",
@@ -1232,23 +1184,23 @@
         "commence_time": "2026-10-18T02:30:00Z"
     },
     {
-        "id": 155,
+        "id": 149,
         "source": "NCAAF",
         "team": "Hawaii Rainbow Warriors",
         "opponent": "New Mexico Lobos",
-        "spread": 15.5,
+        "spread": 14.5,
         "commence_time": "2026-10-18T02:30:00Z"
     },
     {
-        "id": 156,
+        "id": 150,
         "source": "NCAAF",
         "team": "New Mexico Lobos",
         "opponent": "Hawaii Rainbow Warriors",
-        "spread": -15.5,
+        "spread": -14.5,
         "commence_time": "2026-10-18T02:30:00Z"
     },
     {
-        "id": 157,
+        "id": 151,
         "source": "NCAAF",
         "team": "Oregon Ducks",
         "opponent": "Nebraska Cornhuskers",
@@ -1256,7 +1208,7 @@
         "commence_time": "2026-10-18T03:00:00Z"
     },
     {
-        "id": 158,
+        "id": 152,
         "source": "NCAAF",
         "team": "Nebraska Cornhuskers",
         "opponent": "Oregon Ducks",
@@ -1264,7 +1216,23 @@
         "commence_time": "2026-10-18T03:00:00Z"
     },
     {
-        "id": 159,
+        "id": 153,
+        "source": "NCAAF",
+        "team": "Delaware Blue Hens",
+        "opponent": "Missouri State Bears",
+        "spread": -2.5,
+        "commence_time": "2026-10-20T23:00:00Z"
+    },
+    {
+        "id": 154,
+        "source": "NCAAF",
+        "team": "Missouri State Bears",
+        "opponent": "Delaware Blue Hens",
+        "spread": 2.5,
+        "commence_time": "2026-10-20T23:00:00Z"
+    },
+    {
+        "id": 155,
         "source": "NCAAF",
         "team": "Florida International Panthers",
         "opponent": "Middle Tennessee Blue Raiders",
@@ -1272,7 +1240,7 @@
         "commence_time": "2026-10-20T23:00:00Z"
     },
     {
-        "id": 160,
+        "id": 156,
         "source": "NCAAF",
         "team": "Middle Tennessee Blue Raiders",
         "opponent": "Florida International Panthers",
@@ -1280,7 +1248,7 @@
         "commence_time": "2026-10-20T23:00:00Z"
     },
     {
-        "id": 161,
+        "id": 157,
         "source": "NCAAF",
         "team": "Marshall Thundering Herd",
         "opponent": "South Alabama Jaguars",
@@ -1288,7 +1256,7 @@
         "commence_time": "2026-10-20T23:30:00Z"
     },
     {
-        "id": 162,
+        "id": 158,
         "source": "NCAAF",
         "team": "South Alabama Jaguars",
         "opponent": "Marshall Thundering Herd",
@@ -1296,7 +1264,7 @@
         "commence_time": "2026-10-20T23:30:00Z"
     },
     {
-        "id": 163,
+        "id": 159,
         "source": "NCAAF",
         "team": "Sam Houston State Bearkats",
         "opponent": "New Mexico State Aggies",
@@ -1304,7 +1272,7 @@
         "commence_time": "2026-10-22T00:00:00Z"
     },
     {
-        "id": 164,
+        "id": 160,
         "source": "NCAAF",
         "team": "New Mexico State Aggies",
         "opponent": "Sam Houston State Bearkats",
@@ -1312,23 +1280,23 @@
         "commence_time": "2026-10-22T00:00:00Z"
     },
     {
-        "id": 165,
+        "id": 161,
         "source": "NCAAF",
         "team": "Kennesaw State Owls",
         "opponent": "Liberty Flames",
-        "spread": 8.5,
+        "spread": 9.5,
         "commence_time": "2026-10-22T23:00:00Z"
     },
     {
-        "id": 166,
+        "id": 162,
         "source": "NCAAF",
         "team": "Liberty Flames",
         "opponent": "Kennesaw State Owls",
-        "spread": -8.5,
+        "spread": -9.5,
         "commence_time": "2026-10-22T23:00:00Z"
     },
     {
-        "id": 167,
+        "id": 163,
         "source": "NCAAF",
         "team": "Minnesota Golden Gophers",
         "opponent": "Iowa Hawkeyes",
@@ -1336,7 +1304,7 @@
         "commence_time": "2026-10-24T04:00:00Z"
     },
     {
-        "id": 168,
+        "id": 164,
         "source": "NCAAF",
         "team": "Iowa Hawkeyes",
         "opponent": "Minnesota Golden Gophers",
@@ -1344,103 +1312,39 @@
         "commence_time": "2026-10-24T04:00:00Z"
     },
     {
-        "id": 169,
-        "source": "NCAAF",
-        "team": "Alabama Crimson Tide",
-        "opponent": "Texas A&M Aggies",
-        "spread": -15.5,
-        "commence_time": "2026-10-24T16:00:00Z"
-    },
-    {
-        "id": 170,
-        "source": "NCAAF",
-        "team": "Texas A&M Aggies",
-        "opponent": "Alabama Crimson Tide",
-        "spread": 15.5,
-        "commence_time": "2026-10-24T16:00:00Z"
-    },
-    {
-        "id": 171,
-        "source": "NCAAF",
-        "team": "Arizona Wildcats",
-        "opponent": "Iowa State Cyclones",
-        "spread": -10.0,
-        "commence_time": "2026-10-24T16:00:00Z"
-    },
-    {
-        "id": 172,
-        "source": "NCAAF",
-        "team": "Iowa State Cyclones",
-        "opponent": "Arizona Wildcats",
-        "spread": 10.0,
-        "commence_time": "2026-10-24T16:00:00Z"
-    },
-    {
-        "id": 173,
+        "id": 165,
         "source": "NCAAF",
         "team": "Auburn Tigers",
         "opponent": "LSU Tigers",
-        "spread": 6.5,
+        "spread": 5.5,
         "commence_time": "2026-10-24T16:00:00Z"
     },
     {
-        "id": 174,
+        "id": 166,
         "source": "NCAAF",
         "team": "LSU Tigers",
         "opponent": "Auburn Tigers",
-        "spread": -6.5,
+        "spread": -5.5,
         "commence_time": "2026-10-24T16:00:00Z"
     },
     {
-        "id": 175,
+        "id": 167,
         "source": "NCAAF",
-        "team": "UCF Knights",
-        "opponent": "BYU Cougars",
-        "spread": 8.5,
+        "team": "Cincinnati Bearcats",
+        "opponent": "Texas Tech Red Raiders",
+        "spread": 11.5,
         "commence_time": "2026-10-24T16:00:00Z"
     },
     {
-        "id": 176,
+        "id": 168,
         "source": "NCAAF",
-        "team": "BYU Cougars",
-        "opponent": "UCF Knights",
-        "spread": -8.5,
+        "team": "Texas Tech Red Raiders",
+        "opponent": "Cincinnati Bearcats",
+        "spread": -11.5,
         "commence_time": "2026-10-24T16:00:00Z"
     },
     {
-        "id": 177,
-        "source": "NCAAF",
-        "team": "Clemson Tigers",
-        "opponent": "Virginia Tech Hokies",
-        "spread": 1.5,
-        "commence_time": "2026-10-24T16:00:00Z"
-    },
-    {
-        "id": 178,
-        "source": "NCAAF",
-        "team": "Virginia Tech Hokies",
-        "opponent": "Clemson Tigers",
-        "spread": -1.5,
-        "commence_time": "2026-10-24T16:00:00Z"
-    },
-    {
-        "id": 179,
-        "source": "NCAAF",
-        "team": "Utah Utes",
-        "opponent": "Houston Cougars",
-        "spread": -6.5,
-        "commence_time": "2026-10-24T16:00:00Z"
-    },
-    {
-        "id": 180,
-        "source": "NCAAF",
-        "team": "Houston Cougars",
-        "opponent": "Utah Utes",
-        "spread": 6.5,
-        "commence_time": "2026-10-24T16:00:00Z"
-    },
-    {
-        "id": 181,
+        "id": 169,
         "source": "NCAAF",
         "team": "Michigan Wolverines",
         "opponent": "Indiana Hoosiers",
@@ -1448,7 +1352,7 @@
         "commence_time": "2026-10-24T16:00:00Z"
     },
     {
-        "id": 182,
+        "id": 170,
         "source": "NCAAF",
         "team": "Indiana Hoosiers",
         "opponent": "Michigan Wolverines",
@@ -1456,71 +1360,87 @@
         "commence_time": "2026-10-24T16:00:00Z"
     },
     {
-        "id": 183,
+        "id": 171,
         "source": "NCAAF",
-        "team": "Miami Hurricanes",
-        "opponent": "Pittsburgh Panthers",
-        "spread": -23.5,
-        "commence_time": "2026-10-24T16:00:00Z"
-    },
-    {
-        "id": 184,
-        "source": "NCAAF",
-        "team": "Pittsburgh Panthers",
-        "opponent": "Miami Hurricanes",
-        "spread": 23.5,
-        "commence_time": "2026-10-24T16:00:00Z"
-    },
-    {
-        "id": 185,
-        "source": "NCAAF",
-        "team": "Texas Longhorns",
-        "opponent": "Ole Miss Rebels",
-        "spread": -6.5,
-        "commence_time": "2026-10-24T16:00:00Z"
-    },
-    {
-        "id": 186,
-        "source": "NCAAF",
-        "team": "Ole Miss Rebels",
-        "opponent": "Texas Longhorns",
-        "spread": 6.5,
-        "commence_time": "2026-10-24T16:00:00Z"
-    },
-    {
-        "id": 187,
-        "source": "NCAAF",
-        "team": "South Carolina Gamecocks",
-        "opponent": "Tennessee Volunteers",
-        "spread": 1.5,
+        "team": "Alabama Crimson Tide",
+        "opponent": "Texas A&M Aggies",
+        "spread": -16.5,
         "commence_time": "2026-10-24T19:30:00Z"
     },
     {
-        "id": 188,
+        "id": 172,
         "source": "NCAAF",
-        "team": "Tennessee Volunteers",
-        "opponent": "South Carolina Gamecocks",
+        "team": "Texas A&M Aggies",
+        "opponent": "Alabama Crimson Tide",
+        "spread": 16.5,
+        "commence_time": "2026-10-24T19:30:00Z"
+    },
+    {
+        "id": 173,
+        "source": "NCAAF",
+        "team": "Utah Utes",
+        "opponent": "Houston Cougars",
+        "spread": -6.5,
+        "commence_time": "2026-10-24T19:30:00Z"
+    },
+    {
+        "id": 174,
+        "source": "NCAAF",
+        "team": "Houston Cougars",
+        "opponent": "Utah Utes",
+        "spread": 6.5,
+        "commence_time": "2026-10-24T19:30:00Z"
+    },
+    {
+        "id": 175,
+        "source": "NCAAF",
+        "team": "South Carolina Gamecocks",
+        "opponent": "Tennessee Volunteers",
         "spread": -1.5,
         "commence_time": "2026-10-24T19:30:00Z"
     },
     {
-        "id": 189,
+        "id": 176,
         "source": "NCAAF",
-        "team": "Kentucky Wildcats",
-        "opponent": "Vanderbilt Commodores",
+        "team": "Tennessee Volunteers",
+        "opponent": "South Carolina Gamecocks",
+        "spread": 1.5,
+        "commence_time": "2026-10-24T19:30:00Z"
+    },
+    {
+        "id": 177,
+        "source": "NCAAF",
+        "team": "Arizona Wildcats",
+        "opponent": "Iowa State Cyclones",
         "spread": -9.5,
         "commence_time": "2026-10-24T23:30:00Z"
     },
     {
-        "id": 190,
+        "id": 178,
         "source": "NCAAF",
-        "team": "Vanderbilt Commodores",
-        "opponent": "Kentucky Wildcats",
+        "team": "Iowa State Cyclones",
+        "opponent": "Arizona Wildcats",
         "spread": 9.5,
         "commence_time": "2026-10-24T23:30:00Z"
     },
     {
-        "id": 191,
+        "id": 179,
+        "source": "NCAAF",
+        "team": "Texas Longhorns",
+        "opponent": "Ole Miss Rebels",
+        "spread": -6.5,
+        "commence_time": "2026-10-24T23:30:00Z"
+    },
+    {
+        "id": 180,
+        "source": "NCAAF",
+        "team": "Ole Miss Rebels",
+        "opponent": "Texas Longhorns",
+        "spread": 6.5,
+        "commence_time": "2026-10-24T23:30:00Z"
+    },
+    {
+        "id": 181,
         "source": "NCAAF",
         "team": "Wisconsin Badgers",
         "opponent": "USC Trojans",
@@ -1528,7 +1448,7 @@
         "commence_time": "2026-10-24T23:30:00Z"
     },
     {
-        "id": 192,
+        "id": 182,
         "source": "NCAAF",
         "team": "USC Trojans",
         "opponent": "Wisconsin Badgers",
@@ -1536,151 +1456,23 @@
         "commence_time": "2026-10-24T23:30:00Z"
     },
     {
-        "id": 193,
+        "id": 183,
         "source": "NCAAF",
         "team": "New Mexico Lobos",
         "opponent": "North Dakota State Bison",
-        "spread": -4.5,
+        "spread": -3.5,
         "commence_time": "2026-10-25T02:00:00Z"
     },
     {
-        "id": 194,
+        "id": 184,
         "source": "NCAAF",
         "team": "North Dakota State Bison",
         "opponent": "New Mexico Lobos",
-        "spread": 4.5,
+        "spread": 3.5,
         "commence_time": "2026-10-25T02:00:00Z"
     },
     {
-        "id": 195,
-        "source": "NCAAF FCS",
-        "team": "Pennsylvania Quakers",
-        "opponent": "Columbia Lions",
-        "spread": -6.5,
-        "commence_time": "2026-10-16T23:01:00Z"
-    },
-    {
-        "id": 196,
-        "source": "NCAAF FCS",
-        "team": "Columbia Lions",
-        "opponent": "Pennsylvania Quakers",
-        "spread": 6.5,
-        "commence_time": "2026-10-16T23:01:00Z"
-    },
-    {
-        "id": 197,
-        "source": "NCAAF FCS",
-        "team": "Princeton Tigers",
-        "opponent": "Brown Bears",
-        "spread": -6.5,
-        "commence_time": "2026-10-17T16:00:00Z"
-    },
-    {
-        "id": 198,
-        "source": "NCAAF FCS",
-        "team": "Brown Bears",
-        "opponent": "Princeton Tigers",
-        "spread": 6.5,
-        "commence_time": "2026-10-17T16:00:00Z"
-    },
-    {
-        "id": 199,
-        "source": "NCAAF FCS",
-        "team": "North Carolina A&T Aggies",
-        "opponent": "Chicago State Cougars",
-        "spread": -13.5,
-        "commence_time": "2026-10-17T16:00:00Z"
-    },
-    {
-        "id": 200,
-        "source": "NCAAF FCS",
-        "team": "Chicago State Cougars",
-        "opponent": "North Carolina A&T Aggies",
-        "spread": 13.5,
-        "commence_time": "2026-10-17T16:00:00Z"
-    },
-    {
-        "id": 201,
-        "source": "NCAAF FCS",
-        "team": "Mercyhurst Lakers",
-        "opponent": "Central Connecticut Blue Devils",
-        "spread": 7.5,
-        "commence_time": "2026-10-17T16:01:00Z"
-    },
-    {
-        "id": 202,
-        "source": "NCAAF FCS",
-        "team": "Central Connecticut Blue Devils",
-        "opponent": "Mercyhurst Lakers",
-        "spread": -7.5,
-        "commence_time": "2026-10-17T16:01:00Z"
-    },
-    {
-        "id": 203,
-        "source": "NCAAF FCS",
-        "team": "Stonehill Skyhawks",
-        "opponent": "Duquesne Dukes",
-        "spread": -3.5,
-        "commence_time": "2026-10-17T16:01:00Z"
-    },
-    {
-        "id": 204,
-        "source": "NCAAF FCS",
-        "team": "Duquesne Dukes",
-        "opponent": "Stonehill Skyhawks",
-        "spread": 3.5,
-        "commence_time": "2026-10-17T16:01:00Z"
-    },
-    {
-        "id": 205,
-        "source": "NCAAF FCS",
-        "team": "Sacred Heart Pioneers",
-        "opponent": "Hampton Pirates",
-        "spread": -13.5,
-        "commence_time": "2026-10-17T16:01:00Z"
-    },
-    {
-        "id": 206,
-        "source": "NCAAF FCS",
-        "team": "Hampton Pirates",
-        "opponent": "Sacred Heart Pioneers",
-        "spread": 13.5,
-        "commence_time": "2026-10-17T16:01:00Z"
-    },
-    {
-        "id": 207,
-        "source": "NCAAF FCS",
-        "team": "Robert Morris Colonials",
-        "opponent": "New Haven Chargers",
-        "spread": -10.5,
-        "commence_time": "2026-10-17T16:01:00Z"
-    },
-    {
-        "id": 208,
-        "source": "NCAAF FCS",
-        "team": "New Haven Chargers",
-        "opponent": "Robert Morris Colonials",
-        "spread": 10.5,
-        "commence_time": "2026-10-17T16:01:00Z"
-    },
-    {
-        "id": 209,
-        "source": "NCAAF FCS",
-        "team": "Yale University Bulldogs",
-        "opponent": "Rhode Island Rams",
-        "spread": -10.0,
-        "commence_time": "2026-10-17T16:01:00Z"
-    },
-    {
-        "id": 210,
-        "source": "NCAAF FCS",
-        "team": "Rhode Island Rams",
-        "opponent": "Yale University Bulldogs",
-        "spread": 10.0,
-        "commence_time": "2026-10-17T16:01:00Z"
-    },
-    {
-        "id": 211,
+        "id": 185,
         "source": "NCAAF FCS",
         "team": "New Hampshire Wildcats",
         "opponent": "Monmouth Hawks",
@@ -1688,7 +1480,7 @@
         "commence_time": "2026-10-17T17:00:00Z"
     },
     {
-        "id": 212,
+        "id": 186,
         "source": "NCAAF FCS",
         "team": "Monmouth Hawks",
         "opponent": "New Hampshire Wildcats",
@@ -1696,23 +1488,23 @@
         "commence_time": "2026-10-17T17:00:00Z"
     },
     {
-        "id": 213,
+        "id": 187,
         "source": "NCAAF FCS",
         "team": "Maine Black Bears",
         "opponent": "Bryant Bulldogs",
-        "spread": 1.5,
+        "spread": -2.5,
         "commence_time": "2026-10-17T17:01:00Z"
     },
     {
-        "id": 214,
+        "id": 188,
         "source": "NCAAF FCS",
         "team": "Bryant Bulldogs",
         "opponent": "Maine Black Bears",
-        "spread": -1.5,
+        "spread": 2.5,
         "commence_time": "2026-10-17T17:01:00Z"
     },
     {
-        "id": 215,
+        "id": 189,
         "source": "NCAAF FCS",
         "team": "Butler Bulldogs",
         "opponent": "Dayton Flyers",
@@ -1720,7 +1512,7 @@
         "commence_time": "2026-10-17T17:01:00Z"
     },
     {
-        "id": 216,
+        "id": 190,
         "source": "NCAAF FCS",
         "team": "Dayton Flyers",
         "opponent": "Butler Bulldogs",
@@ -1728,39 +1520,39 @@
         "commence_time": "2026-10-17T17:01:00Z"
     },
     {
-        "id": 217,
+        "id": 191,
         "source": "NCAAF FCS",
         "team": "Colgate Raiders",
         "opponent": "Georgetown Hoyas",
-        "spread": -18.5,
+        "spread": -21.5,
         "commence_time": "2026-10-17T17:01:00Z"
     },
     {
-        "id": 218,
+        "id": 192,
         "source": "NCAAF FCS",
         "team": "Georgetown Hoyas",
         "opponent": "Colgate Raiders",
-        "spread": 18.5,
+        "spread": 21.5,
         "commence_time": "2026-10-17T17:01:00Z"
     },
     {
-        "id": 219,
+        "id": 193,
         "source": "NCAAF FCS",
         "team": "Dartmouth Big Green",
         "opponent": "Merrimack Warriors",
-        "spread": -9.5,
+        "spread": -10.5,
         "commence_time": "2026-10-17T17:01:00Z"
     },
     {
-        "id": 220,
+        "id": 194,
         "source": "NCAAF FCS",
         "team": "Merrimack Warriors",
         "opponent": "Dartmouth Big Green",
-        "spread": 9.5,
+        "spread": 10.5,
         "commence_time": "2026-10-17T17:01:00Z"
     },
     {
-        "id": 221,
+        "id": 195,
         "source": "NCAAF FCS",
         "team": "Davidson Wildcats",
         "opponent": "Morehead State Eagles",
@@ -1768,7 +1560,7 @@
         "commence_time": "2026-10-17T17:01:00Z"
     },
     {
-        "id": 222,
+        "id": 196,
         "source": "NCAAF FCS",
         "team": "Morehead State Eagles",
         "opponent": "Davidson Wildcats",
@@ -1776,7 +1568,7 @@
         "commence_time": "2026-10-17T17:01:00Z"
     },
     {
-        "id": 223,
+        "id": 197,
         "source": "NCAAF FCS",
         "team": "Drake Bulldogs",
         "opponent": "Marist Red Foxes",
@@ -1784,7 +1576,7 @@
         "commence_time": "2026-10-17T17:01:00Z"
     },
     {
-        "id": 224,
+        "id": 198,
         "source": "NCAAF FCS",
         "team": "Marist Red Foxes",
         "opponent": "Drake Bulldogs",
@@ -1792,7 +1584,7 @@
         "commence_time": "2026-10-17T17:01:00Z"
     },
     {
-        "id": 225,
+        "id": 199,
         "source": "NCAAF FCS",
         "team": "Harvard Crimson",
         "opponent": "Holy Cross Crusaders",
@@ -1800,7 +1592,7 @@
         "commence_time": "2026-10-17T17:01:00Z"
     },
     {
-        "id": 226,
+        "id": 200,
         "source": "NCAAF FCS",
         "team": "Holy Cross Crusaders",
         "opponent": "Harvard Crimson",
@@ -1808,23 +1600,23 @@
         "commence_time": "2026-10-17T17:01:00Z"
     },
     {
-        "id": 227,
+        "id": 201,
         "source": "NCAAF FCS",
         "team": "Northwestern State Demons",
         "opponent": "McNeese State Cowboys",
-        "spread": 21.5,
+        "spread": 20.5,
         "commence_time": "2026-10-17T17:01:00Z"
     },
     {
-        "id": 228,
+        "id": 202,
         "source": "NCAAF FCS",
         "team": "McNeese State Cowboys",
         "opponent": "Northwestern State Demons",
-        "spread": -21.5,
+        "spread": -20.5,
         "commence_time": "2026-10-17T17:01:00Z"
     },
     {
-        "id": 229,
+        "id": 203,
         "source": "NCAAF FCS",
         "team": "Wofford Terriers",
         "opponent": "VMI Keydets",
@@ -1832,7 +1624,7 @@
         "commence_time": "2026-10-17T17:31:00Z"
     },
     {
-        "id": 230,
+        "id": 204,
         "source": "NCAAF FCS",
         "team": "VMI Keydets",
         "opponent": "Wofford Terriers",
@@ -1840,71 +1632,71 @@
         "commence_time": "2026-10-17T17:31:00Z"
     },
     {
-        "id": 231,
+        "id": 205,
         "source": "NCAAF FCS",
         "team": "West Georgia Wolves",
         "opponent": "Austin Peay Governors",
-        "spread": 20.5,
+        "spread": 17.5,
         "commence_time": "2026-10-17T18:01:00Z"
     },
     {
-        "id": 232,
+        "id": 206,
         "source": "NCAAF FCS",
         "team": "Austin Peay Governors",
         "opponent": "West Georgia Wolves",
-        "spread": -20.5,
+        "spread": -17.5,
         "commence_time": "2026-10-17T18:01:00Z"
     },
     {
-        "id": 233,
+        "id": 207,
         "source": "NCAAF FCS",
         "team": "Cornell Big Red",
         "opponent": "Lehigh Mountain Hawks",
-        "spread": 11.5,
-        "commence_time": "2026-10-17T18:01:00Z"
-    },
-    {
-        "id": 234,
-        "source": "NCAAF FCS",
-        "team": "Lehigh Mountain Hawks",
-        "opponent": "Cornell Big Red",
-        "spread": -11.5,
-        "commence_time": "2026-10-17T18:01:00Z"
-    },
-    {
-        "id": 235,
-        "source": "NCAAF FCS",
-        "team": "North Dakota Fighting Hawks",
-        "opponent": "South Dakota State Jackrabbits",
-        "spread": 12.5,
-        "commence_time": "2026-10-17T18:01:00Z"
-    },
-    {
-        "id": 236,
-        "source": "NCAAF FCS",
-        "team": "South Dakota State Jackrabbits",
-        "opponent": "North Dakota Fighting Hawks",
-        "spread": -12.5,
-        "commence_time": "2026-10-17T18:01:00Z"
-    },
-    {
-        "id": 237,
-        "source": "NCAAF FCS",
-        "team": "Stetson Hatters",
-        "opponent": "Presbyterian College Blue Hose",
         "spread": 10.5,
         "commence_time": "2026-10-17T18:01:00Z"
     },
     {
-        "id": 238,
+        "id": 208,
         "source": "NCAAF FCS",
-        "team": "Presbyterian College Blue Hose",
-        "opponent": "Stetson Hatters",
+        "team": "Lehigh Mountain Hawks",
+        "opponent": "Cornell Big Red",
         "spread": -10.5,
         "commence_time": "2026-10-17T18:01:00Z"
     },
     {
-        "id": 239,
+        "id": 209,
+        "source": "NCAAF FCS",
+        "team": "North Dakota Fighting Hawks",
+        "opponent": "South Dakota State Jackrabbits",
+        "spread": 14.5,
+        "commence_time": "2026-10-17T18:01:00Z"
+    },
+    {
+        "id": 210,
+        "source": "NCAAF FCS",
+        "team": "South Dakota State Jackrabbits",
+        "opponent": "North Dakota Fighting Hawks",
+        "spread": -14.5,
+        "commence_time": "2026-10-17T18:01:00Z"
+    },
+    {
+        "id": 211,
+        "source": "NCAAF FCS",
+        "team": "Stetson Hatters",
+        "opponent": "Presbyterian College Blue Hose",
+        "spread": 7.5,
+        "commence_time": "2026-10-17T18:01:00Z"
+    },
+    {
+        "id": 212,
+        "source": "NCAAF FCS",
+        "team": "Presbyterian College Blue Hose",
+        "opponent": "Stetson Hatters",
+        "spread": -7.5,
+        "commence_time": "2026-10-17T18:01:00Z"
+    },
+    {
+        "id": 213,
         "source": "NCAAF FCS",
         "team": "Stony Brook Seawolves",
         "opponent": "Albany",
@@ -1912,7 +1704,7 @@
         "commence_time": "2026-10-17T18:31:00Z"
     },
     {
-        "id": 240,
+        "id": 214,
         "source": "NCAAF FCS",
         "team": "Albany",
         "opponent": "Stony Brook Seawolves",
@@ -1920,7 +1712,7 @@
         "commence_time": "2026-10-17T18:31:00Z"
     },
     {
-        "id": 241,
+        "id": 215,
         "source": "NCAAF FCS",
         "team": "Tennessee Tech Golden Eagles",
         "opponent": "Eastern Kentucky Colonels",
@@ -1928,7 +1720,7 @@
         "commence_time": "2026-10-17T18:31:00Z"
     },
     {
-        "id": 242,
+        "id": 216,
         "source": "NCAAF FCS",
         "team": "Eastern Kentucky Colonels",
         "opponent": "Tennessee Tech Golden Eagles",
@@ -1936,23 +1728,23 @@
         "commence_time": "2026-10-17T18:31:00Z"
     },
     {
-        "id": 243,
+        "id": 217,
         "source": "NCAAF FCS",
         "team": "Montana Grizzlies",
         "opponent": "Idaho Vandals",
-        "spread": -17.5,
+        "spread": -16.5,
         "commence_time": "2026-10-17T19:00:00Z"
     },
     {
-        "id": 244,
+        "id": 218,
         "source": "NCAAF FCS",
         "team": "Idaho Vandals",
         "opponent": "Montana Grizzlies",
-        "spread": 17.5,
+        "spread": 16.5,
         "commence_time": "2026-10-17T19:00:00Z"
     },
     {
-        "id": 245,
+        "id": 219,
         "source": "NCAAF FCS",
         "team": "Alabama A&M Bulldogs",
         "opponent": "Grambling State Tigers",
@@ -1960,7 +1752,7 @@
         "commence_time": "2026-10-17T19:01:00Z"
     },
     {
-        "id": 246,
+        "id": 220,
         "source": "NCAAF FCS",
         "team": "Grambling State Tigers",
         "opponent": "Alabama A&M Bulldogs",
@@ -1968,55 +1760,55 @@
         "commence_time": "2026-10-17T19:01:00Z"
     },
     {
-        "id": 247,
+        "id": 221,
         "source": "NCAAF FCS",
         "team": "Arkansas Pine Bluff Golden Lions",
         "opponent": "Alabama State Hornets",
-        "spread": 4.5,
+        "spread": 2.5,
         "commence_time": "2026-10-17T19:01:00Z"
     },
     {
-        "id": 248,
+        "id": 222,
         "source": "NCAAF FCS",
         "team": "Alabama State Hornets",
         "opponent": "Arkansas Pine Bluff Golden Lions",
-        "spread": -4.5,
+        "spread": -2.5,
         "commence_time": "2026-10-17T19:01:00Z"
     },
     {
-        "id": 249,
+        "id": 223,
         "source": "NCAAF FCS",
         "team": "Prairie View A&M Panthers",
         "opponent": "Alcorn State Braves",
-        "spread": -5.5,
+        "spread": -8.5,
         "commence_time": "2026-10-17T19:01:00Z"
     },
     {
-        "id": 250,
+        "id": 224,
         "source": "NCAAF FCS",
         "team": "Alcorn State Braves",
         "opponent": "Prairie View A&M Panthers",
-        "spread": 5.5,
+        "spread": 8.5,
         "commence_time": "2026-10-17T19:01:00Z"
     },
     {
-        "id": 251,
+        "id": 225,
         "source": "NCAAF FCS",
         "team": "Mississippi Valley State Delta Devils",
         "opponent": "Bethune-Cookman Wildcats",
-        "spread": 7.5,
+        "spread": 6.5,
         "commence_time": "2026-10-17T19:01:00Z"
     },
     {
-        "id": 252,
+        "id": 226,
         "source": "NCAAF FCS",
         "team": "Bethune-Cookman Wildcats",
         "opponent": "Mississippi Valley State Delta Devils",
-        "spread": -7.5,
+        "spread": -6.5,
         "commence_time": "2026-10-17T19:01:00Z"
     },
     {
-        "id": 253,
+        "id": 227,
         "source": "NCAAF FCS",
         "team": "Bucknell Bison",
         "opponent": "Lafayette Leopards",
@@ -2024,7 +1816,7 @@
         "commence_time": "2026-10-17T19:01:00Z"
     },
     {
-        "id": 254,
+        "id": 228,
         "source": "NCAAF FCS",
         "team": "Lafayette Leopards",
         "opponent": "Bucknell Bison",
@@ -2032,39 +1824,39 @@
         "commence_time": "2026-10-17T19:01:00Z"
     },
     {
-        "id": 255,
+        "id": 229,
         "source": "NCAAF FCS",
         "team": "Eastern Illinois Panthers",
         "opponent": "Lindenwood Lions",
-        "spread": 1.5,
-        "commence_time": "2026-10-17T19:01:00Z"
-    },
-    {
-        "id": 256,
-        "source": "NCAAF FCS",
-        "team": "Lindenwood Lions",
-        "opponent": "Eastern Illinois Panthers",
         "spread": -1.5,
         "commence_time": "2026-10-17T19:01:00Z"
     },
     {
-        "id": 257,
+        "id": 230,
+        "source": "NCAAF FCS",
+        "team": "Lindenwood Lions",
+        "opponent": "Eastern Illinois Panthers",
+        "spread": 1.5,
+        "commence_time": "2026-10-17T19:01:00Z"
+    },
+    {
+        "id": 231,
         "source": "NCAAF FCS",
         "team": "Jackson State Tigers",
         "opponent": "Florida A&M Rattlers",
-        "spread": -13.5,
+        "spread": -14.5,
         "commence_time": "2026-10-17T19:01:00Z"
     },
     {
-        "id": 258,
+        "id": 232,
         "source": "NCAAF FCS",
         "team": "Florida A&M Rattlers",
         "opponent": "Jackson State Tigers",
-        "spread": 13.5,
+        "spread": 14.5,
         "commence_time": "2026-10-17T19:01:00Z"
     },
     {
-        "id": 259,
+        "id": 233,
         "source": "NCAAF FCS",
         "team": "UT Martin Skyhawks",
         "opponent": "Gardner-Webb Runnin Bulldogs",
@@ -2072,7 +1864,7 @@
         "commence_time": "2026-10-17T19:01:00Z"
     },
     {
-        "id": 260,
+        "id": 234,
         "source": "NCAAF FCS",
         "team": "Gardner-Webb Runnin Bulldogs",
         "opponent": "UT Martin Skyhawks",
@@ -2080,7 +1872,7 @@
         "commence_time": "2026-10-17T19:01:00Z"
     },
     {
-        "id": 261,
+        "id": 235,
         "source": "NCAAF FCS",
         "team": "Weber State Wildcats",
         "opponent": "Idaho State Bengals",
@@ -2088,7 +1880,7 @@
         "commence_time": "2026-10-17T19:01:00Z"
     },
     {
-        "id": 262,
+        "id": 236,
         "source": "NCAAF FCS",
         "team": "Idaho State Bengals",
         "opponent": "Weber State Wildcats",
@@ -2096,7 +1888,7 @@
         "commence_time": "2026-10-17T19:01:00Z"
     },
     {
-        "id": 263,
+        "id": 237,
         "source": "NCAAF FCS",
         "team": "Southeast Missouri State Redhawks",
         "opponent": "Western Illinois Leathernecks",
@@ -2104,7 +1896,7 @@
         "commence_time": "2026-10-17T19:01:00Z"
     },
     {
-        "id": 264,
+        "id": 238,
         "source": "NCAAF FCS",
         "team": "Western Illinois Leathernecks",
         "opponent": "Southeast Missouri State Redhawks",
@@ -2112,7 +1904,7 @@
         "commence_time": "2026-10-17T19:01:00Z"
     },
     {
-        "id": 265,
+        "id": 239,
         "source": "NCAAF FCS",
         "team": "Campbell Fighting Camels",
         "opponent": "Towson Tigers",
@@ -2120,7 +1912,7 @@
         "commence_time": "2026-10-17T19:31:00Z"
     },
     {
-        "id": 266,
+        "id": 240,
         "source": "NCAAF FCS",
         "team": "Towson Tigers",
         "opponent": "Campbell Fighting Camels",
@@ -2128,87 +1920,87 @@
         "commence_time": "2026-10-17T19:31:00Z"
     },
     {
-        "id": 267,
+        "id": 241,
         "source": "NCAAF FCS",
         "team": "Fordham Rams",
         "opponent": "Villanova Wildcats",
-        "spread": 7.5,
+        "spread": 5.5,
         "commence_time": "2026-10-17T19:31:00Z"
     },
     {
-        "id": 268,
+        "id": 242,
         "source": "NCAAF FCS",
         "team": "Villanova Wildcats",
         "opponent": "Fordham Rams",
-        "spread": -7.5,
+        "spread": -5.5,
         "commence_time": "2026-10-17T19:31:00Z"
     },
     {
-        "id": 269,
+        "id": 243,
         "source": "NCAAF FCS",
         "team": "Southern Illinois Salukis",
         "opponent": "Illinois State Redbirds",
+        "spread": 6.5,
+        "commence_time": "2026-10-17T20:01:00Z"
+    },
+    {
+        "id": 244,
+        "source": "NCAAF FCS",
+        "team": "Illinois State Redbirds",
+        "opponent": "Southern Illinois Salukis",
+        "spread": -6.5,
+        "commence_time": "2026-10-17T20:01:00Z"
+    },
+    {
+        "id": 245,
+        "source": "NCAAF FCS",
+        "team": "Nicholls State Colonels",
+        "opponent": "Stephen F. Austin Lumberjacks",
+        "spread": 22.5,
+        "commence_time": "2026-10-17T20:01:00Z"
+    },
+    {
+        "id": 246,
+        "source": "NCAAF FCS",
+        "team": "Stephen F. Austin Lumberjacks",
+        "opponent": "Nicholls State Colonels",
+        "spread": -22.5,
+        "commence_time": "2026-10-17T20:01:00Z"
+    },
+    {
+        "id": 247,
+        "source": "NCAAF FCS",
+        "team": "San Diego Toreros",
+        "opponent": "Valparaiso Beacons",
+        "spread": -7.5,
+        "commence_time": "2026-10-17T20:01:00Z"
+    },
+    {
+        "id": 248,
+        "source": "NCAAF FCS",
+        "team": "Valparaiso Beacons",
+        "opponent": "San Diego Toreros",
         "spread": 7.5,
         "commence_time": "2026-10-17T20:01:00Z"
     },
     {
-        "id": 270,
-        "source": "NCAAF FCS",
-        "team": "Illinois State Redbirds",
-        "opponent": "Southern Illinois Salukis",
-        "spread": -7.5,
-        "commence_time": "2026-10-17T20:01:00Z"
-    },
-    {
-        "id": 271,
-        "source": "NCAAF FCS",
-        "team": "Nicholls State Colonels",
-        "opponent": "Stephen F. Austin Lumberjacks",
-        "spread": 21.5,
-        "commence_time": "2026-10-17T20:01:00Z"
-    },
-    {
-        "id": 272,
-        "source": "NCAAF FCS",
-        "team": "Stephen F. Austin Lumberjacks",
-        "opponent": "Nicholls State Colonels",
-        "spread": -21.5,
-        "commence_time": "2026-10-17T20:01:00Z"
-    },
-    {
-        "id": 273,
-        "source": "NCAAF FCS",
-        "team": "San Diego Toreros",
-        "opponent": "Valparaiso Beacons",
-        "spread": -5.5,
-        "commence_time": "2026-10-17T20:01:00Z"
-    },
-    {
-        "id": 274,
-        "source": "NCAAF FCS",
-        "team": "Valparaiso Beacons",
-        "opponent": "San Diego Toreros",
-        "spread": 5.5,
-        "commence_time": "2026-10-17T20:01:00Z"
-    },
-    {
-        "id": 275,
+        "id": 249,
         "source": "NCAAF FCS",
         "team": "Southeastern Louisiana Lions",
         "opponent": "Lamar Cardinals",
-        "spread": 4.5,
+        "spread": 5.5,
         "commence_time": "2026-10-17T21:00:00Z"
     },
     {
-        "id": 276,
+        "id": 250,
         "source": "NCAAF FCS",
         "team": "Lamar Cardinals",
         "opponent": "Southeastern Louisiana Lions",
-        "spread": -4.5,
+        "spread": -5.5,
         "commence_time": "2026-10-17T21:00:00Z"
     },
     {
-        "id": 277,
+        "id": 251,
         "source": "NCAAF FCS",
         "team": "Wagner Seahawks",
         "opponent": "LIU Sharks",
@@ -2216,7 +2008,7 @@
         "commence_time": "2026-10-17T21:01:00Z"
     },
     {
-        "id": 278,
+        "id": 252,
         "source": "NCAAF FCS",
         "team": "LIU Sharks",
         "opponent": "Wagner Seahawks",
@@ -2224,7 +2016,7 @@
         "commence_time": "2026-10-17T21:01:00Z"
     },
     {
-        "id": 279,
+        "id": 253,
         "source": "NCAAF FCS",
         "team": "Murray State Racers",
         "opponent": "South Dakota Coyotes",
@@ -2232,7 +2024,7 @@
         "commence_time": "2026-10-17T21:01:00Z"
     },
     {
-        "id": 280,
+        "id": 254,
         "source": "NCAAF FCS",
         "team": "South Dakota Coyotes",
         "opponent": "Murray State Racers",
@@ -2240,23 +2032,23 @@
         "commence_time": "2026-10-17T21:01:00Z"
     },
     {
-        "id": 281,
+        "id": 255,
         "source": "NCAAF FCS",
         "team": "Youngstown St Penguins",
         "opponent": "Northern Iowa Panthers",
-        "spread": -18.5,
+        "spread": -19.5,
         "commence_time": "2026-10-17T22:01:00Z"
     },
     {
-        "id": 282,
+        "id": 256,
         "source": "NCAAF FCS",
         "team": "Northern Iowa Panthers",
         "opponent": "Youngstown St Penguins",
-        "spread": 18.5,
+        "spread": 19.5,
         "commence_time": "2026-10-17T22:01:00Z"
     },
     {
-        "id": 283,
+        "id": 257,
         "source": "NCAAF FCS",
         "team": "Tennessee State Tigers",
         "opponent": "Morgan State Bears",
@@ -2264,7 +2056,7 @@
         "commence_time": "2026-10-17T22:31:00Z"
     },
     {
-        "id": 284,
+        "id": 258,
         "source": "NCAAF FCS",
         "team": "Morgan State Bears",
         "opponent": "Tennessee State Tigers",
@@ -2272,7 +2064,7 @@
         "commence_time": "2026-10-17T22:31:00Z"
     },
     {
-        "id": 285,
+        "id": 259,
         "source": "NCAAF FCS",
         "team": "North Alabama Lions",
         "opponent": "Abilene Christian Wildcats",
@@ -2280,7 +2072,7 @@
         "commence_time": "2026-10-17T23:01:00Z"
     },
     {
-        "id": 286,
+        "id": 260,
         "source": "NCAAF FCS",
         "team": "Abilene Christian Wildcats",
         "opponent": "North Alabama Lions",
@@ -2288,7 +2080,7 @@
         "commence_time": "2026-10-17T23:01:00Z"
     },
     {
-        "id": 287,
+        "id": 261,
         "source": "NCAAF FCS",
         "team": "Tarleton State Texans",
         "opponent": "Central Arkansas Bears",
@@ -2296,7 +2088,7 @@
         "commence_time": "2026-10-17T23:01:00Z"
     },
     {
-        "id": 288,
+        "id": 262,
         "source": "NCAAF FCS",
         "team": "Central Arkansas Bears",
         "opponent": "Tarleton State Texans",
@@ -2304,7 +2096,7 @@
         "commence_time": "2026-10-17T23:01:00Z"
     },
     {
-        "id": 289,
+        "id": 263,
         "source": "NCAAF FCS",
         "team": "Houston Baptist Huskies",
         "opponent": "East Texas A&M Lions",
@@ -2312,7 +2104,7 @@
         "commence_time": "2026-10-17T23:01:00Z"
     },
     {
-        "id": 290,
+        "id": 264,
         "source": "NCAAF FCS",
         "team": "East Texas A&M Lions",
         "opponent": "Houston Baptist Huskies",
@@ -2320,23 +2112,23 @@
         "commence_time": "2026-10-17T23:01:00Z"
     },
     {
-        "id": 291,
+        "id": 265,
         "source": "NCAAF FCS",
         "team": "Eastern Washington Eagles",
         "opponent": "Montana State Bobcats",
-        "spread": 19.5,
+        "spread": 21.5,
         "commence_time": "2026-10-17T23:01:00Z"
     },
     {
-        "id": 292,
+        "id": 266,
         "source": "NCAAF FCS",
         "team": "Montana State Bobcats",
         "opponent": "Eastern Washington Eagles",
-        "spread": -19.5,
+        "spread": -21.5,
         "commence_time": "2026-10-17T23:01:00Z"
     },
     {
-        "id": 293,
+        "id": 267,
         "source": "NCAAF FCS",
         "team": "Incarnate Word Cardinals",
         "opponent": "UT Rio Grande Valley Vaqueros",
@@ -2344,7 +2136,7 @@
         "commence_time": "2026-10-17T23:01:00Z"
     },
     {
-        "id": 294,
+        "id": 268,
         "source": "NCAAF FCS",
         "team": "UT Rio Grande Valley Vaqueros",
         "opponent": "Incarnate Word Cardinals",
@@ -2352,7 +2144,7 @@
         "commence_time": "2026-10-17T23:01:00Z"
     },
     {
-        "id": 295,
+        "id": 269,
         "source": "NCAAF FCS",
         "team": "Samford Bulldogs",
         "opponent": "Mercer Bears",
@@ -2360,7 +2152,7 @@
         "commence_time": "2026-10-17T23:01:00Z"
     },
     {
-        "id": 296,
+        "id": 270,
         "source": "NCAAF FCS",
         "team": "Mercer Bears",
         "opponent": "Samford Bulldogs",
@@ -2368,7 +2160,7 @@
         "commence_time": "2026-10-17T23:01:00Z"
     },
     {
-        "id": 297,
+        "id": 271,
         "source": "NCAAF FCS",
         "team": "Northern Arizona Lumberjacks",
         "opponent": "Portland State Vikings",
@@ -2376,7 +2168,7 @@
         "commence_time": "2026-10-17T23:01:00Z"
     },
     {
-        "id": 298,
+        "id": 272,
         "source": "NCAAF FCS",
         "team": "Portland State Vikings",
         "opponent": "Northern Arizona Lumberjacks",
@@ -2384,7 +2176,7 @@
         "commence_time": "2026-10-17T23:01:00Z"
     },
     {
-        "id": 299,
+        "id": 273,
         "source": "NCAAF FCS",
         "team": "Northern Colorado Bears",
         "opponent": "Cal Poly Mustangs",
@@ -2392,7 +2184,7 @@
         "commence_time": "2026-10-18T00:01:00Z"
     },
     {
-        "id": 300,
+        "id": 274,
         "source": "NCAAF FCS",
         "team": "Cal Poly Mustangs",
         "opponent": "Northern Colorado Bears",
@@ -2400,39 +2192,39 @@
         "commence_time": "2026-10-18T00:01:00Z"
     },
     {
-        "id": 301,
+        "id": 275,
         "source": "NCAAF FCS",
         "team": "Southern Utah Thunderbirds",
         "opponent": "UC Davis Aggies",
-        "spread": 5.5,
+        "spread": 4.5,
         "commence_time": "2026-10-18T00:01:00Z"
     },
     {
-        "id": 302,
+        "id": 276,
         "source": "NCAAF FCS",
         "team": "UC Davis Aggies",
         "opponent": "Southern Utah Thunderbirds",
-        "spread": -5.5,
+        "spread": -4.5,
         "commence_time": "2026-10-18T00:01:00Z"
     },
     {
-        "id": 303,
+        "id": 277,
         "source": "MLB",
         "team": "Cleveland Guardians",
         "opponent": "Tampa Bay Rays",
         "spread": 1.5,
-        "commence_time": "2026-10-17T00:00:00Z"
+        "commence_time": "2026-10-18T00:00:00Z"
     },
     {
-        "id": 304,
+        "id": 278,
         "source": "MLB",
         "team": "Tampa Bay Rays",
         "opponent": "Cleveland Guardians",
         "spread": -1.5,
-        "commence_time": "2026-10-17T00:00:00Z"
+        "commence_time": "2026-10-18T00:00:00Z"
     },
     {
-        "id": 305,
+        "id": 279,
         "source": "NBA",
         "team": "Detroit Pistons",
         "opponent": "Boston Celtics",
@@ -2440,7 +2232,7 @@
         "commence_time": "2026-10-20T19:00:00Z"
     },
     {
-        "id": 306,
+        "id": 280,
         "source": "NBA",
         "team": "Boston Celtics",
         "opponent": "Detroit Pistons",
@@ -2448,7 +2240,7 @@
         "commence_time": "2026-10-20T19:00:00Z"
     },
     {
-        "id": 307,
+        "id": 281,
         "source": "NBA",
         "team": "New York Knicks",
         "opponent": "Philadelphia 76ers",
@@ -2456,7 +2248,7 @@
         "commence_time": "2026-10-20T23:00:00Z"
     },
     {
-        "id": 308,
+        "id": 282,
         "source": "NBA",
         "team": "Philadelphia 76ers",
         "opponent": "New York Knicks",
@@ -2464,7 +2256,7 @@
         "commence_time": "2026-10-20T23:00:00Z"
     },
     {
-        "id": 309,
+        "id": 283,
         "source": "NBA",
         "team": "San Antonio Spurs",
         "opponent": "Oklahoma City Thunder",
@@ -2472,7 +2264,7 @@
         "commence_time": "2026-10-21T01:30:00Z"
     },
     {
-        "id": 310,
+        "id": 284,
         "source": "NBA",
         "team": "Oklahoma City Thunder",
         "opponent": "San Antonio Spurs",
@@ -2480,7 +2272,7 @@
         "commence_time": "2026-10-21T01:30:00Z"
     },
     {
-        "id": 311,
+        "id": 285,
         "source": "NBA",
         "team": "Washington Wizards",
         "opponent": "Milwaukee Bucks",
@@ -2488,7 +2280,7 @@
         "commence_time": "2026-10-21T23:00:00Z"
     },
     {
-        "id": 312,
+        "id": 286,
         "source": "NBA",
         "team": "Milwaukee Bucks",
         "opponent": "Washington Wizards",
@@ -2496,7 +2288,7 @@
         "commence_time": "2026-10-21T23:00:00Z"
     },
     {
-        "id": 313,
+        "id": 287,
         "source": "NBA",
         "team": "Orlando Magic",
         "opponent": "Atlanta Hawks",
@@ -2504,7 +2296,7 @@
         "commence_time": "2026-10-21T23:10:00Z"
     },
     {
-        "id": 314,
+        "id": 288,
         "source": "NBA",
         "team": "Atlanta Hawks",
         "opponent": "Orlando Magic",
@@ -2512,7 +2304,7 @@
         "commence_time": "2026-10-21T23:10:00Z"
     },
     {
-        "id": 315,
+        "id": 289,
         "source": "NBA",
         "team": "Brooklyn Nets",
         "opponent": "Charlotte Hornets",
@@ -2520,7 +2312,7 @@
         "commence_time": "2026-10-21T23:30:00Z"
     },
     {
-        "id": 316,
+        "id": 290,
         "source": "NBA",
         "team": "Charlotte Hornets",
         "opponent": "Brooklyn Nets",
@@ -2528,7 +2320,7 @@
         "commence_time": "2026-10-21T23:30:00Z"
     },
     {
-        "id": 317,
+        "id": 291,
         "source": "NBA",
         "team": "Toronto Raptors",
         "opponent": "Chicago Bulls",
@@ -2536,7 +2328,7 @@
         "commence_time": "2026-10-21T23:40:00Z"
     },
     {
-        "id": 318,
+        "id": 292,
         "source": "NBA",
         "team": "Chicago Bulls",
         "opponent": "Toronto Raptors",
@@ -2544,7 +2336,7 @@
         "commence_time": "2026-10-21T23:40:00Z"
     },
     {
-        "id": 319,
+        "id": 293,
         "source": "NBA",
         "team": "Miami Heat",
         "opponent": "Minnesota Timberwolves",
@@ -2552,7 +2344,7 @@
         "commence_time": "2026-10-21T23:40:00Z"
     },
     {
-        "id": 320,
+        "id": 294,
         "source": "NBA",
         "team": "Minnesota Timberwolves",
         "opponent": "Miami Heat",
@@ -2560,23 +2352,23 @@
         "commence_time": "2026-10-21T23:40:00Z"
     },
     {
-        "id": 321,
+        "id": 295,
         "source": "NBA",
         "team": "New Orleans Pelicans",
         "opponent": "Indiana Pacers",
-        "spread": 3.5,
+        "spread": 4.5,
         "commence_time": "2026-10-22T00:10:00Z"
     },
     {
-        "id": 322,
+        "id": 296,
         "source": "NBA",
         "team": "Indiana Pacers",
         "opponent": "New Orleans Pelicans",
-        "spread": -3.5,
+        "spread": -4.5,
         "commence_time": "2026-10-22T00:10:00Z"
     },
     {
-        "id": 323,
+        "id": 297,
         "source": "NBA",
         "team": "Memphis Grizzlies",
         "opponent": "Utah Jazz",
@@ -2584,7 +2376,7 @@
         "commence_time": "2026-10-22T00:10:00Z"
     },
     {
-        "id": 324,
+        "id": 298,
         "source": "NBA",
         "team": "Utah Jazz",
         "opponent": "Memphis Grizzlies",
@@ -2592,23 +2384,23 @@
         "commence_time": "2026-10-22T00:10:00Z"
     },
     {
-        "id": 325,
+        "id": 299,
         "source": "NBA",
         "team": "Houston Rockets",
         "opponent": "Dallas Mavericks",
-        "spread": -7.5,
+        "spread": -8.5,
         "commence_time": "2026-10-22T00:40:00Z"
     },
     {
-        "id": 326,
+        "id": 300,
         "source": "NBA",
         "team": "Dallas Mavericks",
         "opponent": "Houston Rockets",
-        "spread": 7.5,
+        "spread": 8.5,
         "commence_time": "2026-10-22T00:40:00Z"
     },
     {
-        "id": 327,
+        "id": 301,
         "source": "NBA",
         "team": "Los Angeles Lakers",
         "opponent": "Golden State Warriors",
@@ -2616,7 +2408,7 @@
         "commence_time": "2026-10-22T02:00:00Z"
     },
     {
-        "id": 328,
+        "id": 302,
         "source": "NBA",
         "team": "Golden State Warriors",
         "opponent": "Los Angeles Lakers",
@@ -2624,7 +2416,7 @@
         "commence_time": "2026-10-22T02:00:00Z"
     },
     {
-        "id": 329,
+        "id": 303,
         "source": "NBA",
         "team": "Portland Trail Blazers",
         "opponent": "Phoenix Suns",
@@ -2632,7 +2424,7 @@
         "commence_time": "2026-10-22T02:10:00Z"
     },
     {
-        "id": 330,
+        "id": 304,
         "source": "NBA",
         "team": "Phoenix Suns",
         "opponent": "Portland Trail Blazers",
@@ -2640,7 +2432,7 @@
         "commence_time": "2026-10-22T02:10:00Z"
     },
     {
-        "id": 331,
+        "id": 305,
         "source": "NBA",
         "team": "Los Angeles Clippers",
         "opponent": "Sacramento Kings",
@@ -2648,7 +2440,7 @@
         "commence_time": "2026-10-22T02:40:00Z"
     },
     {
-        "id": 332,
+        "id": 306,
         "source": "NBA",
         "team": "Sacramento Kings",
         "opponent": "Los Angeles Clippers",
@@ -2656,23 +2448,23 @@
         "commence_time": "2026-10-22T02:40:00Z"
     },
     {
-        "id": 333,
+        "id": 307,
         "source": "NBA",
         "team": "Philadelphia 76ers",
         "opponent": "Cleveland Cavaliers",
-        "spread": -4.5,
+        "spread": -3.5,
         "commence_time": "2026-10-22T23:10:00Z"
     },
     {
-        "id": 334,
+        "id": 308,
         "source": "NBA",
         "team": "Cleveland Cavaliers",
         "opponent": "Philadelphia 76ers",
-        "spread": 4.5,
+        "spread": 3.5,
         "commence_time": "2026-10-22T23:10:00Z"
     },
     {
-        "id": 335,
+        "id": 309,
         "source": "NBA",
         "team": "Oklahoma City Thunder",
         "opponent": "Denver Nuggets",
@@ -2680,7 +2472,7 @@
         "commence_time": "2026-10-23T01:40:00Z"
     },
     {
-        "id": 336,
+        "id": 310,
         "source": "NBA",
         "team": "Denver Nuggets",
         "opponent": "Oklahoma City Thunder",
@@ -2688,7 +2480,7 @@
         "commence_time": "2026-10-23T01:40:00Z"
     },
     {
-        "id": 337,
+        "id": 311,
         "source": "NBA",
         "team": "Boston Celtics",
         "opponent": "New York Knicks",
@@ -2696,7 +2488,7 @@
         "commence_time": "2026-10-23T23:10:00Z"
     },
     {
-        "id": 338,
+        "id": 312,
         "source": "NBA",
         "team": "New York Knicks",
         "opponent": "Boston Celtics",
@@ -2704,23 +2496,23 @@
         "commence_time": "2026-10-23T23:10:00Z"
     },
     {
-        "id": 339,
+        "id": 313,
         "source": "NBA",
         "team": "San Antonio Spurs",
         "opponent": "Houston Rockets",
-        "spread": -6.5,
+        "spread": -7.5,
         "commence_time": "2026-10-24T01:40:00Z"
     },
     {
-        "id": 340,
+        "id": 314,
         "source": "NBA",
         "team": "Houston Rockets",
         "opponent": "San Antonio Spurs",
-        "spread": 6.5,
+        "spread": 7.5,
         "commence_time": "2026-10-24T01:40:00Z"
     },
     {
-        "id": 341,
+        "id": 315,
         "source": "NBA",
         "team": "Washington Wizards",
         "opponent": "Charlotte Hornets",
@@ -2728,7 +2520,7 @@
         "commence_time": "2026-10-30T23:10:00Z"
     },
     {
-        "id": 342,
+        "id": 316,
         "source": "NBA",
         "team": "Charlotte Hornets",
         "opponent": "Washington Wizards",
@@ -2736,7 +2528,7 @@
         "commence_time": "2026-10-30T23:10:00Z"
     },
     {
-        "id": 343,
+        "id": 317,
         "source": "NBA",
         "team": "Boston Celtics",
         "opponent": "Chicago Bulls",
@@ -2744,7 +2536,7 @@
         "commence_time": "2026-10-30T23:40:00Z"
     },
     {
-        "id": 344,
+        "id": 318,
         "source": "NBA",
         "team": "Chicago Bulls",
         "opponent": "Boston Celtics",
@@ -2752,7 +2544,7 @@
         "commence_time": "2026-10-30T23:40:00Z"
     },
     {
-        "id": 345,
+        "id": 319,
         "source": "NBA",
         "team": "Brooklyn Nets",
         "opponent": "Detroit Pistons",
@@ -2760,7 +2552,7 @@
         "commence_time": "2026-10-30T23:40:00Z"
     },
     {
-        "id": 346,
+        "id": 320,
         "source": "NBA",
         "team": "Detroit Pistons",
         "opponent": "Brooklyn Nets",
@@ -2768,7 +2560,7 @@
         "commence_time": "2026-10-30T23:40:00Z"
     },
     {
-        "id": 347,
+        "id": 321,
         "source": "NBA",
         "team": "Philadelphia 76ers",
         "opponent": "New York Knicks",
@@ -2776,7 +2568,7 @@
         "commence_time": "2026-10-30T23:40:00Z"
     },
     {
-        "id": 348,
+        "id": 322,
         "source": "NBA",
         "team": "New York Knicks",
         "opponent": "Philadelphia 76ers",
@@ -2784,7 +2576,7 @@
         "commence_time": "2026-10-30T23:40:00Z"
     },
     {
-        "id": 349,
+        "id": 323,
         "source": "NBA",
         "team": "Toronto Raptors",
         "opponent": "Orlando Magic",
@@ -2792,7 +2584,7 @@
         "commence_time": "2026-10-30T23:40:00Z"
     },
     {
-        "id": 350,
+        "id": 324,
         "source": "NBA",
         "team": "Orlando Magic",
         "opponent": "Toronto Raptors",
@@ -2800,7 +2592,7 @@
         "commence_time": "2026-10-30T23:40:00Z"
     },
     {
-        "id": 351,
+        "id": 325,
         "source": "NBA",
         "team": "Dallas Mavericks",
         "opponent": "Houston Rockets",
@@ -2808,7 +2600,7 @@
         "commence_time": "2026-10-31T00:10:00Z"
     },
     {
-        "id": 352,
+        "id": 326,
         "source": "NBA",
         "team": "Houston Rockets",
         "opponent": "Dallas Mavericks",
@@ -2816,7 +2608,7 @@
         "commence_time": "2026-10-31T00:10:00Z"
     },
     {
-        "id": 353,
+        "id": 327,
         "source": "NBA",
         "team": "Miami Heat",
         "opponent": "Indiana Pacers",
@@ -2824,7 +2616,7 @@
         "commence_time": "2026-10-31T00:10:00Z"
     },
     {
-        "id": 354,
+        "id": 328,
         "source": "NBA",
         "team": "Indiana Pacers",
         "opponent": "Miami Heat",
@@ -2832,7 +2624,7 @@
         "commence_time": "2026-10-31T00:10:00Z"
     },
     {
-        "id": 355,
+        "id": 329,
         "source": "NBA",
         "team": "Minnesota Timberwolves",
         "opponent": "Los Angeles Clippers",
@@ -2840,7 +2632,7 @@
         "commence_time": "2026-10-31T00:10:00Z"
     },
     {
-        "id": 356,
+        "id": 330,
         "source": "NBA",
         "team": "Los Angeles Clippers",
         "opponent": "Minnesota Timberwolves",
@@ -2848,7 +2640,7 @@
         "commence_time": "2026-10-31T00:10:00Z"
     },
     {
-        "id": 357,
+        "id": 331,
         "source": "NBA",
         "team": "Phoenix Suns",
         "opponent": "Denver Nuggets",
@@ -2856,7 +2648,7 @@
         "commence_time": "2026-10-31T02:10:00Z"
     },
     {
-        "id": 358,
+        "id": 332,
         "source": "NBA",
         "team": "Denver Nuggets",
         "opponent": "Phoenix Suns",
@@ -2864,7 +2656,7 @@
         "commence_time": "2026-10-31T02:10:00Z"
     },
     {
-        "id": 359,
+        "id": 333,
         "source": "NBA",
         "team": "Golden State Warriors",
         "opponent": "Los Angeles Lakers",
@@ -2872,7 +2664,7 @@
         "commence_time": "2026-10-31T02:10:00Z"
     },
     {
-        "id": 360,
+        "id": 334,
         "source": "NBA",
         "team": "Los Angeles Lakers",
         "opponent": "Golden State Warriors",
@@ -2880,7 +2672,7 @@
         "commence_time": "2026-10-31T02:10:00Z"
     },
     {
-        "id": 361,
+        "id": 335,
         "source": "NBA",
         "team": "Cleveland Cavaliers",
         "opponent": "Philadelphia 76ers",
@@ -2888,7 +2680,7 @@
         "commence_time": "2026-11-07T00:40:00Z"
     },
     {
-        "id": 362,
+        "id": 336,
         "source": "NBA",
         "team": "Philadelphia 76ers",
         "opponent": "Cleveland Cavaliers",
@@ -2896,23 +2688,23 @@
         "commence_time": "2026-11-07T00:40:00Z"
     },
     {
-        "id": 363,
+        "id": 337,
         "source": "NBA",
         "team": "Los Angeles Lakers",
         "opponent": "Portland Trail Blazers",
-        "spread": -4.5,
+        "spread": -3.5,
         "commence_time": "2026-11-07T03:10:00Z"
     },
     {
-        "id": 364,
+        "id": 338,
         "source": "NBA",
         "team": "Portland Trail Blazers",
         "opponent": "Los Angeles Lakers",
-        "spread": 4.5,
+        "spread": 3.5,
         "commence_time": "2026-11-07T03:10:00Z"
     },
     {
-        "id": 365,
+        "id": 339,
         "source": "NBA",
         "team": "Indiana Pacers",
         "opponent": "New York Knicks",
@@ -2920,7 +2712,7 @@
         "commence_time": "2026-11-14T00:10:00Z"
     },
     {
-        "id": 366,
+        "id": 340,
         "source": "NBA",
         "team": "New York Knicks",
         "opponent": "Indiana Pacers",
@@ -2928,7 +2720,7 @@
         "commence_time": "2026-11-14T00:10:00Z"
     },
     {
-        "id": 367,
+        "id": 341,
         "source": "NBA",
         "team": "San Antonio Spurs",
         "opponent": "Golden State Warriors",
@@ -2936,7 +2728,7 @@
         "commence_time": "2026-11-14T02:40:00Z"
     },
     {
-        "id": 368,
+        "id": 342,
         "source": "NBA",
         "team": "Golden State Warriors",
         "opponent": "San Antonio Spurs",
@@ -2944,7 +2736,7 @@
         "commence_time": "2026-11-14T02:40:00Z"
     },
     {
-        "id": 369,
+        "id": 343,
         "source": "NBA",
         "team": "Detroit Pistons",
         "opponent": "Toronto Raptors",
@@ -2952,7 +2744,7 @@
         "commence_time": "2026-11-21T00:40:00Z"
     },
     {
-        "id": 370,
+        "id": 344,
         "source": "NBA",
         "team": "Toronto Raptors",
         "opponent": "Detroit Pistons",
@@ -2960,7 +2752,7 @@
         "commence_time": "2026-11-21T00:40:00Z"
     },
     {
-        "id": 371,
+        "id": 345,
         "source": "NBA",
         "team": "Denver Nuggets",
         "opponent": "Houston Rockets",
@@ -2968,7 +2760,7 @@
         "commence_time": "2026-11-21T03:10:00Z"
     },
     {
-        "id": 372,
+        "id": 346,
         "source": "NBA",
         "team": "Houston Rockets",
         "opponent": "Denver Nuggets",
@@ -2976,7 +2768,7 @@
         "commence_time": "2026-11-21T03:10:00Z"
     },
     {
-        "id": 373,
+        "id": 347,
         "source": "NBA",
         "team": "Washington Wizards",
         "opponent": "Boston Celtics",
@@ -2984,7 +2776,7 @@
         "commence_time": "2026-11-25T01:10:00Z"
     },
     {
-        "id": 374,
+        "id": 348,
         "source": "NBA",
         "team": "Boston Celtics",
         "opponent": "Washington Wizards",
@@ -2992,7 +2784,7 @@
         "commence_time": "2026-11-25T01:10:00Z"
     },
     {
-        "id": 375,
+        "id": 349,
         "source": "NBA",
         "team": "Denver Nuggets",
         "opponent": "Dallas Mavericks",
@@ -3000,7 +2792,7 @@
         "commence_time": "2026-11-25T03:10:00Z"
     },
     {
-        "id": 376,
+        "id": 350,
         "source": "NBA",
         "team": "Dallas Mavericks",
         "opponent": "Denver Nuggets",
@@ -3008,7 +2800,7 @@
         "commence_time": "2026-11-25T03:10:00Z"
     },
     {
-        "id": 377,
+        "id": 351,
         "source": "NBA",
         "team": "Philadelphia 76ers",
         "opponent": "Miami Heat",
@@ -3016,7 +2808,7 @@
         "commence_time": "2026-11-25T22:10:00Z"
     },
     {
-        "id": 378,
+        "id": 352,
         "source": "NBA",
         "team": "Miami Heat",
         "opponent": "Philadelphia 76ers",
@@ -3024,23 +2816,23 @@
         "commence_time": "2026-11-25T22:10:00Z"
     },
     {
-        "id": 379,
+        "id": 353,
         "source": "NBA",
         "team": "Oklahoma City Thunder",
         "opponent": "Minnesota Timberwolves",
-        "spread": -9.5,
+        "spread": -8.5,
         "commence_time": "2026-11-26T00:40:00Z"
     },
     {
-        "id": 380,
+        "id": 354,
         "source": "NBA",
         "team": "Minnesota Timberwolves",
         "opponent": "Oklahoma City Thunder",
-        "spread": 9.5,
+        "spread": 8.5,
         "commence_time": "2026-11-26T00:40:00Z"
     },
     {
-        "id": 381,
+        "id": 355,
         "source": "NBA",
         "team": "Portland Trail Blazers",
         "opponent": "San Antonio Spurs",
@@ -3048,7 +2840,7 @@
         "commence_time": "2026-11-26T03:10:00Z"
     },
     {
-        "id": 382,
+        "id": 356,
         "source": "NBA",
         "team": "San Antonio Spurs",
         "opponent": "Portland Trail Blazers",
@@ -3056,7 +2848,7 @@
         "commence_time": "2026-11-26T03:10:00Z"
     },
     {
-        "id": 383,
+        "id": 357,
         "source": "NBA",
         "team": "New York Knicks",
         "opponent": "Miami Heat",
@@ -3064,7 +2856,7 @@
         "commence_time": "2026-11-28T00:10:00Z"
     },
     {
-        "id": 384,
+        "id": 358,
         "source": "NBA",
         "team": "Miami Heat",
         "opponent": "New York Knicks",
@@ -3072,7 +2864,7 @@
         "commence_time": "2026-11-28T00:10:00Z"
     },
     {
-        "id": 385,
+        "id": 359,
         "source": "NBA",
         "team": "San Antonio Spurs",
         "opponent": "Los Angeles Lakers",
@@ -3080,7 +2872,7 @@
         "commence_time": "2026-11-28T02:40:00Z"
     },
     {
-        "id": 386,
+        "id": 360,
         "source": "NBA",
         "team": "Los Angeles Lakers",
         "opponent": "San Antonio Spurs",
@@ -3088,7 +2880,7 @@
         "commence_time": "2026-11-28T02:40:00Z"
     },
     {
-        "id": 387,
+        "id": 361,
         "source": "NBA",
         "team": "New York Knicks",
         "opponent": "San Antonio Spurs",
@@ -3096,7 +2888,7 @@
         "commence_time": "2026-12-25T17:00:00Z"
     },
     {
-        "id": 388,
+        "id": 362,
         "source": "NBA",
         "team": "San Antonio Spurs",
         "opponent": "New York Knicks",
@@ -3104,7 +2896,7 @@
         "commence_time": "2026-12-25T17:00:00Z"
     },
     {
-        "id": 389,
+        "id": 363,
         "source": "NBA",
         "team": "Boston Celtics",
         "opponent": "Miami Heat",
@@ -3112,7 +2904,7 @@
         "commence_time": "2026-12-25T19:30:00Z"
     },
     {
-        "id": 390,
+        "id": 364,
         "source": "NBA",
         "team": "Miami Heat",
         "opponent": "Boston Celtics",
@@ -3120,7 +2912,7 @@
         "commence_time": "2026-12-25T19:30:00Z"
     },
     {
-        "id": 391,
+        "id": 365,
         "source": "NBA",
         "team": "Los Angeles Lakers",
         "opponent": "Philadelphia 76ers",
@@ -3128,7 +2920,7 @@
         "commence_time": "2026-12-25T22:00:00Z"
     },
     {
-        "id": 392,
+        "id": 366,
         "source": "NBA",
         "team": "Philadelphia 76ers",
         "opponent": "Los Angeles Lakers",
@@ -3136,7 +2928,7 @@
         "commence_time": "2026-12-25T22:00:00Z"
     },
     {
-        "id": 393,
+        "id": 367,
         "source": "NBA",
         "team": "Minnesota Timberwolves",
         "opponent": "Oklahoma City Thunder",
@@ -3144,7 +2936,7 @@
         "commence_time": "2026-12-26T01:00:00Z"
     },
     {
-        "id": 394,
+        "id": 368,
         "source": "NBA",
         "team": "Oklahoma City Thunder",
         "opponent": "Minnesota Timberwolves",
@@ -3152,7 +2944,7 @@
         "commence_time": "2026-12-26T01:00:00Z"
     },
     {
-        "id": 395,
+        "id": 369,
         "source": "NBA",
         "team": "Golden State Warriors",
         "opponent": "Denver Nuggets",
@@ -3160,7 +2952,7 @@
         "commence_time": "2026-12-26T03:30:00Z"
     },
     {
-        "id": 396,
+        "id": 370,
         "source": "NBA",
         "team": "Denver Nuggets",
         "opponent": "Golden State Warriors",

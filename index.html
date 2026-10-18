@@ -334,6 +334,7 @@
             align-items: center;
             font-size: 0.75rem;
             color: var(--text-secondary);
+            gap: 8px;
         }
 
         .view-boxscore-hint {
@@ -341,6 +342,7 @@
             font-weight: 600;
             cursor: pointer;
             text-decoration: none;
+            white-space: nowrap;
         }
 
         .view-boxscore-hint:hover {
@@ -1896,6 +1898,9 @@
                         return `<span class="team-odds ${colorClass}">${spread}</span>`;
                     };
 
+                    const cfg = endpoints[currentLeagueKey];
+                    const gamecastUrl = `https://www.espn.com/${cfg.sport}/game?gameId=${event.id}`;
+
                     gridHTML += `
                         <div class="game-card">
                             <div>
@@ -1927,6 +1932,7 @@
                             </div>
                             <div class="card-footer">
                                 ${createStreamsDropdown(homeTeam.team, awayTeam.team)}
+                                <a class="view-boxscore-hint" href="${gamecastUrl}" target="_blank">Gamecast</a>
                                 <span class="view-boxscore-hint" onclick="openBoxScore('${event.id}')">Box Score →</span>
                             </div>
                         </div>

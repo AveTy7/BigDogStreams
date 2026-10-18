@@ -36,6 +36,140 @@
             flex-direction: column;
         }
 
+        /* --- Landing Page Overlay Styles --- */
+        #landing-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--bg-primary);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        #landing-overlay.hidden {
+            display: none !important;
+        }
+
+        .landing-header {
+            text-align: center;
+            padding: 20px 0 10px 0;
+        }
+
+        .landing-container {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex: 1;
+            position: relative;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .landing-container {
+                flex-direction: column;
+            }
+            .landing-divider {
+                display: none;
+            }
+        }
+
+        .landing-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .landing-section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 8px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .landing-divider {
+            width: 2px;
+            background-color: var(--border);
+            margin: 20px 0;
+        }
+
+        .grid-movies {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .row-top-movies {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .grid-sports {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .landing-card {
+            background-color: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 24px 16px;
+            text-align: center;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+
+        .landing-card:hover {
+            border-color: var(--accent);
+            background-color: var(--bg-secondary);
+            transform: translateY(-3px);
+            color: var(--accent);
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.15);
+        }
+
+        .landing-card.card-disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .landing-card.card-disabled:hover {
+            border-color: var(--border);
+            background-color: var(--bg-card);
+            transform: none;
+            color: var(--text-primary);
+            box-shadow: none;
+        }
+
+        .card-full-width {
+            grid-column: span 2;
+            padding: 28px 16px;
+        }
+        /* --- End Landing Page Styles --- */
+
         header {
             background-color: var(--bg-secondary);
             border-bottom: 1px solid var(--border);
@@ -655,11 +789,49 @@
 </head>
 <body>
 
+    <!-- Landing Page Overlay -->
+    <div id="landing-overlay">
+        <div class="landing-header">
+            <img src="IMG_0954.png" alt="Big Dog Streams Logo" style="max-height: 50px; width: auto;">
+        </div>
+        <div class="landing-container">
+            <!-- Left Side: Movies/TV -->
+            <div class="landing-section">
+                <div class="landing-section-title">Movies/TV</div>
+                <div class="grid-movies">
+                    <div class="row-top-movies">
+                        <div class="landing-card card-disabled">Movies</div>
+                        <div class="landing-card card-disabled">TV</div>
+                    </div>
+                    <div class="landing-card card-full-width card-disabled">Live TV</div>
+                </div>
+            </div>
+
+            <div class="landing-divider"></div>
+
+            <!-- Right Side: Sports -->
+            <div class="landing-section">
+                <div class="landing-section-title">Sports</div>
+                <div class="grid-sports">
+                    <div class="landing-card" onclick="selectLandingLeague('nfl')">NFL</div>
+                    <div class="landing-card" onclick="selectLandingLeague('nba')">NBA</div>
+                    <div class="landing-card" onclick="selectLandingLeague('cfb')">CFB</div>
+                    <div class="landing-card" onclick="selectLandingLeague('cbb')">CBB</div>
+                    <div class="landing-card" onclick="selectLandingLeague('mlb')">MLB</div>
+                    <div class="landing-card" onclick="selectLandingLeague('mma')">MMA</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <header>
         <div class="header-top">
-            <a href="https://avety7.github.io/BigDogStreams/" style="display: inline-flex; align-items: center; text-decoration: none; flex-shrink: 0; margin-left: -4px;">
-                <img src="IMG_0954.png" alt="Big Dog Streams Logo" style="max-height: 32px; width: auto; vertical-align: middle;">
-            </a>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <button class="back-btn" onclick="showLandingPage()" title="Back to Landing Page" style="font-size: 1rem; padding: 2px 6px;">🏠</button>
+                <a href="https://avety7.github.io/BigDogStreams/" style="display: inline-flex; align-items: center; text-decoration: none; flex-shrink: 0; margin-left: -4px;">
+                    <img src="IMG_0954.png" alt="Big Dog Streams Logo" style="max-height: 32px; width: auto; vertical-align: middle;">
+                </a>
+            </div>
             <div class="nav-tabs">
                 <button class="tab-btn active" onclick="switchLeague('nfl', this)">NFL</button>
                 <button class="tab-btn" onclick="switchLeague('nba', this)">NBA</button>
@@ -680,6 +852,20 @@
         </div>
     </main>
     <script>
+        function selectLandingLeague(leagueKey) {
+            document.getElementById('landing-overlay').classList.add('hidden');
+            const targetBtn = Array.from(document.querySelectorAll('.tab-btn')).find(
+                btn => btn.getAttribute('onclick')?.includes(`'${leagueKey}'`)
+            );
+            if (targetBtn) {
+                switchLeague(leagueKey, targetBtn);
+            }
+        }
+
+        function showLandingPage() {
+            document.getElementById('landing-overlay').classList.remove('hidden');
+        }
+
         const endpoints = {
             nfl: { sport: 'football', league: 'nfl', type: 'pro', conferences: null, espnSlug: 'nfl' },
             nba: { sport: 'basketball', league: 'nba', type: 'pro', conferences: null, espnSlug: 'nba' },

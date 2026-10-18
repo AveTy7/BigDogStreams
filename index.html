@@ -1841,7 +1841,7 @@
                         <div class="game-card manningcast-card" style="margin-bottom: 12px;">
                             <div>
                                 <div class="game-status-bar" style="margin-bottom: 2px;">
-                                    <div class="status-live" style="color: var(--accent);"><span class="pulse-dot" style="background-color: var(--accent); box-shadow: 0 0 0 rgba(56, 189, 248, 0.4);"></span> LIVE • Manningcast</div>
+                                    <div class="status-live" style="color: var(--accent);"><span class="pulse-dot" style="background-color: var(--accent); box-shadow: 0 0 0 (56, 189, 248, 0.4);"></span> LIVE • Manningcast</div>
                                 </div>
                                 <div class="teams-container" style="gap: 2px;">
                                     <div class="team-row">
@@ -1876,12 +1876,6 @@
                     };
                     return getPriority(a) - getPriority(b);
                 });
-
-                const espnLogoSvg = `
-                    <svg viewBox="0 0 326 78" width="46" height="11" style="display: block;">
-                        <path fill="#CC0000" d="M0 0h90v18H20v12h65v18H20v12h70v18H0V0zm98 0h24l16 78h-23l-3-15h-13l-3 15H79l19-78zm10 25l-4 23h9l-5-23zm42-25h20l17 78h-20l-3-16h-13l-3 16h-19l18-78zm10 25l-4 23h9l-5-23zm48-25h47v18h-27v12h24v18h-24v12h28v18h-48V0z"/>
-                    </svg>
-                `;
 
                 events.forEach(event => {
                     const competition = event.competitions[0];
@@ -1948,7 +1942,7 @@
                             <div class="card-footer">
                                 ${createStreamsDropdown(homeTeam.team, awayTeam.team)}
                                 <a class="espn-gamecast-link" href="${gamecastUrl}" target="_blank" title="ESPN Gamecast">
-                                    ${espnLogoSvg}
+                                    <img src="IMG_1044.png" alt="ESPN" style="max-height: 14px; width: auto; vertical-align: middle;">
                                 </a>
                                 <span class="view-boxscore-hint" onclick="openBoxScore('${event.id}')">Box Score →</span>
                             </div>

@@ -136,9 +136,17 @@
             cursor: pointer;
             transition: all 0.2s ease;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: 8px;
             user-select: none;
+        }
+
+        .landing-card-logo {
+            max-height: 42px;
+            width: auto;
+            object-fit: contain;
         }
 
         .landing-card:hover {
@@ -174,8 +182,12 @@
             }
             .landing-card {
                 font-size: 0.95rem;
-                padding: 14px 4px;
+                padding: 12px 4px;
                 border-radius: 8px;
+                gap: 4px;
+            }
+            .landing-card-logo {
+                max-height: 32px;
             }
             .card-full-width {
                 padding: 16px 4px;
@@ -832,12 +844,30 @@
             <div class="landing-section">
                 <div class="landing-section-title">Sports</div>
                 <div class="grid-sports">
-                    <div class="landing-card" onclick="selectLandingLeague('nfl')">NFL</div>
-                    <div class="landing-card" onclick="selectLandingLeague('nba')">NBA</div>
-                    <div class="landing-card" onclick="selectLandingLeague('cfb')">CFB</div>
-                    <div class="landing-card" onclick="selectLandingLeague('cbb')">CBB</div>
-                    <div class="landing-card" onclick="selectLandingLeague('mlb')">MLB</div>
-                    <div class="landing-card" onclick="selectLandingLeague('mma')">MMA</div>
+                    <div class="landing-card" onclick="selectLandingLeague('nfl')">
+                        <img class="landing-card-logo" src="pictures/NFL_logo.PNG" alt="NFL Logo">
+                        <span>NFL</span>
+                    </div>
+                    <div class="landing-card" onclick="selectLandingLeague('nba')">
+                        <img class="landing-card-logo" src="pictures/NBA_logo.PNG" alt="NBA Logo">
+                        <span>NBA</span>
+                    </div>
+                    <div class="landing-card" onclick="selectLandingLeague('cfb')">
+                        <img class="landing-card-logo" src="pictures/CFB_logo.png" alt="CFB Logo">
+                        <span>CFB</span>
+                    </div>
+                    <div class="landing-card" onclick="selectLandingLeague('cbb')">
+                        <img class="landing-card-logo" src="pictures/CBB_logo.png" alt="CBB Logo">
+                        <span>CBB</span>
+                    </div>
+                    <div class="landing-card" onclick="selectLandingLeague('mlb')">
+                        <img class="landing-card-logo" src="pictures/MLB_logo.png" alt="MLB Logo">
+                        <span>MLB</span>
+                    </div>
+                    <div class="landing-card" onclick="selectLandingLeague('mma')">
+                        <img class="landing-card-logo" src="pictures/UFC_logo.PNG" alt="MMA Logo">
+                        <span>MMA</span>
+                    </div>
                 </div>
             </div>
         </div>

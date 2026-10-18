@@ -128,7 +128,7 @@
             background-color: var(--bg-card);
             border: 2px solid var(--border);
             border-radius: 12px;
-            padding: 18px 8px;
+            padding: 12px 8px;
             text-align: center;
             font-size: 1.1rem;
             font-weight: 700;
@@ -141,11 +141,24 @@
             justify-content: center;
             gap: 8px;
             user-select: none;
+            aspect-ratio: 1 / 1; /* Ensures perfectly square uniform buttons */
+            width: 100%;
+        }
+
+        .landing-card-logo-wrapper {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
 
         .landing-card-logo {
-            max-height: 42px;
+            max-width: 100%;
+            max-height: 100%;
             width: auto;
+            height: auto;
             object-fit: contain;
         }
 
@@ -160,6 +173,9 @@
         .landing-card.card-disabled {
             opacity: 0.6;
             cursor: not-allowed;
+            aspect-ratio: auto; /* Movies/TV layout adjustments */
+            height: 100%;
+            min-height: 80px;
         }
 
         .landing-card.card-disabled:hover {
@@ -172,7 +188,8 @@
 
         .card-full-width {
             grid-column: span 2;
-            padding: 22px 8px;
+            min-height: 70px;
+            aspect-ratio: auto;
         }
 
         @media (max-width: 480px) {
@@ -181,16 +198,14 @@
                 margin-bottom: 12px;
             }
             .landing-card {
-                font-size: 0.95rem;
-                padding: 12px 4px;
-                border-radius: 8px;
-                gap: 4px;
+                font-size: 0.9rem;
+                padding: 8px 4px;
+                border-radius: 10px;
+                gap: 6px;
             }
-            .landing-card-logo {
-                max-height: 32px;
-            }
-            .card-full-width {
-                padding: 16px 4px;
+            .landing-card-logo-wrapper {
+                width: 30px;
+                height: 30px;
             }
             .grid-movies, .grid-sports {
                 gap: 8px;
@@ -845,27 +860,39 @@
                 <div class="landing-section-title">Sports</div>
                 <div class="grid-sports">
                     <div class="landing-card" onclick="selectLandingLeague('nfl')">
-                        <img class="landing-card-logo" src="pictures/NFL_logo.PNG" alt="NFL Logo">
+                        <div class="landing-card-logo-wrapper">
+                            <img class="landing-card-logo" src="pictures/NFL_logo.PNG" alt="NFL Logo">
+                        </div>
                         <span>NFL</span>
                     </div>
                     <div class="landing-card" onclick="selectLandingLeague('nba')">
-                        <img class="landing-card-logo" src="pictures/NBA_logo.PNG" alt="NBA Logo">
+                        <div class="landing-card-logo-wrapper">
+                            <img class="landing-card-logo" src="pictures/NBA_logo.PNG" alt="NBA Logo">
+                        </div>
                         <span>NBA</span>
                     </div>
                     <div class="landing-card" onclick="selectLandingLeague('cfb')">
-                        <img class="landing-card-logo" src="pictures/CFB_logo.png" alt="CFB Logo">
+                        <div class="landing-card-logo-wrapper">
+                            <img class="landing-card-logo" src="pictures/CFB_logo.png" alt="CFB Logo">
+                        </div>
                         <span>CFB</span>
                     </div>
                     <div class="landing-card" onclick="selectLandingLeague('cbb')">
-                        <img class="landing-card-logo" src="pictures/CBB_logo.png" alt="CBB Logo">
+                        <div class="landing-card-logo-wrapper">
+                            <img class="landing-card-logo" src="pictures/CBB_logo.png" alt="CBB Logo">
+                        </div>
                         <span>CBB</span>
                     </div>
                     <div class="landing-card" onclick="selectLandingLeague('mlb')">
-                        <img class="landing-card-logo" src="pictures/MLB_logo.png" alt="MLB Logo">
+                        <div class="landing-card-logo-wrapper">
+                            <img class="landing-card-logo" src="pictures/MLB_logo.png" alt="MLB Logo">
+                        </div>
                         <span>MLB</span>
                     </div>
                     <div class="landing-card" onclick="selectLandingLeague('mma')">
-                        <img class="landing-card-logo" src="pictures/UFC_logo.PNG" alt="MMA Logo">
+                        <div class="landing-card-logo-wrapper">
+                            <img class="landing-card-logo" src="pictures/UFC_logo.PNG" alt="MMA Logo">
+                        </div>
                         <span>MMA</span>
                     </div>
                 </div>

@@ -160,6 +160,11 @@
             object-fit: contain;
         }
 
+        /* Specific sizing adjustments for visually wide icons like MLB & MMA */
+        .landing-card-logo.shrink-icon {
+            height: 28px;
+        }
+
         .landing-card:hover {
             border-color: var(--accent);
             background-color: var(--bg-secondary);
@@ -206,6 +211,9 @@
             }
             .landing-card-logo {
                 height: 30px;
+            }
+            .landing-card-logo.shrink-icon {
+                height: 22px;
             }
             .grid-movies, .grid-sports {
                 gap: 8px;
@@ -900,13 +908,13 @@
                     </div>
                     <div class="landing-card" onclick="selectLandingLeague('mlb')">
                         <div class="landing-card-logo-wrapper">
-                            <img class="landing-card-logo" src="pictures/MLB_logo.png" alt="MLB Logo">
+                            <img class="landing-card-logo shrink-icon" src="pictures/MLB_logo.png" alt="MLB Logo">
                         </div>
                         <span>MLB</span>
                     </div>
                     <div class="landing-card" onclick="selectLandingLeague('mma')">
                         <div class="landing-card-logo-wrapper">
-                            <img class="landing-card-logo" src="pictures/UFC_logo.PNG" alt="MMA Logo">
+                            <img class="landing-card-logo shrink-icon" src="pictures/UFC_logo.PNG" alt="MMA Logo">
                         </div>
                         <span>MMA</span>
                     </div>

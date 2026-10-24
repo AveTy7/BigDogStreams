@@ -958,20 +958,56 @@
                 const res = await fetch(`https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/rankings`);
                 const data = await res.json();
                 const rankingsList = data.rankings || [];
-                let poll = rankingsList.find(p => {
-                    const name = (p.name || p.headline || '').toLowerCase();
-                    return name.includes('ap') || name.includes('fbs') || p.type === 'ap';
-                }) || rankingsList[0];
+                
+                if (currentLeagueKey === 'cfb') {
+                    // Check for FCS poll as well if FCS tab is active or just cache multiple polls if available
+                    let fbsPoll = rankingsList.find(p => {
+                        const name = (p.name || p.headline || '').toLowerCase();
+                        return name.includes('ap') || name.includes('fbs') || p.type === 'ap';
+                    }) || rankingsList[0];
 
-                if (poll && poll.ranks) {
-                    const rankMap = {};
-                    poll.ranks.forEach(r => {
-                        const teamId = r.team?.id;
-                        if (teamId) {
-                            rankMap[teamId] = r.current;
-                        }
+                    if (fbsPoll && fbsPoll.ranks) {
+                        const rankMap = {};
+                        fbsPoll.ranks.forEach(r => {
+                            const teamId = r.team?.id;
+                            if (teamId) {
+                                rankMap[teamId] = r.current;
+                            }
+                        });
+                        cachedRankings['cfb_fbs'] = rankMap;
+                    }
+
+                    let fcsPoll = rankingsList.find(p => {
+                        const name = (p.name || p.headline || '').toLowerCase();
+                        return name.includes('fcs') || name.includes('stats perform') || p.type === 'fcs';
                     });
-                    cachedRankings[currentLeagueKey] = rankMap;
+
+                    if (fcsPoll && fcsPoll.ranks) {
+                        const rankMap = {};
+                        fcsPoll.ranks.forEach(r => {
+                            const teamId = r.team?.id;
+                            if (teamId) {
+                                rankMap[teamId] = r.current;
+                            }
+                        });
+                        cachedRankings['cfb_fcs'] = rankMap;
+                    }
+                } else {
+                    let poll = rankingsList.find(p => {
+                        const name = (p.name || p.headline || '').toLowerCase();
+                        return name.includes('ap') || name.includes('fbs') || p.type === 'ap';
+                    }) || rankingsList[0];
+
+                    if (poll && poll.ranks) {
+                        const rankMap = {};
+                        poll.ranks.forEach(r => {
+                            const teamId = r.team?.id;
+                            if (teamId) {
+                                rankMap[teamId] = r.current;
+                            }
+                        });
+                        cachedRankings[currentLeagueKey] = rankMap;
+                    }
                 }
             } catch (e) {
                 // Ignore ranking fetch errors
@@ -1580,7 +1616,7 @@
                         });
 
                         if (fcsPoll && fcsPoll.ranks) {
-                            renderSpecificPoll(fcsPoll, 'FCS Top 25 Rankings');
+                            renderSpecificPoll(fcsPoll, 'FCS Top 25 Rankings', true);
                             return;
                         }
                     } catch (e) {}
@@ -2214,10 +2250,14 @@
                     const awayTeamName = awayTeam.team.shortDisplayName || awayTeam.team.name;
 
                     const getTeamDisplayNameWithRank = (teamObj, defaultName) => {
-                        if ((currentLeagueKey === 'cfb' || currentLeagueKey === 'cbb') && cachedRankings[currentLeagueKey]) {
-                            const rank = cachedRankings[currentLeagueKey][teamObj.id];
-                            if (rank && rank <= 25) {
-                                return `${defaultName} <span style="font-size: 0.75rem; color: var(--text-secondary); font-weight: 500;">(${rank})</span>`;
+                        if (currentLeagueKey === 'cfb' || currentLeagueKey === 'cbb') {
+                            const isFcsTab = currentLeagueKey === 'cfb' && document.getElementById('conference-select')?.value?.includes('groups=81');
+                            const mapKey = isFcsTab ? 'cfb_fcs' : (currentLeagueKey === 'cfb' ? 'cfb_fbs' : currentLeagueKey);
+                            if (cachedRankings[mapKey]) {
+                                const rank = cachedRankings[mapKey][teamObj.id];
+                                if (rank && rank <= 25) {
+                                    return `${defaultName} <span style="font-size: 0.75rem; color: var(--text-secondary); font-weight: 500;">(${rank})</span>`;
+                                }
                             }
                         }
                         return defaultName;
@@ -2462,10 +2502,10 @@
                 return;
             }
 
-            renderSpecificPoll(poll, `Current Top 25 ${targetType} Rankings (${poll.name || 'Poll'})`);
+            renderSpecificPoll(poll, `Current Top 25 ${targetType} Rankings (${poll.name || 'Poll'})`, false);
         }
 
-        function renderSpecificPoll(poll, titleText) {
+        function renderSpecificPoll(poll, titleText, useSchoolName = false) {
             const dynamicArea = getActiveContentContainer();
             let html = `
                 <div class="standings-section">
@@ -2484,7 +2524,11 @@
             poll.ranks.forEach(rank => {
                 const team = rank.team || {};
                 const teamLogo = team.logo || (team.logos && team.logos[0] && team.logos[0].href) || '';
-                const teamName = team.displayName || team.name || team.shortDisplayName || '';
+                let teamName = team.displayName || team.name || team.shortDisplayName || '';
+
+                if (useSchoolName) {
+                    teamName = team.location || team.nickname || team.displayName || team.name || '';
+                }
 
                 html += `
                     <tr>

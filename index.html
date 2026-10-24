@@ -948,6 +948,36 @@
         </div>
     </main>
     <script>
+        let cachedRankings = {};
+
+        async function fetchRankingsCache() {
+            if (currentLeagueKey !== 'cfb' && currentLeagueKey !== 'cbb') return;
+            const cfg = endpoints[currentLeagueKey];
+            if (!cfg) return;
+            try {
+                const res = await fetch(`https://site.api.espn.com/apis/site/v2/sports/${cfg.sport}/${cfg.league}/rankings`);
+                const data = await res.json();
+                const rankingsList = data.rankings || [];
+                let poll = rankingsList.find(p => {
+                    const name = (p.name || p.headline || '').toLowerCase();
+                    return name.includes('ap') || name.includes('fbs') || p.type === 'ap';
+                }) || rankingsList[0];
+
+                if (poll && poll.ranks) {
+                    const rankMap = {};
+                    poll.ranks.forEach(r => {
+                        const teamId = r.team?.id;
+                        if (teamId) {
+                            rankMap[teamId] = r.current;
+                        }
+                    });
+                    cachedRankings[currentLeagueKey] = rankMap;
+                }
+            } catch (e) {
+                // Ignore ranking fetch errors
+            }
+        }
+
         function selectLandingLeague(leagueKey) {
             document.getElementById('landing-overlay').classList.add('hidden');
             const targetBtn = Array.from(document.querySelectorAll('.tab-btn')).find(
@@ -1148,6 +1178,9 @@
                     await fetchStandings();
                 }
             } else {
+                if (currentLeagueKey === 'cfb' || currentLeagueKey === 'cbb') {
+                    await fetchRankingsCache();
+                }
                 await fetchScores();
             }
         }
@@ -2180,6 +2213,19 @@
                     const homeTeamName = homeTeam.team.shortDisplayName || homeTeam.team.name;
                     const awayTeamName = awayTeam.team.shortDisplayName || awayTeam.team.name;
 
+                    const getTeamDisplayNameWithRank = (teamObj, defaultName) => {
+                        if ((currentLeagueKey === 'cfb' || currentLeagueKey === 'cbb') && cachedRankings[currentLeagueKey]) {
+                            const rank = cachedRankings[currentLeagueKey][teamObj.id];
+                            if (rank && rank <= 25) {
+                                return `${defaultName} <span style="font-size: 0.75rem; color: var(--text-secondary); font-weight: 500;">(${rank})</span>`;
+                            }
+                        }
+                        return defaultName;
+                    };
+
+                    const awayDisplayNameFormatted = getTeamDisplayNameWithRank(awayTeam.team, awayTeamName);
+                    const homeDisplayNameFormatted = getTeamDisplayNameWithRank(homeTeam.team, homeTeamName);
+
                     const awaySpread = getTeamSpread(awayTeam.team, homeTeam.team);
                     const homeSpread = getTeamSpread(homeTeam.team, awayTeam.team);
 
@@ -2203,7 +2249,7 @@
                                     <div class="team-row">
                                         <div class="team-info">
                                             <img class="team-logo" src="${awayTeam.team.logo || ''}" alt="" onerror="this.style.display='none'">
-                                            <span class="team-name">${awayTeamName}</span>
+                                            <span class="team-name">${awayDisplayNameFormatted}</span>
                                         </div>
                                         <div style="display: flex; align-items: center; margin-left: auto;">
                                             <span class="team-score">${statusType === 'pre' ? '-' : (awayTeam.score || '0')}</span>
@@ -2213,7 +2259,7 @@
                                     <div class="team-row">
                                         <div class="team-info">
                                             <img class="team-logo" src="${homeTeam.team.logo || ''}" alt="" onerror="this.style.display='none'">
-                                            <span class="team-name">${homeTeamName}</span>
+                                            <span class="team-name">${homeDisplayNameFormatted}</span>
                                         </div>
                                         <div style="display: flex; align-items: center; margin-left: auto;">
                                             <span class="team-score">${statusType === 'pre' ? '-' : (homeTeam.score || '0')}</span>

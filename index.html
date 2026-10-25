@@ -888,6 +888,166 @@
         .link-badge:hover {
             text-decoration: underline;
         }
+
+        /* --- Movies Subpage (OMDb) Styles --- */
+        .movie-search-bar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .movie-search-bar input {
+            flex: 1;
+            min-width: 0;
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            padding: 10px 12px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .movie-search-bar input:focus {
+            border-color: var(--accent);
+        }
+
+        .movies-section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 14px;
+        }
+
+        .movie-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }
+
+        .movie-poster {
+            width: 100%;
+            aspect-ratio: 2 / 3;
+            object-fit: cover;
+            background-color: var(--bg-primary);
+            display: block;
+        }
+
+        .movie-poster-placeholder {
+            width: 100%;
+            aspect-ratio: 2 / 3;
+            background-color: var(--bg-primary);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            text-align: center;
+            padding: 8px;
+        }
+
+        .movie-card-info {
+            padding: 8px 10px 10px 10px;
+        }
+
+        .movie-card-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            line-height: 1.25;
+        }
+
+        .movie-card-year {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        .movie-load-more {
+            display: flex;
+            justify-content: center;
+            margin-top: 18px;
+        }
+
+        .movie-detail {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+
+        .movie-detail-poster {
+            width: 220px;
+            max-width: 100%;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+            align-self: flex-start;
+        }
+
+        .movie-detail-info {
+            flex: 1;
+            min-width: 240px;
+        }
+
+        .movie-detail-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .movie-detail-meta {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+        }
+
+        .movie-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .movie-badge {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 4px 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .movie-plot {
+            font-size: 0.92rem;
+            line-height: 1.5;
+            margin-bottom: 14px;
+        }
+
+        .movie-detail-row {
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+        }
+
+        .movie-detail-row span.label {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+        /* --- End Movies Subpage Styles --- */
     </style>
 </head>
 <body>
@@ -979,6 +1139,11 @@
             <div class="media-subpage-title">Movies</div>
         </div>
         <div class="media-subpage-content">
+            <div class="movie-search-bar">
+                <input type="text" id="movie-search-input" placeholder="Search movies..." onkeydown="if (event.key === 'Enter') searchMovies()">
+                <button class="action-btn" onclick="searchMovies()">Search</button>
+            </div>
+            <div id="movies-content"></div>
         </div>
     </div>
 
@@ -1113,6 +1278,222 @@
             const page = document.getElementById('subpage-' + pageKey);
             if (page) {
                 page.classList.add('visible');
+            }
+            if (pageKey === 'movies') {
+                initMoviesPage();
+            }
+        }
+
+        // --- Movies page (OMDb API) ---
+        const OMDB_API_KEY = '46881df9';
+        const OMDB_BASE_URL = 'https://www.omdbapi.com/';
+        const FEATURED_MOVIE_IDS = [
+            'tt0111161', 'tt0068646', 'tt0468569', 'tt0137523',
+            'tt0109830', 'tt1375666', 'tt0133093', 'tt0110912',
+            'tt0816692', 'tt0172495', 'tt0120737', 'tt0076759'
+        ];
+        let moviesInitialized = false;
+        let movieSearchState = { query: '', page: 1, total: 0, results: [] };
+        let savedMovieListHtml = '';
+
+        function escHtml(str) {
+            return String(str ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        async function omdbFetch(params) {
+            const qs = new URLSearchParams({ apikey: OMDB_API_KEY, ...params });
+            const res = await fetch(`${OMDB_BASE_URL}?${qs.toString()}`);
+            if (!res.ok) throw new Error('OMDb request failed');
+            return res.json();
+        }
+
+        function getMoviesArea() {
+            return document.getElementById('movies-content');
+        }
+
+        function initMoviesPage() {
+            if (moviesInitialized) return;
+            moviesInitialized = true;
+            loadFeaturedMovies();
+        }
+
+        function movieCardHtml(m) {
+            const id = String(m.imdbID || '').replace(/[^a-zA-Z0-9]/g, '');
+            const hasPoster = m.Poster && m.Poster !== 'N/A';
+            const posterHtml = hasPoster
+                ? `<img class="movie-poster" src="${escHtml(m.Poster)}" alt="${escHtml(m.Title)}" loading="lazy" onerror="this.outerHTML='<div class=&quot;movie-poster-placeholder&quot;>No Poster</div>'">`
+                : `<div class="movie-poster-placeholder">No Poster</div>`;
+            return `
+                <div class="movie-card" onclick="openMovieDetail('${id}')">
+                    ${posterHtml}
+                    <div class="movie-card-info">
+                        <div class="movie-card-title">${escHtml(m.Title)}</div>
+                        <div class="movie-card-year">${escHtml(m.Year)}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        async function loadFeaturedMovies() {
+            const area = getMoviesArea();
+            movieSearchState = { query: '', page: 1, total: 0, results: [] };
+            area.innerHTML = '<div class="loading">Loading movies...</div>';
+            try {
+                const results = await Promise.all(
+                    FEATURED_MOVIE_IDS.map(id => omdbFetch({ i: id }).catch(() => null))
+                );
+                const movies = results.filter(r => r && r.Response === 'True');
+                if (movies.length === 0) {
+                    area.innerHTML = '<div class="error">Unable to load movies right now. Please try again later.</div>';
+                    return;
+                }
+                area.innerHTML = `
+                    <div class="movies-section-title">Featured Movies</div>
+                    <div class="movie-grid">${movies.map(movieCardHtml).join('')}</div>
+                `;
+            } catch (err) {
+                console.error(err);
+                area.innerHTML = '<div class="error">Unable to load movies right now. Please try again later.</div>';
+            }
+        }
+
+        async function searchMovies() {
+            const input = document.getElementById('movie-search-input');
+            const query = (input.value || '').trim();
+            if (!query) {
+                loadFeaturedMovies();
+                return;
+            }
+            const area = getMoviesArea();
+            area.innerHTML = '<div class="loading">Searching...</div>';
+            movieSearchState = { query: query, page: 1, total: 0, results: [] };
+            try {
+                const data = await omdbFetch({ s: query, type: 'movie', page: 1 });
+                if (data.Response !== 'True') {
+                    area.innerHTML = `<div class="no-data">${escHtml(data.Error || 'No movies found.')}</div>`;
+                    return;
+                }
+                movieSearchState.total = parseInt(data.totalResults, 10) || data.Search.length;
+                movieSearchState.results = data.Search;
+                renderMovieSearchResults();
+            } catch (err) {
+                console.error(err);
+                area.innerHTML = '<div class="error">Search failed. Please try again later.</div>';
+            }
+        }
+
+        function renderMovieSearchResults() {
+            const area = getMoviesArea();
+            const shown = movieSearchState.results.length;
+            const hasMore = shown < movieSearchState.total;
+            area.innerHTML = `
+                <div class="movies-section-title">Results for "${escHtml(movieSearchState.query)}" (${movieSearchState.total})</div>
+                <div class="movie-grid">${movieSearchState.results.map(movieCardHtml).join('')}</div>
+                ${hasMore ? '<div class="movie-load-more"><button class="action-btn" onclick="loadMoreMovies(this)">Load More</button></div>' : ''}
+            `;
+        }
+
+        async function loadMoreMovies(btn) {
+            if (btn) {
+                btn.disabled = true;
+                btn.textContent = 'Loading...';
+            }
+            try {
+                const nextPage = movieSearchState.page + 1;
+                const data = await omdbFetch({ s: movieSearchState.query, type: 'movie', page: nextPage });
+                if (data.Response === 'True') {
+                    movieSearchState.page = nextPage;
+                    const seen = new Set(movieSearchState.results.map(m => m.imdbID));
+                    data.Search.forEach(m => {
+                        if (!seen.has(m.imdbID)) movieSearchState.results.push(m);
+                    });
+                }
+                renderMovieSearchResults();
+            } catch (err) {
+                console.error(err);
+                if (btn) {
+                    btn.disabled = false;
+                    btn.textContent = 'Load More';
+                }
+            }
+        }
+
+        async function openMovieDetail(imdbId) {
+            const area = getMoviesArea();
+            savedMovieListHtml = area.innerHTML;
+            area.innerHTML = '<div class="loading">Loading details...</div>';
+            document.getElementById('subpage-movies').scrollTop = 0;
+            try {
+                const m = await omdbFetch({ i: imdbId, plot: 'full' });
+                if (m.Response !== 'True') throw new Error(m.Error || 'Not found');
+
+                const hasPoster = m.Poster && m.Poster !== 'N/A';
+                const posterHtml = hasPoster
+                    ? `<img class="movie-detail-poster" src="${escHtml(m.Poster)}" alt="${escHtml(m.Title)}">`
+                    : `<div class="movie-poster-placeholder movie-detail-poster">No Poster</div>`;
+
+                const badges = [];
+                if (m.imdbRating && m.imdbRating !== 'N/A') badges.push(`⭐ IMDb ${escHtml(m.imdbRating)}/10`);
+                (m.Ratings || []).forEach(r => {
+                    if (r.Source === 'Rotten Tomatoes') badges.push(`🍅 ${escHtml(r.Value)}`);
+                    if (r.Source === 'Metacritic') badges.push(`Metacritic ${escHtml(r.Value)}`);
+                });
+                if (m.Rated && m.Rated !== 'N/A') badges.push(escHtml(m.Rated));
+
+                const row = (label, value) => (value && value !== 'N/A')
+                    ? `<div class="movie-detail-row"><span class="label">${label}:</span> ${escHtml(value)}</div>`
+                    : '';
+
+                const metaParts = [m.Year, m.Runtime, m.Genre].filter(v => v && v !== 'N/A').map(escHtml);
+                const imdbLink = `https://www.imdb.com/title/${encodeURIComponent(m.imdbID)}/`;
+
+                area.innerHTML = `
+                    <div class="boxscore-header">
+                        <button class="back-btn" onclick="closeMovieDetail()">← Back to Movies</button>
+                    </div>
+                    <div class="movie-detail">
+                        ${posterHtml}
+                        <div class="movie-detail-info">
+                            <div class="movie-detail-title">${escHtml(m.Title)}</div>
+                            <div class="movie-detail-meta">${metaParts.join(' • ')}</div>
+                            <div class="movie-badges">${badges.map(b => `<span class="movie-badge">${b}</span>`).join('')}</div>
+                            ${m.Plot && m.Plot !== 'N/A' ? `<div class="movie-plot">${escHtml(m.Plot)}</div>` : ''}
+                            ${row('Director', m.Director)}
+                            ${row('Writer', m.Writer)}
+                            ${row('Cast', m.Actors)}
+                            ${row('Released', m.Released)}
+                            ${row('Language', m.Language)}
+                            ${row('Country', m.Country)}
+                            ${row('Awards', m.Awards)}
+                            ${row('Box Office', m.BoxOffice)}
+                            <div class="movie-detail-row" style="margin-top: 10px;">
+                                <a class="link-badge" href="${imdbLink}" target="_blank">View on IMDb →</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } catch (err) {
+                console.error(err);
+                area.innerHTML = `
+                    <div class="boxscore-header">
+                        <button class="back-btn" onclick="closeMovieDetail()">← Back to Movies</button>
+                    </div>
+                    <div class="error">Unable to load movie details right now.</div>
+                `;
+            }
+        }
+
+        function closeMovieDetail() {
+            const area = getMoviesArea();
+            if (savedMovieListHtml) {
+                area.innerHTML = savedMovieListHtml;
+            } else {
+                loadFeaturedMovies();
             }
         }
 

@@ -255,6 +255,13 @@
             padding: 8px 12px;
             display: flex;
             align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .media-subpage-title-area {
+            display: flex;
+            align-items: center;
             gap: 12px;
         }
 
@@ -262,6 +269,35 @@
             font-size: 1.2rem;
             font-weight: 700;
             color: var(--text-primary);
+        }
+
+        .movie-nav-tabs {
+            display: flex;
+            gap: 4px;
+            margin-left: auto;
+        }
+
+        .movie-tab-btn {
+            background-color: var(--bg-primary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        .movie-tab-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--text-secondary);
+        }
+
+        .movie-tab-btn.active {
+            background-color: var(--accent);
+            color: var(--bg-primary);
+            border-color: var(--accent);
         }
 
         .media-subpage-content {
@@ -890,6 +926,15 @@
         }
 
         /* --- Movies Subpage (OMDb) Styles --- */
+        .movie-search-container {
+            display: none;
+        }
+
+        .movie-search-container.visible {
+            display: flex;
+            flex-direction: column;
+        }
+
         .movie-search-bar {
             display: flex;
             gap: 8px;
@@ -1132,16 +1177,25 @@
         </div>
     </div>
 
-    <!-- Movies Subpage (blank for now) -->
+    <!-- Movies Subpage -->
     <div id="subpage-movies" class="media-subpage">
         <div class="media-subpage-header">
-            <button class="back-btn" onclick="closeMediaSubpage()">← Back</button>
-            <div class="media-subpage-title">Movies</div>
+            <div class="media-subpage-title-area">
+                <button class="back-btn" onclick="closeMediaSubpage()">← Back</button>
+                <div class="media-subpage-title">Movies</div>
+            </div>
+            <div class="movie-nav-tabs">
+                <button class="movie-tab-btn active" onclick="switchMovieTab('newly-released', this)">Newly Released</button>
+                <button class="movie-tab-btn" onclick="switchMovieTab('top-rated', this)">Top Rated</button>
+                <button class="movie-tab-btn" onclick="switchMovieTab('search', this)">Search</button>
+            </div>
         </div>
         <div class="media-subpage-content">
-            <div class="movie-search-bar">
-                <input type="text" id="movie-search-input" placeholder="Search movies..." onkeydown="if (event.key === 'Enter') searchMovies()">
-                <button class="action-btn" onclick="searchMovies()">Search</button>
+            <div id="movie-search-container" class="movie-search-container">
+                <div class="movie-search-bar">
+                    <input type="text" id="movie-search-input" placeholder="Search movies..." onkeydown="if (event.key === 'Enter') searchMovies()">
+                    <button class="action-btn" onclick="searchMovies()">Search</button>
+                </div>
             </div>
             <div id="movies-content"></div>
         </div>
@@ -1280,14 +1334,20 @@
                 page.classList.add('visible');
             }
             if (pageKey === 'movies') {
-                initMoviesPage();
+                const defaultTabBtn = document.querySelector('#subpage-movies .movie-tab-btn');
+                switchMovieTab('newly-released', defaultTabBtn);
             }
         }
 
         // --- Movies page (OMDb API) ---
         const OMDB_API_KEY = '46881df9';
         const OMDB_BASE_URL = 'https://www.omdbapi.com/';
-        const FEATURED_MOVIE_IDS = [
+        const NEWLY_RELEASED_IDS = [
+            'tt15398776', 'tt13622970', 'tt16407152', 'tt15239678', 
+            'tt11655202', 'tt9362722', 'tt10676048', 'tt1517268',
+            'tt2382320', 'tt6263850', 'tt15791034', 'tt16335442'
+        ];
+        const TOP_RATED_IDS = [
             'tt0111161', 'tt0068646', 'tt0468569', 'tt0137523',
             'tt0109830', 'tt1375666', 'tt0133093', 'tt0110912',
             'tt0816692', 'tt0172495', 'tt0120737', 'tt0076759'
@@ -1295,6 +1355,7 @@
         let moviesInitialized = false;
         let movieSearchState = { query: '', page: 1, total: 0, results: [] };
         let savedMovieListHtml = '';
+        let currentMovieTab = 'newly-released';
 
         function escHtml(str) {
             return String(str ?? '')
@@ -1308,8 +1369,6 @@
         async function omdbFetch(params) {
             const qs = new URLSearchParams({ apikey: OMDB_API_KEY, ...params });
             const res = await fetch(`${OMDB_BASE_URL}?${qs.toString()}`);
-            // OMDb returns HTTP 401 (with a JSON body explaining why) for bad/unactivated keys
-            // and for daily-limit errors, so read the body whatever the status is.
             let data;
             try {
                 data = await res.json();
@@ -1323,10 +1382,30 @@
             return document.getElementById('movies-content');
         }
 
-        function initMoviesPage() {
-            if (moviesInitialized) return;
-            moviesInitialized = true;
-            loadFeaturedMovies();
+        function switchMovieTab(tabKey, btnElement) {
+            currentMovieTab = tabKey;
+            document.querySelectorAll('#subpage-movies .movie-tab-btn').forEach(btn => btn.classList.remove('active'));
+            if (btnElement) btnElement.classList.add('active');
+
+            const searchContainer = document.getElementById('movie-search-container');
+            if (tabKey === 'search') {
+                searchContainer.classList.add('visible');
+                const area = getMoviesArea();
+                if (!movieSearchState.results.length && !movieSearchState.query) {
+                    area.innerHTML = '<div class="no-data">Type a query above and press search to find movies.</div>';
+                } else if (movieSearchState.results.length > 0) {
+                    renderMovieSearchResults();
+                } else {
+                    area.innerHTML = '';
+                }
+            } else {
+                searchContainer.classList.remove('visible');
+                if (tabKey === 'newly-released') {
+                    loadNewlyReleasedMovies();
+                } else if (tabKey === 'top-rated') {
+                    loadTopRatedMovies();
+                }
+            }
         }
 
         function movieCardHtml(m) {
@@ -1346,22 +1425,58 @@
             `;
         }
 
-        async function loadFeaturedMovies() {
+        async function loadNewlyReleasedMovies() {
             const area = getMoviesArea();
-            movieSearchState = { query: '', page: 1, total: 0, results: [] };
-            area.innerHTML = '<div class="loading">Loading movies...</div>';
+            area.innerHTML = '<div class="loading">Loading newly released movies...</div>';
             try {
                 const results = await Promise.all(
-                    FEATURED_MOVIE_IDS.map(id => omdbFetch({ i: id }).catch(e => ({ Response: 'False', Error: 'Network error: ' + e.message })))
+                    NEWLY_RELEASED_IDS.map(id => omdbFetch({ i: id }).catch(e => ({ Response: 'False', Error: 'Network error: ' + e.message })))
                 );
-                const movies = results.filter(r => r && r.Response === 'True');
+                let movies = results.filter(r => r && r.Response === 'True');
+                
+                // Sort by release date descending
+                movies.sort((a, b) => {
+                    const dateA = new Date(a.Released !== 'N/A' ? a.Released : (a.Year + '-01-01'));
+                    const dateB = new Date(b.Released !== 'N/A' ? b.Released : (b.Year + '-01-01'));
+                    return dateB - dateA;
+                });
+
                 if (movies.length === 0) {
-                    const reason = (results.find(r => r && r.Error) || {}).Error || 'Unknown error';
-                    area.innerHTML = `<div class="error">Unable to load movies.<br><span style="font-size: 0.85rem;">Reason: ${escHtml(reason)}</span></div>`;
+                    area.innerHTML = `<div class="error">Unable to load newly released movies.</div>`;
                     return;
                 }
                 area.innerHTML = `
-                    <div class="movies-section-title">Featured Movies</div>
+                    <div class="movies-section-title">Newly Released Movies</div>
+                    <div class="movie-grid">${movies.map(movieCardHtml).join('')}</div>
+                `;
+            } catch (err) {
+                console.error(err);
+                area.innerHTML = '<div class="error">Unable to load movies right now. Please try again later.</div>';
+            }
+        }
+
+        async function loadTopRatedMovies() {
+            const area = getMoviesArea();
+            area.innerHTML = '<div class="loading">Loading top-rated movies...</div>';
+            try {
+                const results = await Promise.all(
+                    TOP_RATED_IDS.map(id => omdbFetch({ i: id }).catch(e => ({ Response: 'False', Error: 'Network error: ' + e.message })))
+                );
+                let movies = results.filter(r => r && r.Response === 'True');
+                
+                // Sort by IMDb rating descending
+                movies.sort((a, b) => {
+                    const ratingA = parseFloat(a.imdbRating) || 0;
+                    const ratingB = parseFloat(b.imdbRating) || 0;
+                    return ratingB - ratingA;
+                });
+
+                if (movies.length === 0) {
+                    area.innerHTML = `<div class="error">Unable to load top-rated movies.</div>`;
+                    return;
+                }
+                area.innerHTML = `
+                    <div class="movies-section-title">Top Rated Movies (IMDb)</div>
                     <div class="movie-grid">${movies.map(movieCardHtml).join('')}</div>
                 `;
             } catch (err) {
@@ -1373,10 +1488,8 @@
         async function searchMovies() {
             const input = document.getElementById('movie-search-input');
             const query = (input.value || '').trim();
-            if (!query) {
-                loadFeaturedMovies();
-                return;
-            }
+            if (!query) return;
+            
             const area = getMoviesArea();
             area.innerHTML = '<div class="loading">Searching...</div>';
             movieSearchState = { query: query, page: 1, total: 0, results: [] };
@@ -1501,7 +1614,7 @@
             if (savedMovieListHtml) {
                 area.innerHTML = savedMovieListHtml;
             } else {
-                loadFeaturedMovies();
+                switchMovieTab(currentMovieTab, document.querySelector(`.movie-tab-btn[onclick*="${currentMovieTab}"]`));
             }
         }
 

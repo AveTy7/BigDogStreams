@@ -1308,8 +1308,15 @@
         async function omdbFetch(params) {
             const qs = new URLSearchParams({ apikey: OMDB_API_KEY, ...params });
             const res = await fetch(`${OMDB_BASE_URL}?${qs.toString()}`);
-            if (!res.ok) throw new Error('OMDb request failed');
-            return res.json();
+            // OMDb returns HTTP 401 (with a JSON body explaining why) for bad/unactivated keys
+            // and for daily-limit errors, so read the body whatever the status is.
+            let data;
+            try {
+                data = await res.json();
+            } catch (e) {
+                throw new Error('OMDb request failed (HTTP ' + res.status + ')');
+            }
+            return data;
         }
 
         function getMoviesArea() {

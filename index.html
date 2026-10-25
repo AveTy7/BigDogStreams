@@ -1345,11 +1345,12 @@
             area.innerHTML = '<div class="loading">Loading movies...</div>';
             try {
                 const results = await Promise.all(
-                    FEATURED_MOVIE_IDS.map(id => omdbFetch({ i: id }).catch(() => null))
+                    FEATURED_MOVIE_IDS.map(id => omdbFetch({ i: id }).catch(e => ({ Response: 'False', Error: 'Network error: ' + e.message })))
                 );
                 const movies = results.filter(r => r && r.Response === 'True');
                 if (movies.length === 0) {
-                    area.innerHTML = '<div class="error">Unable to load movies right now. Please try again later.</div>';
+                    const reason = (results.find(r => r && r.Error) || {}).Error || 'Unknown error';
+                    area.innerHTML = `<div class="error">Unable to load movies.<br><span style="font-size: 0.85rem;">Reason: ${escHtml(reason)}</span></div>`;
                     return;
                 }
                 area.innerHTML = `
@@ -1383,7 +1384,7 @@
                 renderMovieSearchResults();
             } catch (err) {
                 console.error(err);
-                area.innerHTML = '<div class="error">Search failed. Please try again later.</div>';
+                area.innerHTML = `<div class="error">Search failed.<br><span style="font-size: 0.85rem;">Reason: ${escHtml(err.message)}</span></div>`;
             }
         }
 

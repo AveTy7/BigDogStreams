@@ -1,48 +1,93 @@
 {
     "links": [
         {
-            "source_site": "https://mybuffstreams.plus/nflstreams2",
-            "text": "Green Bay Packers12:15 AMCarolina PanthersLive Streams",
-            "href": "https://mybuffstreams.plus/nfl/green-bay-packers-carolina-panthers/1538043"
+            "source_site": "https://mybuffstreams.plus/mlb-live-streams",
+            "text": "Milwaukee Brewers12:00 AMTampa Bay RaysLive Streams",
+            "href": "https://mybuffstreams.plus/mlb-playoffs/tampa-bay-rays-milwaukee-brewers/1596030"
         },
         {
             "source_site": "https://mybuffstreams.plus/nflstreams2",
-            "text": "Morgan State Bears11:00 PMSouth Carolina State BulldogsLive Streams",
-            "href": "https://mybuffstreams.plus/cfb/morgan-state-bears-south-carolina-state-bulldogs/1538047"
+            "text": "Charlotte 49ers11:00 PMTulane Green WaveLive Streams",
+            "href": "https://mybuffstreams.plus/cfb/charlotte-49ers-tulane-green-wave/1538049"
         },
         {
             "source_site": "https://mybuffstreams.plus/nflstreams2",
-            "text": "Miles Golden Bears11:00 PMFort Valley State WildcatsLive Streams",
-            "href": "https://mybuffstreams.plus/cfb/fort-valley-state-wildcats-miles-golden-bears/1538048"
+            "text": "Dartmouth Big Green11:00 PMHarvard CrimsonLive Streams",
+            "href": "https://mybuffstreams.plus/cfb/dartmouth-big-green-harvard-crimson/1538058"
         },
         {
             "source_site": "https://mybuffstreams.plus/nflstreams2",
-            "text": "James Madison Dukes11:30 PMTroy TrojansLive Streams",
-            "href": "https://mybuffstreams.plus/cfb/james-madison-dukes-troy-trojans/1538045"
+            "text": "Lincoln Lions11:00 PMVirginia Union PanthersLive Streams",
+            "href": "https://mybuffstreams.plus/cfb/lincoln-lions-virginia-union-panthers/1538059"
         },
         {
             "source_site": "https://mybuffstreams.plus/nflstreams2",
-            "text": "North Texas Mean Green11:30 PMFlorida Atlantic OwlsLive Streams",
-            "href": "https://mybuffstreams.plus/cfb/florida-atlantic-owls-north-texas-mean-green/1538046"
+            "text": "UCF Knights11:30 PMBaylor BearsLive Streams",
+            "href": "https://mybuffstreams.plus/cfb/baylor-bears-ucf-knights/1538050"
+        },
+        {
+            "source_site": "https://mybuffstreams.plus/nflstreams2",
+            "text": "George Fox Bruins02:05 AMWillamette BearcatsLive Streams",
+            "href": "https://mybuffstreams.plus/cfb/george-fox-bruins-willamette-bearcats/1538060"
+        },
+        {
+            "source_site": "https://mybuffstreams.plus/nflstreams2",
+            "text": "Sacramento State Hornets02:30 AMKent State Golden FlashesLive Streams",
+            "href": "https://mybuffstreams.plus/cfb/sacramento-state-hornets-kent-state-golden-flashes/1538051"
         },
         {
             "source_site": "https://mybuffstreams.plus/nbastreams2",
-            "text": "Atlanta Hawks12:00 AMCleveland CavaliersLive Streams",
-            "href": "https://mybuffstreams.plus/nba/cleveland-cavaliers-atlanta-hawks/1556714"
+            "text": "Washington Wizards11:00 PMCharlotte HornetsLive Streams",
+            "href": "https://mybuffstreams.plus/nba/washington-wizards-charlotte-hornets/1556848"
         },
         {
             "source_site": "https://mybuffstreams.plus/nbastreams2",
-            "text": "New Orleans Pelicans12:00 AMSacramento KingsLive Streams",
-            "href": "https://mybuffstreams.plus/nba/new-orleans-pelicans-sacramento-kings/1556715"
+            "text": "Boston Celtics11:30 PMChicago BullsLive Streams",
+            "href": "https://mybuffstreams.plus/nba/boston-celtics-chicago-bulls/1556849"
         },
         {
             "source_site": "https://mybuffstreams.plus/nbastreams2",
-            "text": "Portland Trail Blazers02:00 AMMemphis GrizzliesLive Streams",
-            "href": "https://mybuffstreams.plus/nba/memphis-grizzlies-portland-trail-blazers/1556716"
+            "text": "Brooklyn Nets11:30 PMDetroit PistonsLive Streams",
+            "href": "https://mybuffstreams.plus/nba/brooklyn-nets-detroit-pistons/1556850"
+        },
+        {
+            "source_site": "https://mybuffstreams.plus/nbastreams2",
+            "text": "Philadelphia 76ers11:30 PMNew York KnicksLive Streams",
+            "href": "https://mybuffstreams.plus/nba/new-york-knicks-philadelphia-76ers/1556851"
+        },
+        {
+            "source_site": "https://mybuffstreams.plus/nbastreams2",
+            "text": "Toronto Raptors11:30 PMOrlando MagicLive Streams",
+            "href": "https://mybuffstreams.plus/nba/orlando-magic-toronto-raptors/1556852"
+        },
+        {
+            "source_site": "https://mybuffstreams.plus/nbastreams2",
+            "text": "Dallas Mavericks12:00 AMHouston RocketsLive Streams",
+            "href": "https://mybuffstreams.plus/nba/houston-rockets-dallas-mavericks/1556853"
+        },
+        {
+            "source_site": "https://mybuffstreams.plus/nbastreams2",
+            "text": "Miami Heat12:00 AMIndiana PacersLive Streams",
+            "href": "https://mybuffstreams.plus/nba/miami-heat-indiana-pacers/1556854"
+        },
+        {
+            "source_site": "https://mybuffstreams.plus/nbastreams2",
+            "text": "Minnesota Timberwolves12:00 AMLos Angeles ClippersLive Streams",
+            "href": "https://mybuffstreams.plus/nba/minnesota-timberwolves-los-angeles-clippers/1556855"
+        },
+        {
+            "source_site": "https://mybuffstreams.plus/nbastreams2",
+            "text": "Golden State Warriors02:00 AMLos Angeles LakersLive Streams",
+            "href": "https://mybuffstreams.plus/nba/golden-state-warriors-los-angeles-lakers/1556856"
+        },
+        {
+            "source_site": "https://mybuffstreams.plus/nbastreams2",
+            "text": "Phoenix Suns02:00 AMDenver NuggetsLive Streams",
+            "href": "https://mybuffstreams.plus/nba/denver-nuggets-phoenix-suns/1556857"
         },
         {
             "source_site": "https://mybuffstreams.plus/mmastreams2",
-            "text": "UFC Fight Night: Moicano vs. Nolan\n            - 05:00 PM ET2 days from nowLive Streams",
+            "text": "UFC Fight Night: Moicano vs. Nolan\n            - 05:00 PM ET1 day from nowLive Streams",
             "href": "https://mybuffstreams.plus/title-game/ufc/ufc-fight-night-moicano-vs-nolan-live-streams-links"
         },
         {
@@ -51,8 +96,13 @@
             "href": "https://mybuffstreams.plus/title-game/ufc/ufc-fight-night-bonfim-vs-brady-live-streams-links"
         },
         {
+            "source_site": "https://mybuffstreams.plus/mmastreams2",
+            "text": "ONE Friday Fights 176: Khunsuk vs YodUdon\n            - 09:30 AM ET5 hours agoLive Streams",
+            "href": "https://mybuffstreams.plus/title-game/ofc/one-friday-fights-176-khunsuk-vs-yodudon-live-streams-links"
+        },
+        {
             "source_site": "https://mybuffstreams.plus/boxingstreams2",
-            "text": "Canelo Alvarez vs Christian Mbilli\n            - 12:00 PM ET1 day from nowLive Streams",
+            "text": "Canelo Alvarez vs Christian Mbilli\n            - 12:00 PM ET21 hours from nowLive Streams",
             "href": "https://mybuffstreams.plus/title-game/boxing/canelo-alvarez-vs-christian-mbilli-live-streams-links"
         },
         {
@@ -66,48 +116,103 @@
             "href": "https://mybuffstreams.plus/title-game/boxing/joshua-buatsi-vs-willy-hutchinson-live-streams-links"
         },
         {
-            "source_site": "https://isportsurge.ws/nfl/livestreams3",
-            "text": "4 hours from nowGreen Bay PackersCarolina PanthersNFL4 hours from now",
-            "href": "https://isportsurge.ws/watch/nfl/green-bay-packers-carolina-panthers/449108556"
+            "source_site": "https://mybuffstreams.plus/boxingstreams2",
+            "text": "Elif Nur Turhan vs Alycia Baumgardner\n            - 08:00 PM ET1 week from nowLive Streams",
+            "href": "https://mybuffstreams.plus/title-game/boxing/elif-nur-turhan-vs-alycia-baumgardner-live-streams-links"
         },
         {
             "source_site": "https://isportsurge.ws/nba/livestreams3",
-            "text": "4 hours from nowAtlanta HawksCleveland CavaliersNBA4 hours from now",
-            "href": "https://isportsurge.ws/watch/nba/cleveland-cavaliers-atlanta-hawks/454560488"
+            "text": "4 hours from nowWashington WizardsCharlotte HornetsNBA4 hours from now",
+            "href": "https://isportsurge.ws/watch/nba/washington-wizards-charlotte-hornets/454599616"
         },
         {
             "source_site": "https://isportsurge.ws/nba/livestreams3",
-            "text": "4 hours from nowNew Orleans PelicansSacramento KingsNBA4 hours from now",
-            "href": "https://isportsurge.ws/watch/nba/new-orleans-pelicans-sacramento-kings/454560780"
+            "text": "4 hours from nowBoston CelticsChicago BullsNBA4 hours from now",
+            "href": "https://isportsurge.ws/watch/nba/boston-celtics-chicago-bulls/454599908"
         },
         {
             "source_site": "https://isportsurge.ws/nba/livestreams3",
-            "text": "6 hours from nowPortland Trail BlazersMemphis GrizzliesNBA6 hours from now",
-            "href": "https://isportsurge.ws/watch/nba/memphis-grizzlies-portland-trail-blazers/454561072"
+            "text": "4 hours from nowBrooklyn NetsDetroit PistonsNBA4 hours from now",
+            "href": "https://isportsurge.ws/watch/nba/brooklyn-nets-detroit-pistons/454600200"
+        },
+        {
+            "source_site": "https://isportsurge.ws/nba/livestreams3",
+            "text": "4 hours from nowPhiladelphia 76ersNew York KnicksNBA4 hours from now",
+            "href": "https://isportsurge.ws/watch/nba/new-york-knicks-philadelphia-76ers/454600492"
+        },
+        {
+            "source_site": "https://isportsurge.ws/nba/livestreams3",
+            "text": "4 hours from nowToronto RaptorsOrlando MagicNBA4 hours from now",
+            "href": "https://isportsurge.ws/watch/nba/orlando-magic-toronto-raptors/454600784"
+        },
+        {
+            "source_site": "https://isportsurge.ws/nba/livestreams3",
+            "text": "5 hours from nowDallas MavericksHouston RocketsNBA5 hours from now",
+            "href": "https://isportsurge.ws/watch/nba/houston-rockets-dallas-mavericks/454601076"
+        },
+        {
+            "source_site": "https://isportsurge.ws/nba/livestreams3",
+            "text": "5 hours from nowMiami HeatIndiana PacersNBA5 hours from now",
+            "href": "https://isportsurge.ws/watch/nba/miami-heat-indiana-pacers/454601368"
+        },
+        {
+            "source_site": "https://isportsurge.ws/nba/livestreams3",
+            "text": "5 hours from nowMinnesota TimberwolvesLos Angeles ClippersNBA5 hours from now",
+            "href": "https://isportsurge.ws/watch/nba/minnesota-timberwolves-los-angeles-clippers/454601660"
+        },
+        {
+            "source_site": "https://isportsurge.ws/nba/livestreams3",
+            "text": "7 hours from nowGolden State WarriorsLos Angeles LakersNBA7 hours from now",
+            "href": "https://isportsurge.ws/watch/nba/golden-state-warriors-los-angeles-lakers/454601952"
+        },
+        {
+            "source_site": "https://isportsurge.ws/nba/livestreams3",
+            "text": "7 hours from nowPhoenix SunsDenver NuggetsNBA7 hours from now",
+            "href": "https://isportsurge.ws/watch/nba/denver-nuggets-phoenix-suns/454602244"
+        },
+        {
+            "source_site": "https://isportsurge.ws/mlb/livestreams2",
+            "text": "5 hours from nowMilwaukee BrewersTampa Bay RaysMLB5 hours from now",
+            "href": "https://isportsurge.ws/watch/mlb-playoffs/tampa-bay-rays-milwaukee-brewers/466040760"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "3 hours from nowMorgan StateSouth Carolina St.CFB3 hours from now",
-            "href": "https://isportsurge.ws/watch/cfb/morgan-state-bears-south-carolina-state-bulldogs/449109724"
+            "text": "4 hours from nowCharlotteTulaneCFB4 hours from now",
+            "href": "https://isportsurge.ws/watch/cfb/charlotte-49ers-tulane-green-wave/449110308"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "3 hours from nowMiles Golden BearsFort Valley State WildcatsCFB3 hours from now",
-            "href": "https://isportsurge.ws/watch/cfb/fort-valley-state-wildcats-miles-golden-bears/449110016"
+            "text": "4 hours from nowDartmouth Big GreenHarvard CrimsonCFB4 hours from now",
+            "href": "https://isportsurge.ws/watch/cfb/dartmouth-big-green-harvard-crimson/449112936"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "4 hours from nowJames MadisonTroyCFB4 hours from now",
-            "href": "https://isportsurge.ws/watch/cfb/james-madison-dukes-troy-trojans/449109140"
+            "text": "4 hours from nowLincoln LionsVirginia Union PanthersCFB4 hours from now",
+            "href": "https://isportsurge.ws/watch/cfb/lincoln-lions-virginia-union-panthers/449113228"
         },
         {
             "source_site": "https://isportsurge.ws/cfb/livestreams2",
-            "text": "4 hours from nowNorth TexasFlorida Atl.CFB4 hours from now",
-            "href": "https://isportsurge.ws/watch/cfb/florida-atlantic-owls-north-texas-mean-green/449109432"
+            "text": "4 hours from nowUCFBaylorCFB4 hours from now",
+            "href": "https://isportsurge.ws/watch/cfb/baylor-bears-ucf-knights/449110600"
+        },
+        {
+            "source_site": "https://isportsurge.ws/cfb/livestreams2",
+            "text": "7 hours from nowGeorge Fox BruinsWillamette BearcatsCFB7 hours from now",
+            "href": "https://isportsurge.ws/watch/cfb/george-fox-bruins-willamette-bearcats/449113520"
+        },
+        {
+            "source_site": "https://isportsurge.ws/cfb/livestreams2",
+            "text": "7 hours from nowSacramento StateKent StateCFB7 hours from now",
+            "href": "https://isportsurge.ws/watch/cfb/sacramento-state-hornets-kent-state-golden-flashes/449110892"
         },
         {
             "source_site": "https://isportsurge.ws/mma/livestreams3",
-            "text": "2 days from nowUFC Fight Night: Moicano vs. NolanUFC2 days from now",
+            "text": "In ProgressONE Friday Fights 176: Khunsuk vs YodUdonOFCLIVE",
+            "href": "https://isportsurge.ws/event/ofc/one-friday-fights-176-khunsuk-vs-yodudon-live-streaming-links"
+        },
+        {
+            "source_site": "https://isportsurge.ws/mma/livestreams3",
+            "text": "1 day from nowUFC Fight Night: Moicano vs. NolanUFC1 day from now",
             "href": "https://isportsurge.ws/event/ufc/ufc-fight-night-moicano-vs-nolan-live-streaming-links"
         },
         {
@@ -117,7 +222,7 @@
         },
         {
             "source_site": "https://isportsurge.ws/boxing/livestreams3",
-            "text": "1 day from nowCanelo Alvarez vs Christian MbilliBoxing1 day from now",
+            "text": "20 hours from nowCanelo Alvarez vs Christian MbilliBoxing20 hours from now",
             "href": "https://isportsurge.ws/event/boxing/canelo-alvarez-vs-christian-mbilli-live-streaming-links"
         },
         {
@@ -131,24 +236,119 @@
             "href": "https://isportsurge.ws/event/boxing/joshua-buatsi-vs-willy-hutchinson-live-streaming-links"
         },
         {
+            "source_site": "https://isportsurge.ws/boxing/livestreams3",
+            "text": "1 week from nowElif Nur Turhan vs Alycia BaumgardnerBoxing1 week from now",
+            "href": "https://isportsurge.ws/event/boxing/elif-nur-turhan-vs-alycia-baumgardner-live-streaming-links"
+        },
+        {
             "source_site": "https://crackstreams.page/nflstreams/live",
-            "text": "Green Bay Packers vs Carolina Panthers20:15 ET - Oct/29/2026",
-            "href": "https://crackstreams.page/live/nfl/packers-panthers-live-streaming-664434576"
+            "text": "Buffalo Bills vs Baltimore Ravens13:00 ET - Nov/01/2026",
+            "href": "https://crackstreams.page/live/nfl/bills-ravens-live-streaming-664571952"
+        },
+        {
+            "source_site": "https://crackstreams.page/nflstreams/live",
+            "text": "Cincinnati Bengals vs Tennessee Titans13:00 ET - Nov/01/2026",
+            "href": "https://crackstreams.page/live/nfl/bengals-titans-live-streaming-664572384"
+        },
+        {
+            "source_site": "https://crackstreams.page/nflstreams/live",
+            "text": "Dallas Cowboys vs Arizona Cardinals13:00 ET - Nov/01/2026",
+            "href": "https://crackstreams.page/live/nfl/cowboys-cardinals-live-streaming-664572816"
+        },
+        {
+            "source_site": "https://crackstreams.page/nflstreams/live",
+            "text": "Detroit Lions vs Minnesota Vikings13:00 ET - Nov/01/2026",
+            "href": "https://crackstreams.page/live/nfl/lions-vikings-live-streaming-664573248"
+        },
+        {
+            "source_site": "https://crackstreams.page/nflstreams/live",
+            "text": "Jacksonville Jaguars vs Indianapolis Colts13:00 ET - Nov/01/2026",
+            "href": "https://crackstreams.page/live/nfl/jaguars-colts-live-streaming-664573680"
+        },
+        {
+            "source_site": "https://crackstreams.page/nflstreams/live",
+            "text": "New York Jets vs Las Vegas Raiders13:00 ET - Nov/01/2026",
+            "href": "https://crackstreams.page/live/nfl/jets-raiders-live-streaming-664574112"
+        },
+        {
+            "source_site": "https://crackstreams.page/nflstreams/live",
+            "text": "Pittsburgh Steelers vs Cleveland Browns13:00 ET - Nov/01/2026",
+            "href": "https://crackstreams.page/live/nfl/steelers-browns-live-streaming-664574544"
+        },
+        {
+            "source_site": "https://crackstreams.page/nflstreams/live",
+            "text": "Tampa Bay Buccaneers vs Atlanta Falcons13:00 ET - Nov/01/2026",
+            "href": "https://crackstreams.page/live/nfl/buccaneers-falcons-live-streaming-664574976"
+        },
+        {
+            "source_site": "https://crackstreams.page/nflstreams/live",
+            "text": "Los Angeles Rams vs Los Angeles Chargers16:05 ET - Nov/01/2026",
+            "href": "https://crackstreams.page/live/nfl/rams-chargers-live-streaming-664575408"
+        },
+        {
+            "source_site": "https://crackstreams.page/nflstreams/live",
+            "text": "Denver Broncos vs Kansas City Chiefs16:25 ET - Nov/01/2026",
+            "href": "https://crackstreams.page/live/nfl/broncos-chiefs-live-streaming-664575840"
+        },
+        {
+            "source_site": "https://crackstreams.page/nflstreams/live",
+            "text": "Miami Dolphins vs New England Patriots16:25 ET - Nov/01/2026",
+            "href": "https://crackstreams.page/live/nfl/dolphins-patriots-live-streaming-664576272"
+        },
+        {
+            "source_site": "https://crackstreams.page/nflstreams/live",
+            "text": "Washington Commanders vs Philadelphia Eagles20:20 ET - Nov/01/2026",
+            "href": "https://crackstreams.page/live/nfl/commanders-eagles-live-streaming-664576704"
         },
         {
             "source_site": "https://crackstreams.page/nbastreams/live1",
-            "text": "Atlanta Hawks vs Cleveland Cavaliers20:00 ET - Oct/29/2026",
-            "href": "https://crackstreams.page/live/nba/hawks-cavaliers-live-streaming-672500448"
+            "text": "Washington Wizards vs Charlotte Hornets19:00 ET - Oct/30/2026",
+            "href": "https://crackstreams.page/live/nba/wizards-hornets-live-streaming-672558336"
         },
         {
             "source_site": "https://crackstreams.page/nbastreams/live1",
-            "text": "New Orleans Pelicans vs Sacramento Kings20:00 ET - Oct/29/2026",
-            "href": "https://crackstreams.page/live/nba/pelicans-kings-live-streaming-672500880"
+            "text": "Boston Celtics vs Chicago Bulls19:30 ET - Oct/30/2026",
+            "href": "https://crackstreams.page/live/nba/celtics-bulls-live-streaming-672558768"
         },
         {
             "source_site": "https://crackstreams.page/nbastreams/live1",
-            "text": "Portland Trail Blazers vs Memphis Grizzlies22:00 ET - Oct/29/2026",
-            "href": "https://crackstreams.page/live/nba/trail-blazers-grizzlies-live-streaming-672501312"
+            "text": "Brooklyn Nets vs Detroit Pistons19:30 ET - Oct/30/2026",
+            "href": "https://crackstreams.page/live/nba/nets-pistons-live-streaming-672559200"
+        },
+        {
+            "source_site": "https://crackstreams.page/nbastreams/live1",
+            "text": "Philadelphia 76ers vs New York Knicks19:30 ET - Oct/30/2026",
+            "href": "https://crackstreams.page/live/nba/76ers-knicks-live-streaming-672559632"
+        },
+        {
+            "source_site": "https://crackstreams.page/nbastreams/live1",
+            "text": "Toronto Raptors vs Orlando Magic19:30 ET - Oct/30/2026",
+            "href": "https://crackstreams.page/live/nba/raptors-magic-live-streaming-672560064"
+        },
+        {
+            "source_site": "https://crackstreams.page/nbastreams/live1",
+            "text": "Dallas Mavericks vs Houston Rockets20:00 ET - Oct/30/2026",
+            "href": "https://crackstreams.page/live/nba/mavericks-rockets-live-streaming-672560496"
+        },
+        {
+            "source_site": "https://crackstreams.page/nbastreams/live1",
+            "text": "Miami Heat vs Indiana Pacers20:00 ET - Oct/30/2026",
+            "href": "https://crackstreams.page/live/nba/heat-pacers-live-streaming-672560928"
+        },
+        {
+            "source_site": "https://crackstreams.page/nbastreams/live1",
+            "text": "Minnesota Timberwolves vs Los Angeles Clippers20:00 ET - Oct/30/2026",
+            "href": "https://crackstreams.page/live/nba/timberwolves-clippers-live-streaming-672561360"
+        },
+        {
+            "source_site": "https://crackstreams.page/nbastreams/live1",
+            "text": "Golden State Warriors vs Los Angeles Lakers22:00 ET - Oct/30/2026",
+            "href": "https://crackstreams.page/live/nba/warriors-lakers-live-streaming-672561792"
+        },
+        {
+            "source_site": "https://crackstreams.page/nbastreams/live1",
+            "text": "Phoenix Suns vs Denver Nuggets22:00 ET - Oct/30/2026",
+            "href": "https://crackstreams.page/live/nba/suns-nuggets-live-streaming-672562224"
         },
         {
             "source_site": "https://crackstreams.page/mlbstreams/live",
@@ -157,23 +357,33 @@
         },
         {
             "source_site": "https://crackstreams.page/cfbstreams/live",
-            "text": "Morgan State Bears vs South Carolina State Bulldogs19:00 ET - Oct/29/2026",
-            "href": "https://crackstreams.page/live/cfb/morgan-state-south-carolina-st-live-streaming-664436304"
+            "text": "Charlotte 49ers vs Tulane Green Wave19:00 ET - Oct/30/2026",
+            "href": "https://crackstreams.page/live/cfb/charlotte-tulane-live-streaming-664437168"
         },
         {
             "source_site": "https://crackstreams.page/cfbstreams/live",
-            "text": "Miles Golden Bears vs Fort Valley State Wildcats19:00 ET - Oct/29/2026",
-            "href": "https://crackstreams.page/live/cfb/miles-golden-bears-fort-valley-state-wildcats-live-streaming-664436736"
+            "text": "Dartmouth Big Green vs Harvard Crimson19:00 ET - Oct/30/2026",
+            "href": "https://crackstreams.page/live/cfb/dartmouth-big-green-harvard-crimson-live-streaming-664441056"
         },
         {
             "source_site": "https://crackstreams.page/cfbstreams/live",
-            "text": "James Madison Dukes vs Troy Trojans19:30 ET - Oct/29/2026",
-            "href": "https://crackstreams.page/live/cfb/james-madison-troy-live-streaming-664435440"
+            "text": "Lincoln Lions vs Virginia Union Panthers19:00 ET - Oct/30/2026",
+            "href": "https://crackstreams.page/live/cfb/lincoln-lions-virginia-union-panthers-live-streaming-664441488"
         },
         {
             "source_site": "https://crackstreams.page/cfbstreams/live",
-            "text": "North Texas Mean Green vs Florida Atlantic Owls19:30 ET - Oct/29/2026",
-            "href": "https://crackstreams.page/live/cfb/north-texas-florida-atl-live-streaming-664435872"
+            "text": "UCF Knights vs Baylor Bears19:30 ET - Oct/30/2026",
+            "href": "https://crackstreams.page/live/cfb/ucf-baylor-live-streaming-664437600"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "George Fox Bruins vs Willamette Bearcats22:05 ET - Oct/30/2026",
+            "href": "https://crackstreams.page/live/cfb/george-fox-bruins-willamette-bearcats-live-streaming-664441920"
+        },
+        {
+            "source_site": "https://crackstreams.page/cfbstreams/live",
+            "text": "Sacramento State Hornets vs Kent State Golden Flashes22:30 ET - Oct/30/2026",
+            "href": "https://crackstreams.page/live/cfb/sacramento-state-kent-state-live-streaming-664438032"
         },
         {
             "source_site": "https://crackstreams.page/mmastreams/live",
@@ -184,6 +394,11 @@
             "source_site": "https://crackstreams.page/mmastreams/live",
             "text": "UFC Fight Night: Bonfim vs. Brady17:00 ET - Nov/07/2026",
             "href": "https://crackstreams.page/live-event/ufc-fight-night-bonfim-vs-brady-live-stream"
+        },
+        {
+            "source_site": "https://crackstreams.page/mmastreams/live",
+            "text": "ONE Friday Fights 176: Khunsuk vs YodUdon09:30 ET - Oct/30/2026",
+            "href": "https://crackstreams.page/live-event/one-friday-fights-176-khunsuk-vs-yodudon-live-stream"
         },
         {
             "source_site": "https://crackstreams.page/boxingstreams/live",
@@ -199,6 +414,11 @@
             "source_site": "https://crackstreams.page/boxingstreams/live",
             "text": "Joshua Buatsi vs Willy Hutchinson14:00 ET - Nov/07/2026",
             "href": "https://crackstreams.page/live-event/joshua-buatsi-vs-willy-hutchinson-live-stream"
+        },
+        {
+            "source_site": "https://crackstreams.page/boxingstreams/live",
+            "text": "Elif Nur Turhan vs Alycia Baumgardner20:00 ET - Nov/08/2026",
+            "href": "https://crackstreams.page/live-event/elif-nur-turhan-vs-alycia-baumgardner-live-stream"
         }
     ]
 }
